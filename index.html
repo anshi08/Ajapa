@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+    <script src="js/custom/isAuth.js"></script>
 </head>
 
 <body id="page-top">
@@ -28,7 +28,9 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+        style="background-color: #7f2c00;"
+        >
             </ul>
         <!-- End of Sidebar -->
 
@@ -45,7 +47,6 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
@@ -55,8 +56,6 @@
 
                     <!-- Content Row -->
                     <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
@@ -209,8 +208,7 @@
                                         <span class="mr-2">
                                             <i class="fas fa-circle text-success"></i> Social
                                         </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
+                                        <i class="fas fa-circle text-info"></i> Referral
                                         </span>
                                     </div>
                                 </div>
@@ -221,6 +219,7 @@
                     <!-- Content Row -->
                     <div class="row">
 
+                                        <span class="mr-2">
                         <!-- Content Column -->
                         <div class="col-lg-6 mb-4">
 
@@ -396,25 +395,14 @@
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
+   
     </div>
 
 
+
+
     <!--UI-->
+    <script src="js/ui/logout.js"></script>
     <script src="js/ui/sidebar.js"></script>
     <script src="js/ui/navbar.js"></script>
     <script src="js/ui/footer.js"></script>

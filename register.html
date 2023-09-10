@@ -30,20 +30,29 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-5 d-none d-lg-block">
+                        <img src="img/signup.jpg" style="width: 100%;
+                        margin-top: 90px" />
+                    </div>
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
+
+                            <!-- Error messages will be inserted here dynamically -->
+                            <div id="errorContainer">
+                            </div>
+
                             <form class="user">
                                 <div class="form-group">
                                         <input type="text" class="form-control form-control-user" 
                                             placeholder="Full Name" id="name">
                                 </div>
                                 <div class="form-group">
-                                    <label>Select Gender</label>
-                                    <select class="form-control" name="category" id="gender">
+                                    <label>Select Gender :</label>
+                                    <select class="form-control" name="category" id="gender"> 
+                                            <option></option>
                                             <option>Male</option>
                                             <option>Female</option>
                                             <option>Other</option>

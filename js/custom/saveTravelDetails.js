@@ -4,23 +4,94 @@ function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
 
-btn.addEventListener("click",() =>{
+btn.addEventListener("click", async (e) =>{
+
+    e.preventDefault(); 
     let city = getElementByIdName("from_city")
     let country = getElementByIdName("from_country")
     let arr_date = getElementByIdName("arrival_date")
     let arr_time = document.getElementById("arrival_time").value
-    console.log(arr_time)
     let arr_transport = getElementByIdName("arrival_mode_of_transport")
     let train_num = getElementByIdName("arrival_train_number")
     let train_name = getElementByIdName("arrival_train_name")
     let dep_date = getElementByIdName("departure_date")
     let dep_time = document.getElementById("departure_time").value
-    console.log(dep_time)
     let dep_transport = getElementByIdName("departure_mode_of_transport")
     let dep_trainNum = getElementByIdName("departure_train_number")
     let dep_trainName = getElementByIdName("departure_train_name")
     let desc = getElementByIdName("description")
 
+// Validate each field
+    if (city.trim() === "") {
+        displayError("City is required.");
+        return;
+    }
+
+    if (country.trim() === "") {
+        clearDisplayError()
+        displayError("Country is required.");
+        return;
+    }
+
+    if (arr_date.trim() === "") {
+        clearDisplayError()
+        displayError("Arrival Date is required.");
+        return;
+    }
+
+    if (arr_time.trim() === "") {
+        clearDisplayError()
+        displayError("Arrival Time is required.");
+        return;
+    }
+
+    if (arr_transport.trim() === "") {
+        clearDisplayError()
+        displayError("Arrival Mode of Transport is required.");
+        return;
+    }
+
+    if (train_num.trim() === "") {
+        clearDisplayError()
+        displayError("Arrival train number is required.");
+        return;
+    }
+
+    if (train_name.trim() === "") {
+        clearDisplayError()
+        displayError("Arrival train name is required.");
+        return;
+    }
+
+    if (dep_date.trim() === "") {
+        clearDisplayError()
+        displayError("Departure Date is required.");
+        return;
+    }
+
+    if (dep_time.trim() === "") {
+        clearDisplayError()
+        displayError("Departure time is required.");
+        return;
+    }
+
+    if (dep_transport.trim() === "") {
+        clearDisplayError()
+        displayError("Departure Transport is required.");
+        return;
+    }
+
+    if (dep_trainNum.trim() === "") {
+        clearDisplayError()
+        displayError("Depature Transport Number is required.");
+        return;
+    }
+
+    if (dep_trainName.trim() === "") {
+        clearDisplayError()
+        displayError("Depature Transport Name is required.");
+        return;
+    }
     const data = {
         from_city: city,
         from_country: country,
@@ -38,6 +109,21 @@ btn.addEventListener("click",() =>{
     }
      saveTravelDetails(data)
 })
+
+function displayError(errorMessage) {
+    const errorContainer = document.getElementById("errorContainer");
+    const errorDiv = document.createElement("div");
+    errorDiv.classList.add("alert", "alert-danger");
+    errorDiv.textContent = errorMessage;
+    errorContainer.appendChild(errorDiv);
+}
+
+function clearDisplayError(){
+    // Clear previous error messages
+    const errorContainer = document.getElementById("errorContainer");
+    errorContainer.innerHTML = '';
+}
+
 
 async function saveTravelDetails(data) {
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveTravelDetails",{

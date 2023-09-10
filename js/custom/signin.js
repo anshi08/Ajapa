@@ -4,9 +4,29 @@ function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
 
-btn.addEventListener("click",() => {
+btn.addEventListener("click", () => {
+
     let email = getElementByIdName("email")
     let pwd = getElementByIdName("pwd")
+
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const phoneRegex = /^\d{10}$/;
+    if (!emailPattern || !phoneRegex) {
+        displayError("Email or Phone number is required");
+        clearDisplayError()
+        return;
+    }else if(!emailPattern.test(email) && !phoneRegex.test(email)){
+        clearDisplayError()
+        displayError("Enter a valid Email or Phone Number");
+        return;
+    }
+
+    if (pwd.length < 8) {
+        clearDisplayError()
+        displayError("Password Must be at least 8 characters long");
+        return;
+    }
+
     const data = {
          email:email,
          password:pwd
@@ -15,8 +35,23 @@ btn.addEventListener("click",() => {
     
 })
 
+function displayError(errorMessage) {
+    const errorContainer = document.getElementById("errorContainer");
+    const errorDiv = document.createElement("div");
+    errorDiv.classList.add("alert", "alert-danger");
+    errorDiv.textContent = errorMessage;
+    errorContainer.appendChild(errorDiv);
+}
+
+function clearDisplayError(){
+    // Clear previous error messages
+    const errorContainer = document.getElementById("errorContainer");
+    errorContainer.innerHTML = '';
+}
+
+
 async function signin(data) {
-        // let data = JSON.stringify({email,password})
+    try {
         const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/login",{
             method:"POST",
             body:JSON.stringify(data),
@@ -24,8 +59,28 @@ async function signin(data) {
                 "Content-type":"application/json;  charset=UTF-8"
             }
         })
+        if(response.ok){
         const res = await response.json()
-        console.log("res",res)
-        localStorage.setItem("data",JSON.stringify(res.token))
-        console.log("login",res)
+        if(res.token == 'Invalid User information (0)'){
+            displayError("Invalid User")
+        }else{
+        localStorage.setItem("data",JSON.stringify(res.token)) 
+        window.location.href = "index.html";
+        }
+        
+        }
+
+} catch (error) {
+    console.error("An error occurred:", error);
+}}
+
+
+function isAuth(){
+    if(localStorage.getItem("data")===null || localStorage.getItem("data")===''){
+        // window.location.href = "login.html"
+    }else{
+        history.back()
+    }
 }
+
+window.addEventListener("DOMContentLoaded",isAuth)

@@ -39,6 +39,7 @@ btn.addEventListener("click", () => {
 })
 
     const userPic = async (form) =>{
+      try {
     const response = await fetch ("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveImage" ,{
         method:"POST",
         body:form,
@@ -46,6 +47,8 @@ btn.addEventListener("click", () => {
             'Authorization': "Bearer " + JSON.parse(localStorage.getItem("data")) 
         }
     })
-    const res = await response.text()
+    const res = await response.json()
     console.log("done",res)
-}
+}catch(error){
+    console.log("Error", error)
+}}
