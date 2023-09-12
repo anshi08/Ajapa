@@ -9,7 +9,10 @@ function loadContent() {
         .then(response => response.text())
         .then(data => {
             // Assuming you have a div with id "content" in your HTML file
-            document.getElementById('customnavbar').innerHTML = data;
+            document.getElementById('customnavbar').innerHTML = data;   
+            if(JSON.parse(localStorage.getItem("role")) === "super"){
+                document.getElementById("notificationIcon").style.display = "block"
+            }
 
         })
         .catch(error => {

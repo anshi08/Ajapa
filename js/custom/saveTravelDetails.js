@@ -1,7 +1,22 @@
 let btn = document.getElementById("btn")
+let element = document.getElementById("from_country")
+let stateElement = document.getElementById("from_city")
 
 function getElementByIdName(idName){
     return document.getElementById(idName).value
+}
+
+function displaySuccessMessage(message) {
+    const successContainer = document.getElementById("successContainer");
+    const successDiv = document.createElement("div");
+    successDiv.classList.add("alert", "alert-success", "alert-dismissible", "fade", "show");
+    successDiv.textContent = message;
+    successContainer.appendChild(successDiv);
+
+    // Clear the success message after a few seconds (optional)
+    setTimeout(function () {
+        successDiv.remove();
+    }, 3000); // 3 seconds
 }
 
 btn.addEventListener("click", async (e) =>{
@@ -11,12 +26,12 @@ btn.addEventListener("click", async (e) =>{
     let country = getElementByIdName("from_country")
     let arr_date = getElementByIdName("arrival_date")
     let arr_time = document.getElementById("arrival_time").value
-    let arr_transport = getElementByIdName("arrival_mode_of_transport")
+    let arr_transport = document.getElementById("arrival_mode_of_transport").value
     let train_num = getElementByIdName("arrival_train_number")
     let train_name = getElementByIdName("arrival_train_name")
     let dep_date = getElementByIdName("departure_date")
     let dep_time = document.getElementById("departure_time").value
-    let dep_transport = getElementByIdName("departure_mode_of_transport")
+    let dep_transport = document.getElementById("departure_mode_of_transport").value
     let dep_trainNum = getElementByIdName("departure_train_number")
     let dep_trainName = getElementByIdName("departure_train_name")
     let desc = getElementByIdName("description")
@@ -124,6 +139,72 @@ function clearDisplayError(){
     errorContainer.innerHTML = '';
 }
 
+function clearAllFields(){
+    document.getElementById("from_city").value = '';
+    document.getElementById("from_country").value = '',
+    document.getElementById("arrival_date").value = '',
+    document.getElementById("arrival_time").value = '',
+    document.getElementById("arrival_mode_of_transport").value = '',
+    document.getElementById("arrival_train_number").value = '',
+    document.getElementById("arrival_train_name").value = '',  
+    document.getElementById("departure_date").value = '',
+    document.getElementById("departure_time").value = '',
+    document.getElementById("departure_mode_of_transport").value = '',
+    document.getElementById("departure_train_number").value = '',  //nhi
+    document.getElementById("departure_train_name").value = '',  
+    document.getElementById("description").value = ''
+}
+async function getCountry() {
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/countries",{
+        method: "GET",
+        headers: {
+            "Content-type":"application/json;  charset=UTF-8"
+        }
+    })
+    const res = await response.json()
+    console.log("res" , res)
+        //   Populate dropdown with state options
+            res.forEach((country) => {
+            const option = document.createElement("option");
+            option.value = country.id; // Assuming each state object has an "id" property
+            option.text = country.name; // Assuming each state object has a "name" property
+            element.appendChild(option);
+          });
+}
+
+getCountry()
+
+element.addEventListener('change', function (e) {
+    const selectedCountry = e.target.value;
+    handleCountryChange(selectedCountry);
+  });
+  
+  function handleCountryChange(selectedCountry) {
+    console.log(`Selected country: ${selectedCountry}`);
+    fetchStates(selectedCountry);
+    // countryId = ""; // or countryId = "";
+    stateElement.value = "" ;
+  }
+
+async function fetchStates(countryId){
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/states/${countryId}`,{
+        method:"GET",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+    })
+    const res = await response.json()
+    console.log("res",res)
+
+    stateElement.innerHTML = '';
+
+res.forEach((state) => {
+    const option = document.createElement('option');
+    option.value = state.id;
+    option.text = state.name;
+    stateElement.appendChild(option);
+  });
+}
 
 async function saveTravelDetails(data) {
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveTravelDetails",{
@@ -136,5 +217,7 @@ async function saveTravelDetails(data) {
 
     const res = await response.json()
     console.log("Save",res)
-    // return res;
+    displaySuccessMessage("Travel details Added Successfully.");
+    clearAllFields();
+    return res;
 }

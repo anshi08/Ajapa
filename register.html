@@ -37,16 +37,19 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h2 text-gray-900 mb-4">Register:Head Of the Family</h1>
                             </div>
 
                             <!-- Error messages will be inserted here dynamically -->
                             <div id="errorContainer">
                             </div>
 
+                            <!-- Message display after registeration -->
+                            <div id="waitingMsg"></div>
+
                             <form class="user">
                                 <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" 
+                                        <input type="text" class="form-control " 
                                             placeholder="Full Name" id="name">
                                 </div>
                                 <div class="form-group">
@@ -59,27 +62,59 @@
                                       </select>
                                       </div>
                              <div class="form-group">
-                                    <input type="date" class="form-control form-control-user" 
+                                    <input type="date" class="form-control " 
                                         placeholder="Dob" id="dob">
                                    </div>
+
+                            <div class="form-group">
+                                <input type="tel" class="form-control " placeholder="Enter mobile Number" 
+                                id="mobile_num">
+                            </div>
+
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" 
+                                    <input type="email" class="form-control " 
                                         placeholder="Email Address" id="email">
                                 </div>
                                 <div class="form-group">
                                     
-                                        <input type="password" class="form-control form-control-user"
+                                        <input type="password" class="form-control "
                                             id="pw" placeholder="Password">
                                     
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user"
-                                        placeholder="country" id="country">
-                            </div>
+
+                                <div class="form-group">     
+                                    <input type="password" required class="form-control "
+                                        id="rpwd" placeholder="Re-type Password">
+                                        <div style="margin-left: 20px;" id="pwdErr"></div>
+                                </div>
+                                
+<!-- Country -->
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-user" 
-                                    placeholder="city" id="city">
+                                <label>Select a Country :</label>
+                                <select id="country" class="form-control">
+                                    <!-- Options will be added dynamically -->
+                                    <option value="">Country</option>
+                                </select>
+                            </div>
+
+                            <!-- State -->
+<div class="form-group">
+    <label>Select a State :</label>
+    <select id="state" class="form-control ">
+        <!-- Options will be added dynamically -->
+        <option value="">State</option>
+    </select>
+</div>
+
+<!-- City -->
+                        <div class="form-group">
+                            <label>Select a City :</label>
+                            <select id="city" class="form-control ">
+                                <!-- Options will be added dynamically -->
+                                <option value="">City</option>
+                            </select>
                         </div>
+
                                 <button  type="button"  class="btn btn-primary btn-user btn-block" id="btn">
                                     Register Account
                                 </button>

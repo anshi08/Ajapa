@@ -13,6 +13,8 @@
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Include jQuery (you can use a CDN) -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -59,16 +61,35 @@
                      <!-- Error messages will be inserted here dynamically -->
                      <div id="errorContainer">
                     </div>
+
+                    <!-- Success Message -->
+                    <div id="successContainer"></div>
                     <!-- Form  -->
                         <form enctype="multipart/form-data" >
-                    <div class="form-group">
-                      <input type="text" class="form-control" placeholder="From City" id="from_city">
-                        </div>
+                    <!-- <div class="form-group">
+                      <input type="text" class="form-control" placeholder="From Country" id="from_country">
+                        </div> -->
 
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="From Country" 
-                            id="from_country">
-                              </div>
+                            <label>Select a Country :</label>
+                            <select id="from_country" class="form-control">
+                                <!-- Options will be added dynamically -->
+                                <option value="">Country</option>
+                            </select>
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <input type="text" class="form-control" placeholder="From City" 
+                            id="from_city">
+                              </div> -->
+
+                              <div class="form-group">
+                                <label>Select a City :</label>
+                                <select id="from_city" class="form-control">
+                                    <!-- Options will be added dynamically -->
+                                    <option value="">City</option>
+                                </select>
+                            </div>
 
              <div class="form-group">
                 <label >Arrival Date</label>
@@ -76,21 +97,29 @@
             </div>
 
                 <div class="form-group">
-                    <label >Arrival Time</label>
+                    <label >Ashram Reaching Time (Arrival Time) :</label>
                     <input type="time" class="form-control" id="arrival_time">
                 </div>   
-                                  
-                   <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Arrival Mode of Transport" 
-                        id="arrival_mode_of_transport">
-                   </div>
 
                    <div class="form-group">
+                    <label>Arrival Mode Of Transport:</label>
+                    <select class="form-control" id="arrival_mode_of_transport">
+                        <option>Select Mode</option>
+                        <option>Train</option>
+                        <option>Flight</option>
+                        <option>Bus</option>
+                        <option>Car</option>
+                    </select>
+                </div>
+
+                   <div class="form-group">
+                    <label>Tranport Number :</label>
                     <input type="text" class="form-control" placeholder="Arrival Transport Number" 
                     id="arrival_train_number">
                </div>
 
                <div class="form-group">
+                <label>Tranport Name :</label>
                 <input type="text" class="form-control" placeholder="Arrival Transport Name" 
                 id="arrival_train_name">
            </div>
@@ -107,24 +136,33 @@
                 <input type="time" class="form-control" id="departure_time">
             </div> 
 
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Departure Mode of Transport" 
-                id="departure_mode_of_transport">
-           </div>
+           <div class="form-group">
+            <label>Departure Mode of Transport :</label>
+            <select class="form-control" id="departure_mode_of_transport">
+                <option>Select Mode</option>
+                <option>Train</option>
+                <option>Flight</option>
+                <option>Bus</option>
+                <option>Car</option>
+            </select>
+        </div>
 
            <div class="form-group">
+            <label>Tranport Number :</label>
             <input type="text" class="form-control" placeholder="Departure Transport Number" 
             id="departure_train_number">
        </div>
 
        <div class="form-group">
+        <label>Tranport Name : </label>
         <input type="text" class="form-control" placeholder="Departure Transport Name" 
         id="departure_train_name">
    </div>
          
          <div class="form-group">
-             <input type="text" class="form-control" placeholder="Description" 
-             id="description">
+            <label>Do You Have Any Specifc Requirements :</label>
+             <!-- <input type="textarea" class="form-control" placeholder="Description" /> -->
+             <textarea class="form-control" rows="4" placeholder="Any Specifc Requirements" id="description" ></textarea>
          </div>
                          <button type="button" class="btn btn-primary " id="btn">
                             Save
@@ -166,9 +204,6 @@
   aria-hidden="true">
 
 </div>
-
-
-
 
     <!--UI-->
     <script src="js/ui/logout.js"></script>

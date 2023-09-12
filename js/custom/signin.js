@@ -6,18 +6,18 @@ function getElementByIdName(idName){
 
 btn.addEventListener("click", () => {
 
-    let email = getElementByIdName("email")
+    let identifier = getElementByIdName("identifier")
     let pwd = getElementByIdName("pwd")
 
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const identifierPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const phoneRegex = /^\d{10}$/;
-    if (!emailPattern || !phoneRegex) {
-        displayError("Email or Phone number is required");
+    if (!identifierPattern || !phoneRegex) {
         clearDisplayError()
+        displayError("identifier or Phone number is required");
         return;
-    }else if(!emailPattern.test(email) && !phoneRegex.test(email)){
+    }else if(!identifierPattern.test(identifier) && !phoneRegex.test(identifier)){
         clearDisplayError()
-        displayError("Enter a valid Email or Phone Number");
+        displayError("Enter a valid identifier or Phone Number");
         return;
     }
 
@@ -28,7 +28,7 @@ btn.addEventListener("click", () => {
     }
 
     const data = {
-         email:email,
+         identifier:identifier,
          password:pwd
     }
     signin(data);
@@ -49,7 +49,6 @@ function clearDisplayError(){
     errorContainer.innerHTML = '';
 }
 
-
 async function signin(data) {
     try {
         const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/login",{
@@ -61,11 +60,15 @@ async function signin(data) {
         })
         if(response.ok){
         const res = await response.json()
+        // console.log(res)
+        const userRole = res.type;
         if(res.token == 'Invalid User information (0)'){
+            clearDisplayError();
             displayError("Invalid User")
         }else{
         localStorage.setItem("data",JSON.stringify(res.token)) 
-        window.location.href = "index.html";
+        localStorage.setItem("role",JSON.stringify(userRole))
+        window.location.href = "dashboard.html";
         }
         
         }

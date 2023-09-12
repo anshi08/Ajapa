@@ -59,32 +59,59 @@
                         <!-- Error messages will be inserted here dynamically -->
                         <div id="errorContainer">
                         </div>
+
+                            <!-- Success messages will be inserted here dynamically -->
+                               <!-- Add a div element for success messages -->
+                       <div id="successContainer"></div>
                         
                         <form enctype="multipart/form-data" >
                     <div class="form-group">
+                        <label>Enter Age</label>
                       <input type="number" class="form-control" placeholder="Enter age" id="age">
                         </div>
 
                         <div class="form-group">
-                            <input type="tel" class="form-control" placeholder="Enter mobile Number" 
+                            <label>Mobile Number :</label>
+                            <input type="tel" class="form-control" placeholder="Mobile Number" 
                             id="mobile_num">
                               </div>
 
                               <div class="form-group">
+                                <label>whatsApp Number :</label>
                                 <input type="tel" class="form-control" placeholder="Enter whatsApp Number" 
                                 id="whatsapp_num">
                                   </div>
 
+                                  <div class="form-group">
+                                    <label>Email Address :</label>
+                                    <input type="email" class="form-control " 
+                                        placeholder="Email Address" id="email">
+                                </div>
+
              <div class="form-group">
+                <label>Enter Blood Group</label>
                   <input type="text" class="form-control" placeholder="Enter Blood Group" id="blood_grp">
             </div>
 
                 <div class="form-group">
-                    <label>Diksha Date</label>
-                    <input type="date" class="form-control" placeholder="Enter Diksha Date" id="diksha_dt">
+                    <label>Diksha Date</label> <br/>
+    <label>
+        <input type="radio" name="dateOption" id="rememberDate">
+        Remember the date
+    </label>
+    
+    <label>
+        <input type="radio" name="dateOption" id="dontRememberDate">
+        I don't remember the date
+    </label>  <br/>
+
+    <!-- Date input field (hidden by default when "I don't remember the date" is selected) -->
+    <input type="date" class="form-control" style="width:150px ;" id="diksha_dt" name="diksha_dt">
+
                 </div>   
                                   
                    <div class="form-group">
+                    <label>Occupation</label>
                         <input type="text" class="form-control" placeholder="Enter Occupation" id="occupation">
                    </div>
 
@@ -94,21 +121,47 @@
                   </div>
 
                             <div class="form-group">
+                                <label>Qualification</label>
                                 <input type="text" class="form-control" placeholder="Enter Qualification" 
                                 id="qualification">
                             </div>
 
                                 <div class="form-group">
+                                    <label>Enter Address</label>
                                     <input type="text" class="form-control" placeholder="Enter Address" 
                                     id="address_linep">
                                 </div>
 
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Enter State" 
-                                    id="state">
-                                </div>
+                                                       
+<!-- Country -->
+<div class="form-group">
+    <label>Select a Country :</label>
+    <select id="country" class="form-control">
+        <!-- Options will be added dynamically -->
+        <option value="">Country</option>
+    </select>
+</div>
+
+<!-- State -->
+<div class="form-group">
+<label>Select a State :</label>
+<select id="state" class="form-control ">
+<!-- Options will be added dynamically -->
+<option value="">State</option>
+</select>
+</div>
+
+<!-- City -->
+<div class="form-group">
+<label>Select a City :</label>
+<select id="city" class="form-control ">
+    <!-- Options will be added dynamically -->
+    <option value="">City</option>
+</select>
+</div>
 
                                 <div class="form-group">
+                                    <label>Enter Pincode</label>
                                     <input type="text" maxlength="6" class="form-control" placeholder="Enter Pincode" 
                                     id="pincode">
                                 </div>

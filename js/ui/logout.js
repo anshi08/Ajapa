@@ -6,7 +6,7 @@ function loadContent() {
             document.getElementById('logoutModal').innerHTML = data;
             document.getElementById("logoutbtn").addEventListener("click",()=>{
               localStorage.clear()
-              window.location.href="index.html"
+              window.location.href="dashboard.html"
             })
             
         })

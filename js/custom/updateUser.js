@@ -1,16 +1,50 @@
+let rememberDateInput = document.getElementById("rememberDate");
+let dontRememberDateInput = document.getElementById("dontRememberDate");
+// const stateDropdown = document.getElementById("state");
+let element = document.getElementById("country")
+let stateElement = document.getElementById("state")
+let cityElement = document.getElementById("city")
+
 let btn = document.getElementById("btn")
+let diksha_dt = document.getElementById("diksha_dt")
+
 
 function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
 
+function displaySuccessMessage(message) {
+    const successContainer = document.getElementById("successContainer");
+    const successDiv = document.createElement("div");
+    successDiv.classList.add("alert", "alert-success", "alert-dismissible", "fade", "show");
+    successDiv.textContent = message;
+    successContainer.appendChild(successDiv);
+
+    // Clear the success message after a few seconds (optional)
+    setTimeout(function () {
+        successDiv.remove();
+    }, 3000); // 3 seconds
+}
+
+diksha_dt.style.display = "none";
+
+rememberDateInput.addEventListener("click", () => {
+    // console.log("Remember date clicked");
+    diksha_dt.style.display = "block";
+});
+
+dontRememberDateInput.addEventListener("click", () => {
+    diksha_dt.style.display = "none";
+});
+
 btn.addEventListener("click", () => {
 
     let age = getElementByIdName("age")
-    let mobile_num = getElementByIdName("mobile_num")
+    let mobileNum = getElementByIdName("mobile_num")
     let whatsapp_num = getElementByIdName("whatsapp_num")
+    let email = getElementByIdName("email");
     let blood_grp = getElementByIdName("blood_grp")
-    let diksha_dt = getElementByIdName("diksha_dt")
+    let diksha_dt_value = getElementByIdName("diksha_dt")
     let occupation = getElementByIdName("occupation")
     let file = getElementByIdName("file")
     let qualification = getElementByIdName("qualification")
@@ -24,37 +58,22 @@ btn.addEventListener("click", () => {
         return;
     }
 
-    const phoneRegex = /^\d{10}$/;
-    if(mobile_num.trim() === ''){
-        clearDisplayError()
-        displayError("Mobile number is required");
-        return;
-    }else if (!phoneRegex.test(mobile_num)){
-        clearDisplayError()
-        displayError("Enter a valid 10-digit mobile number");
-        return;
-    }
-
     const num = /^\d{10}$/;
     if(whatsapp_num.trim() === ''){
         clearDisplayError()
         displayError("WhatsApp number is required");
         return;
-    }else if (!num.test(whatsapp_num)){
+    }
+     else if (!num.test(whatsapp_num)){
         clearDisplayError()
         displayError("Enter a valid 10-digit WhatsApp number");
         return;
     }
 
+
     if(blood_grp.trim() === ''){
         clearDisplayError()
         displayError("Enter Blood Group");
-        return;
-    }
-
-    if(diksha_dt.trim() === ''){
-        clearDisplayError()
-        displayError("Enter Diksha Date");
         return;
     }
 
@@ -75,8 +94,7 @@ btn.addEventListener("click", () => {
         displayError("Enter Address");
         return;
     }
-
-    if(state.trim() === ''){
+    if(state.trim === ''){
         clearDisplayError()
         displayError("Enter State");
         return;
@@ -94,10 +112,11 @@ btn.addEventListener("click", () => {
 
     const data = {
         age: age,
-        mobile_num: mobile_num,
+        mobileNum: mobileNum,
         whatsapp_num: whatsapp_num,
+        email: email,
         blood_grp: blood_grp,
-        diksha_dt: diksha_dt,
+        diksha_dt: diksha_dt_value,
         occupation: occupation,
         file: file,
         qualification: qualification,
@@ -122,6 +141,110 @@ function clearDisplayError(){
     errorContainer.innerHTML = '';
 }
 
+function clearFormFields() {
+    document.getElementById("age").value = '';
+    document.getElementById("mobile_num").value = '';
+    document.getElementById("whatsapp_num").value = '';
+    document.getElementById("email").value = '',
+    document.getElementById("blood_grp").value = '';
+    document.getElementById("diksha_dt").value = '';
+    document.getElementById("occupation").value = '';
+    document.getElementById("file").value = '';
+    document.getElementById("qualification").value = '';
+    document.getElementById("address_linep").value = '';
+    document.getElementById("state").value = '';
+    document.getElementById("pincode").value = '';
+}
+
+async function getCountry() {
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/countries",{
+        method: "GET",
+        headers: {
+            "Content-type":"application/json;  charset=UTF-8"
+        }
+    })
+    const res = await response.json()
+    console.log("res" , res)
+        //   Populate dropdown with state options
+            res.forEach((country) => {
+            const option = document.createElement("option");
+            option.value = country.id; // Assuming each state object has an "id" property
+            option.text = country.name; // Assuming each state object has a "name" property
+            element.appendChild(option);
+          });
+}
+
+getCountry()
+
+element.addEventListener('change', function (e) {
+    const selectedCountry = e.target.value;
+    handleCountryChange(selectedCountry);
+  });
+  
+  function handleCountryChange(selectedCountry) {
+    console.log(`Selected country: ${selectedCountry}`);
+    fetchStates(selectedCountry);
+    stateElement.value = "" ;
+  }
+
+async function fetchStates(countryId){
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/states/${countryId}`,{
+        method:"GET",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+    })
+    const res = await response.json()
+    console.log("res",res)
+
+    stateElement.innerHTML = '';
+
+res.forEach((state) => {
+    const option = document.createElement('option');
+    option.value = state.id;
+    option.text = state.name;
+    stateElement.appendChild(option);
+  });
+}
+
+stateElement.addEventListener('change', function (e) {
+    const selectedState = e.target.value;
+    handleStateChange(selectedState);
+  });
+  
+  function handleStateChange(selectedState) {
+    console.log(`Selected State: ${selectedState}`);
+    fetchCities(selectedState)
+    // stateElement.value = "" ;
+  }
+
+async function fetchCities(stateId) {
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/cities/${stateId}`,{
+        method:"GET",
+        headers:{
+                "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    const res = await response.json()
+    console.log("res",res)
+
+    res.forEach((city) => {
+        const option = document.createElement('option');
+        option.value = city.id;
+        option.text = city.name;
+        cityElement.appendChild(option);
+      });
+  }
+
+  cityElement.addEventListener('change', function (e) {
+    const selectedCity = e.target.value;
+    handleCityChange(selectedCity);
+  });
+
+  function handleCityChange(selectedCity) {
+    console.log(`Selected City: ${selectedCity}`);
+  }
+
 
 async function updateProfile(data) {
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/updateUser",{
@@ -132,7 +255,14 @@ async function updateProfile(data) {
                 "Content-type":"application/json;  charset=UTF-8"
             }
         })
+        if(response.ok){
         const res = await response.json()
         console.log("update",res)
-        // return res;
+        displaySuccessMessage("Your profile has been updated.");
+        clearFormFields();
+        setTimeout(function () {
+            window.location.href = "dashboard.html";
+          }, 3000)
+        return res;
+        }
 }

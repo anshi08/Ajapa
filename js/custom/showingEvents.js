@@ -17,7 +17,7 @@ next.addEventListener("click", async () => {
         <td>${data.start_date}</td>
         <td>${data.end_date}</td>
         <td>${data.listed_by}</td>
-        <td><a href='cards.html?id=${data.event_id}'>Edit</a></td>
+        ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td><a href='showEventsDetails.html?id=${data.event_id}'>Edit</a></td>` :''}
         <td style="display:none">${data.event_id}</td>
         `
         document.getElementById("body").appendChild(tr)
@@ -38,6 +38,8 @@ prev.addEventListener("click", async () => {
         <td>${data.end_date}</td>
         <td>${data.listed_by}</td>
         <td><a href='cards.html?id=${data.event_id}'>Edit</a></td>
+        
+        ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td><a href='showEventsDetails.html?id=${data.event_id}'>Edit</a></td>` :''}
         <td style="display:none">${data.event_id}</td>
         `
         document.getElementById("body").appendChild(tr)
@@ -63,7 +65,11 @@ async function showingAllEvents(first=1,last=10) {
 
 
 window.addEventListener("DOMContentLoaded",async ()=>{
+   
     let res = await showingAllEvents()
+        if(JSON.parse(localStorage.getItem("role")) === "member"){
+            document.getElementById("showDetails").style.display = "none"
+        }
         res.forEach(data => {
         let tr = document.createElement("tr")
         tr.innerHTML = `
@@ -73,7 +79,8 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         <td>${data.start_date}</td>
         <td>${data.end_date}</td>
         <td>${data.listed_by}</td>
-        <td><a href='cards.html?id=${data.event_id}'>Edit</a></td>
+        ${JSON.parse(localStorage.getItem("role")) === "member" ?`<td><a href='addTravelDetails.html?id=${data.event_id}' class="btn btn-primary">Book</a></td>` : ''}
+        ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td><a href='showEventsDetails.html?id=${data.event_id}'>Edit</a></td>` : ''}
         <td style="display:none">${data.event_id}</td>
         `
         document.getElementById("body").appendChild(tr)
