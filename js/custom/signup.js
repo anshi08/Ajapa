@@ -16,9 +16,13 @@ btn.addEventListener("click", () =>{
     let email = getElementByIdName("email");
     let pw = getElementByIdName("pw");
     let rpwd = getElementByIdName("rpwd");
-    let country = document.getElementById("country").value;
-    let city = document.getElementById("city").value;
-    let state = document.getElementById("state").value;
+    let country_ele=document.getElementById("country");
+    let state_ele=document.getElementById("state");
+    let city_ele=document.getElementById("city");
+    
+    let country = document.getElementById("country").value+":"+country_ele.options[country_ele.selectedIndex].text;
+    let city = document.getElementById("city").value+":"+city_ele.options[city_ele.selectedIndex].text;
+    let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
 
     if (name.trim() === "") {
         clearDisplayError()        
@@ -88,7 +92,11 @@ btn.addEventListener("click", () =>{
         displayError("Country is required.");
         return;
     }
-
+    if (state.trim() === ""){
+        clearDisplayError()
+        displayError("State is required.");
+        return;
+    }
     if (city.trim() === "") {
         clearDisplayError()
         displayError("City is required.");
@@ -139,10 +147,12 @@ function clearAllFields() {
     document.getElementById("name").value = "";
     document.getElementById("gender").value = "";
     document.getElementById("dob").value = "";
+    document.getElementById("mobile_num").value= '',
     document.getElementById("email").value = "";
     document.getElementById("pw").value = "";
     document.getElementById("rpwd").value = "";
     document.getElementById("country").value = "";
+    document.getElementById("state").value = "";
     document.getElementById("city").value = "";
     clearDisplayError();
 }
@@ -163,6 +173,7 @@ async function getCountry() {
             option.text = country.name; // Assuming each state object has a "name" property
             element.appendChild(option);
           });
+
 }
 
 getCountry()
@@ -174,8 +185,10 @@ element.addEventListener('change', function (e) {
   
   function handleCountryChange(selectedCountry) {
     console.log(`Selected country: ${selectedCountry}`);
-    fetchStates(selectedCountry);
     stateElement.value = "" ;
+    stateElement.innerHTML = '';
+    fetchStates(selectedCountry);
+    
   }
 
 async function fetchStates(countryId){
@@ -205,8 +218,9 @@ stateElement.addEventListener('change', function (e) {
   
   function handleStateChange(selectedState) {
     console.log(`Selected State: ${selectedState}`);
+    cityElement.value='';
+    cityElement.innerHTML = '';
     fetchCities(selectedState)
-    // stateElement.value = "" ;
   }
 
 async function fetchCities(stateId) {
@@ -248,6 +262,7 @@ async function fetchCities(stateId) {
     if(response.ok){
     const res = await response.json()
     console.log(res)
+    clearDisplayError();
     clearAllFields();
     waitingResponse("Please wait for admin approval before logging in.")
     return res;

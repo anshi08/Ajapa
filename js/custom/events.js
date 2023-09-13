@@ -1,14 +1,45 @@
 let btn = document.getElementById("btn")
+let startTime = document.getElementById("start_time")
+let endTime = document.getElementById("end_time")
+const statusdd = document.getElementById("event_type");
 
 function getElementByIdName(idName){
     return document.getElementById(idName).value
+}
+
+startTime.style.display = "none";
+endTime.style.display = "none";
+
+statusdd.addEventListener("change", () => {
+    const option = statusdd.value
+    if(option === "online"){
+    startTime.style.display = "block";
+    endTime.style.display = "block";
+    }
+    else if(option === "offline"){
+        startTime.style.display = "none";
+        endTime.style.display = "none";
+    }
+})
+
+function displaySuccessMessage(message) {
+    const successContainer = document.getElementById("successContainer");
+    const successDiv = document.createElement("div");
+    successDiv.classList.add("alert", "alert-success", "alert-dismissible", "fade", "show");
+    successDiv.textContent = message;
+    successContainer.appendChild(successDiv);
+
+    // Clear the success message after a few seconds (optional)
+    setTimeout(function () {
+        successDiv.remove();
+    }, 3000); // 3 seconds
 }
 
 btn.addEventListener("click", async(e) =>{
     e.preventDefault();
 
     let event_name = getElementByIdName("event_name");
-    let event_type = getElementByIdName("event_type");
+    let event_type = document.getElementById("event_type").value;
     let event_location = getElementByIdName("event_location");
     let start_date = getElementByIdName("start_date");
     let end_date = getElementByIdName("end_date");
@@ -52,7 +83,7 @@ btn.addEventListener("click", async(e) =>{
         event_location: event_location,
         start_date: start_date,
         end_date: end_date,
-        listed_by: listed_by,
+        // listed_by: listed_by,
         event_status: event_status,
         file:file,
     }
@@ -73,6 +104,16 @@ function clearDisplayError(){
     errorContainer.innerHTML = '';
 }
 
+function ClearAllFields(){
+    document.getElementById("event_name").value = '';
+    document.getElementById("event_type").value = '';
+    document.getElementById("event_location").value = '';
+    document.getElementById("start_date").value = '';
+    document.getElementById("end_date").value = '';
+    // let listed_by = getElementById("listed_by");
+    document.getElementById("event_status").value = '';
+}
+
  const events = async (data) => {
     try{
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveEvent",{
@@ -82,10 +123,21 @@ function clearDisplayError(){
             "Content-type":"application/json;  charset=UTF-8"
         }
     })
-    if(!displayError){
+    if(response.ok){
     const res = await response.json()
-    console.log("RES",res)
-    }
+    // console.log("res",res)
+    clearDisplayError();
+    ClearAllFields();
+    displaySuccessMessage("Event Added");
+    
+    
+    setTimeout(() =>{
+        window.location.href = "dashboard.html"
+    },3000) //3 seconds
+    } else {
+        // Handle the case where the HTTP request was not successful
+        displayError("Error: Failed to save event.");
+      }
 } catch (error) {
 
     console.error("An error occurred:", error);

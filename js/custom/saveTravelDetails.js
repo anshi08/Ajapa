@@ -22,8 +22,11 @@ function displaySuccessMessage(message) {
 btn.addEventListener("click", async (e) =>{
 
     e.preventDefault(); 
-    let city = getElementByIdName("from_city")
-    let country = getElementByIdName("from_country")
+    let country_ele=document.getElementById("from_country");
+    let city_ele=document.getElementById("from_city");
+    
+    let country = document.getElementById("from_country").value+":"+country_ele.options[country_ele.selectedIndex].text;
+    let city = document.getElementById("from_city").value+":"+city_ele.options[city_ele.selectedIndex].text;
     let arr_date = getElementByIdName("arrival_date")
     let arr_time = document.getElementById("arrival_time").value
     let arr_transport = document.getElementById("arrival_mode_of_transport").value
@@ -38,6 +41,7 @@ btn.addEventListener("click", async (e) =>{
 
 // Validate each field
     if (city.trim() === "") {
+        clearDisplayError()
         displayError("City is required.");
         return;
     }
@@ -217,7 +221,11 @@ async function saveTravelDetails(data) {
 
     const res = await response.json()
     console.log("Save",res)
-    displaySuccessMessage("Travel details Added Successfully.");
+    clearDisplayError();
     clearAllFields();
+    displaySuccessMessage("Travel details Added Successfully.");
+    setTimeout(()=> {
+        window.location.href = "dashboard.html"
+    },3000)
     return res;
 }

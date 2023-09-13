@@ -66,6 +66,7 @@ async function signin(data) {
             clearDisplayError();
             displayError("Invalid User")
         }else{
+        clearDisplayError();
         localStorage.setItem("data",JSON.stringify(res.token)) 
         localStorage.setItem("role",JSON.stringify(userRole))
         window.location.href = "dashboard.html";

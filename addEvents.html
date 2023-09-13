@@ -58,18 +58,28 @@
                         <!-- Error messages will be inserted here dynamically -->
                         <div id="errorContainer">
                         </div>
+
+                            <!-- Error messages will be inserted here dynamically -->
+                            <div id="successContainer">
+                            </div>
                         
                         <form enctype="multipart/form-data" >
                     <div class="form-group">
+                        <label>Event Name :</label>
                       <input type="text" required class="form-control" placeholder="Enter Event Name" id="event_name">
                         </div>
 
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Enter Event Type" 
-                            id="event_type">
-                              </div>
+                              <div class="form-group">
+                                <label>Event Type :</label>
+                                <select class="form-control" id="event_type">
+                                    <option>Select Type</option>
+                                    <option value="online">Online</option>
+                                    <option value="offline">Offline</option>
+                                </select>
+                            </div>
 
                               <div class="form-group">
+                                <label>Event Location:</label>
                                 <input type="text" class="form-control" placeholder="Enter Event Location" 
                                 id="event_location">
                                   </div>
@@ -83,6 +93,16 @@
                     <label >End Date</label>
                     <input type="date" class="form-control" id="end_date">
                 </div>   
+
+                <div class="form-group" id="start_time">
+                    <label >Start Time:</label>
+                    <input type="time" class="form-control" >
+                </div> 
+
+                <div class="form-group" id="end_time">
+                    <label >End Time :</label>
+                    <input type="time" class="form-control" >
+                </div> 
                                   
                    <!-- <div class="form-group">
                         <input type="text" class="form-control" placeholder="Listed By" id="listed_by">

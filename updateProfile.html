@@ -76,11 +76,28 @@
                             id="mobile_num">
                               </div>
 
-                              <div class="form-group">
+                              <!-- <div class="form-group">
                                 <label>whatsApp Number :</label>
                                 <input type="tel" class="form-control" placeholder="Enter whatsApp Number" 
                                 id="whatsapp_num">
-                                  </div>
+                                  </div> -->
+                            <div class="form-group">
+                                <label>WhatsApp Number</label> <br/>
+
+                            <label>
+                                <input type="radio" name="Mob" id="rememberMob">
+                                Same as Mobile Number
+                            </label>
+                            
+                            <label>
+                                <input type="radio" name="Mob" id="dontRememberMob">
+                                Add New WhatsApp Number
+                            </label>  <br/>
+                        
+                            <!-- Date input field (hidden by default when "I don't remember the date" is selected) -->
+                            <input type="tel" class="form-control" style="width:210px ;" 
+                            id="whatsapp_num" name="whatsapp_num" placeholder="Enter whatsApp Number">
+                        </div>
 
                                   <div class="form-group">
                                     <label>Email Address :</label>
@@ -138,7 +155,7 @@
     <label>Select a Country :</label>
     <select id="country" class="form-control">
         <!-- Options will be added dynamically -->
-        <option value="">Country</option>
+        <option value="" id="dikha">Country</option>
     </select>
 </div>
 

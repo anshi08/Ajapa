@@ -10,6 +10,9 @@ function loadContent() {
                 document.getElementById("addDetailsTab").style.display = "none"
                 document.getElementById("addEvent").style.display = "block"
                 document.getElementById("addTravelDetails").style.display = "none"
+
+                // for Showing Travel Details
+                document.getElementById("showTravelDetails").style.display = "none"
             }
         })
         .catch(error => {
