@@ -56,14 +56,14 @@ async function showingAllEvents(first=1,last=10) {
     const res = await response.json()
     
     if(res[0].event_id===2){
+
         document.getElementById("prev").style.display = 'none'
     }else{
         document.getElementById("prev").style.display = 'block'
     }
     return res;
+
 }
-
-
 window.addEventListener("DOMContentLoaded",async ()=>{
    
     let res = await showingAllEvents()

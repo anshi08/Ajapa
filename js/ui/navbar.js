@@ -13,7 +13,6 @@ function loadContent() {
             if(JSON.parse(localStorage.getItem("role")) === "super"){
                 document.getElementById("notificationIcon").style.display = "block"
             }
-
         })
         .catch(error => {
             console.error('Error fetching content:', error);
@@ -34,7 +33,7 @@ async function getUsersApprove() {
 document.getElementById("notification").innerHTML = res.length
     res.forEach(item => {
         let string = `
-        <a class="dropdown-item d-flex align-items-center" href="#" >
+        <a class="dropdown-item d-flex align-items-center" href="getApprovedUsers.html" >
         <div class="mr-3">
             <div class="icon-circle bg-warning">
                 <i class="fas fa-exclamation-triangle text-white"></i>
@@ -62,12 +61,11 @@ document.getElementById("notification").innerHTML = res.length
 
 getUsersApprove();
 
-async function approvedUsers(email) {
-     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changeStatus/${email}`,{
-        method: "POST",
-     })
-     const res = await response.json()
-     console.log("approved",res)
-}
-
+// async function approvedUsers(email) {
+//      const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changeStatus/${email}`,{
+//         method: "POST",
+//      })
+//      const res = await response.json()
+//      console.log("approved",res)
+// }
 

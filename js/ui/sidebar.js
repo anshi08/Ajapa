@@ -10,6 +10,7 @@ function loadContent() {
                 document.getElementById("addDetailsTab").style.display = "none"
                 document.getElementById("addEvent").style.display = "block"
                 document.getElementById("addTravelDetails").style.display = "none"
+                document.getElementById("events").style.display = "block"
 
                 // for Showing Travel Details
                 document.getElementById("showTravelDetails").style.display = "none"

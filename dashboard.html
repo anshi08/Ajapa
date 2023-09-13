@@ -21,7 +21,35 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <script src="js/custom/isAuth.js"></script>
 </head>
+<style>
+    table.scroll {
+    width: 100%; /* Optional */
+    /* border-collapse: collapse; */
+    border-spacing: 0;
+    /* border: 2px solid black; */
+}
 
+table.scroll tbody,
+table.scroll thead { display: block; }
+
+thead tr th { 
+    height: 20px;
+    line-height: 30px;
+    /* text-align: left; */
+}
+
+table.scroll tbody {
+    height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+tbody td, thead th { 
+    width: 20%; /* Optional */
+    /* border-right: 1px solid black; */
+    /* white-space: nowrap; */
+} 
+</style> 
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -167,9 +195,29 @@
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
-                                    </div>
+                                    <table class="table table-bordered scroll">
+                                        <thead>
+                                            <tr>
+                                                <th>Event Name</th>
+                                                <th>Event Type</th>
+                                                <th>Location</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Listed By</th>
+                                                <th id="showDetails">Show Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="body">
+    
+                                        </tbody>
+                                    </table>
+                                    <ul class="pagination"  >
+                                        <li class="page-item" id="prev"><a class="page-link">Previous</a></li>
+                                        <li class="page-item" id="next"><a class="page-link">Next</a></li>
+                                    </ul>
+                                    <!-- <div class="chart-area">
+                                         <canvas id="myAreaChart"></canvas> 
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -406,6 +454,9 @@
     <script src="js/ui/sidebar.js"></script>
     <script src="js/ui/navbar.js"></script>
     <script src="js/ui/footer.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/custom/showingEvents.js"></script>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
