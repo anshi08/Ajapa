@@ -36,17 +36,17 @@ document.getElementById("notification").innerHTML = res.length
         <a class="dropdown-item d-flex align-items-center" href="getApprovedUsers.html" >
         <div class="mr-3">
             <div class="icon-circle bg-warning">
-                <i class="fas fa-exclamation-triangle text-white"></i>
+            <i class="fas fa-user-circle "></i>
             </div>
         </div>
         <div >
             <div class="small text-gray-500">${item.full_name}</div> 
-            <div class="notificationHandler">${item.email} -- ${item.mobile_num}</div>
+            <div class="notificationHandler">${item.email}</div>
         </div>
     </a>
 
         `
-
+  
         document.getElementById("showNotification").appendChild(getElementFromString(string))
     })
 
@@ -61,11 +61,4 @@ document.getElementById("notification").innerHTML = res.length
 
 getUsersApprove();
 
-// async function approvedUsers(email) {
-//      const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changeStatus/${email}`,{
-//         method: "POST",
-//      })
-//      const res = await response.json()
-//      console.log("approved",res)
-// }
 

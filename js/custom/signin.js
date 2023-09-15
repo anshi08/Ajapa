@@ -49,6 +49,8 @@ function clearDisplayError(){
     errorContainer.innerHTML = '';
 }
 
+
+
 async function signin(data) {
     try {
         const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/login",{

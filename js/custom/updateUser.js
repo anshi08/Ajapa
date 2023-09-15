@@ -361,7 +361,7 @@ async function updateProfile(data) {
 
         setTimeout(() => {
             window.location.href = "dashboard.html"
-        }, 3000)
+        }, 2000)
         return res;
         }
         else {

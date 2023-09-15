@@ -226,6 +226,6 @@ async function saveTravelDetails(data) {
     displaySuccessMessage("Travel details Added Successfully.");
     setTimeout(()=> {
         window.location.href = "dashboard.html"
-    },3000)
+    },2000)
     return res;
 }

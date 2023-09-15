@@ -43,8 +43,6 @@ btn.addEventListener("click", async(e) =>{
     let event_location = getElementByIdName("event_location");
     let start_date = getElementByIdName("start_date");
     let end_date = getElementByIdName("end_date");
-    // let listed_by = getElementByIdName("listed_by");
-    let event_status = getElementByIdName("event_status");
     let file = getElementByIdName("file");
 
     // Validate each field
@@ -83,8 +81,6 @@ btn.addEventListener("click", async(e) =>{
         event_location: event_location,
         start_date: start_date,
         end_date: end_date,
-        // listed_by: listed_by,
-        event_status: event_status,
         file:file,
     }
     events(data)
@@ -110,8 +106,7 @@ function ClearAllFields(){
     document.getElementById("event_location").value = '';
     document.getElementById("start_date").value = '';
     document.getElementById("end_date").value = '';
-    // let listed_by = getElementById("listed_by");
-    document.getElementById("event_status").value = '';
+    document.getElementById("file").value = '';
 }
 
  const events = async (data) => {
@@ -125,15 +120,13 @@ function ClearAllFields(){
     })
     if(response.ok){
     const res = await response.json()
-    // console.log("res",res)
     clearDisplayError();
     ClearAllFields();
     displaySuccessMessage("Event Added");
-    
-    
     setTimeout(() =>{
         window.location.href = "dashboard.html"
-    },3000) //3 seconds
+    },2000)
+    return res
     } else {
         // Handle the case where the HTTP request was not successful
         displayError("Error: Failed to save event.");
