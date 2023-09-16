@@ -52,117 +52,38 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Showing Travel Details</h1>
 
-                    <div class="col-sm-4">
-                        <div class="container shadow-lg p-4 mb-4 bg-white mx-auto rounded" 
-                        style="width: 900px ;margin:20px 20px;" >
-
-                        <!-- Error messages will be inserted here dynamically -->
-                        <div id="errorContainer">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Travelling Details</h6>
                         </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Country</th>
+                                            <th>City</th>
+                                            <th>Arrival Date</th>
+                                            <th>Ashram Reaching Time</th>
+                                            <th>Arrival Transport</th>
+                                            <th>Departure Date</th>
+                                            <th>Departure Time</th>
+                                            <th>DepartureTransport</th>
+                                            <th>Requirements</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="body">
 
-                            <!-- Success messages will be inserted here dynamically -->
-                               <!-- Add a div element for success messages -->
-                       <div id="successContainer"></div>
-
-                       <form enctype="multipart/form-data" >
-    
-                            <div class="form-group">
-                                <label>Select a Country :</label>
-                                <select id="from_country" class="form-control">
-                                    <!-- Options will be added dynamically -->
-                                    <option value="">Country</option>
-                                </select>
+                                    </tbody>
+                                </table>
+                                <ul class="pagination"  >
+                                    <li class="page-item" id="prev"><a class="page-link">Previous</a></li>
+                                    <li class="page-item" id="next"><a class="page-link">Next</a></li>
+                                </ul>
                             </div>
-    
-                                  <div class="form-group">
-                                    <label>Select a City :</label>
-                                    <select id="from_city" class="form-control">
-                                        <!-- Options will be added dynamically -->
-                                        <option value="">City</option>
-                                    </select>
-                                </div>
-    
-                 <div class="form-group">
-                    <label >Arrival Date</label>
-                      <input type="date" class="form-control"  id="arrival_date" readonly>
-                </div>
-    
-                    <div class="form-group">
-                        <label >Ashram Reaching Time (Arrival Time) :</label>
-                        <input type="time" class="form-control" id="arrival_time" readonly>
-                    </div>   
-    
-                       <div class="form-group">
-                        <label>Arrival Mode Of Transport:</label>
-                        <select class="form-control" id="arrival_mode_of_transport">
-                            <option>Select Mode</option>
-                            <option>Train</option>
-                            <option>Flight</option>
-                            <option>Bus</option>
-                            <option>Car</option>
-                        </select>
-                    </div>
-    
-                       <div class="form-group">
-                        <label>Tranport Number :</label>
-                        <input type="text" class="form-control" placeholder="Arrival Transport Number" 
-                        id="arrival_train_number" readonly>
-                   </div>
-    
-                   <div class="form-group">
-                    <label>Tranport Name :</label>
-                    <input type="text" class="form-control" placeholder="Arrival Transport Name" 
-                    id="arrival_train_name" readonly>
-               </div>
-    
-               <div class="jumbotron" style="padding: 2rem 22rem 3rem">Departure Details</div>
-    
-                       <div class="form-group">
-                        <label>Departure Date</label>
-                        <input type="date" class="form-control" id="departure_date" readonly>
-                   </div>
-    
-                   <div class="form-group">
-                    <label >Departure Time</label>
-                    <input type="time" class="form-control" id="departure_time" readonly>
-                </div> 
-    
-               <div class="form-group">
-                <label>Departure Mode of Transport :</label>
-                <select class="form-control" id="departure_mode_of_transport">
-                    <option>Select Mode</option>
-                    <option>Train</option>
-                    <option>Flight</option>
-                    <option>Bus</option>
-                    <option>Car</option>
-                </select>
-            </div>
-    
-               <div class="form-group">
-                <label>Tranport Number :</label>
-                <input type="text" class="form-control" placeholder="Departure Transport Number" 
-                id="departure_train_number" readonly>
-           </div>
-    
-           <div class="form-group">
-            <label>Tranport Name : </label>
-            <input type="text" class="form-control" placeholder="Departure Transport Name" 
-            id="departure_train_name" readonly>
-       </div>
-             
-             <div class="form-group">
-                <label>Do You Have Any Specifc Requirements :</label>
-                 <!-- <input type="textarea" class="form-control" placeholder="Description" /> -->
-                 <textarea class="form-control" rows="4" placeholder="Any Specifc Requirements" id="description" readonly></textarea>
-                </div>                 
-                            </form>
                         </div>
-                      </div>
-                   
-                    <div class="col-sm-4">
-                       
-                      </div>
-
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -201,10 +122,9 @@ aria-hidden="true">
     <script src="js/ui/sidebar.js"></script>
     <script src="js/ui/navbar.js"></script>
     <script src="js/ui/footer.js"></script>
-    <!-- Custom JS -->
-    <!-- <script src="js/custom/updateUser.js"></script>
-    <script src="js/custom/userPic.js"></script> -->
-
+    
+<!-- Custom JS -->
+<script src="js/custom/showingTravelDetails.js"></script>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

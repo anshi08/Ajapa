@@ -1,6 +1,8 @@
 let btn = document.getElementById("btn")
 let element = document.getElementById("from_country")
 let stateElement = document.getElementById("from_city")
+let id = window.location.href.split("?")[1].split("=")[1]
+// console.log(id)
 
 function getElementByIdName(idName){
     return document.getElementById(idName).value
@@ -22,6 +24,7 @@ function displaySuccessMessage(message) {
 btn.addEventListener("click", async (e) =>{
 
     e.preventDefault(); 
+    let e_id = document.getElementById("e_id").value = id;
     let country_ele=document.getElementById("from_country");
     let city_ele=document.getElementById("from_city");
     
@@ -112,6 +115,7 @@ btn.addEventListener("click", async (e) =>{
         return;
     }
     const data = {
+        event_id: e_id,
         from_city: city,
         from_country: country,
         arrival_date: arr_date,

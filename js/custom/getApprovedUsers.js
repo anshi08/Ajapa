@@ -6,7 +6,7 @@ function getElementFromString(string){
 
 async function getApprovedUsers(){
     
-    const response = await fetch("http://192.168.29.52:8080/getUsersToApprove")
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getUsersToApprove")
     const res = await response.json()
     res.reverse()
     console.log("<-->",res[0])
@@ -47,7 +47,7 @@ getApprovedUsers()
 
 
 async function approvedUsers(email) {
-     const response = await fetch(`http://192.168.29.52:8080/changeStatus/${email}`,{
+     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changeStatus/${email}`,{
         method: "POST",
      })
      const res = await response.json()

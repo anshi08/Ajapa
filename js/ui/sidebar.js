@@ -11,9 +11,10 @@ function loadContent() {
                 document.getElementById("addEvent").style.display = "block"
                 document.getElementById("addTravelDetails").style.display = "none"
                 document.getElementById("events").style.display = "block"
+                document.getElementById("showTravel").style.display = "block"
 
-                // for Showing Travel Details
-                document.getElementById("showTravelDetails").style.display = "none"
+                // // for Showing Travel Details
+                // document.getElementById("showTravelDetails").style.display = "none"
             }
         })
         .catch(error => {

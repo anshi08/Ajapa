@@ -69,9 +69,13 @@ async function showingAllEvents(first=1,last=10) {
 window.addEventListener("DOMContentLoaded",async ()=>{
    
     let res = await showingAllEvents()
-        if(JSON.parse(localStorage.getItem("role")) === "member"){
-            document.getElementById("showDetails").style.display = "none"
+        const role = (JSON.parse(localStorage.getItem("role")))
+
+        if(role === "member") {
+            document.getElementById("showDetails").style.display = "none";
+            document.getElementById("Book").style.display = "block";
         }
+
         res.forEach(data => {
         let tr = document.createElement("tr")
         tr.innerHTML = `
@@ -97,3 +101,4 @@ function getElementByString(str){
     div.innerHTML =str
     return div.firstElementChild
 }
+

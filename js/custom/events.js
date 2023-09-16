@@ -43,6 +43,8 @@ btn.addEventListener("click", async(e) =>{
     let event_location = getElementByIdName("event_location");
     let start_date = getElementByIdName("start_date");
     let end_date = getElementByIdName("end_date");
+    let start_time = document.getElementById("s_time").value;
+    let end_time = document.getElementById("e_time").value;
     let file = getElementByIdName("file");
 
     // Validate each field
@@ -81,8 +83,12 @@ btn.addEventListener("click", async(e) =>{
         event_location: event_location,
         start_date: start_date,
         end_date: end_date,
+        start_time : start_time,
+        end_time : end_time,
         file:file,
+        listed_by:localStorage.getItem("role")
     }
+    console.log("DATA",data)
     events(data)
 })
 
@@ -106,10 +112,13 @@ function ClearAllFields(){
     document.getElementById("event_location").value = '';
     document.getElementById("start_date").value = '';
     document.getElementById("end_date").value = '';
+    document.getElementById("s_time").value = '';
+    document.getElementById("e_time").value = '';
     document.getElementById("file").value = '';
 }
 
  const events = async (data) => {
+    console.log(data)
     try{
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveEvent",{
         method:"POST",
@@ -120,6 +129,7 @@ function ClearAllFields(){
     })
     if(response.ok){
     const res = await response.json()
+    console.log(res)
     clearDisplayError();
     ClearAllFields();
     displaySuccessMessage("Event Added");
