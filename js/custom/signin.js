@@ -62,12 +62,17 @@ async function signin(data) {
         })
         if(response.ok){
         const res = await response.json()
-        // console.log(res)
+        console.log(res)
         const userRole = res.type;
-        if(res.token == 'Invalid User information (0)'){
+        if(res.token == 'Invalid User information'){
             clearDisplayError();
             displayError("Invalid User")
-        }else{
+        }
+        else if (res.token == "Unapproved User"){
+            clearDisplayError()
+            displayError("You're are not apporved!!!")
+        }
+        else{
         clearDisplayError();
         localStorage.setItem("data",JSON.stringify(res.token)) 
         localStorage.setItem("role",JSON.stringify(userRole))

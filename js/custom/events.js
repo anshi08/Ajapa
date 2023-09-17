@@ -78,11 +78,11 @@ btn.addEventListener("click", async(e) =>{
     }
 
     const data = {
-        event_name: event_name,
+        eventName: event_name,
         event_type: event_type,
         event_location: event_location,
-        start_date: start_date,
-        end_date: end_date,
+        startDate: new Date(start_date),
+        endDate: new Date(end_date),
         start_time : start_time,
         end_time : end_time,
         file:file,

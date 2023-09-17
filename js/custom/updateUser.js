@@ -185,7 +185,7 @@ async function getCountry() {
         //   Populate dropdown with state options
             res.forEach((country) => {
             const option = document.createElement("option");
-            option.value = country.id , country.name; // Assuming each state object has an "id" property
+            option.value = country.id; // Assuming each state object has an "id" property
             option.text = country.name; // Assuming each state object has a "name" property
             element.appendChild(option);
           });

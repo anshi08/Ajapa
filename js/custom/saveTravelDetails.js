@@ -126,7 +126,7 @@ btn.addEventListener("click", async (e) =>{
         return;
     }
     const data = {
-        event_id: e_id,
+        eventId: e_id,
         from_city: city,
         from_country: country,
         arrival_date: arr_date,

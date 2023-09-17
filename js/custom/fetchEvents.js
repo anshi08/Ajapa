@@ -3,11 +3,11 @@ async  function fetchDetails(){
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/fetchEvent/'+id)
     const response = await res.json()
     console.log(response)
-    document.getElementById('event_name').value = response.event_name;
+    document.getElementById('event_name').value = response.eventName;
     document.getElementById('event_type').value = response.event_type;
     document.getElementById('event_location').value = response.event_location;
-    document.getElementById('start_date').value = response.start_date;
-    document.getElementById('end_date').value = response.end_date;
+    document.getElementById('start_date').value = response.startDate?.split("T")[0];
+    document.getElementById('end_date').value = response.endDate?.split("T")[0];
     // document.getElementById('listed_by').value = response.listed_by;
    
 }
@@ -50,11 +50,11 @@ let startDate = document.getElementById("start_date").value
 let endDate = document.getElementById("end_date").value
 
 const data = {
-    event_name:eventName,
+    eventName:eventName,
     event_type:eventType,
     event_location : eventLocation,
-    start_date:startDate,
-    end_date : endDate
+    startDate:startDate,
+    endDate : endDate
 }
 
     updateEvents(data);

@@ -11,11 +11,11 @@ next.addEventListener("click", async () => {
     res.forEach(data => {
         let tr = document.createElement("tr")
         tr.innerHTML = `
-        <td>${data.event_name}</td>
+        <td>${data.eventName}</td>
         <td>${data.event_type}</td>
         <td>${data.event_location}</td>
-        <td>${data.start_date}</td>
-        <td>${data.end_date}</td>
+        <td>${data.startDate?.split("T")[0]}</td>
+        <td>${data.endDate?.split("T")[0]}</td>
         <td>${data.listed_by}</td>
         ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td><a href='showEventsDetails.html?id=${data.event_id}'>Edit</a></td>` :''}
         <td style="display:none">${data.event_id}</td>
@@ -31,11 +31,11 @@ prev.addEventListener("click", async () => {
     res.forEach(data => {
         let tr = document.createElement("tr")
         tr.innerHTML = `
-        <td>${data.event_name}</td>
+        <td>${data.eventName}</td>
         <td>${data.event_type}</td>
         <td>${data.event_location}</td>
-        <td>${data.start_date}</td>
-        <td>${data.end_date}</td>
+        <td>${data.startDate?.split("T")[0]}</td>
+        <td>${data.endDate?.split("T")[0]}</td>
         <td>${data.listed_by}</td>
         <td><a href='cards.html?id=${data.event_id}'>Edit</a></td>
         
@@ -46,7 +46,7 @@ prev.addEventListener("click", async () => {
     })
 })
 
-async function showingAllEvents(first=1,last=10) {
+async function showingAllEvents(first=1,last=11 ) {
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEvents/${first}/${last}`,{
          method:"GET",
          headers: {
@@ -54,8 +54,8 @@ async function showingAllEvents(first=1,last=10) {
          }
     })
     const res = await response.json()
-    
-    if(res[0].event_id===2){
+    console.log(res)
+    if(res[0]?.event_id===2){
 
         document.getElementById("prev").style.display = 'none'
     }else{
@@ -72,7 +72,9 @@ window.addEventListener("DOMContentLoaded",async ()=>{
        
     let res = await showingAllEvents()
         const role = (JSON.parse(localStorage.getItem("role")))
-
+        if(res.length==0){
+            s.stop();
+        }
         if(role === "member") {
             document.getElementById("showDetails").style.display = "none";
             document.getElementById("Book").style.display = "block";
@@ -81,11 +83,11 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         res.forEach(data => {
         let tr = document.createElement("tr")
         tr.innerHTML = `
-        <td>${data.event_name}</td>
+        <td>${data.eventName}</td>
         <td>${data.event_type}</td>
         <td>${data.event_location}</td>
-        <td>${data.start_date}</td>
-        <td>${data.end_date}</td>
+        <td>${data.startDate?.split("T")[0]}</td>
+        <td>${data.endDate?.split("T")[0]}</td>
         <td>${data.listed_by}</td>
         ${JSON.parse(localStorage.getItem("role")) === "member" ?`<td><a href='addTravelDetails.html?id=${data.event_id}' class="btn btn-primary">Book</a></td>` : ''}
         ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td><a href='showEventsDetails.html?id=${data.event_id}'>Edit</a></td>` : ''}
@@ -127,3 +129,12 @@ async function getAllPendingRequest(){
 }
 
 getAllPendingRequest()
+
+if(localStorage.getItem("role").replaceAll("\"","") === "member"){
+    document.getElementById("pendingrequest").style.display = "none"
+}
+
+
+document.getElementById("pendingrequest").addEventListener("click",()=>{
+    window.location.href="getApprovedUsers.html"
+})

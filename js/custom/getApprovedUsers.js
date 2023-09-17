@@ -13,15 +13,16 @@ async function getApprovedUsers(){
 
     document.getElementById("body").innerHTML = null
     res.forEach(data => {
+        console.log(data)
         let tr = document.createElement("tr")
         tr.innerHTML = `
-        <td>${data.full_name}</td>
+        <td>${data.fullName}</td>
         <td>${data.email}</td>
         <td>${data.mobileNum}</td>
         <td>${data.dob}</td>
-        <td>${data.country}</td>
-        <td>${data.state}</td>
-        <td>${data.city}</td>
+        <td>${data.country.split(":")[0]}</td>
+        <td>${data.state.split(":")[0]}</td>
+        <td>${data.city.split(":")[0]}</td>
         <td><a href="#" class="approved">Approve</td>
         `
         document.getElementById("body").appendChild(tr)

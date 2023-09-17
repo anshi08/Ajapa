@@ -103,7 +103,7 @@ btn.addEventListener("click", () =>{
         return;
     }
     const data = {
-        full_name: name,
+        fullName: name,
         gender: gender,
         dob: dob, 
         mobileNum: mobileNum,
@@ -165,7 +165,7 @@ async function getCountry() {
         }
     })
     const res = await response.json()
-    console.log("res" , res)
+   
         //   Populate dropdown with state options
             res.forEach((country) => {
             const option = document.createElement("option");
