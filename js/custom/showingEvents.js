@@ -110,8 +110,20 @@ async function getAllEvents(){
     const res = await response.json()
     
     document.getElementById("totalevents").innerText = res
-    console.log("All Events" ,res)
+    // console.log("All Events" ,res)
     return res;
 }
 
 getAllEvents()
+
+async function getAllPendingRequest(){
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getNumberOfUnapprovedUsers",{
+        method:"GET"
+    })
+    const res = await response.json()
+    // console.log("hii",res)
+    document.getElementById("p_request").innerText = res
+    return res;
+}
+
+getAllPendingRequest()
