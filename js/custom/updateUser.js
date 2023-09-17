@@ -1,3 +1,5 @@
+
+
 let rememberDateInput = document.getElementById("rememberDate");
 let dontRememberDateInput = document.getElementById("dontRememberDate");
 let element = document.getElementById("country")
@@ -57,11 +59,11 @@ btn.addEventListener("click", () => {
     let country_ele=document.getElementById("country");
     let state_ele=document.getElementById("state");
     let city_ele=document.getElementById("city");
+    let pincode = getElementByIdName("pincode")
     
     let country = document.getElementById("country").value+":"+country_ele.options[country_ele.selectedIndex].text;
     let city = document.getElementById("city").value+":"+city_ele.options[city_ele.selectedIndex].text;
     let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
-    let pincode = getElementByIdName("pincode")
 
     //Validations
     if(age.trim() === ''){
@@ -254,13 +256,14 @@ async function fetchCities(stateId) {
   cityElement.addEventListener('change', function (e) {
     const selectedCity = e.target.value;
     handleCityChange(selectedCity);
-  });
-
+    
   function handleCityChange(selectedCity) {
     console.log(`Selected City: ${selectedCity}`);
   }
+    });
 
 async function detailsOfUser(email) {
+   
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getUserDetails/${email}`,{   
         method: "GET",
         headers: {
@@ -270,14 +273,13 @@ async function detailsOfUser(email) {
     })
     const res = await response.json()
     console.log("res", res)
-    document.getElementById("age").value = res.age;
+     document.getElementById("age").value = res.age;
     document.getElementById("mobile_num").value = res.mobileNum;
     rememberMobInput.addEventListener("click" , () => {
         document.getElementById("whatsapp_num").value = document.getElementById("mobile_num").value
     });
     document.getElementById("whatsapp_num").value = res.whatsapp_num
     let aa = res.country.split(":")
-    console.log(aa[1])
     document.getElementById("email").value = res.email;
     document.getElementById("blood_grp").value = res.blood_grp
     document.getElementById("diksha_dt").value =res.diksha_dt
@@ -329,6 +331,8 @@ async function detailsOfUser(email) {
     document.getElementById("city").innerHTML = cc
     document.getElementById("pincode").value = res.pincode
 }
+ 
+
 detailsOfUser(parseJwt(localStorage.getItem("data")).email);
 
 //Fetching Values From the Token
@@ -343,6 +347,7 @@ function parseJwt (token) {
 }
 
 async function updateProfile(data) {
+  
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/updateUser",{
             method:"PUT",
             body:JSON.stringify(data),

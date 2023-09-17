@@ -2,8 +2,6 @@ let prev = document.getElementById("prev")
 let next = document.getElementById("next")
 
 
-
-
 next.addEventListener("click", async () => {
  
     let lastChild  = (document.getElementById("body").lastElementChild.lastElementChild.innerHTML)
@@ -67,7 +65,11 @@ async function showingAllEvents(first=1,last=10) {
 
 }
 window.addEventListener("DOMContentLoaded",async ()=>{
-   
+
+            // Create a new spinner
+    const target = document.getElementById('body');
+    const s = new Spinner().spin(target);
+       
     let res = await showingAllEvents()
         const role = (JSON.parse(localStorage.getItem("role")))
 
@@ -90,10 +92,9 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         <td style="display:none">${data.event_id}</td>
         `
         document.getElementById("body").appendChild(tr)
+        s.stop();
     })  
 })
-
-
 
 
 function getElementByString(str){  
@@ -102,3 +103,15 @@ function getElementByString(str){
     return div.firstElementChild
 }
 
+async function getAllEvents(){
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getNumberOfEvents",{
+        method:"GET"
+    })
+    const res = await response.json()
+    
+    document.getElementById("totalevents").innerText = res
+    console.log("All Events" ,res)
+    return res;
+}
+
+getAllEvents()

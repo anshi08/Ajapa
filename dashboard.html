@@ -20,36 +20,40 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <script src="js/custom/isAuth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+    <style>
+        table.scroll {
+        width: 100%; /* Optional */
+        /* border-collapse: collapse; */
+        border-spacing: 0;
+        /* border: 2px solid black; */
+    }
+    
+    table.scroll tbody,
+    table.scroll thead { display: block; }
+    
+    thead tr th { 
+        height: 20px;
+        line-height: 30px;
+        /* text-align: left; */
+    }
+    
+    table.scroll tbody {
+        height: 200px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    
+    tbody td, thead th { 
+        width: 20%; /* Optional */
+        /* border-right: 1px solid black; */
+        /* white-space: nowrap; */
+    } 
+    </style>
+
 </head>
-<style>
-    table.scroll {
-    width: 100%; /* Optional */
-    /* border-collapse: collapse; */
-    border-spacing: 0;
-    /* border: 2px solid black; */
-}
 
-table.scroll tbody,
-table.scroll thead { display: block; }
-
-thead tr th { 
-    height: 20px;
-    line-height: 30px;
-    /* text-align: left; */
-}
-
-table.scroll tbody {
-    height: 200px;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-tbody td, thead th { 
-    width: 20%; /* Optional */
-    /* border-right: 1px solid black; */
-    /* white-space: nowrap; */
-} 
-</style> 
+ 
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -90,8 +94,8 @@ tbody td, thead th {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                                Total Number of Events</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="totalevents">$40,000</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -108,7 +112,7 @@ tbody td, thead th {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
+                                                Upcoming Events</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
                                         </div>
                                         <div class="col-auto">
@@ -125,11 +129,11 @@ tbody td, thead th {
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Travels Details
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="spinner-container">50%</div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
@@ -156,7 +160,8 @@ tbody td, thead th {
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                            id="p_request">18</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -473,6 +478,9 @@ tbody td, thead th {
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+
+
+
 
 </body>
 
