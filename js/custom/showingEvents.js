@@ -77,7 +77,11 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         }
         if(role === "member") {
             document.getElementById("showDetails").style.display = "none";
-            document.getElementById("Book").style.display = "block";
+            document.getElementById("Book").style.visibility = "visible";
+        }
+        if(role === "super") {
+            document.getElementById("showDetails").style.display = "none";
+            document.getElementById("Book").style.visibility = "visible";
         }
 
         res.forEach(data => {
