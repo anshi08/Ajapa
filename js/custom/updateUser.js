@@ -120,7 +120,7 @@ dontRememberDateInput.addEventListener("click", () => {
     diksha_dt.style.display = "none";
 });
 
-btn.addEventListener("click", () => {
+btn.addEventListener("submit", () => {
 
     let age = getElementByIdName("age")
     let mobileNum = getElementByIdName("mobile_num")
@@ -432,3 +432,7 @@ async function updateProfile(data) {
             alert("Error: Failed to update.");
         }
 }
+
+window.addEventListener("DOMContentLoaded",()=>{
+    $('#pendingDialog101').modal('show');
+})

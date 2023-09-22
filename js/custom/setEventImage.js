@@ -4,7 +4,7 @@ function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
 
-btn.addEventListener("click",() =>{
+btn.addEventListener("submit",() =>{
 
       const fileInput = document.getElementById("file");
       const form = new FormData();

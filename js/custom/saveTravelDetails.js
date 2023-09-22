@@ -82,7 +82,7 @@ document.getElementById("departure_train_name").addEventListener("input",e =>{
     }
 })
 
-btn.addEventListener("click", async (e) =>{
+btn.addEventListener("submit", async (e) =>{
 
     e.preventDefault(); 
     let e_id = document.getElementById("e_id").value = id;

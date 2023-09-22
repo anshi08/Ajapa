@@ -17,7 +17,7 @@ btn.addEventListener("click", () => {
         return;
     }else if(!identifierPattern.test(identifier) && !phoneRegex.test(identifier)){
         clearDisplayError()
-        displayError("Enter a valid identifier or Phone Number");
+        displayError("Enter a valid Email or Phone Number");
         return;
     }
 

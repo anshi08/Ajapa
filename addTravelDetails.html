@@ -90,7 +90,7 @@
 
                         <div class="form-group">
                             <label>Select a Country :</label>
-                            <select id="from_country" class="form-control">
+                            <select id="from_country" class="form-control" required>
                                 <!-- Options will be added dynamically -->
                                 <option value="">Country</option>
                             </select>
@@ -98,7 +98,7 @@
 
                               <div class="form-group">
                                 <label>Select a City :</label>
-                                <select id="from_city" class="form-control">
+                                <select id="from_city" class="form-control" required>
                                     <!-- Options will be added dynamically -->
                                     <option value="">City</option>
                                 </select>
@@ -130,34 +130,34 @@
                    <div class="form-group">
                     <label>Tranport Number :</label>
                     <input type="text" class="form-control" placeholder="Arrival Transport Number" 
-                    id="arrival_train_number">
+                    id="arrival_train_number" required>
                     <p id="trainErr" style="display:none; color:red;">Please Transport Number</p>
                </div>
 
                <div class="form-group">
                 <label>Tranport Name :</label>
                 <input type="text" class="form-control" placeholder="Arrival Transport Name" 
-                id="arrival_train_name">
+                id="arrival_train_name" required>
                 <p id="NameErr" style="display:none; color:red;">Please Transport Name</p>
            </div>
 
-           <div class="jumbotron" style="padding: 2rem 22rem 3rem">Departure Details</div>
+           <div class="jumbotron" style="padding: 2rem 22rem 3rem">Leaving Details</div>
 
                    <div class="form-group">
-                    <label>Departure Date</label>
-                    <input type="date" class="form-control" id="departure_date">
+                    <label>Leaving Date</label>
+                    <input type="date" class="form-control" id="departure_date" required>
                     <p id="depdateErr" style="display:none; color:red;">Please Enter Date</p>
                </div>
 
                <div class="form-group">
-                <label >Departure Time</label>
-                <input type="time" class="form-control" id="departure_time">
+                <label >Leaving Time</label>
+                <input type="time" class="form-control" id="departure_time" required>
                 <p id="depTimeErr" style="display:none; color:red;">Please Enter Time</p>
             </div> 
 
            <div class="form-group">
-            <label>Departure Mode of Transport :</label>
-            <select class="form-control" id="departure_mode_of_transport">
+            <label>Leaving Mode of Transport :</label>
+            <select class="form-control" id="departure_mode_of_transport" required>
                 <option>Select Mode</option>
                 <option>Train</option>
                 <option>Flight</option>
@@ -168,15 +168,15 @@
 
            <div class="form-group">
             <label>Tranport Number :</label>
-            <input type="text" class="form-control" placeholder="Departure Transport Number" 
-            id="departure_train_number">
+            <input type="text" class="form-control" placeholder="Leaving Transport Number" 
+            id="departure_train_number" required>
             <p id="Err" style="display:none; color:red;">Please Enter Transport Number</p>
        </div>
 
        <div class="form-group">
         <label>Tranport Name : </label>
-        <input type="text" class="form-control" placeholder="Departure Transport Name" 
-        id="departure_train_name">
+        <input type="text" class="form-control" placeholder="Leaving Transport Name" 
+        id="departure_train_name" required>
         <p id="Err1" style="display:none; color:red;">Please Enter Transport Name</p>
    </div>
          
@@ -185,7 +185,7 @@
              <!-- <input type="textarea" class="form-control" placeholder="Description" /> -->
              <textarea class="form-control" rows="4" placeholder="Any Specifc Requirements" id="description" ></textarea>
          </div>
-                         <button type="button" class="btn btn-primary " id="btn">
+                         <button type="submit" class="btn btn-primary " id="btn">
                             Save
                         </button>                  
                         </form>
