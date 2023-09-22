@@ -65,7 +65,7 @@
                                 </div>
 
 
-                            <form class="user">
+                            <form class="user" id="btn">
                                 <div class="form-group">
                                     <label>Enter Name</label>
                                         <input type="text" class="form-control " 
@@ -111,11 +111,11 @@
                                 <div class="form-group">   
                                     <label>Re-type Password</label>  
                                     <input type="password" required class="form-control "
-                                        id="rpwd" placeholder="Re-type Password">
+                                        id="rpwd" placeholder="Re-type Password" required>
                                         <div style="margin-left: 20px;" id="pwdErr"></div>
                                 </div>
                                 
-<!-- Country -->
+                                <!-- Country -->
                             <div class="form-group">
                                 <label>Select a Country :</label>
                                 <select id="country" class="form-control" required>
@@ -125,18 +125,17 @@
                             </div>
 
                             <!-- State -->
-<div class="form-group">
-    <label>Select a State :</label>
-    <select id="state" class="form-control " required>
-        <!-- Options will be added dynamically -->
-        <option value="">State</option>
-    </select>
-</div>
-
-<!-- City -->
+                        <div class="form-group">
+                            <label>Select a State :</label>
+                            <select id="state" class="form-control" required>
+                                <!-- Options will be added dynamically -->
+                                <option value="">State</option>
+                        </select>
+                        </div>
+                        <!-- City -->
                         <div class="form-group">
                             <label>Select a City :</label>
-                            <select id="city" class="form-control " required>
+                            <select id="city" class="form-control" required>
                                 <!-- Options will be added dynamically -->
                                 <option value="">City</option>
                             </select>
@@ -147,8 +146,7 @@
                             <input type="text" class="form-control "
                                 id="user_type" placeholder="Enter User Type">     
                         </div> -->
-                        
-                                <button  type="submit"  class="btn btn-primary btn-user btn-block" id="btn">
+                                <button  type="submit"  class="btn btn-primary btn-user btn-block" >
                                     Register Account
                                 </button>
                                 <hr>

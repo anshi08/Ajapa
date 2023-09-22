@@ -72,153 +72,110 @@
                         <div class="container shadow-lg p-4 mb-4 bg-white mx-auto rounded" 
                         style="width: 900px ;margin:20px 20px;" >
   <!-- Message dialog Box -->
-  <div class="modal fade" id="pendingDialog1" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="pendingDialogLabel">Updated</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            Details Updated 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-    </div>
-                        
-                       <form enctype="multipart/form-data"  >
-                        <div id="spinner-container">
-                            
+                        <div class="modal fade" id="pendingDialog1" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="pendingDialogLabel">Updated</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                    <div class="form-group">
-                        <label>Enter Age</label>
-                      <input type="number" class="form-control" placeholder="Enter age" id="age">
-                      <p id="ageError" style="display: none;color:red">Please Enter a Valid Age</p>
+                        <div class="modal-body">
+                            Details Updated 
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        <form class="user" id="btn">
+                            <div class="form-group">
+                                <label>Enter Name</label>
+                                    <input type="text" class="form-control " 
+                                        placeholder="Full Name" id="name" required>
+                                        <p id="NameErr" style="display: none;color: red;">Enter Name</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Gender :</label>
+                                <select class="form-control" name="category" id="gender" required> 
+                                        <option>Select</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Other</option>
+                                  </select>
+                                  </div>
+                         <div class="form-group">
+                            <label>Enter Date of Birth</label>
+                                <input type="date" class="form-control " 
+                                    placeholder="Dob" id="dob" required>
+                                    <p id="dobErr" style="display: none;color: red;">Enter Date of Birth</p>
+                               </div>
 
                         <div class="form-group">
-                            <label>Mobile Number :</label>
-                            <input type="tel" class="form-control" placeholder="Mobile Number" 
-                            id="mobile_num">
-                            <p id="phoneNumberTxt"></p>
-                              </div>
-
-                            <div class="form-group">
-                                <label>WhatsApp Number</label> <br/>
-
-                            <label>
-                                <input type="radio" name="Mob" id="rememberMob">
-                                Same as Mobile Number
-                            </label>
-                            
-                            <label>
-                                <input type="radio" name="Mob" id="dontRememberMob">
-                                Add New WhatsApp Number
-                            </label>  <br/>
-                        
-                            <!-- Date input field (hidden by default when "I don't remember the date" is selected) -->
-                            <input type="tel" class="form-control" style="width:210px ;" 
-                            id="whatsapp_num" name="whatsapp_num" placeholder="Enter whatsApp Number">
-                            <p id="phoneNumberTxt1"></p>
+                            <label>Enter Mobile Number</label>
+                            <input type="number" class="form-control " placeholder="Enter mobile Number" 
+                            id="mobile_num" required>
+                            <p id="phoneNumberTxt" style="display: none;color:red">Phone Number is not valid</p>
                         </div>
 
-                                  <div class="form-group">
-                                    <label>Email Address :</label>
-                                    <input type="email" class="form-control " 
-                                        placeholder="Email Address" id="email" required>
-                                 </div>
-
-             <div class="form-group">
-                <label>Enter Blood Group</label>
-                  <input type="text" class="form-control" placeholder="Enter Blood Group" id="blood_grp" required>
-                  <p id="BloodGrpTxt" style="display: none;color:red">Please Enter Your Blood Group</p>
-                </div>
-
-                <div class="form-group">
-                    <label>Diksha Date</label> <br/>
-    <label>
-        <input type="radio" name="dateOption" id="rememberDate">
-        Remember the date
-    </label>
-    
-    <label>
-        <input type="radio" name="dateOption" id="dontRememberDate">
-        I don't remember the date
-    </label>  <br/>
-
-    <!-- Date input field (hidden by default when "I don't remember the date" is selected) -->
-    <input type="date" class="form-control" style="width:150px ;" id="diksha_dt" name="diksha_dt">
-
-                </div>   
-                                  
-                   <div class="form-group">
-                    <label>Occupation</label>
-                        <input type="text" class="form-control" placeholder="Enter Occupation" id="occupation">
-                        <p id="occupationTxt" style="display: none;color:red">Please Enter Your Occupation</p>
-                   </div>
-
-                   <div class="form-group">
-                    <label >Choose a file:</label>
-                    <input type="file" class="form-control-file" name="file" id="file" required>
-                  </div>
-
                             <div class="form-group">
-                                <label>Qualification</label>
-                                <input type="text" class="form-control" placeholder="Enter Qualification" 
-                                id="qualification">
-                                <p id="qualificationTxt" style="display: none;color:red">Please Enter Your Qualification</p>
+                                <label>Enter Email</label>
+                                <input type="email" class="form-control " 
+                                    placeholder="Email Address" id="email" required>
+                                    <p id="emailErr" style="display: none;color:red"></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                    <input type="password" class="form-control "
+                                        id="pw" placeholder="Password" required>
+                                <p id="pwdTxt" style="display: none;color:red"></p>
                             </div>
 
-                                <div class="form-group">
-                                    <label>Enter Address</label>
-                                    <input type="text" class="form-control" placeholder="Enter Address" 
-                                    id="address_linep">
-                                    <p id="address_linepTxt" style="display: none;color:red">Please Enter Your Valid Address</p>
-                                </div>
+                            <div class="form-group">   
+                                <label>Re-type Password</label>  
+                                <input type="password" required class="form-control "
+                                    id="rpwd" placeholder="Re-type Password" required>
+                                    <div style="margin-left: 20px;" id="pwdErr"></div>
+                            </div>
+                            
+                            <!-- Country -->
+                        <div class="form-group">
+                            <label>Select a Country :</label>
+                            <select id="country" class="form-control" required>
+                                <!-- Options will be added dynamically -->
+                                <option value="">Country</option>
+                            </select>
+                        </div>
 
-                                                       
-<!-- Country -->
-<div class="form-group">
-    <label>Select a Country :</label>
-    <select id="country" class="form-control">
-        <!-- Options will be added dynamically -->
-        <option value="" id="dikha">Country</option>
-    </select>
-</div>
+                        <!-- State -->
+                    <div class="form-group">
+                        <label>Select a State :</label>
+                        <select id="state" class="form-control" required>
+                            <!-- Options will be added dynamically -->
+                            <option value="">State</option>
+                    </select>
+                    </div>
+                    <!-- City -->
+                    <div class="form-group">
+                        <label>Select a City :</label>
+                        <select id="city" class="form-control" required>
+                            <!-- Options will be added dynamically -->
+                            <option value="">City</option>
+                        </select>
+                    </div>
 
-<!-- State -->
-<div class="form-group">
-<label>Select a State :</label>
-<select id="state" class="form-control ">
-<!-- Options will be added dynamically -->
-<option value="">State</option>
-</select>
-</div>
-
-<!-- City -->
-<div class="form-group">
-<label>Select a City :</label>
-<select id="city" class="form-control ">
-    <!-- Options will be added dynamically -->
-    <option value="">City</option>
-</select>
-</div>
-
-                                <div class="form-group">
-                                    <label>Enter Pincode</label>
-                                    <input type="text" maxlength="6" class="form-control" placeholder="Enter Pincode" 
-                                    id="pincode">
-                                    <p id="pincodeTxt" style="display: none;color:red;">Pincode must be a 6 digit </p>
-                                </div>
-                          
-                         <button type="button" class="btn btn-primary " id="btn">
-                            Update Profile
-                        </button>                  
+                    <!-- Radio -->
+                    <!-- <div class="form-group">  
+                        <input type="text" class="form-control "
+                            id="user_type" placeholder="Enter User Type">     
+                    </div> -->
+                            <button  type="submit"  class="btn btn-primary btn-user btn-block" >
+                                Register Account
+                            </button>
+                            <hr>
+                           
                         </form>
                         </div>
                       </div>
@@ -266,7 +223,7 @@ aria-hidden="true">
     <script src="js/ui/footer.js"></script>
     <!-- Custom JS -->
     <script src="js/custom/addMember.js"></script>
-    <script src="js/custom/userPic.js"></script>
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

@@ -1,4 +1,5 @@
 let btn = document.getElementById("btn")
+console.log(btn)
 let element = document.getElementById("country")
 let stateElement = document.getElementById("state")
 let cityElement = document.getElementById("city")
@@ -11,8 +12,9 @@ function getElementByIdName(idName){
 
 
       
-btn.addEventListener("submit", () =>{
-
+btn.addEventListener("submit", (e) =>{
+   
+    e.preventDefault()
     let name = getElementByIdName("name");
     let gender = document.getElementById("gender").value;
     let dob = getElementByIdName("dob");
@@ -245,7 +247,7 @@ res.forEach((state) => {
     // waitingResponse
     $('#pendingDialog').modal('show');
     setTimeout(()=>{
-        window.location.href = "login.html"
+        // window.location.href = "login.html"
     },3000)
        
     return res;
