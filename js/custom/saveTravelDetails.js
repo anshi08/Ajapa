@@ -8,18 +8,6 @@ function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
 
-function displaySuccessMessage(message) {
-    const successContainer = document.getElementById("successContainer");
-    const successDiv = document.createElement("div");
-    successDiv.classList.add("alert", "alert-success", "alert-dismissible", "fade", "show");
-    successDiv.textContent = message;
-    successContainer.appendChild(successDiv);
-
-    // Clear the success message after a few seconds (optional)
-    setTimeout(function () {
-        successDiv.remove();
-    }, 3000); // 3 seconds
-}
 function parseJwt (token) {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -28,6 +16,71 @@ function parseJwt (token) {
     }).join(''));
     return JSON.parse(jsonPayload);
 }
+
+//Validations
+document.getElementById("arrival_date").addEventListener("input",e =>{
+    if(e.target.value === 0 || e.target.value.length === 0){
+       document.getElementById("ArrivaldateErr").style.display = "block"
+    }else{
+        document.getElementById("ArrivaldateErr").style.display = "none"
+    }
+})
+
+document.getElementById("arrival_time").addEventListener("input",e =>{
+    if(e.target.value === 0 || e.target.value.length === 0){
+       document.getElementById("ArrivalTimeErr").style.display = "block"
+    }else{
+        document.getElementById("ArrivalTimeErr").style.display = "none"
+    }
+})
+
+document.getElementById("arrival_train_number").addEventListener("input",e =>{
+    if(e.target.value === 0 || e.target.value.length === 0){
+       document.getElementById("trainErr").style.display = "block"
+    }else{
+        document.getElementById("trainErr").style.display = "none"
+    }
+})
+
+document.getElementById("arrival_train_name").addEventListener("input",e =>{
+    if(e.target.value === 0 || e.target.value.length === 0){
+       document.getElementById("NameErr").style.display = "block"
+    }else{
+        document.getElementById("NameErr").style.display = "none"
+    }
+})
+
+document.getElementById("departure_date").addEventListener("input",e =>{
+    if(e.target.value === 0 || e.target.value.length === 0){
+       document.getElementById("depdateErr").style.display = "block"
+    }else{
+        document.getElementById("depdateErr").style.display = "none"
+    }
+})
+
+document.getElementById("departure_time").addEventListener("input",e =>{
+    if(e.target.value === 0 || e.target.value.length === 0){
+       document.getElementById("depTimeErr").style.display = "block"
+    }else{
+        document.getElementById("depTimeErr").style.display = "none"
+    }
+})
+
+document.getElementById("departure_train_number").addEventListener("input",e =>{
+    if(e.target.value === 0 || e.target.value.length === 0){
+       document.getElementById("Err").style.display = "block"
+    }else{
+        document.getElementById("Err").style.display = "none"
+    }
+})
+
+document.getElementById("departure_train_name").addEventListener("input",e =>{
+    if(e.target.value === 0 || e.target.value.length === 0){
+       document.getElementById("Err1").style.display = "block"
+    }else{
+        document.getElementById("Err1").style.display = "none"
+    }
+})
 
 btn.addEventListener("click", async (e) =>{
 
@@ -54,77 +107,77 @@ btn.addEventListener("click", async (e) =>{
     
 
 // Validate each field
-    if (city.trim() === "") {
-        clearDisplayError()
-        displayError("City is required.");
-        return;
-    }
+    // if (city.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("City is required.");
+    //     return;
+    // }
 
-    if (country.trim() === "") {
-        clearDisplayError()
-        displayError("Country is required.");
-        return;
-    }
+    // if (country.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Country is required.");
+    //     return;
+    // }
 
-    if (arr_date.trim() === "") {
-        clearDisplayError()
-        displayError("Arrival Date is required.");
-        return;
-    }
+    // if (arr_date.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Arrival Date is required.");
+    //     return;
+    // }
 
-    if (arr_time.trim() === "") {
-        clearDisplayError()
-        displayError("Arrival Time is required.");
-        return;
-    }
+    // if (arr_time.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Arrival Time is required.");
+    //     return;
+    // }
 
-    if (arr_transport.trim() === "") {
-        clearDisplayError()
-        displayError("Arrival Mode of Transport is required.");
-        return;
-    }
+    // if (arr_transport.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Arrival Mode of Transport is required.");
+    //     return;
+    // }
 
-    if (train_num.trim() === "") {
-        clearDisplayError()
-        displayError("Arrival train number is required.");
-        return;
-    }
+    // if (train_num.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Arrival train number is required.");
+    //     return;
+    // }
 
-    if (train_name.trim() === "") {
-        clearDisplayError()
-        displayError("Arrival train name is required.");
-        return;
-    }
+    // if (train_name.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Arrival train name is required.");
+    //     return;
+    // }
 
-    if (dep_date.trim() === "") {
-        clearDisplayError()
-        displayError("Departure Date is required.");
-        return;
-    }
+    // if (dep_date.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Departure Date is required.");
+    //     return;
+    // }
 
-    if (dep_time.trim() === "") {
-        clearDisplayError()
-        displayError("Departure time is required.");
-        return;
-    }
+    // if (dep_time.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Departure time is required.");
+    //     return;
+    // }
 
-    if (dep_transport.trim() === "") {
-        clearDisplayError()
-        displayError("Departure Transport is required.");
-        return;
-    }
+    // if (dep_transport.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Departure Transport is required.");
+    //     return;
+    // }
 
-    if (dep_trainNum.trim() === "") {
-        clearDisplayError()
-        displayError("Depature Transport Number is required.");
-        return;
-    }
+    // if (dep_trainNum.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Depature Transport Number is required.");
+    //     return;
+    // }
 
-    if (dep_trainName.trim() === "") {
-        clearDisplayError()
-        displayError("Depature Transport Name is required.");
-        return;
-    }
+    // if (dep_trainName.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Depature Transport Name is required.");
+    //     return;
+    // }
     const data = {
         eventId: e_id,
         from_city: city,
@@ -147,20 +200,6 @@ btn.addEventListener("click", async (e) =>{
      saveTravelDetails(data)
 })
 
-function displayError(errorMessage) {
-    const errorContainer = document.getElementById("errorContainer");
-    const errorDiv = document.createElement("div");
-    errorDiv.classList.add("alert", "alert-danger");
-    errorDiv.textContent = errorMessage;
-    errorContainer.appendChild(errorDiv);
-}
-
-function clearDisplayError(){
-    // Clear previous error messages
-    const errorContainer = document.getElementById("errorContainer");
-    errorContainer.innerHTML = '';
-}
-
 function clearAllFields(){
     document.getElementById("from_city").value = '';
     document.getElementById("from_country").value = '',
@@ -172,7 +211,7 @@ function clearAllFields(){
     document.getElementById("departure_date").value = '',
     document.getElementById("departure_time").value = '',
     document.getElementById("departure_mode_of_transport").value = '',
-    document.getElementById("departure_train_number").value = '',  //nhi
+    document.getElementById("departure_train_number").value = '',  
     document.getElementById("departure_train_name").value = '',  
     document.getElementById("description").value = ''
 }
@@ -239,9 +278,7 @@ async function saveTravelDetails(data) {
 
     const res = await response.json()
     console.log("Save",res)
-    clearDisplayError();
     clearAllFields();
-    displaySuccessMessage("Travel details Added Successfully.");
     setTimeout(()=> {
         window.location.href = "dashboard.html"
     },2000)

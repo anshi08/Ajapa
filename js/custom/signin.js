@@ -21,9 +21,9 @@ btn.addEventListener("click", () => {
         return;
     }
 
-    if (pwd.length < 8) {
+    if (pwd.length < 5) {
         clearDisplayError()
-        displayError("Password Must be at least 8 characters long");
+        displayError("Password Must be at least 5 characters long");
         return;
     }
 

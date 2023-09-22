@@ -2,10 +2,14 @@ let btn = document.getElementById("btn")
 let element = document.getElementById("country")
 let stateElement = document.getElementById("state")
 let cityElement = document.getElementById("city")
+let phoneNumber = document.getElementById("mobile_num")
+
 
 function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
+
+
       
 btn.addEventListener("click", () =>{
 
@@ -24,84 +28,84 @@ btn.addEventListener("click", () =>{
     let city = document.getElementById("city").value+":"+city_ele.options[city_ele.selectedIndex].text;
     let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
 
-    if (name.trim() === "") {
-        clearDisplayError()        
-        displayError("Full Name is required.");
-        return;
-    }
+    //Validations
+    // if (name.trim() === "") {
+    //     clearDisplayError()        
+    //     displayError("Full Name is required.");
+    //     return;
+    // }
 
-    if (gender === "") {
-        clearDisplayError()
-        displayError("Gender is required.");
-        return;
-    }
+    // if (gender === "") {
+    //     clearDisplayError()
+    //     displayError("Gender is required.");
+    //     return;
+    // }
 
-    if (dob.trim() === "") {
-        clearDisplayError()
-        displayError("Date of Birth is required.");
-        return;
-    }
+    // if (dob.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Date of Birth is required.");
+    //     return;
+    // }
 
-    const phoneRegex = /^\d{10}$/;
-    if(mobileNum.trim() === ''){
-        clearDisplayError()
-        displayError("Mobile number is required");
-        return;
-    }else if (!phoneRegex.test(mobileNum)){
-        clearDisplayError()
-        displayError("Enter a valid 10-digit mobile number");
-        return;
-    }
+    // const phoneRegex = /^\d{10}$/;
+    // if(mobileNum.trim() === ''){
+    //     clearDisplayError()
+    //     displayError("Mobile number is required");
+    //     return;
+    // }else if (!phoneRegex.test(mobileNum)){
+    //     clearDisplayError()
+    //     displayError("Enter a valid 10-digit mobile number");
+    //     return;
+    // }
 
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!emailPattern.test(email)) {
-        clearDisplayError()
-        displayError("Please enter a valid Email address.");
-        return;
-    }
+    // const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    // if (!emailPattern.test(email)) {
+    //     clearDisplayError()
+    //     displayError("Please enter a valid Email address.");
+    //     return;
+    // }
 
-    if (email.trim() === "") {
-        clearDisplayError()
-        displayError("Email is required.");
-        return;
-    }
+    // if (email.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Email is required.");
+    //     return;
+    // }
 
-    if (pw.trim() === "") {
-        clearDisplayError()
-        displayError("Password is required.");
-        return;
-    } else if (pw.length < 8) {
-        clearDisplayError()
-        displayError("Password Must be at least 8 characters long");
-        return;
-    }
+    // if (pw.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Password is required.");
+    //     return;
+    // } else if (pw.length < 5) {
+    //     clearDisplayError()
+    //     displayError("Password Must be at least 5 characters long");
+    //     return;
+    // }
 
     if(rpwd.trim() === "")
     {
         document.getElementById("pwdErr").innerHTML = "<span style='color: red;'>Re-type Password</span>";
         return;
-    }else if(rpwd === pw){
-        document.getElementById("pwdErr").innerHTML = "<span style='color: green;'>Password Matched</span>";
-    } else {
+    }else if (rpwd != pw) {
         document.getElementById("pwdErr").innerHTML = "<span style='color: red;'>Password does not Match</span>";
         return;
     }
 
-    if (country.trim() === "") {
-        clearDisplayError()
-        displayError("Country is required.");
-        return;
-    }
-    if (state.trim() === ""){
-        clearDisplayError()
-        displayError("State is required.");
-        return;
-    }
-    if (city.trim() === "") {
-        clearDisplayError()
-        displayError("City is required.");
-        return;
-    }
+    // if (country.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Country is required.");
+    //     return;
+    // }
+    // if (state.trim() === ""){
+    //     clearDisplayError()
+    //     displayError("State is required.");
+    //     return;
+    // }
+    // if (city.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("City is required.");
+    //     return;
+    // }
+
     const data = {
         fullName: name,
         gender: gender,
@@ -116,33 +120,6 @@ btn.addEventListener("click", () =>{
     signup(data);
 })
 
-function displayError(errorMessage) {
-    const errorContainer = document.getElementById("errorContainer");
-    const errorDiv = document.createElement("div");
-    errorDiv.classList.add("alert", "alert-danger");
-    errorDiv.textContent = errorMessage;
-    errorContainer.appendChild(errorDiv);
-}
-
-function waitingResponse(message){
-    const waitingMsg = document.getElementById("waitingMsg");
-    const successDiv = document.createElement("div");
-    successDiv.classList.add("alert", "alert-info", "alert-dismissible", "fade", "show");
-    successDiv.textContent = message;
-    waitingMsg.appendChild(successDiv);
-
-    // Clear the success message after a few seconds (optional)
-    setTimeout(function () {
-        successDiv.remove();
-    }, 6000); // 6 seconds
-}
-
-function clearDisplayError(){
-    // Clear previous error messages
-    const errorContainer = document.getElementById("errorContainer");
-    errorContainer.innerHTML = '';
-}
-
 function clearAllFields() {
     document.getElementById("name").value = "";
     document.getElementById("gender").value = "";
@@ -154,7 +131,6 @@ function clearAllFields() {
     document.getElementById("country").value = "";
     document.getElementById("state").value = "";
     document.getElementById("city").value = "";
-    clearDisplayError();
 }
 
 async function getCountry() {
@@ -166,11 +142,11 @@ async function getCountry() {
     })
     const res = await response.json()
    
-        //   Populate dropdown with state options
+        //  dropdown 
             res.forEach((country) => {
             const option = document.createElement("option");
-            option.value = country.id; // Assuming each state object has an "id" property
-            option.text = country.name; // Assuming each state object has a "name" property
+            option.value = country.id; 
+            option.text = country.name; 
             element.appendChild(option);
           });
 
@@ -191,7 +167,7 @@ element.addEventListener('change', function (e) {
     
   }
 
-async function fetchStates(countryId){
+ async function fetchStates(countryId){
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/states/${countryId}`,{
         method:"GET",
         headers: {
@@ -211,7 +187,7 @@ res.forEach((state) => {
   });
 }
 
-stateElement.addEventListener('change', function (e) {
+ stateElement.addEventListener('change', function (e) {
     const selectedState = e.target.value;
     handleStateChange(selectedState);
   });
@@ -223,7 +199,7 @@ stateElement.addEventListener('change', function (e) {
     fetchCities(selectedState)
   }
 
-async function fetchCities(stateId) {
+ async function fetchCities(stateId) {
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/cities/${stateId}`,{
         method:"GET",
         headers:{
@@ -262,22 +238,69 @@ async function fetchCities(stateId) {
     if(response.ok){
     const res = await response.json()
     console.log(res)
-    clearDisplayError();
     clearAllFields();
-    waitingResponse("Please wait for admin approval before logging in.")
+    document.getElementById("pwdErr").style.display  = "none"
+    // waitingResponse
+    $('#pendingDialog').modal('show');
+        // window.location.href = "login.html"
     return res;
     }
 } catch (error) {
 
     console.error("An error occurred:", error);
 }}
-// function isAuth(){
-//     if(localStorage.getItem("data")===null || localStorage.getItem("data")===''){
-//         window.location.href = "dashboard.html";
-//     }else{
-//         alert("You are not authorized to access the dashboard.");
-//         // history.back()
-//     }
-// }
 
-// btn.addEventListener("click",isAuth)
+//Validation for input
+document.getElementById("name").addEventListener("input",e=>{
+    if(e.target.value === 0 || e.target.value.length === 0){
+        document.getElementById("NameErr").style.display = "block"
+    }else{
+        document.getElementById("NameErr").style.display = "none"
+    }
+})
+
+document.getElementById("dob").addEventListener("input",e=>{
+    if(e.target.value === 0 || e.target.value.length === 0){
+        document.getElementById("dobErr").style.display = "block"   
+    }else{
+        document.getElementById("dobErr").style.display = "none"   
+    }
+})
+
+document.getElementById("pw").addEventListener("input",e=>{
+    if(e.target.value === 0 || e.target.value.length === 0){
+        document.getElementById("pwdTxt").innerText = "Enter Password"
+        document.getElementById("pwdTxt").style.display = "block"   
+    }else if(e.target.value.length <5){
+        document.getElementById("pwdTxt").innerText = "Password Must be at least 5 characters long"
+        document.getElementById("pwdTxt").style.display = "block"      
+    }else{
+        document.getElementById("pwdTxt").style.display = "none"  
+    } 
+})
+
+phoneNumber.addEventListener("input",(e)=>{
+    const phoneRegex = /^\d{10}$/;
+    const phoneRegex1 = /^[6-9]\d{9}$/;
+    // Test the phone number against the regex pattern
+    if(!phoneRegex.test(e.target.value)){
+        document.getElementById("phoneNumberTxt").style.display = "block"       
+        document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit"             
+    }else if(!phoneRegex1.test(e.target.value)){
+        document.getElementById("phoneNumberTxt").style.display = "block"       
+        document.getElementById("phoneNumberTxt").innerText = "Phone Number start with a valid digit"    
+    }
+    else{
+        document.getElementById("phoneNumberTxt").style.display = "none"   
+    }
+})
+
+document.getElementById("email").addEventListener("input",e=>{
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if(!emailPattern.test(e.target.value)){
+        document.getElementById("emailErr").style.display = "block"
+        document.getElementById("emailErr").innerText = "Enter Valid Email Address"
+    }else{
+        document.getElementById("emailErr").style.display = "none"
+    }
+})

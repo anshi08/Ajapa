@@ -1,5 +1,3 @@
-
-
 let rememberDateInput = document.getElementById("rememberDate");
 let dontRememberDateInput = document.getElementById("dontRememberDate");
 let element = document.getElementById("country")
@@ -12,21 +10,99 @@ let rememberMobInput = document.getElementById("rememberMob")
 let dontRememberMob = document.getElementById("dontRememberMob")
 
 
+
+//Error
+document.getElementById("age").addEventListener("input",e =>{
+    if(e.target.value===0 || e.target.value.length===0){
+        document.getElementById("ageError").style.display = "block"
+    }else{
+        document.getElementById("ageError").style.display = "none"
+    }
+})
+
+document.getElementById("mobile_num").addEventListener("input",e =>{
+    const phoneRegex = /^\d{10}$/;
+    const phoneRegex1 = /^[6-9]\d{9}$/;
+    // Test the phone number against the regex pattern
+    if(!phoneRegex.test(e.target.value)){
+        document.getElementById("phoneNumberTxt").style.display = "block"   
+        document.getElementById("phoneNumberTxt").style.color="red"    
+        document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit"             
+    }else if(!phoneRegex1.test(e.target.value)){
+        document.getElementById("phoneNumberTxt").style.display = "block"  
+        document.getElementById("phoneNumberTxt").style.color="red"     
+        document.getElementById("phoneNumberTxt").innerText = "Phone Number start with a valid digit"    
+    }   
+    else{
+        document.getElementById("phoneNumberTxt").style.display = "none"   
+    }
+})
+
+document.getElementById("whatsapp_num").addEventListener("input",e=>{
+    const phoneRegex = /^\d{10}$/;
+    const phoneRegex1 = /^[6-9]\d{9}$/;
+    // Test the phone number against the regex pattern
+    console.log(phoneRegex.test(e.target.value))
+    if(!phoneRegex.test(e.target.value)){
+        document.getElementById("phoneNumberTxt1").style.display = "block"   
+        document.getElementById("phoneNumberTxt1").style.color="red"    
+        document.getElementById("phoneNumberTxt1").innerText = "Phone Number must be 10 digit"             
+    }else if(!phoneRegex1.test(e.target.value)){
+        document.getElementById("phoneNumberTxt1").style.display = "block"  
+        document.getElementById("phoneNumberTxt1").style.color="red"     
+        document.getElementById("phoneNumberTxt1").innerText = "Phone Number start with a valid digit"    
+    }   
+    else{
+        document.getElementById("phoneNumberTxt1").style.display = "none"   
+    }
+})
+
+document.getElementById("blood_grp").addEventListener("input",e=>{
+    if(e.target.value === 0 || e.target.value.length === 0){
+        document.getElementById("BloodGrpTxt").style.display = "block"
+    }else{
+        document.getElementById("BloodGrpTxt").style.display = "none"
+    }
+})
+
+document.getElementById("occupation").addEventListener("input",e=>{
+    console.log(e.target.value)
+    if(e.target.value.length === 0){
+        document.getElementById("occupationTxt").style.display = "block"
+    }else{
+        document.getElementById("occupationTxt").style.display = "none"
+    }
+})
+
+document.getElementById("qualification").addEventListener("input",e=>{
+    console.log(e.target.value)
+    if(e.target.value.length === 0){
+        document.getElementById("qualificationTxt").style.display = "block"
+    }else{
+        document.getElementById("qualificationTxt").style.display = "none"
+    }
+})
+
+document.getElementById("address_linep").addEventListener("input",e =>{
+    if(e.target.value.length === 0){
+        document.getElementById("address_linepTxt").style.display = "block"
+    }else{
+        document.getElementById("address_linepTxt").style.display = "none"
+    }
+})
+
+
+document.getElementById("pincode").addEventListener("input",e =>{
+    if(e.target.value.length === 6){
+        document.getElementById("pincodeTxt").style.display = "none"
+    }else{
+        document.getElementById("pincodeTxt").style.display = "block"
+    }
+})
+
+
 function getElementByIdName(idName){
     return document.getElementById(idName).value
-}
-
-function displaySuccessMessage(message) {
-    const successContainer = document.getElementById("successContainer");
-    const successDiv = document.createElement("div");
-    successDiv.classList.add("alert", "alert-success", "alert-dismissible", "fade", "show");
-    successDiv.textContent = message;
-    successContainer.appendChild(successDiv);
-
-    // Clear the success message after a few seconds (optional)
-    setTimeout(function () {
-        successDiv.remove();
-    }, 3000); // 3 seconds
 }
 
 diksha_dt.style.display = "none";
@@ -49,7 +125,7 @@ btn.addEventListener("click", () => {
     let age = getElementByIdName("age")
     let mobileNum = getElementByIdName("mobile_num")
     let whatsapp_num = getElementByIdName("whatsapp_num")
-    let email = getElementByIdName("email");
+    let email = document.getElementById("email").value;
     let blood_grp = getElementByIdName("blood_grp")
     let diksha_dt_value = getElementByIdName("diksha_dt")
     let occupation = getElementByIdName("occupation")
@@ -65,63 +141,63 @@ btn.addEventListener("click", () => {
     let city = document.getElementById("city").value+":"+city_ele.options[city_ele.selectedIndex].text;
     let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
 
-    //Validations
-    if(age.trim() === ''){
-        displayError("Enter Age");
-        return;
-    }
+    // //Validations
+    // if(age.trim() === ''){
+    //     displayError("Enter Age");
+    //     return;
+    // }
 
-    const num = /^\d{10}$/;
-    if(whatsapp_num.trim() === ''){
-        clearDisplayError()
-        displayError("WhatsApp number is required");
-        return;
-    }
-     else if (!num.test(whatsapp_num)){
-        clearDisplayError()
-        displayError("Enter a valid 10-digit WhatsApp number");
-        return;
-    }
+    // const num = /^\d{10}$/;
+    // if(whatsapp_num.trim() === ''){
+    //     clearDisplayError()
+    //     displayError("WhatsApp number is required");
+    //     return;
+    // }
+    //  else if (!num.test(whatsapp_num)){
+    //     clearDisplayError()
+    //     displayError("Enter a valid 10-digit WhatsApp number");
+    //     return;
+    // }
 
 
-    if(blood_grp.trim() === ''){
-        clearDisplayError()
-        displayError("Enter Blood Group");
-        return;
-    }
+    // if(blood_grp.trim() === ''){
+    //     clearDisplayError()
+    //     displayError("Enter Blood Group");
+    //     return;
+    // }
 
-    if(occupation.trim() === ''){
-        clearDisplayError()
-        displayError("Enter Occupation");
-        return;
-    }
+    // if(occupation.trim() === ''){
+    //     clearDisplayError()
+    //     displayError("Enter Occupation");
+    //     return;
+    // }
 
-    if(qualification.trim() === ''){
-        clearDisplayError()
-        displayError("Enter Qualification");
-        return;
-    }
+    // if(qualification.trim() === ''){
+    //     clearDisplayError()
+    //     displayError("Enter Qualification");
+    //     return;
+    // }
 
-    if(address_linep.trim() === ''){
-        clearDisplayError()
-        displayError("Enter Address");
-        return;
-    }
-    if(state.trim === ''){
-        clearDisplayError()
-        displayError("Enter State");
-        return;
-    }
+    // if(address_linep.trim() === ''){
+    //     clearDisplayError()
+    //     displayError("Enter Address");
+    //     return;
+    // }
+    // if(state.trim === ''){
+    //     clearDisplayError()
+    //     displayError("Enter State");
+    //     return;
+    // }
 
-    const pin = /^\d{6}$/;
-    if(pincode.trim() === ''){
-        clearDisplayError()
-        displayError("PinCode is required");
-        return;
-    }else if(!pin.test(pincode)){
-        clearDisplayError()
-        displayError("Pincode should be a 6-digit number")
-    }
+    // const pin = /^\d{6}$/;
+    // if(pincode.trim() === ''){
+    //     clearDisplayError()
+    //     displayError("PinCode is required");
+    //     return;
+    // }else if(!pin.test(pincode)){
+    //     clearDisplayError()
+    //     displayError("Pincode should be a 6-digit number")
+    // }
 
     const data = {
         age: age,
@@ -141,20 +217,6 @@ btn.addEventListener("click", () => {
     }
     updateProfile(data)
 })
-
-function displayError(errorMessage) {
-    const errorContainer = document.getElementById("errorContainer");
-    const errorDiv = document.createElement("div");
-    errorDiv.classList.add("alert", "alert-danger");
-    errorDiv.textContent = errorMessage;
-    errorContainer.appendChild(errorDiv);
-}
-
-function clearDisplayError(){
-    // Clear previous error messages
-    const errorContainer = document.getElementById("errorContainer");
-    errorContainer.innerHTML = '';
-}
 
 function clearFormFields() {
     document.getElementById("age").value = '';
@@ -273,14 +335,14 @@ async function detailsOfUser(email) {
     })
     const res = await response.json()
     console.log("res", res)
-     document.getElementById("age").value = res.age;
+    document.getElementById("age").value = res.age;
     document.getElementById("mobile_num").value = res.mobileNum;
     rememberMobInput.addEventListener("click" , () => {
         document.getElementById("whatsapp_num").value = document.getElementById("mobile_num").value
     });
     document.getElementById("whatsapp_num").value = res.whatsapp_num
     let aa = res.country.split(":")
-    document.getElementById("email").value = res.email;
+    document.getElementById("email").value = res.email;   
     document.getElementById("blood_grp").value = res.blood_grp
     document.getElementById("diksha_dt").value =res.diksha_dt
     document.getElementById("occupation").value = res.occupation
@@ -358,17 +420,13 @@ async function updateProfile(data) {
         if(response.ok){
         const res = await response.json()
         console.log("update",res)
-        clearDisplayError();
         clearFormFields();
-        displaySuccessMessage("Your profile has been updated.");
-        
-
         setTimeout(() => {
             window.location.href = "dashboard.html"
         }, 2000)
         return res;
         }
         else {
-            displayError("Error: Failed to update.");
+            alert("Error: Failed to update.");
         }
 }

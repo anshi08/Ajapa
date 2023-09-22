@@ -68,7 +68,8 @@
                     <div class="form-group">
                         <label>Event Name :</label>
                       <input type="text" required class="form-control" placeholder="Enter Event Name" id="event_name">
-                        </div>
+                        <p id="eventNameError" style="display: none;color:red">Event Name Required</p>    
+                    </div>
 
                               <div class="form-group">
                                 <label>Event Type :</label>
@@ -83,6 +84,7 @@
                                 <label >Event Location:</label>
                                 <input type="text" class="form-control" placeholder="Enter Event Location" 
                                 id="event_location">
+                                <p id="eventLocationError"  style="display: none;color:red">Event Location Required</p>
                                   </div>
 
              <div class="form-group">
@@ -184,7 +186,7 @@
 
     <script>
         document.getElementById("start_date").addEventListener("change",(e)=>{
-            console.log("Vaibhav Mishra",e.target.value)
+         
             if(compareDates(new Date(),new Date(e.target.value))){
                 alert("Please choose greater than today")
                 document.getElementById("start_date").value = ''
@@ -195,7 +197,7 @@
 
 
         document.getElementById("end_date").addEventListener("change",(e)=>{
-            console.log("Vaibhav Mishra",e.target.value)
+          
             if(compareDates(new Date(),new Date(e.target.value))){
                 alert("Please choose lesser than End date")
                 document.getElementById("end_date").value = ''

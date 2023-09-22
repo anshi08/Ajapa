@@ -110,7 +110,7 @@ async function getAllEvents(){
         method:"GET"
     })
     const res = await response.json()
-    
+    console.log("hi",res)
     document.getElementById("totalevents").innerText = res
     // console.log("All Events" ,res)
     return res;

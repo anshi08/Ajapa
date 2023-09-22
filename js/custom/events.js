@@ -35,6 +35,27 @@ function displaySuccessMessage(message) {
     }, 3000); // 3 seconds
 }
 
+// Validation
+
+document.getElementById("event_name").addEventListener("input",(e)=>{
+    
+    if(e.target.value.length===0){
+        document.getElementById("eventNameError").style.display = "block"
+    }else{
+        document.getElementById("eventNameError").style.display = "none"
+    }
+})
+
+document.getElementById("event_location").addEventListener("input",e =>{
+    if(e.target.value.length===0){
+        document.getElementById("eventLocationError").style.display = "block"
+    }else{
+        document.getElementById("eventLocationError").style.display = "none"
+    }
+})
+
+
+
 btn.addEventListener("click", async(e) =>{
     e.preventDefault();
 

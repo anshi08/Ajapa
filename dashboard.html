@@ -22,33 +22,43 @@
     <script src="js/custom/isAuth.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
     <style>
-        table.scroll {
-        width: 100%; /* Optional */
-        /* border-collapse: collapse; */
-        border-spacing: 0;
-        /* border: 2px solid black; */
-    }
-    
-    table.scroll tbody,
-    table.scroll thead { display: block; }
-    
-    thead tr th { 
-        height: 20px;
-        line-height: 30px;
-        /* text-align: left; */
-    }
-    
-    table.scroll tbody {
-        height: 200px;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-    
-    tbody td, thead th { 
-        width: 20%; /* Optional */
-        /* border-right: 1px solid black; */
-        /* white-space: nowrap; */
-    } 
+.table-container {
+    width: 100%;
+    overflow: auto;
+    height: 300px; /* Set the desired height for the scrollable area */
+}
+
+/* Apply styles to the scrollable table */
+table.scroll {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.scroll tbody,
+table.scroll thead {
+    display: block;
+} 
+
+/* Styles for table header cells (th) */
+thead tr th {
+    height: 40px; /* Set the height of the header cells */
+    line-height: 40px; /* Set the line height of the header cells */
+    background-color: #f2f2f2; /* Optional background color */
+    text-align: left; /* Adjust text alignment as needed */
+}
+
+/* Styles for table body cells (td) */
+table.scroll tbody {
+    height: 200px; /* Set the height of the scrollable body */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+tbody td,
+thead th {
+    width: 20%; /* Set the width of the cells */
+    /* border-right: 1px solid black; */ /* Optional right border */
+    white-space: nowrap; /* Prevent text wrapping in cells */
+}
     </style>
 
 </head>

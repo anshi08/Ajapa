@@ -20,9 +20,9 @@ async function getApprovedUsers(){
         <td>${data.email}</td>
         <td>${data.mobileNum}</td>
         <td>${data.dob}</td>
-        <td>${data.country.split(":")[0]}</td>
-        <td>${data.state.split(":")[0]}</td>
-        <td>${data.city.split(":")[0]}</td>
+        <td>${data.country.split(":")[1]}</td>
+        <td>${data.state.split(":")[1]}</td>
+        <td>${data.city.split(":")[1]}</td>
         <td><a href="#" class="approved">Approve</td>
         `
         document.getElementById("body").appendChild(tr)
@@ -53,5 +53,5 @@ async function approvedUsers(email) {
      })
      const res = await response.json()
      console.log("approved",res)
-     window.location.href=""
+     window.location.href="dashboard.html"
 }

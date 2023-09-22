@@ -1,6 +1,6 @@
 // Create a new spinner
 const target = document.getElementById('spinner-container');
-const spinner = new Spinner().spin(target);
+const s = new Spinner().spin(target);
 
 async function getTravelDetails(){
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAllTravel1",{
@@ -30,7 +30,7 @@ async function getTravelDetails(){
     // To stop the spinner
   
 })
-spinner.stop(); 
+s.stop(); 
 
 }
 

@@ -10,10 +10,9 @@ window.addEventListener("DOMContentLoaded",()=>{
 
     const response = parseJwt(localStorage.getItem("data"))
     getHistory(response.id)
-
-
-
 })
+
+
 async function getHistory(id){
     // Create a new spinner
     const target = document.getElementById('spinner-container');

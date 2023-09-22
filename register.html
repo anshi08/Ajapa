@@ -44,43 +44,72 @@
                             <div id="errorContainer">
                             </div>
 
-                            <!-- Message display after registeration -->
-                            <div id="waitingMsg"></div>
+                            <!-- Message dialog Box -->
+                            <div class="modal fade" id="pendingDialog" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="pendingDialogLabel">Request Pending Approval</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      Your request is pending approval from the admin. Please wait for further updates.
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>
+                                </div>
+
 
                             <form class="user">
                                 <div class="form-group">
+                                    <label>Enter Name</label>
                                         <input type="text" class="form-control " 
                                             placeholder="Full Name" id="name">
+                                            <p id="NameErr" style="display: none;color: red;">Enter Name</p>
                                 </div>
                                 <div class="form-group">
                                     <label>Select Gender :</label>
                                     <select class="form-control" name="category" id="gender"> 
-                                            <option></option>
+                                            <option>Select</option>
                                             <option>Male</option>
                                             <option>Female</option>
                                             <option>Other</option>
                                       </select>
                                       </div>
                              <div class="form-group">
+                                <label>Enter Date of Birth</label>
                                     <input type="date" class="form-control " 
                                         placeholder="Dob" id="dob">
+                                        <p id="dobErr" style="display: none;color: red;">Enter Date of Birth</p>
                                    </div>
 
                             <div class="form-group">
-                                <input type="tel" class="form-control " placeholder="Enter mobile Number" 
+                                <label>Enter Mobile Number</label>
+                                <input type="number" class="form-control " placeholder="Enter mobile Number" 
                                 id="mobile_num">
+                                <p id="phoneNumberTxt" style="display: none;color:red">Phone Number is not valid</p>
                             </div>
 
                                 <div class="form-group">
+                                    <label>Enter Email</label>
                                     <input type="email" class="form-control " 
-                                        placeholder="Email Address" id="email">
+                                        placeholder="Email Address" id="email" required>
+                                        <p id="emailErr" style="display: none;color:red"></p>
                                 </div>
                                 <div class="form-group">
+                                    <label>Password</label>
                                         <input type="password" class="form-control "
                                             id="pw" placeholder="Password">
+                                    <p id="pwdTxt" style="display: none;color:red"></p>
                                 </div>
 
-                                <div class="form-group">     
+                                <div class="form-group">   
+                                    <label>Re-type Password</label>  
                                     <input type="password" required class="form-control "
                                         id="rpwd" placeholder="Re-type Password">
                                         <div style="margin-left: 20px;" id="pwdErr"></div>
@@ -126,9 +155,7 @@
                                
                             </form>
                             <hr>
-                            <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
+            
                             <div class="text-center">
                                 <a class="small" href="login.html">Already have an account? Login!</a>
                             </div>

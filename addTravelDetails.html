@@ -93,17 +93,19 @@
 
              <div class="form-group">
                 <label >Arrival Date</label>
-                  <input type="date" class="form-control"  id="arrival_date">
+                  <input type="date" class="form-control"  id="arrival_date" required>
+                  <p id="ArrivaldateErr" style="display:none; color:red;">Please Enter Date</p>
             </div>
 
                 <div class="form-group" >
                     <label >Ashram Reaching Time (Arrival Time) :</label>
-                    <input type="time" class="form-control" id="arrival_time" >
+                    <input type="time" class="form-control" id="arrival_time" required >
+                    <p id="ArrivalTimeErr" style="display:none; color:red;">Please Enter Time</p>
                 </div>   
 
                    <div class="form-group">
                     <label>Arrival Mode Of Transport:</label>
-                    <select class="form-control" id="arrival_mode_of_transport">
+                    <select class="form-control" id="arrival_mode_of_transport" required>
                         <option>Select Mode</option>
                         <option>Train</option>
                         <option>Flight</option>
@@ -116,12 +118,14 @@
                     <label>Tranport Number :</label>
                     <input type="text" class="form-control" placeholder="Arrival Transport Number" 
                     id="arrival_train_number">
+                    <p id="trainErr" style="display:none; color:red;">Please Transport Number</p>
                </div>
 
                <div class="form-group">
                 <label>Tranport Name :</label>
                 <input type="text" class="form-control" placeholder="Arrival Transport Name" 
                 id="arrival_train_name">
+                <p id="NameErr" style="display:none; color:red;">Please Transport Name</p>
            </div>
 
            <div class="jumbotron" style="padding: 2rem 22rem 3rem">Departure Details</div>
@@ -129,11 +133,13 @@
                    <div class="form-group">
                     <label>Departure Date</label>
                     <input type="date" class="form-control" id="departure_date">
+                    <p id="depdateErr" style="display:none; color:red;">Please Enter Date</p>
                </div>
 
                <div class="form-group">
                 <label >Departure Time</label>
                 <input type="time" class="form-control" id="departure_time">
+                <p id="depTimeErr" style="display:none; color:red;">Please Enter Time</p>
             </div> 
 
            <div class="form-group">
@@ -151,12 +157,14 @@
             <label>Tranport Number :</label>
             <input type="text" class="form-control" placeholder="Departure Transport Number" 
             id="departure_train_number">
+            <p id="Err" style="display:none; color:red;">Please Enter Transport Number</p>
        </div>
 
        <div class="form-group">
         <label>Tranport Name : </label>
         <input type="text" class="form-control" placeholder="Departure Transport Name" 
         id="departure_train_name">
+        <p id="Err1" style="display:none; color:red;">Please Enter Transport Name</p>
    </div>
          
          <div class="form-group">
