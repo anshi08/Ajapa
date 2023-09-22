@@ -61,12 +61,25 @@
                         style="width: 900px ;margin:20px 20px;" >
                      <div class="jumbotron" style="padding: 2rem 22rem 3rem">Arrival Details</div>
 
-                     <!-- Error messages will be inserted here dynamically -->
-                     <div id="errorContainer">
-                    </div>
-
-                    <!-- Success Message -->
-                    <div id="successContainer"></div>
+                       <!-- Message dialog Box -->
+  <div class="modal fade" id="pendingDialog2" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="pendingDialogLabel">Travel Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Travel Details Added Successfully 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+    </div>
                     <!-- Form  -->
                         <form enctype="multipart/form-data" >
 

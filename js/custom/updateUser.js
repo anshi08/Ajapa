@@ -421,6 +421,8 @@ async function updateProfile(data) {
         const res = await response.json()
         console.log("update",res)
         clearFormFields();
+         // waitingResponse
+        $('#pendingDialog1').modal('show');
         setTimeout(() => {
             window.location.href = "dashboard.html"
         }, 2000)

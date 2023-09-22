@@ -279,6 +279,7 @@ async function saveTravelDetails(data) {
     const res = await response.json()
     console.log("Save",res)
     clearAllFields();
+    $('#pendingDialog2').modal('show');
     setTimeout(()=> {
         window.location.href = "dashboard.html"
     },2000)

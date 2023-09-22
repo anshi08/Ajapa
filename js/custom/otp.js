@@ -10,9 +10,6 @@ if(res === "OTP Sent")
 document.getElementById("otpfinder1").style.display ="block"
 document.getElementById("btn1").style.display =  "block"
 document.getElementById("btn").style.display =  "none"
-
-
-
 }
 
 async function verifyUser(otp,pno){
@@ -30,8 +27,8 @@ async function verifyUser(otp,pno){
         alert("Invalid User")
     }else {
         localStorage.setItem("data",JSON.stringify(res.token)) 
-    localStorage.setItem("type",JSON.stringify(res.type)) 
-    window.location.href = "dashboard.html";
+        localStorage.setItem("type",JSON.stringify(res.type)) 
+        window.location.href = "dashboard.html";
     }
 
 }
