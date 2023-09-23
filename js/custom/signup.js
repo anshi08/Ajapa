@@ -30,59 +30,6 @@ btn.addEventListener("submit", (e) =>{
     let city = document.getElementById("city").value+":"+city_ele.options[city_ele.selectedIndex].text;
     let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
 
-    //Validations
-    // if (name.trim() === "") {
-    //     clearDisplayError()        
-    //     displayError("Full Name is required.");
-    //     return;
-    // }
-
-    // if (gender === "") {
-    //     clearDisplayError()
-    //     displayError("Gender is required.");
-    //     return;
-    // }
-
-    // if (dob.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Date of Birth is required.");
-    //     return;
-    // }
-
-    // const phoneRegex = /^\d{10}$/;
-    // if(mobileNum.trim() === ''){
-    //     clearDisplayError()
-    //     displayError("Mobile number is required");
-    //     return;
-    // }else if (!phoneRegex.test(mobileNum)){
-    //     clearDisplayError()
-    //     displayError("Enter a valid 10-digit mobile number");
-    //     return;
-    // }
-
-    // const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    // if (!emailPattern.test(email)) {
-    //     clearDisplayError()
-    //     displayError("Please enter a valid Email address.");
-    //     return;
-    // }
-
-    // if (email.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Email is required.");
-    //     return;
-    // }
-
-    // if (pw.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Password is required.");
-    //     return;
-    // } else if (pw.length < 5) {
-    //     clearDisplayError()
-    //     displayError("Password Must be at least 5 characters long");
-    //     return;
-    // }
-
     if(rpwd.trim() === "")
     {
         document.getElementById("pwdErr").innerHTML = "<span style='color: red;'>Re-type Password</span>";
@@ -91,22 +38,6 @@ btn.addEventListener("submit", (e) =>{
         document.getElementById("pwdErr").innerHTML = "<span style='color: red;'>Password does not Match</span>";
         return;
     }
-
-    // if (country.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Country is required.");
-    //     return;
-    // }
-    // if (state.trim() === ""){
-    //     clearDisplayError()
-    //     displayError("State is required.");
-    //     return;
-    // }
-    // if (city.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("City is required.");
-    //     return;
-    // }
 
     const data = {
         fullName: name,

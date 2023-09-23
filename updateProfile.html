@@ -97,7 +97,7 @@
     </div>
     </div>
                         
-                       <form enctype="multipart/form-data"  >
+                       <form id="btn">
                         <div id="spinner-container">
                             
                         </div>
@@ -140,10 +140,24 @@
                                  </div>
                                  <label>Enter Blood Group</label>
 
-             <div class="form-group">
+             <!-- <div class="form-group">
                   <input type="text" class="form-control" placeholder="Enter Blood Group" id="blood_grp" required>
                   <p id="BloodGrpTxt" style="display: none;color:red">Please Enter Your Blood Group</p>
-                </div>
+                </div> -->
+                <div class="form-group">
+                    <label>Select Blood Group :</label>
+                    <select class="form-control" id="blood_grp" required> 
+                            <option>Select</option>
+                            <option>AB+</option>
+                            <option>AB-</option>
+                            <option>A+</option>
+                            <option>A-</option>
+                            <option>B+</option>
+                            <option>B-</option>
+                            <option>O+</option>
+                            <option>O-</option>
+                      </select>
+                      </div>
 
                 <div class="form-group">
                     <label>Diksha Date</label> <br/>
@@ -158,7 +172,7 @@
     </label>  <br/>
 
     <!-- Date input field (hidden by default when "I don't remember the date" is selected) -->
-    <input type="date" class="form-control" style="width:150px ;" id="diksha_dt" name="diksha_dt" required>
+    <input type="date" class="form-control" style="width:150px ;" id="diksha_dt" name="diksha_dt">
 
                 </div>   
                                   
@@ -222,7 +236,7 @@
                                     <p id="pincodeTxt" style="display: none;color:red;">Pincode must be a 6 digit </p>
                                 </div>
                           
-                         <button type="submit" class="btn btn-primary " id="btn">
+                         <button type="submit" class="btn btn-primary " >
                             Update Profile
                         </button>                  
                         </form>

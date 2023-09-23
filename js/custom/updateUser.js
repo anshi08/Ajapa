@@ -57,14 +57,6 @@ document.getElementById("whatsapp_num").addEventListener("input",e=>{
     }
 })
 
-document.getElementById("blood_grp").addEventListener("input",e=>{
-    if(e.target.value === 0 || e.target.value.length === 0){
-        document.getElementById("BloodGrpTxt").style.display = "block"
-    }else{
-        document.getElementById("BloodGrpTxt").style.display = "none"
-    }
-})
-
 document.getElementById("occupation").addEventListener("input",e=>{
     console.log(e.target.value)
     if(e.target.value.length === 0){
@@ -120,13 +112,13 @@ dontRememberDateInput.addEventListener("click", () => {
     diksha_dt.style.display = "none";
 });
 
-btn.addEventListener("submit", () => {
-
+btn.addEventListener("submit", (e) => {
+    e.preventDefault()
     let age = getElementByIdName("age")
     let mobileNum = getElementByIdName("mobile_num")
     let whatsapp_num = getElementByIdName("whatsapp_num")
     let email = document.getElementById("email").value;
-    let blood_grp = getElementByIdName("blood_grp")
+    let blood_grp = document.getElementById("blood_grp").value
     let diksha_dt_value = getElementByIdName("diksha_dt")
     let occupation = getElementByIdName("occupation")
     let file = getElementByIdName("file")
@@ -215,6 +207,7 @@ btn.addEventListener("submit", () => {
         state: state,
         pincode: pincode
     }
+    // console.log("Hogyaa",data)
     updateProfile(data)
 })
 
@@ -421,11 +414,10 @@ async function updateProfile(data) {
         const res = await response.json()
         console.log("update",res)
         clearFormFields();
-         // waitingResponse
         $('#pendingDialog1').modal('show');
-        setTimeout(() => {
-            window.location.href = "dashboard.html"
-        }, 2000)
+        // setTimeout(() => {
+        //     window.location.href = "dashboard.html"
+        // }, 2000)
         return res;
         }
         else {
@@ -433,6 +425,6 @@ async function updateProfile(data) {
         }
 }
 
-window.addEventListener("DOMContentLoaded",()=>{
-    $('#pendingDialog101').modal('show');
-})
+// window.addEventListener("DOMContentLoaded",()=>{
+//     $('#pendingDialog101').modal('show');
+// })
