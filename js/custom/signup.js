@@ -11,7 +11,7 @@ function getElementByIdName(idName){
 
 
       
-btn.addEventListener("click", () =>{
+btn.addEventListener("submit", () =>{
 
     let name = getElementByIdName("name");
     let gender = document.getElementById("gender").value;
@@ -242,7 +242,10 @@ res.forEach((state) => {
     document.getElementById("pwdErr").style.display  = "none"
     // waitingResponse
     $('#pendingDialog').modal('show');
-        // window.location.href = "login.html"
+    setTimeout(()=>{
+        window.location.href = "login.html"
+    },3000)
+       
     return res;
     }
 } catch (error) {

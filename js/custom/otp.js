@@ -33,13 +33,13 @@ async function verifyUser(otp,pno){
 
 }
 
-document.getElementById("btn").addEventListener("click",()=>{
+document.getElementById("btn").addEventListener("submit",()=>{
 let pno =document.getElementById("identifier").value
 loginWithPhone(pno)
 })
 
 
-document.getElementById("btn1").addEventListener("click",()=>{
+document.getElementById("btn1").addEventListener("submit",()=>{
     let otp = document.getElementById("otpfinder2s").value
     let newpno = document.getElementById("identifier").value
     verifyUser(otp,newpno)

@@ -22,19 +22,6 @@ statusdd.addEventListener("change", () => {
     }
 })
 
-function displaySuccessMessage(message) {
-    const successContainer = document.getElementById("successContainer");
-    const successDiv = document.createElement("div");
-    successDiv.classList.add("alert", "alert-success", "alert-dismissible", "fade", "show");
-    successDiv.textContent = message;
-    successContainer.appendChild(successDiv);
-
-    // Clear the success message after a few seconds (optional)
-    setTimeout(function () {
-        successDiv.remove();
-    }, 3000); // 3 seconds
-}
-
 // Validation
 
 document.getElementById("event_name").addEventListener("input",(e)=>{
@@ -56,7 +43,7 @@ document.getElementById("event_location").addEventListener("input",e =>{
 
 
 
-btn.addEventListener("click", async(e) =>{
+btn.addEventListener("submit", async(e) =>{
     e.preventDefault();
 
     let event_name = getElementByIdName("event_name");
@@ -69,34 +56,34 @@ btn.addEventListener("click", async(e) =>{
     let file = getElementByIdName("file");
 
     // Validate each field
-    if (event_name.trim() === "") {
-        displayError("Event Name is required");
-        return;
-    }
+    // if (event_name.trim() === "") {
+    //     displayError("Event Name is required");
+    //     return;
+    // }
    
-    if (event_type.trim() === "") {
-        clearDisplayError()
-        displayError("Event Type is required");
-        return;
-    }
+    // if (event_type.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Event Type is required");
+    //     return;
+    // }
 
-    if (event_location.trim() === "") {
-        clearDisplayError()
-        displayError("Event Location is required");
-        return;
-    }
+    // if (event_location.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Event Location is required");
+    //     return;
+    // }
 
-    if (start_date.trim() === "") {
-        clearDisplayError()
-        displayError("Start Date is required");
-        return;
-    }
+    // if (start_date.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("Start Date is required");
+    //     return;
+    // }
 
-    if (end_date.trim() === "") {
-        clearDisplayError()
-        displayError("End Date is required");
-        return;
-    }
+    // if (end_date.trim() === "") {
+    //     clearDisplayError()
+    //     displayError("End Date is required");
+    //     return;
+    // }
 
     const data = {
         eventName: event_name,
@@ -109,23 +96,8 @@ btn.addEventListener("click", async(e) =>{
         file:file,
         listed_by:localStorage.getItem("role")
     }
-    console.log("DATA",data)
     events(data)
 })
-
-function displayError(errorMessage) {
-    const errorContainer = document.getElementById("errorContainer");
-    const errorDiv = document.createElement("div");
-    errorDiv.classList.add("alert", "alert-danger");
-    errorDiv.textContent = errorMessage;
-    errorContainer.appendChild(errorDiv);
-}
-
-function clearDisplayError(){
-    // Clear previous error messages
-    const errorContainer = document.getElementById("errorContainer");
-    errorContainer.innerHTML = '';
-}
 
 function ClearAllFields(){
     document.getElementById("event_name").value = '';
@@ -151,12 +123,11 @@ function ClearAllFields(){
     if(response.ok){
     const res = await response.json()
     console.log(res)
-    clearDisplayError();
     ClearAllFields();
-    displaySuccessMessage("Event Added");
+    $('#pendingDialog4').modal('show');
     setTimeout(() =>{
         window.location.href = "dashboard.html"
-    },2000)
+    },3000)
     return res
     } else {
         // Handle the case where the HTTP request was not successful

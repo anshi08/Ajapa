@@ -56,13 +56,25 @@
                         <div class="container shadow-lg p-4 mb-4 bg-white mx-auto rounded" 
                         style="width: 900px ;margin:20px 20px;" >
 
-                        <!-- Error messages will be inserted here dynamically -->
-                        <div id="errorContainer">
-                        </div>
-
-                            <!-- Error messages will be inserted here dynamically -->
-                            <div id="successContainer">
-                            </div>
+         <!-- Message dialog Box -->
+  <div class="modal fade" id="pendingDialog4" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="pendingDialogLabel">Add Events</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Event Added Successfully
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+    </div>
                         
                         <form enctype="multipart/form-data" >
                     <div class="form-group">
@@ -73,7 +85,7 @@
 
                               <div class="form-group">
                                 <label>Event Type :</label>
-                                <select class="form-control" id="event_type">
+                                <select class="form-control" id="event_type" required>
                                     <option>Select Type</option>
                                     <option value="online">Online</option>
                                     <option value="offline">Offline</option>
@@ -83,18 +95,18 @@
                               <div class="form-group">
                                 <label >Event Location:</label>
                                 <input type="text" class="form-control" placeholder="Enter Event Location" 
-                                id="event_location">
+                                id="event_location" required>
                                 <p id="eventLocationError"  style="display: none;color:red">Event Location Required</p>
                                   </div>
 
              <div class="form-group">
                 <label >Start Date</label>
-                  <input type="date" class="form-control"  id="start_date">
+                  <input type="date" class="form-control"  id="start_date" required>
             </div>
 
                 <div class="form-group">
                     <label >End Date</label>
-                    <input type="date" class="form-control" id="end_date">
+                    <input type="date" class="form-control" id="end_date" required>
                 </div>   
 
                 <div class="form-group" id="start_time">
@@ -105,23 +117,15 @@
                 <div class="form-group" id="end_time">
                     <label >End Time :</label>
                     <input type="time" class="form-control" id="e_time" >
-                </div> 
-                                  
-                   <!-- <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Listed By" id="listed_by">
-                   </div> -->
-
-                   <!-- <div class="form-group">
-                    <input type="number" class="form-control" placeholder="Enter Event status" id="event_status">
-               </div> -->
+                </div>
 
                    <div class="form-group">
                     <label >Choose a file:</label>
-                    <input type="file" class="form-control-file" name="file" id="file">
+                    <input type="file" class="form-control-file" name="file" id="file" required>
                   </div>
 
                           
-                         <button type="button" class="btn btn-primary " id="btn">
+                         <button type="submit" class="btn btn-primary " id="btn">
                            Add Event
                         </button>                  
                         </form>
