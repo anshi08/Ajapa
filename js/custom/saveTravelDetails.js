@@ -42,13 +42,13 @@ document.getElementById("arrival_train_number").addEventListener("input",e =>{
     }
 })
 
-document.getElementById("arrival_train_name").addEventListener("input",e =>{
-    if(e.target.value === 0 || e.target.value.length === 0){
-       document.getElementById("NameErr").style.display = "block"
-    }else{
-        document.getElementById("NameErr").style.display = "none"
-    }
-})
+// document.getElementById("arrival_train_name").addEventListener("input",e =>{
+//     if(e.target.value === 0 || e.target.value.length === 0){
+//        document.getElementById("NameErr").style.display = "block"
+//     }else{
+//         document.getElementById("NameErr").style.display = "none"
+//     }
+// })
 
 document.getElementById("departure_date").addEventListener("input",e =>{
     if(e.target.value === 0 || e.target.value.length === 0){
@@ -66,21 +66,21 @@ document.getElementById("departure_time").addEventListener("input",e =>{
     }
 })
 
-document.getElementById("departure_train_number").addEventListener("input",e =>{
-    if(e.target.value === 0 || e.target.value.length === 0){
-       document.getElementById("Err").style.display = "block"
-    }else{
-        document.getElementById("Err").style.display = "none"
-    }
-})
+// document.getElementById("departure_train_number").addEventListener("input",e =>{
+//     if(e.target.value === 0 || e.target.value.length === 0){
+//        document.getElementById("Err").style.display = "block"
+//     }else{
+//         document.getElementById("Err").style.display = "none"
+//     }
+// })
 
-document.getElementById("departure_train_name").addEventListener("input",e =>{
-    if(e.target.value === 0 || e.target.value.length === 0){
-       document.getElementById("Err1").style.display = "block"
-    }else{
-        document.getElementById("Err1").style.display = "none"
-    }
-})
+// document.getElementById("departure_train_name").addEventListener("input",e =>{
+//     if(e.target.value === 0 || e.target.value.length === 0){
+//        document.getElementById("Err1").style.display = "block"
+//     }else{
+//         document.getElementById("Err1").style.display = "none"
+//     }
+// })
 
 btn.addEventListener("submit", async (e) =>{
 
@@ -95,7 +95,7 @@ btn.addEventListener("submit", async (e) =>{
     let arr_time = document.getElementById("arrival_time").value
     let arr_transport = document.getElementById("arrival_mode_of_transport").value
     let train_num = getElementByIdName("arrival_train_number")
-    let train_name = getElementByIdName("arrival_train_name")
+    // let train_name = getElementByIdName("arrival_train_name")
     let dep_date = getElementByIdName("departure_date")
     let dep_time = document.getElementById("departure_time").value
     let dep_transport = document.getElementById("departure_mode_of_transport").value
@@ -186,7 +186,7 @@ btn.addEventListener("submit", async (e) =>{
         arrival_time: arr_time,
         arrival_mode_of_transport: arr_transport,
         arrival_train_number: train_num,
-        arrival_train_name: train_name,
+        // arrival_train_name: train_name,
         departure_date: dep_date,
         departure_time: dep_time,
         departure_mode_of_transport: dep_transport,
@@ -196,8 +196,8 @@ btn.addEventListener("submit", async (e) =>{
         userId : uid,
         userName:userName
     }
-    // console.log(data,"MYDATA")
-     saveTravelDetails(data)
+    console.log(data,"MYDATA")
+    //  saveTravelDetails(data)
 })
 
 function clearAllFields(){
@@ -207,7 +207,7 @@ function clearAllFields(){
     document.getElementById("arrival_time").value = '',
     document.getElementById("arrival_mode_of_transport").value = '',
     document.getElementById("arrival_train_number").value = '',
-    document.getElementById("arrival_train_name").value = '',  
+    // document.getElementById("arrival_train_name").value = '',  
     document.getElementById("departure_date").value = '',
     document.getElementById("departure_time").value = '',
     document.getElementById("departure_mode_of_transport").value = '',
@@ -223,7 +223,7 @@ async function getCountry() {
         }
     })
     const res = await response.json()
-    console.log("res" , res)
+    // console.log("res" , res)
         //   Populate dropdown with state options
             res.forEach((country) => {
             const option = document.createElement("option");
@@ -255,7 +255,7 @@ async function fetchStates(countryId){
           }
     })
     const res = await response.json()
-    console.log("res",res)
+    // console.log("res",res)
 
     stateElement.innerHTML = '';
 
@@ -285,3 +285,137 @@ async function saveTravelDetails(data) {
     },2000)
     return res;
 }
+
+window.addEventListener("DOMContentLoaded",()=>{
+    document.getElementById("arrival_mode_of_transport").addEventListener("change",e =>{
+        
+        if(e.target.value === "Train"){
+            document.getElementById("arrival_train_number").style.display = "block"
+            document.getElementById("transport").style.display = "block"
+            const searchInput = document.getElementById("arrival_train_number");
+            searchInput.addEventListener("input", debounce(()=>handleInput(searchInput), 300)); // Add debouncing to reduce API requests
+        }else{
+            document.getElementById("arrival_train_number").style.display = "none"
+            document.getElementById("transport").style.display = "none"
+        }
+
+    })
+    document.getElementById("departure_mode_of_transport").addEventListener("change",e =>{
+        console.log(e.target.value)
+        if(e.target.value === "Train"){
+            document.getElementById("departure_train_number").style.display = "block"
+            document.getElementById("transport1").style.display = "block"
+            const searchInput1 = document.getElementById("departure_train_number");
+            searchInput1.addEventListener("input", debounce(()=>handleInput1(searchInput1), 300)); // Add
+        }else{
+            document.getElementById("departure_train_number").style.display = "none"
+            document.getElementById("transport1").style.display = "none"
+        }
+    })
+
+
+      
+
+
+
+})
+
+
+async function getTrainDetails(searchName="Rajdhani"){
+    const url = 'https://trains.p.rapidapi.com/';
+
+try {
+    const response = await fetch(url,{
+        method:"POST",
+        headers:{
+            'content-type': 'application/json',
+            'X-RapidAPI-Key': 'c57cf769e6msh3ad30e8aa5173a6p15e7ecjsna8d07b651732',
+            'X-RapidAPI-Host': 'trains.p.rapidapi.com'
+        },
+        body: JSON.stringify({ search: searchName })
+    })
+    const res = await response.json()
+    return res;
+} catch (error) {
+	console.error(error);
+}
+}
+
+// Debounce function to limit API requests
+function debounce(func, wait) {
+    let timeout;
+    return function () {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+        func.apply(context, args);
+    }, wait);
+    };
+    }
+
+    async function handleInput(searchInput) {
+        const searchTerm = searchInput.value.trim();
+        console.log(searchTerm)
+        if (searchTerm.length === 0) {
+            document.getElementById("train_detail_label").style.display = "none" 
+            return; // No need to perform a search if the input is empty
+        }
+
+        try {
+            // Fetch search results from an API (replace with your API endpoint)
+            document.getElementById("train_number").style.display = "block" 
+            document.getElementById("train_detail_label").style.display = "block"
+            const data = await getTrainDetails(searchTerm);
+            // Display search results
+            let select = document.getElementById("train_number")
+            if (data && data.length > 0) {
+                console.log(data)
+            data.forEach(result => {
+                console.log(result)
+                const resultItem = document.createElement("option");
+                resultItem.innerText = `[${result.train_num}]--${result.name}`; // Replace with the property that contains the result text
+                select.appendChild(resultItem);
+            });
+            } else {
+            const noResultsMessage = document.createElement("div");
+            noResultsMessage.textContent = "No results found";
+            // searchResults.appendChild(noResultsMessage);
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+        }
+
+        async function handleInput1(searchInput) {
+            const searchTerm = searchInput.value.trim();
+            console.log(searchTerm)
+            if (searchTerm.length === 0) {
+                document.getElementById("train_detail_label").style.display = "none" 
+                return; // No need to perform a search if the input is empty
+            }
+    
+            try {
+                // Fetch search results from an API (replace with your API endpoint)
+                document.getElementById("train_number_1").style.display = "block" 
+                document.getElementById("train_detail_label_1").style.display = "block"
+                const data = await getTrainDetails(searchTerm);
+                // Display search results
+                let select = document.getElementById("train_number_1")
+                if (data && data.length > 0) {
+                    console.log(data)
+                data.forEach(result => {
+                    console.log(result)
+                    const resultItem = document.createElement("option");
+                    resultItem.innerText = `[${result.train_num}]--${result.name}`; // Replace with the property that contains the result text
+                    select.appendChild(resultItem);
+                });
+                } else {
+                const noResultsMessage = document.createElement("div");
+                noResultsMessage.textContent = "No results found";
+                // searchResults.appendChild(noResultsMessage);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+            }

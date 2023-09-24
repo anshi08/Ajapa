@@ -127,22 +127,20 @@
                     </select>
                 </div>
 
-                   <div class="form-group">
-                    <label>Tranport Number :</label>
+                   <div class="form-group" id="transport">
+                    <label>Transport Name :</label>
                     <input type="text" class="form-control" placeholder="Arrival Transport Number" 
                     id="arrival_train_number" required>
+                    <br/>
                     <p id="trainErr" style="display:none; color:red;">Please Transport Number</p>
-               </div>
+                    <label id="train_detail_label" style="display: none;">Train Details</label>
+                    <select id="train_number" class="form-control" style="display: none;">
+                    </select>
+                </div>
 
-               <div class="form-group">
-                <label>Tranport Name :</label>
-                <input type="text" class="form-control" placeholder="Arrival Transport Name" 
-                id="arrival_train_name" required>
-                <p id="NameErr" style="display:none; color:red;">Please Transport Name</p>
-           </div>
+
 
            <div class="jumbotron" style="padding: 2rem 22rem 3rem">Leaving Details</div>
-
                    <div class="form-group">
                     <label>Leaving Date</label>
                     <input type="date" class="form-control" id="departure_date" required>
@@ -166,20 +164,16 @@
             </select>
         </div>
 
-           <div class="form-group">
+           <div class="form-group" id="transport1">
             <label>Tranport Number :</label>
             <input type="text" class="form-control" placeholder="Leaving Transport Number" 
             id="departure_train_number" required>
             <p id="Err" style="display:none; color:red;">Please Enter Transport Number</p>
+            <label id="train_detail_label_1" style="display: none;">Train Details</label>
+            <select id="train_number_1" class="form-control" style="display: none;">
+            </select>
        </div>
-
-       <div class="form-group">
-        <label>Tranport Name : </label>
-        <input type="text" class="form-control" placeholder="Leaving Transport Name" 
-        id="departure_train_name" required>
-        <p id="Err1" style="display:none; color:red;">Please Enter Transport Name</p>
-   </div>
-         
+   
          <div class="form-group">
             <label>Do You Have Any Specifc Requirements :</label>
              <!-- <input type="textarea" class="form-control" placeholder="Description" /> -->
