@@ -55,36 +55,6 @@ btn.addEventListener("submit", async(e) =>{
     let end_time = document.getElementById("e_time").value;
     let file = getElementByIdName("file");
 
-    // Validate each field
-    // if (event_name.trim() === "") {
-    //     displayError("Event Name is required");
-    //     return;
-    // }
-   
-    // if (event_type.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Event Type is required");
-    //     return;
-    // }
-
-    // if (event_location.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Event Location is required");
-    //     return;
-    // }
-
-    // if (start_date.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Start Date is required");
-    //     return;
-    // }
-
-    // if (end_date.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("End Date is required");
-    //     return;
-    // }
-
     const data = {
         eventName: event_name,
         event_type: event_type,

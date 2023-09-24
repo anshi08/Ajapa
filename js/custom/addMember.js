@@ -9,7 +9,14 @@ function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
 
-
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+}
       
 btn.addEventListener("submit", (e) =>{
    
@@ -29,58 +36,6 @@ btn.addEventListener("submit", (e) =>{
     let city = document.getElementById("city").value+":"+city_ele.options[city_ele.selectedIndex].text;
     let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
 
-    //Validations
-    // if (name.trim() === "") {
-    //     clearDisplayError()        
-    //     displayError("Full Name is required.");
-    //     return;
-    // }
-
-    // if (gender === "") {
-    //     clearDisplayError()
-    //     displayError("Gender is required.");
-    //     return;
-    // }
-
-    // if (dob.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Date of Birth is required.");
-    //     return;
-    // }
-
-    // const phoneRegex = /^\d{10}$/;
-    // if(mobileNum.trim() === ''){
-    //     clearDisplayError()
-    //     displayError("Mobile number is required");
-    //     return;
-    // }else if (!phoneRegex.test(mobileNum)){
-    //     clearDisplayError()
-    //     displayError("Enter a valid 10-digit mobile number");
-    //     return;
-    // }
-
-    // const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    // if (!emailPattern.test(email)) {
-    //     clearDisplayError()
-    //     displayError("Please enter a valid Email address.");
-    //     return;
-    // }
-
-    // if (email.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Email is required.");
-    //     return;
-    // }
-
-    // if (pw.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Password is required.");
-    //     return;
-    // } else if (pw.length < 5) {
-    //     clearDisplayError()
-    //     displayError("Password Must be at least 5 characters long");
-    //     return;
-    // }
 
     if(rpwd.trim() === "")
     {
@@ -177,8 +132,6 @@ element.addEventListener('change', function (e) {
           }
     })
     const res = await response.json()
-    console.log("res",res)
-
     stateElement.innerHTML = '';
 
 res.forEach((state) => {
@@ -195,7 +148,6 @@ res.forEach((state) => {
   });
   
   function handleStateChange(selectedState) {
-    console.log(`Selected State: ${selectedState}`);
     cityElement.value='';
     cityElement.innerHTML = '';
     fetchCities(selectedState)
@@ -209,8 +161,6 @@ res.forEach((state) => {
         }
     })
     const res = await response.json()
-    console.log("res",res)
-
     res.forEach((city) => {
         const option = document.createElement('option');
         option.value = city.id;
@@ -229,7 +179,6 @@ res.forEach((state) => {
   }
 
   async function signup(data){
-    console.log("--",data)
     try{
     const response = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/signup2',{
         method:"POST",
@@ -241,7 +190,6 @@ res.forEach((state) => {
     })
     if(response.ok){
     const res = await response.json()
-    console.log(res)
     clearAllFields();
     document.getElementById("pwdErr").style.display  = "none"
     // waitingResponse
@@ -256,6 +204,9 @@ res.forEach((state) => {
 
     console.error("An error occurred:", error);
 }}
+
+
+
 
 //Validation for input
 document.getElementById("name").addEventListener("input",e=>{
@@ -310,4 +261,43 @@ document.getElementById("email").addEventListener("input",e=>{
     }else{
         document.getElementById("emailErr").style.display = "none"
     }
+})
+
+
+async function getAllFamilyMembers(family_id){
+    const res  = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getFamilyMembers/${family_id}`)
+   const response = await res.json()
+//    console.log(response)
+   response.forEach((myres)=>{
+    let option = document.createElement("option")
+    option.innerText = myres.fullName
+    option.value = myres.id
+    document.getElementById("sel1").appendChild(option)
+   })
+   return response;
+
+}
+
+window.addEventListener("DOMContentLoaded",async ()=>{
+  const allFamilyMembers =   await getAllFamilyMembers(localStorage.getItem("family_id"))
+  let countrySelectBox  = document.getElementById("sel1")
+
+
+
+    countrySelectBox.addEventListener("change",(e)=>{
+       let address = allFamilyMembers.filter(mem => mem.id===+e.target.value)[0]
+       let option = document.createElement("option")
+       option.innerText = address.country.split(":")[1]
+       option.value = address.country.split(":")[0]
+       let country = `<option value='${address.country.split(":")[0]}'>${address.country.split(":")[1]}</option>`
+       document.getElementById("country").innerHTML = country
+       document.getElementById("country").setAttribute("disabled",true)
+       let state = `<option value='${address.state.split(":")[0]}'>${address.state.split(":")[1]}</option>`
+       document.getElementById("state").innerHTML = state
+       document.getElementById("state").setAttribute("disabled",true)
+       let city = `<option value='${address.city.split(":")[0]}'>${address.city.split(":")[1]}</option>`
+       document.getElementById("city").innerHTML = city
+       document.getElementById("city").setAttribute("disabled",true)
+
+    })
 })

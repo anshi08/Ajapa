@@ -133,64 +133,6 @@ btn.addEventListener("submit", (e) => {
     let city = document.getElementById("city").value+":"+city_ele.options[city_ele.selectedIndex].text;
     let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
 
-    // //Validations
-    // if(age.trim() === ''){
-    //     displayError("Enter Age");
-    //     return;
-    // }
-
-    // const num = /^\d{10}$/;
-    // if(whatsapp_num.trim() === ''){
-    //     clearDisplayError()
-    //     displayError("WhatsApp number is required");
-    //     return;
-    // }
-    //  else if (!num.test(whatsapp_num)){
-    //     clearDisplayError()
-    //     displayError("Enter a valid 10-digit WhatsApp number");
-    //     return;
-    // }
-
-
-    // if(blood_grp.trim() === ''){
-    //     clearDisplayError()
-    //     displayError("Enter Blood Group");
-    //     return;
-    // }
-
-    // if(occupation.trim() === ''){
-    //     clearDisplayError()
-    //     displayError("Enter Occupation");
-    //     return;
-    // }
-
-    // if(qualification.trim() === ''){
-    //     clearDisplayError()
-    //     displayError("Enter Qualification");
-    //     return;
-    // }
-
-    // if(address_linep.trim() === ''){
-    //     clearDisplayError()
-    //     displayError("Enter Address");
-    //     return;
-    // }
-    // if(state.trim === ''){
-    //     clearDisplayError()
-    //     displayError("Enter State");
-    //     return;
-    // }
-
-    // const pin = /^\d{6}$/;
-    // if(pincode.trim() === ''){
-    //     clearDisplayError()
-    //     displayError("PinCode is required");
-    //     return;
-    // }else if(!pin.test(pincode)){
-    //     clearDisplayError()
-    //     displayError("Pincode should be a 6-digit number")
-    // }
-
     const data = {
         age: age,
         mobileNum: mobileNum,
@@ -415,9 +357,9 @@ async function updateProfile(data) {
         console.log("update",res)
         clearFormFields();
         $('#pendingDialog1').modal('show');
-        // setTimeout(() => {
-        //     window.location.href = "dashboard.html"
-        // }, 2000)
+        setTimeout(() => {
+            window.location.href = "dashboard.html"
+        }, 3000)
         return res;
         }
         else {

@@ -1,3 +1,9 @@
+//pendingDialog101
+if(JSON.parse(localStorage.getItem("role")) === "member" ||JSON.parse(localStorage.getItem("role")) === "head")
+window.addEventListener("DOMContentLoaded",()=>{
+    $('#pendingDialog101').modal('show');
+})
+
 let prev = document.getElementById("prev")
 let next = document.getElementById("next")
 

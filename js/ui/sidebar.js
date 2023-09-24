@@ -6,13 +6,13 @@ function loadContent() {
             document.getElementById('accordionSidebar').innerHTML = data;
             if(JSON.parse(localStorage.getItem("role")) === "super"){
                 console.log("SSS");
+                document.getElementById("addMembers").style.display = "none"
                 document.getElementById("updateProfile").style.display = "none"
                 document.getElementById("addDetailsTab").style.display = "none"
                 document.getElementById("superOnly").style.display = "block"
-                // document.getElementById("addEvent").style.display = "block"
                 document.getElementById("addTravelDetails").style.display = "none"
                 document.getElementById("events").style.display = "block"
-                // document.getElementById("showTravel").style.display = "block"
+                // document.getElementById("addMembers").style.display = "none"
 
             }
         })
