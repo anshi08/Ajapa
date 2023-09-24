@@ -9,11 +9,9 @@ async function getApprovedUsers(){
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getUsersToApprove")
     const res = await response.json()
     res.reverse()
-    console.log("<-->",res[0])
 
     document.getElementById("body").innerHTML = null
     res.forEach(data => {
-        console.log(data)
         let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.fullName}</td>
@@ -24,7 +22,8 @@ async function getApprovedUsers(){
         <td>${data.state.split(":")[1]}</td>
         <td>${data.city.split(":")[1]}</td>
         <td><a href="#" class="approved">Approve</td>
-        `
+        <td><a href="#" class="rejected">Reject</td>
+         `
         document.getElementById("body").appendChild(tr)
 })
 Array.from(document.getElementsByClassName("approved")).forEach(item =>{
@@ -35,6 +34,19 @@ Array.from(document.getElementsByClassName("approved")).forEach(item =>{
                     approvedUsers(email)
             }else{
                 alert("Sorry!!!")
+            }
+        }
+    })
+})
+
+Array.from(document.getElementsByClassName("rejected")).forEach(item =>{
+    item.addEventListener("click",e => {
+        if(e.target.classList.contains("rejected")){
+            if(confirm("Are You sure you want to Reject")){
+                let email = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent
+                    rejectedUser(email)
+            }else{
+                alert("Okay!!")
             }
         }
     })
@@ -52,6 +64,15 @@ async function approvedUsers(email) {
         method: "POST",
      })
      const res = await response.json()
-     console.log("approved",res)
      window.location.href="dashboard.html"
+     return res;
+}
+
+async function rejectedUser(email){
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/rejectUser/${email}`,{
+        method: "POST",
+     })
+     const res = await response.json()
+     window.location.href="dashboard.html"   
+     return res;
 }

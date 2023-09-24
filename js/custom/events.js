@@ -23,7 +23,6 @@ statusdd.addEventListener("change", () => {
 })
 
 // Validation
-
 document.getElementById("event_name").addEventListener("input",(e)=>{
     
     if(e.target.value.length===0){
@@ -49,8 +48,10 @@ btn.addEventListener("submit", async(e) =>{
     let event_name = getElementByIdName("event_name");
     let event_type = document.getElementById("event_type").value;
     let event_location = getElementByIdName("event_location");
+    let lock_start_date = getElementByIdName("lock_start_date");
     let start_date = getElementByIdName("start_date");
     let end_date = getElementByIdName("end_date");
+    let lock_end_date = getElementByIdName("lock_end_date");
     let start_time = document.getElementById("s_time").value;
     let end_time = document.getElementById("e_time").value;
     let file = getElementByIdName("file");
@@ -61,11 +62,14 @@ btn.addEventListener("submit", async(e) =>{
         event_location: event_location,
         startDate: new Date(start_date),
         endDate: new Date(end_date),
+        lockArrivalDate:new Date(lock_start_date),
+        lockDepartureDate:new Date(lock_end_date),
         start_time : start_time,
         end_time : end_time,
         file:file,
         listed_by:localStorage.getItem("role")
     }
+    // console.log("data",data)
     events(data)
 })
 
@@ -73,6 +77,8 @@ function ClearAllFields(){
     document.getElementById("event_name").value = '';
     document.getElementById("event_type").value = '';
     document.getElementById("event_location").value = '';
+    document.getElementById("lock_start_date").value = '';
+    document.getElementById("lock_end_date").value = '';
     document.getElementById("start_date").value = '';
     document.getElementById("end_date").value = '';
     document.getElementById("s_time").value = '';

@@ -6,6 +6,8 @@ function loadContent() {
             document.getElementById('accordionSidebar').innerHTML = data;
             if(JSON.parse(localStorage.getItem("role")) === "super"){
                 console.log("SSS");
+                document.getElementById("rejectUsers").style.display = "block"
+                document.getElementById("deletedEvents").style.display = "block"
                 document.getElementById("addMembers").style.display = "none"
                 document.getElementById("updateProfile").style.display = "none"
                 document.getElementById("addDetailsTab").style.display = "none"

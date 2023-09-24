@@ -4,6 +4,8 @@ let stateElement = document.getElementById("from_city")
 let id = window.location.href.split("?")[1].split("=")[1]
 // console.log(id)
 
+getDetailOfEvent(id)
+
 function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
@@ -16,6 +18,22 @@ function parseJwt (token) {
     }).join(''));
     return JSON.parse(jsonPayload);
 }
+
+async function getDetailOfEvent(id){
+const res = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/fetchEvent/${id}`)
+const response = await res.json()
+const startDate = response.startDate.split("T")[0]
+const lock_startDate = response.lockArrivalDate.split("T")[0]
+const endDate = response.endDate.split("T")[0]
+const lock_endDate = response.lockDepartureDate.split("T")[0]
+document.getElementById("arrival_date").setAttribute("min",lock_startDate)
+document.getElementById("arrival_date").setAttribute("max",startDate)
+document.getElementById("departure_date").setAttribute("min",endDate)
+document.getElementById("departure_date").setAttribute("max",lock_endDate)
+}
+
+
+
 
 //Validations
 document.getElementById("arrival_date").addEventListener("input",e =>{
@@ -94,13 +112,11 @@ btn.addEventListener("submit", async (e) =>{
     let arr_date = getElementByIdName("arrival_date")
     let arr_time = document.getElementById("arrival_time").value
     let arr_transport = document.getElementById("arrival_mode_of_transport").value
-    let train_num = getElementByIdName("arrival_train_number")
-    // let train_name = getElementByIdName("arrival_train_name")
+
     let dep_date = getElementByIdName("departure_date")
     let dep_time = document.getElementById("departure_time").value
     let dep_transport = document.getElementById("departure_mode_of_transport").value
-    let dep_trainNum = getElementByIdName("departure_train_number")
-    let dep_trainName = getElementByIdName("departure_train_name")
+    // let dep_trainName = getElementByIdName("departure_train_name")
     let desc = getElementByIdName("description")
     let uid = parseJwt(localStorage.getItem("data")).id
     let userName = parseJwt(localStorage.getItem("data")).full_name
@@ -178,26 +194,82 @@ btn.addEventListener("submit", async (e) =>{
     //     displayError("Depature Transport Name is required.");
     //     return;
     // }
-    const data = {
-        eventId: e_id,
-        from_city: city,
-        from_country: country,
-        arrival_date: arr_date,
-        arrival_time: arr_time,
-        arrival_mode_of_transport: arr_transport,
-        arrival_train_number: train_num,
-        // arrival_train_name: train_name,
-        departure_date: dep_date,
-        departure_time: dep_time,
-        departure_mode_of_transport: dep_transport,
-        departure_train_number: dep_trainNum,
-        departure_train_name: dep_trainName,
-        description: desc,
-        userId : uid,
-        userName:userName
+    let data = {}
+    if(arr_transport==="Train" && dep_transport==="Train"){//write condition for both arrival and departue mode of transport
+        data = {
+            eventId: e_id,
+            from_city: city,
+            from_country: country,
+            arrival_date: arr_date,
+            arrival_time: arr_time,
+            arrival_mode_of_transport: arr_transport,
+            arrival_train_number: getElementByIdName("train_number").split("--")[0].replace("[","").replace("]",""),
+            arrival_train_name: getElementByIdName("train_number").split("--")[1],
+            departure_date: dep_date,
+            departure_time: dep_time,
+            departure_mode_of_transport: dep_transport,
+            departure_train_number: getElementByIdName("train_number_1").split("--")[0].replace("[","").replace("]",""),
+            departure_train_name:  getElementByIdName("train_number_1").split("--")[1],
+            description: desc,
+            userId : uid,
+            userName:userName
+        }
+    }else if( arr_transport==="Train" && dep_transport!=="Train"){
+        console.log("hi")
+        data = {
+            eventId: e_id,
+            from_city: city,
+            from_country: country,
+            arrival_date: arr_date,
+            arrival_time: arr_time,
+            arrival_mode_of_transport: arr_transport,
+            arrival_train_number: getElementByIdName("train_number").split("--")[0].replace("[","").replace("]",""),
+            arrival_train_name: getElementByIdName("train_number").split("--")[1],
+            departure_date: dep_date,
+            departure_time: dep_time,
+            departure_mode_of_transport: dep_transport,
+            description: desc,
+            userId : uid,
+            userName:userName
+        }
+
+
+    }else if(arr_transport!=="Train" && dep_transport==="Train"){
+        data = {
+            eventId: e_id,
+            from_city: city,
+            from_country: country,
+            arrival_date: arr_date,
+            arrival_time: arr_time,
+            arrival_mode_of_transport: arr_transport,
+            departure_date: dep_date,
+            departure_time: dep_time,
+            departure_mode_of_transport: dep_transport,
+            departure_train_number: getElementByIdName("train_number_1").split("--")[0].replace("[","").replace("]",""),
+            departure_train_name:  getElementByIdName("train_number_1").split("--")[1],
+            description: desc,
+            userId : uid,
+            userName:userName
+        }
     }
-    console.log(data,"MYDATA")
-    //  saveTravelDetails(data)
+    else{
+        data = {
+            eventId: e_id,
+            from_city: city,
+            from_country: country,
+            arrival_date: arr_date,
+            arrival_time: arr_time,
+            arrival_mode_of_transport: arr_transport,
+            departure_date: dep_date,
+            departure_time: dep_time,
+            departure_mode_of_transport: dep_transport,
+            description: desc,
+            userId : uid,
+            userName:userName
+        }
+    }
+    // console.log(data,"MYDATA")
+     saveTravelDetails(data)
 })
 
 function clearAllFields(){
@@ -212,7 +284,7 @@ function clearAllFields(){
     document.getElementById("departure_time").value = '',
     document.getElementById("departure_mode_of_transport").value = '',
     document.getElementById("departure_train_number").value = '',  
-    document.getElementById("departure_train_name").value = '',  
+    // document.getElementById("departure_train_name").value = '',  
     document.getElementById("description").value = ''
 }
 async function getCountry() {
@@ -301,7 +373,7 @@ window.addEventListener("DOMContentLoaded",()=>{
 
     })
     document.getElementById("departure_mode_of_transport").addEventListener("change",e =>{
-        console.log(e.target.value)
+     
         if(e.target.value === "Train"){
             document.getElementById("departure_train_number").style.display = "block"
             document.getElementById("transport1").style.display = "block"
@@ -372,7 +444,6 @@ function debounce(func, wait) {
             if (data && data.length > 0) {
                 console.log(data)
             data.forEach(result => {
-                console.log(result)
                 const resultItem = document.createElement("option");
                 resultItem.innerText = `[${result.train_num}]--${result.name}`; // Replace with the property that contains the result text
                 select.appendChild(resultItem);

@@ -99,15 +99,28 @@
                                 <p id="eventLocationError"  style="display: none;color:red">Event Location Required</p>
                                   </div>
 
+                                  <div class="form-group">
+                                    <label >Lock Start Date</label>
+                                      <input type="date" class="form-control"  id="lock_start_date" required>
+                                </div>
+
+
+
              <div class="form-group">
                 <label >Start Date</label>
                   <input type="date" class="form-control"  id="start_date" required>
             </div>
 
+            
                 <div class="form-group">
                     <label >End Date</label>
                     <input type="date" class="form-control" id="end_date" required>
                 </div>   
+
+                <div class="form-group">
+                    <label >Lock End Date</label>
+                    <input type="date" class="form-control" id="lock_end_date" required>
+                </div>  
 
                 <div class="form-group" id="start_time">
                     <label >Start Time:</label>
@@ -189,13 +202,19 @@
     <script src="js/sb-admin-2.min.js"></script>
 
     <script>
+
+
+
+
+
         document.getElementById("start_date").addEventListener("change",(e)=>{
-         
+           console.log(compareDates(new Date(document.getElementById("lock_start_date").value), new Date(e.target.value)))
             if(compareDates(new Date(),new Date(e.target.value))){
                 alert("Please choose greater than today")
                 document.getElementById("start_date").value = ''
-            }else{
-
+            }else if(compareDates(new Date(document.getElementById("lock_start_date").value), new Date(e.target.value))){
+                alert("Start date always greater than lock date")
+                document.getElementById("start_date").value = ''
             }
         })
 
@@ -209,7 +228,12 @@
 
             }
         })
-
+        document.getElementById("lock_end_date").addEventListener("change",e=>{
+            if(compareDates(new Date(document.getElementById("end_date").value),new Date(e.target.value))){
+                alert("Please Choose lock end date greater than end date")
+                document.getElementById("lock_end_date").value=''
+            }
+        })
 
 
         const compareDates = (d1, d2) => {

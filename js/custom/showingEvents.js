@@ -90,7 +90,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
             document.getElementById("Book").style.visibility = "visible";
         }
 
-        res.forEach(data => {
+        await res.forEach(data => {
         let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.eventName}</td>
@@ -101,10 +101,19 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         <td>${data.listed_by}</td>
         ${JSON.parse(localStorage.getItem("role")) === "member" ?`<td><a href='addTravelDetails.html?id=${data.event_id}' class="btn btn-primary">Book</a></td>` : ''}
         ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td><a href='showEventsDetails.html?id=${data.event_id}'>Edit</a></td>` : ''}
+        ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td class="deleteEvent"><a href="#">Delete</a></td>` : ''}
         <td style="display:none">${data.event_id}</td>
         `
         document.getElementById("body").appendChild(tr)
         s.stop();
+        
+    }
+
+    )
+    Array.from(document.getElementsByClassName("deleteEvent")).forEach(item => {
+        item.addEventListener("click",(e)=>{
+            deleteEvent(e.target.parentElement.nextElementSibling.innerText)
+        })
     })  
 })
 
@@ -148,3 +157,11 @@ if(localStorage.getItem("role").replaceAll("\"","") === "member"){
 document.getElementById("pendingrequest").addEventListener("click",()=>{
     window.location.href="getApprovedUsers.html"
 })
+
+async function deleteEvent(eventId){
+    const res = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/deleteEvent/${eventId}`,{
+        method:"POST"
+    })
+    const response = await res.text()
+    window.location.href="showEvents.html"
+}
