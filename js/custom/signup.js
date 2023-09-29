@@ -49,7 +49,7 @@ btn.addEventListener("submit", (e) =>{
         country: country,
         city: city,
         state: state,
-        user_type:"head"
+        userType:"head"
     }
     signup(data);
 })
@@ -161,7 +161,6 @@ res.forEach((state) => {
   }
 
   async function signup(data){
-    console.log("--",data)
     try{
     const response = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/signup',{
         method:"POST",

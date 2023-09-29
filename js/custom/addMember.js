@@ -46,22 +46,6 @@ btn.addEventListener("submit", (e) =>{
         return;
     }
 
-    // if (country.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Country is required.");
-    //     return;
-    // }
-    // if (state.trim() === ""){
-    //     clearDisplayError()
-    //     displayError("State is required.");
-    //     return;
-    // }
-    // if (city.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("City is required.");
-    //     return;
-    // }
-
     const data = {
         fullName: name,
         gender: gender,
@@ -72,7 +56,7 @@ btn.addEventListener("submit", (e) =>{
         country: country,
         city: city,
         state: state,
-        user_type:"member"
+        userType:"member"
     }
     signup(data);
 })
@@ -193,10 +177,10 @@ res.forEach((state) => {
     clearAllFields();
     document.getElementById("pwdErr").style.display  = "none"
     // waitingResponse
-    $('#pendingDialog').modal('show');
+    $('#pending').modal('show');
     setTimeout(()=>{
-        // window.location.href = "login.html"
-    },3000)
+        window.location.href = "dashboard.html"
+    },2000)
        
     return res;
     }
@@ -267,7 +251,7 @@ document.getElementById("email").addEventListener("input",e=>{
 async function getAllFamilyMembers(family_id){
     const res  = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getFamilyMembers/${family_id}`)
    const response = await res.json()
-//    console.log(response)
+   console.log(response)
    response.forEach((myres)=>{
     let option = document.createElement("option")
     option.innerText = myres.fullName

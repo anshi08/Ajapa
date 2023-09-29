@@ -4,8 +4,8 @@ async  function fetchDetails(){
     const response = await res.json()
     console.log(response)
     document.getElementById('event_name').value = response.eventName;
-    document.getElementById('event_type').value = response.event_type;
-    document.getElementById('event_location').value = response.event_location;
+    document.getElementById('event_type').value = response.eventType;
+    document.getElementById('event_location').value = response.eventLocation;
     document.getElementById('start_date').value = response.startDate?.split("T")[0];
     document.getElementById('end_date').value = response.endDate?.split("T")[0];
     // document.getElementById('listed_by').value = response.listed_by;
@@ -23,7 +23,9 @@ fetchDetails()
     })
     const res = await response.json()
     console.log("jjjj",res.Email)
-    document.getElementById("event_pic").src = 'http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/'+res.Email+".jpg"
+    let id = window.location.href.split("?")[1].split("=")[1]
+    document.getElementById("event_pic").src = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/EventDoc/${id}.jpg`
+    document.getElementById("event_pic").className = "img-responsive"
 }
 
 getImg()
@@ -51,10 +53,11 @@ let endDate = document.getElementById("end_date").value
 
 const data = {
     eventName:eventName,
-    event_type:eventType,
-    event_location : eventLocation,
+    eventType:eventType,
+    eventLocation : eventLocation,
     startDate:startDate,
-    endDate : endDate
+    endDate : endDate,
+    listedBy : localStorage.getItem("role")
 }
 
     updateEvents(data);
@@ -79,7 +82,7 @@ async function updateEvents(data) {
     })
     const res = await response.json()
     clearAllFields();
-    displaySuccessMessage("Event Updated");
+    $('#pendingDialog101').modal('show');
     setTimeout(()=>{
         window.location.href = "dashboard.html";
     },2000)

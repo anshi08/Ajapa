@@ -8,7 +8,7 @@ btn.addEventListener("submit",() =>{
 
       const fileInput = document.getElementById("file");
       const form = new FormData();
-      form.append("event_id",10)
+    //   form.append("event_id",10)
       form.append("file",fileInput.files[0])
       setEventImg(form)
 })

@@ -136,20 +136,20 @@ btn.addEventListener("submit", (e) => {
     const data = {
         age: age,
         mobileNum: mobileNum,
-        whatsapp_num: whatsapp_num,
+        whatsappNum: whatsapp_num,
         email: email,
-        blood_grp: blood_grp,
-        diksha_dt: diksha_dt_value,
+        bloodGrp: blood_grp,
+        dikshaDt: diksha_dt_value,
         occupation: occupation,
         file: file,
         qualification: qualification,
-        address_linep: address_linep,
+        addressLinep: address_linep,
         country: country,
         city: city,
         state: state,
         pincode: pincode
     }
-    // console.log("Hogyaa",data)
+    
     updateProfile(data)
 })
 
@@ -275,14 +275,14 @@ async function detailsOfUser(email) {
     rememberMobInput.addEventListener("click" , () => {
         document.getElementById("whatsapp_num").value = document.getElementById("mobile_num").value
     });
-    document.getElementById("whatsapp_num").value = res.whatsapp_num
+    document.getElementById("whatsapp_num").value = res.whatsappNum
     let aa = res.country.split(":")
     document.getElementById("email").value = res.email;   
-    document.getElementById("blood_grp").value = res.blood_grp
-    document.getElementById("diksha_dt").value =res.diksha_dt
+    document.getElementById("blood_grp").value = res.bloodGrp
+    document.getElementById("diksha_dt").value =res.dikshaDt
     document.getElementById("occupation").value = res.occupation
     document.getElementById("qualification").value = res.qualification;
-    document.getElementById("address_linep").value = res.address_linep   
+    document.getElementById("address_linep").value = res.addressLinep   
     
     let string = `
     
@@ -366,7 +366,6 @@ async function updateProfile(data) {
             alert("Error: Failed to update.");
         }
 }
-
 // window.addEventListener("DOMContentLoaded",()=>{
 //     $('#pendingDialog101').modal('show');
 // })

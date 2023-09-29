@@ -2,6 +2,7 @@
 if(JSON.parse(localStorage.getItem("role")) === "member" ||JSON.parse(localStorage.getItem("role")) === "head")
 window.addEventListener("DOMContentLoaded",()=>{
     $('#pendingDialog101').modal('show');
+    document.getElementById("pendingrequest").style.display = "none"
 })
 
 let prev = document.getElementById("prev")
@@ -18,13 +19,13 @@ next.addEventListener("click", async () => {
         let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.eventName}</td>
-        <td>${data.event_type}</td>
-        <td>${data.event_location}</td>
+        <td>${data.eventType}</td>
+        <td>${data.eventLocation}</td>
         <td>${data.startDate?.split("T")[0]}</td>
         <td>${data.endDate?.split("T")[0]}</td>
-        <td>${data.listed_by}</td>
-        ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td><a href='showEventsDetails.html?id=${data.event_id}'>Edit</a></td>` :''}
-        <td style="display:none">${data.event_id}</td>
+        <td>${data.listedBy}</td>
+        ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td><a href='showEventsDetails.html?id=${data.eventId}'>Edit</a></td>` :''}
+        <td style="display:none">${data.eventId}</td>
         `
         document.getElementById("body").appendChild(tr)
     })
@@ -38,15 +39,15 @@ prev.addEventListener("click", async () => {
         let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.eventName}</td>
-        <td>${data.event_type}</td>
-        <td>${data.event_location}</td>
+        <td>${data.eventType}</td>
+        <td>${data.eventLocation}</td>
         <td>${data.startDate?.split("T")[0]}</td>
         <td>${data.endDate?.split("T")[0]}</td>
-        <td>${data.listed_by}</td>
-        <td><a href='cards.html?id=${data.event_id}'>Edit</a></td>
+        <td>${data.listedBy}</td>
+        <td><a href='cards.html?id=${data.eventId}'>Edit</a></td>
         
-        ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td><a href='showEventsDetails.html?id=${data.event_id}'>Edit</a></td>` :''}
-        <td style="display:none">${data.event_id}</td>
+        ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td><a href='showEventsDetails.html?id=${data.eventId}'>Edit</a></td>` :''}
+        <td style="display:none">${data.eventId}</td>
         `
         document.getElementById("body").appendChild(tr)
     })
@@ -60,13 +61,13 @@ async function showingAllEvents(first=1,last=11 ) {
          }
     })
     const res = await response.json()
-    console.log(res)
-    if(res[0]?.event_id===2){
+    console.log("ii",res)
+    // if(res[0]?.eventId===2){
 
-        document.getElementById("prev").style.display = 'none'
-    }else{
-        document.getElementById("prev").style.display = 'block'
-    }
+    //     document.getElementById("prev").style.display = 'none'
+    // }else{
+    //     document.getElementById("prev").style.display = 'block'
+    // }
     return res;
 
 }
@@ -81,28 +82,33 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         if(res.length==0){
             s.stop();
         }
-        if(role === "member") {
+        if(role === "member" || role === "head") {
+            document.getElementById("Book").style.display = "block"
             document.getElementById("showDetails").style.display = "none";
-            document.getElementById("Book").style.visibility = "visible";
+            // document.getElementById("deleteDetails").style.display = "none";
+            
         }
         if(role === "super") {
-            document.getElementById("showDetails").style.display = "none";
-            document.getElementById("Book").style.visibility = "visible";
+            document.getElementById("showDetails").style.display = "block";
+            // document.getElementById("deleteDetails").style.display = "block";
+            document.getElementById("Book").style.display = "none";
         }
-
-        await res.forEach(data => {
-        let tr = document.createElement("tr")
+        const res1 = await res.filter(res => res.eventStatus!==2)
+        await res1.forEach(data => {
+            let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.eventName}</td>
-        <td>${data.event_type}</td>
-        <td>${data.event_location}</td>
+        <td>${data.eventType}</td>
+        <td>${data.eventLocation}</td>
         <td>${data.startDate?.split("T")[0]}</td>
         <td>${data.endDate?.split("T")[0]}</td>
-        <td>${data.listed_by}</td>
-        ${JSON.parse(localStorage.getItem("role")) === "member" ?`<td><a href='addTravelDetails.html?id=${data.event_id}' class="btn btn-primary">Book</a></td>` : ''}
-        ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td><a href='showEventsDetails.html?id=${data.event_id}'>Edit</a></td>` : ''}
+        <td>${data.listedBy}</td>
+        ${JSON.parse(localStorage.getItem("role")) === "member" ||
+        JSON.parse(localStorage.getItem("role")) === "head"
+        ?`<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Book</a></td>` : ''}
+        ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td><a href='showEventsDetails.html?id=${data.eventId}'>Edit</a></td>` : ''}
         ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td class="deleteEvent"><a href="#">Delete</a></td>` : ''}
-        <td style="display:none">${data.event_id}</td>
+        <td style="display:none">${data.eventId}</td>
         `
         document.getElementById("body").appendChild(tr)
         s.stop();

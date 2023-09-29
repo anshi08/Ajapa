@@ -58,16 +58,16 @@ btn.addEventListener("submit", async(e) =>{
 
     const data = {
         eventName: event_name,
-        event_type: event_type,
-        event_location: event_location,
+        eventType: event_type,
+        eventLocation: event_location,
         startDate: new Date(start_date),
         endDate: new Date(end_date),
         lockArrivalDate:new Date(lock_start_date),
         lockDepartureDate:new Date(lock_end_date),
-        start_time : start_time,
-        end_time : end_time,
+        startTime : start_time,
+        endTime : end_time,
         file:file,
-        listed_by:localStorage.getItem("role")
+        listedBy:localStorage.getItem("role")
     }
     // console.log("data",data)
     events(data)
@@ -101,9 +101,9 @@ function ClearAllFields(){
     console.log(res)
     ClearAllFields();
     $('#pendingDialog4').modal('show');
-    setTimeout(() =>{
-        window.location.href = "dashboard.html"
-    },3000)
+    // setTimeout(() =>{
+    //     window.location.href = "dashboard.html"
+    // },3000)
     return res
     } else {
         // Handle the case where the HTTP request was not successful
