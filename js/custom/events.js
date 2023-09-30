@@ -10,35 +10,35 @@ function getElementByIdName(idName){
 startTime.style.display = "none";
 endTime.style.display = "none";
 
-statusdd.addEventListener("change", () => {
-    const option = statusdd.value
-    if(option === "online"){
-    startTime.style.display = "block";
-    endTime.style.display = "block";
-    }
-    else if(option === "offline"){
-        startTime.style.display = "none";
-        endTime.style.display = "none";
-    }
-})
+// statusdd.addEventListener("change", () => {
+//     const option = statusdd.value
+//     if(option === "online"){
+//     startTime.style.display = "block";
+//     endTime.style.display = "block";
+//     }
+//     else if(option === "offline"){
+//         startTime.style.display = "none";
+//         endTime.style.display = "none";
+//     }
+// })
 
-// Validation
-document.getElementById("event_name").addEventListener("input",(e)=>{
+// // Validation
+// document.getElementById("event_name").addEventListener("input",(e)=>{
     
-    if(e.target.value.length===0){
-        document.getElementById("eventNameError").style.display = "block"
-    }else{
-        document.getElementById("eventNameError").style.display = "none"
-    }
-})
+//     if(e.target.value.length===0){
+//         document.getElementById("eventNameError").style.display = "block"
+//     }else{
+//         document.getElementById("eventNameError").style.display = "none"
+//     }
+// })
 
-document.getElementById("event_location").addEventListener("input",e =>{
-    if(e.target.value.length===0){
-        document.getElementById("eventLocationError").style.display = "block"
-    }else{
-        document.getElementById("eventLocationError").style.display = "none"
-    }
-})
+// document.getElementById("event_location").addEventListener("input",e =>{
+//     if(e.target.value.length===0){
+//         document.getElementById("eventLocationError").style.display = "block"
+//     }else{
+//         document.getElementById("eventLocationError").style.display = "none"
+//     }
+// })
 
 function parseJwt (token) {
     var base64Url = token.split('.')[1];
@@ -85,11 +85,13 @@ btn.addEventListener("submit", async(e) =>{
     }
 
     if(localStorage.getItem("role") === "super"){
-        events(data)
+        let {eventId} = events(data)
+        setEventImg(eventId)
     }else{
         let {eventId} = await events(data)
-        console.log("EventId",eventId)
+        // console.log("EventId",eventId)
         saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
+        setEventImg(eventId)
     }
 
 })
@@ -110,7 +112,7 @@ function ClearAllFields(){
  const events = async (data) => {
     console.log("mydata",data)
     try{
-    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveEvent",{
+    const response = await fetch("http://192.168.29.52:8080/saveEvent",{
         method:"POST",
         body:JSON.stringify(data),
         headers:{
@@ -159,3 +161,22 @@ const response = await res.text()
 console.log("hi",response)
 return response
 }
+
+
+
+
+
+const setEventImg = async (eventId) => {
+        const fileInput = document.getElementById("file").files[0];
+        const form = new FormData();
+         await form.append("eventId",eventId)
+        await form.append("file",document.getElementById("file").files[0])
+        const response = await fetch("http://192.168.29.52:8080/saveEventD",{
+        method:"POST",
+        body:form,
+        })
+        const res = await response.json()
+        console.log("IMG",res)
+        return res;
+}
+
