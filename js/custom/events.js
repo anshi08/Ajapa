@@ -40,6 +40,14 @@ document.getElementById("event_location").addEventListener("input",e =>{
     }
 })
 
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+}
 
 
 btn.addEventListener("submit", async(e) =>{
@@ -55,6 +63,12 @@ btn.addEventListener("submit", async(e) =>{
     let start_time = document.getElementById("s_time").value;
     let end_time = document.getElementById("e_time").value;
     let file = getElementByIdName("file");
+    let newListedBy;
+    if(localStorage.getItem("role").trim().replaceAll("\"","") === "admin"){
+        newListedBy = parseJwt(localStorage.getItem("data")).Identifier
+    }else{
+        newListedBy = parseJwt(localStorage.getItem("data")).id 
+    }
 
     const data = {
         eventName: event_name,
@@ -67,10 +81,17 @@ btn.addEventListener("submit", async(e) =>{
         startTime : start_time,
         endTime : end_time,
         file:file,
-        listedBy:localStorage.getItem("role")
+        listedBy: newListedBy
     }
-    // console.log("data",data)
-    events(data)
+
+    if(localStorage.getItem("role") === "super"){
+        events(data)
+    }else{
+        let {eventId} = await events(data)
+        console.log("EventId",eventId)
+        saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
+    }
+
 })
 
 function ClearAllFields(){
@@ -87,7 +108,7 @@ function ClearAllFields(){
 }
 
  const events = async (data) => {
-    console.log(data)
+    console.log("mydata",data)
     try{
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveEvent",{
         method:"POST",
@@ -98,7 +119,7 @@ function ClearAllFields(){
     })
     if(response.ok){
     const res = await response.json()
-    console.log(res)
+    console.log("kkk",res)      
     ClearAllFields();
     $('#pendingDialog4').modal('show');
     // setTimeout(() =>{
@@ -113,3 +134,28 @@ function ClearAllFields(){
 
     console.error("An error occurred:", error);
 }}
+
+async function saveEventPermission(eventId,adminId,canModify,canDelete){
+    let canModify1 = "no"
+    let canDelete1 = "no"
+    if(canModify) canModify1 = "yes"
+    if(canDelete) canDelete1 = "yes"
+    const newObj = {
+        eventId,
+        adminId,
+        canModify:canModify1,
+        canDelete:canDelete1
+    }
+
+const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveEventPermission',{
+    method:"POST",
+    headers:{
+        'Accept': 'application/json, text/plain',
+        'Content-Type': 'application/json;charset=UTF-8'
+    },
+    body:JSON.stringify(newObj)
+})
+const response = await res.text()
+console.log("hi",response)
+return response
+}

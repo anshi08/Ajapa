@@ -22,9 +22,10 @@ function loadContent() {
         .then(data => {
             // Assuming you have a div with id "content" in your HTML file
             document.getElementById('accordionSidebar').innerHTML = data;
-            if(JSON.parse(localStorage.getItem("role")) === "super"){
+            if(JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin"){
                 console.log("SSS");
-                document.getElementById("username").innerText = name.fullName
+                document.getElementById("addPermission").style.display = "block"
+                document.getElementById("showPermission").style.display = "block"
                 document.getElementById("addAdmins").style.display = "block"
                 document.getElementById("showAdmins").style.display = "block"
                 document.getElementById("rejectUsers").style.display = "block"
