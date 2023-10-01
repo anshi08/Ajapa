@@ -121,7 +121,7 @@ btn.addEventListener("submit", (e) => {
     let blood_grp = document.getElementById("blood_grp").value
     let diksha_dt_value = getElementByIdName("diksha_dt")
     let occupation = getElementByIdName("occupation")
-    let file = getElementByIdName("file")
+    // let file = getElementByIdName("file")
     let qualification = getElementByIdName("qualification")
     let address_linep = getElementByIdName("address_linep")
     let country_ele=document.getElementById("country");
@@ -141,7 +141,7 @@ btn.addEventListener("submit", (e) => {
         bloodGrp: blood_grp,
         dikshaDt: diksha_dt_value,
         occupation: occupation,
-        file: file,
+        // file: file,
         qualification: qualification,
         addressLinep: address_linep,
         country: country,

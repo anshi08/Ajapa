@@ -1,25 +1,8 @@
-window.addEventListener("DOMContentLoaded" , ()=> {
-    const name = parseJwt(localStorage.getItem("data"))
-    console.log(name.fullName)
-    document.getElementById("username").innerText = name.fullName
-
-})
-
-function parseJwt (token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
-}
-
-
 //pendingDialog101
 if(JSON.parse(localStorage.getItem("role")) === "member" ||JSON.parse(localStorage.getItem("role")) === "head")
 window.addEventListener("DOMContentLoaded",()=>{
     $('#pendingDialog101').modal('show');
-    document.getElementById("pendingrequest").style.display = "none"    
+    document.getElementById("pendingrequest").style.display = "none"   
 })
 
 let prev = document.getElementById("prev")
@@ -125,21 +108,24 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     }
 
 
-
         if(res.length==0){
             s.stop();
         }
         if(role === "member" || role === "head") {
             document.getElementById("Book").style.display = "block"
-            document.getElementById("showDetails").style.display = "none";
+            document.getElementById("showDetails")!==null ? document.getElementById("showDetails").style.display = "none" :"";
             // document.getElementById("deleteDetails").style.display = "none";
+            document.getElementById("deleteEventCol")!==null ? document.getElementById("deleteEventCol").style.display = "none" :""
         }
-        if(role === "super") {
-            document.getElementById("showDetails").style.display = "block";
+        if(role === "super" || role === "admin") {
+            document.getElementById("showDetails")!==null ? document.getElementById("showDetails").style.display = "block" :""
             // document.getElementById("deleteDetails").style.display = "block";
             document.getElementById("Book").style.display = "none";
+      
         }
         const res1 = await res.filter(res => res.eventStatus!==2)
+    
+
         await res1.forEach(data => {
             let tr = document.createElement("tr")
         tr.innerHTML = `
@@ -152,12 +138,13 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         ${JSON.parse(localStorage.getItem("role")) === "member" ||
         JSON.parse(localStorage.getItem("role")) === "head"
         ?`<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Book</a></td>` : ''}
-        ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?`<td><a href='showEventsDetails.html?id=${data.eventId}'>Edit</a></td>` : ''}
-        ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ? `<td class="deleteEvent"><a href="#">Delete</a></td>` : ''}
+        ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':""}
+        ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td class="deleteEvent"><a href="#">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
         <td style="display:none">${data.eventId}</td>
         `
         document.getElementById("body").appendChild(tr)
         s.stop();
+
         
     }
 

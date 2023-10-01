@@ -15,6 +15,7 @@ fetchDetails()
 
 
  async function getImg (){
+
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEmail",{
         method:"POST",
         headers:{
@@ -22,10 +23,10 @@ fetchDetails()
         }
     })
     const res = await response.json()
-    console.log("jjjj",res.Email)
     let id = window.location.href.split("?")[1].split("=")[1]
+    // alert(id)
     document.getElementById("event_pic").src = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/EventDoc/${id}.jpg`
-    document.getElementById("event_pic").className = "img-responsive"
+    document.getElementById("event_pic").className = "img-fluid"
 }
 
 getImg()

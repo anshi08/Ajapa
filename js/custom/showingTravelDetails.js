@@ -28,9 +28,10 @@ async function getTravelDetails(){
     `
     document.getElementById("body").appendChild(tr)
     // To stop the spinner
+    s.stop(); 
   
 })
-s.stop(); 
+
 
 }
 

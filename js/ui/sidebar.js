@@ -1,9 +1,3 @@
-window.addEventListener("DOMContentLoaded" , ()=> {
-    const name = parseJwt(localStorage.getItem("data"))
-    console.log(name.fullName)
-    document.getElementById("username").innerText = name.fullName
-
-})
 
 function parseJwt (token) {
     var base64Url = token.split('.')[1];
@@ -20,10 +14,11 @@ function loadContent() {
     fetch('sidebar.html')
         .then(response => response.text())
         .then(data => {
+            const token = localStorage.getItem("data");
+           
             // Assuming you have a div with id "content" in your HTML file
             document.getElementById('accordionSidebar').innerHTML = data;
             if(JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin"){
-                console.log("SSS");
                 document.getElementById("addPermission").style.display = "block"
                 document.getElementById("showPermission").style.display = "block"
                 document.getElementById("addAdmins").style.display = "block"
@@ -34,9 +29,20 @@ function loadContent() {
                 document.getElementById("updateProfile").style.display = "none"
                 document.getElementById("addDetailsTab").style.display = "none"
                 document.getElementById("superOnly").style.display = "block"
-                document.getElementById("addTravelDetails").style.display = "none"
+                document.getElementById("addTravelDetails") !== null ? document.getElementById("addTravelDetails").style.display = "none" : ""
                 document.getElementById("events").style.display = "block"
 
+            }
+            if (token) {
+                try {
+                    // Parse the JWT to extract the fullName property
+                    const name = parseJwt(token);
+                    // Update the "username" element with the fullName
+                    const usernameElement = document.getElementById("brand");
+                    usernameElement.innerText = name.fullName === undefined ? "Admin":name.fullName;
+                } catch (error) {
+                    console.error("Error parsing JWT:", error);
+                }
             }
         })
         .catch(error => {

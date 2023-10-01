@@ -13,6 +13,8 @@ function loadContent() {
             if(JSON.parse(localStorage.getItem("role")) === "super"){
                 document.getElementById("notificationIcon").style.display = "block"
             }
+            let email = parseJwt(localStorage.getItem("data")).email
+            document.getElementById("userPic").src = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${email}.jpg`
         })
         .catch(error => {
             console.error('Error fetching content:', error);
@@ -62,3 +64,11 @@ document.getElementById("notification").innerHTML = res.length
 getUsersApprove();
 
 
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+}

@@ -10,35 +10,35 @@ function getElementByIdName(idName){
 startTime.style.display = "none";
 endTime.style.display = "none";
 
-// statusdd.addEventListener("change", () => {
-//     const option = statusdd.value
-//     if(option === "online"){
-//     startTime.style.display = "block";
-//     endTime.style.display = "block";
-//     }
-//     else if(option === "offline"){
-//         startTime.style.display = "none";
-//         endTime.style.display = "none";
-//     }
-// })
+statusdd.addEventListener("change", () => {
+    const option = statusdd.value
+    if(option === "online"){
+    startTime.style.display = "block";
+    endTime.style.display = "block";
+    }
+    else if(option === "offline"){
+        startTime.style.display = "none";
+        endTime.style.display = "none";
+    }
+})
 
-// // Validation
-// document.getElementById("event_name").addEventListener("input",(e)=>{
+// Validation
+document.getElementById("event_name").addEventListener("input",(e)=>{
     
-//     if(e.target.value.length===0){
-//         document.getElementById("eventNameError").style.display = "block"
-//     }else{
-//         document.getElementById("eventNameError").style.display = "none"
-//     }
-// })
+    if(e.target.value.length===0){
+        document.getElementById("eventNameError").style.display = "block"
+    }else{
+        document.getElementById("eventNameError").style.display = "none"
+    }
+})
 
-// document.getElementById("event_location").addEventListener("input",e =>{
-//     if(e.target.value.length===0){
-//         document.getElementById("eventLocationError").style.display = "block"
-//     }else{
-//         document.getElementById("eventLocationError").style.display = "none"
-//     }
-// })
+document.getElementById("event_location").addEventListener("input",e =>{
+    if(e.target.value.length===0){
+        document.getElementById("eventLocationError").style.display = "block"
+    }else{
+        document.getElementById("eventLocationError").style.display = "none"
+    }
+})
 
 function parseJwt (token) {
     var base64Url = token.split('.')[1];
@@ -52,7 +52,7 @@ function parseJwt (token) {
 
 btn.addEventListener("submit", async(e) =>{
     e.preventDefault();
-
+ 
     let event_name = getElementByIdName("event_name");
     let event_type = document.getElementById("event_type").value;
     let event_location = getElementByIdName("event_location");
@@ -62,7 +62,7 @@ btn.addEventListener("submit", async(e) =>{
     let lock_end_date = getElementByIdName("lock_end_date");
     let start_time = document.getElementById("s_time").value;
     let end_time = document.getElementById("e_time").value;
-    let file = getElementByIdName("file");
+    let file = document.getElementById("file").files[0]
     let newListedBy;
     if(localStorage.getItem("role").trim().replaceAll("\"","") === "admin"){
         newListedBy = parseJwt(localStorage.getItem("data")).Identifier
@@ -86,12 +86,11 @@ btn.addEventListener("submit", async(e) =>{
 
     if(localStorage.getItem("role") === "super"){
         let {eventId} = events(data)
-        setEventImg(eventId)
+        setEventImg(eventId,file)
     }else{
         let {eventId} = await events(data)
-        // console.log("EventId",eventId)
         saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
-        setEventImg(eventId)
+        setEventImg(eventId,file)
     }
 
 })
@@ -112,7 +111,7 @@ function ClearAllFields(){
  const events = async (data) => {
     console.log("mydata",data)
     try{
-    const response = await fetch("http://192.168.29.52:8080/saveEvent",{
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveEvent",{
         method:"POST",
         body:JSON.stringify(data),
         headers:{
@@ -124,9 +123,9 @@ function ClearAllFields(){
     console.log("kkk",res)      
     ClearAllFields();
     $('#pendingDialog4').modal('show');
-    // setTimeout(() =>{
-    //     window.location.href = "dashboard.html"
-    // },3000)
+    setTimeout(() =>{
+        window.location.href = "dashboard.html"
+    },3000)
     return res
     } else {
         // Handle the case where the HTTP request was not successful
@@ -166,12 +165,11 @@ return response
 
 
 
-const setEventImg = async (eventId) => {
-        const fileInput = document.getElementById("file").files[0];
+const setEventImg = async (eventId,file) => {
         const form = new FormData();
-         await form.append("eventId",eventId)
-        await form.append("file",document.getElementById("file").files[0])
-        const response = await fetch("http://192.168.29.52:8080/saveEventD",{
+        await form.append("eventId",eventId)
+        await form.append("file",file)
+        const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveEventD",{
         method:"POST",
         body:form,
         })

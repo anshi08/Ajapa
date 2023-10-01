@@ -20,6 +20,7 @@ btn.addEventListener("submit", (e) =>{
     let dob = getElementByIdName("dob");
     let mobileNum = getElementByIdName("mobile_num")
     let email = getElementByIdName("email");
+    let file = document.getElementById("file").files[0]
     let pw = getElementByIdName("pw");
     let rpwd = getElementByIdName("rpwd");
     let country_ele=document.getElementById("country");
@@ -45,6 +46,7 @@ btn.addEventListener("submit", (e) =>{
         dob: dob, 
         mobileNum: mobileNum,
         email: email,
+        file:file,
         password:pw,
         country: country,
         city: city,
@@ -174,11 +176,12 @@ res.forEach((state) => {
     console.log(res)
     clearAllFields();
     document.getElementById("pwdErr").style.display  = "none"
+    saveUserImg(data.file,data.email)
     // waitingResponse
     $('#pendingDialog').modal('show');
-    setTimeout(()=>{
-        // window.location.href = "login.html"
-    },3000)
+    // setTimeout(()=>{
+    //     // window.location.href = "login.html"
+    // },3000)
        
     return res;
     }
@@ -241,3 +244,19 @@ document.getElementById("email").addEventListener("input",e=>{
         document.getElementById("emailErr").style.display = "none"
     }
 })
+
+
+//Saving user Image
+const saveUserImg = async (file,email) => {
+    // console.log(file,email)
+    const form = new FormData();
+    await form.append("file",file)
+    await form.append("email",email)
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveImage2",{
+    method:"POST",
+    body:form,
+    })
+    const res = await response.json()
+    console.log("IMG",res)
+    return res;
+}
