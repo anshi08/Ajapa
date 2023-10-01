@@ -19,7 +19,6 @@ async function getHistory(id){
 
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getTravelByUserId/'+id)
     const response = await res.json()
-    console.log(response) 
     response.forEach(data => {
         let tr = document.createElement("tr")
         tr.innerHTML = `
@@ -30,7 +29,8 @@ async function getHistory(id){
         <td>${data.fromCountry.split(":")[1]}</td>
         `
         document.getElementById("body").appendChild(tr)
-        s.stop();
+
     })  
+    s.stop();
 }
 

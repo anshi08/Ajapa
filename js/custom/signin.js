@@ -113,7 +113,6 @@ async function AdminLogin(data){
             }
         })
         const res = await response.json()
-        // console.log(res)
         localStorage.setItem("data",JSON.stringify(res.token))
         localStorage.setItem("role",JSON.stringify(res.type))
         window.location.href = "dashboard.html"
@@ -125,10 +124,13 @@ async function AdminLogin(data){
 
 
 function isAuth(){
+    
     if(localStorage.getItem("data")===null || localStorage.getItem("data")===''){
         // window.location.href = "login.html"
     }else{
-        history.back()
+        // history.back()
+        // alert('hi')
+        window.location= "dashboard.html"
     }
 }
 

@@ -1,6 +1,7 @@
 async function getUsers(){
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAllAdmins")
     const res = await response.json()
+    console.log("🚀 ~ file: showAdmins.js:4 ~ getUsers ~ res:", res)
     res.forEach(data => {
         if(data.id !== 1){
         let tr = document.createElement("tr")
