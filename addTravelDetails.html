@@ -62,7 +62,7 @@
                      <div class="jumbotron" style="padding: 2rem 22rem 3rem">Arrival Details</div>
 
                        <!-- Message dialog Box -->
-  <div class="modal fade" id="pendingDialog2" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
+     <div class="modal fade" id="pendingDialog2" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -97,6 +97,13 @@
                         </div>
 
                               <div class="form-group">
+                                <label>Select a State :</label>
+                                <select id="from_state" class="form-control" required>
+                                    <!-- Options will be added dynamically -->
+                                    <option value="">State</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label>Select a City :</label>
                                 <select id="from_city" class="form-control" required>
                                     <!-- Options will be added dynamically -->

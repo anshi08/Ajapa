@@ -1,5 +1,4 @@
 let btn = document.getElementById("btn")
-console.log(btn)
 let element = document.getElementById("country")
 let stateElement = document.getElementById("state")
 let cityElement = document.getElementById("city")
@@ -178,7 +177,13 @@ res.forEach((state) => {
     document.getElementById("pwdErr").style.display  = "none"
     saveUserImg(data.file,data.email)
     // waitingResponse
-    $('#pendingDialog').modal('show');
+    if(res.msg === 'User exists'){
+        $('#pendingDialog1').modal('show')
+    }else{
+        $('#pendingDialog').modal('show');
+    }
+
+
     // setTimeout(()=>{
     //     // window.location.href = "login.html"
     // },3000)

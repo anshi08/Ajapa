@@ -1,18 +1,18 @@
 async function getUsers(){
-    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAllAdmins")
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAllAdminsNew")
     const res = await response.json()
-    console.log("🚀 ~ file: showAdmins.js:4 ~ getUsers ~ res:", res)
+
     res.forEach(data => {
-        if(data.id !== 1){
+        console.log("🚀 ~ file: showAdmins.js:6 ~ getUsers ~ data:", data)
+        
         let tr = document.createElement("tr")
         tr.innerHTML = `
-        <td>${data.fullName}</td>
-        <td>${data.email}</td>
-        <td>${data.mobileNum}</td>
-        <td><p style="display:none">${data.id}</p><a href="#" class="edit">Delete</a></td>
+        <td>${data.identifier}</td>
+        <td>${data.password}</td>
+        <td><a href="#" class="edit">${data.status===1?'Delete':"Restore"}</a></td>
         `
         document.getElementById("body").appendChild(tr)
-        }
+        
     })
     
     return res;
@@ -25,15 +25,17 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         item.addEventListener("click",(e)=>{
             e.preventDefault()
 
-            deletAdmin(e.target.previousElementSibling.innerText)
+            deletAdmin(e.target.parentElement.previousElementSibling.previousElementSibling.innerText)
         })
     })
 })
 
 async function deletAdmin(id){
+    console.log(id)
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changeAdminStatus/"+id,{
         method:"POST"
     })
     const res = await response.text()
+    console.log(res)
     window.location.href="showAdmins.html"
 }

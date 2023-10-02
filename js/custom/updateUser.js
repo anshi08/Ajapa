@@ -203,6 +203,7 @@ element.addEventListener('change', function (e) {
   }
 
 async function fetchStates(countryId){
+    console.log("🚀 ~ file: updateUser.js:206 ~ fetchStates ~ countryId:", countryId)
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/states/${countryId}`,{
         method:"GET",
         headers: {

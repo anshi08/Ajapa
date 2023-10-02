@@ -58,7 +58,7 @@ btn.addEventListener("submit", async(e) =>{
     let event_location = getElementByIdName("event_location");
     let lock_start_date = getElementByIdName("lock_start_date");
     let start_date = getElementByIdName("start_date");
-    let end_date = getElementByIdName("end_date");
+    // let end_date = getElementByIdName("end_date");
     let lock_end_date = getElementByIdName("lock_end_date");
     let start_time = document.getElementById("s_time").value;
     let end_time = document.getElementById("e_time").value;
@@ -75,7 +75,7 @@ btn.addEventListener("submit", async(e) =>{
         eventType: event_type,
         eventLocation: event_location,
         startDate: new Date(start_date),
-        endDate: new Date(end_date),
+        endDate: null,
         lockArrivalDate:new Date(lock_start_date),
         lockDepartureDate:new Date(lock_end_date),
         startTime : start_time,
@@ -102,7 +102,7 @@ function ClearAllFields(){
     document.getElementById("lock_start_date").value = '';
     document.getElementById("lock_end_date").value = '';
     document.getElementById("start_date").value = '';
-    document.getElementById("end_date").value = '';
+    // document.getElementById("end_date").value = '';
     document.getElementById("s_time").value = '';
     document.getElementById("e_time").value = '';
     document.getElementById("file").value = '';

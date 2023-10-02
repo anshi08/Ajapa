@@ -1,7 +1,18 @@
 //pendingDialog101
 if(JSON.parse(localStorage.getItem("role")) === "member" ||JSON.parse(localStorage.getItem("role")) === "head")
 window.addEventListener("DOMContentLoaded",()=>{
-    $('#pendingDialog101').modal('show');
+   
+
+    async function getAge(){
+        let id = parseJwt(localStorage.getItem("data")).id
+        const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAge/'+id)
+        const response = await res.text()
+       if(response!=="yes"){
+        $('#pendingDialog101').modal('show');
+       }
+    }
+    getAge()
+
     document.getElementById("pendingrequest").style.display = "none"   
 })
 
@@ -29,7 +40,6 @@ next.addEventListener("click", async () => {
         <td>${data.eventType}</td>
         <td>${data.eventLocation}</td>
         <td>${data.startDate?.split("T")[0]}</td>
-        <td>${data.endDate?.split("T")[0]}</td>
         <td>${data.listedBy}</td>
         ${JSON.parse(localStorage.getItem("role")) === "super" ?`<td><a href='showEventsDetails.html?id=${data.eventId}'>Edit</a></td>` :''}
         <td style="display:none">${data.eventId}</td>
@@ -54,7 +64,6 @@ prev.addEventListener("click", async () => {
         <td>${data.eventType}</td>
         <td>${data.eventLocation}</td>
         <td>${data.startDate?.split("T")[0]}</td>
-        <td>${data.endDate?.split("T")[0]}</td>
         <td>${data.listedBy}</td>
         <td><a href='cards.html?id=${data.eventId}'>Edit</a></td>
         
@@ -133,7 +142,6 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         <td>${data.eventType}</td>
         <td>${data.eventLocation}</td>
         <td>${data.startDate?.split("T")[0]}</td>
-        <td>${data.endDate?.split("T")[0]}</td>
         <td>${data.listedBy}</td>
         ${JSON.parse(localStorage.getItem("role")) === "member" ||
         JSON.parse(localStorage.getItem("role")) === "head"

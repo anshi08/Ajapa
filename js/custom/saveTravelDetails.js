@@ -1,6 +1,7 @@
 let btn = document.getElementById("btn")
 let element = document.getElementById("from_country")
-let stateElement = document.getElementById("from_city")
+let stateElement = document.getElementById("from_state")
+let cityElement= document.getElementById("from_city")
 let id = window.location.href.split("?")[1].split("=")[1]
 // console.log(id)
 
@@ -319,6 +320,12 @@ element.addEventListener('change', function (e) {
     stateElement.value = "" ;
   }
 
+  stateElement.addEventListener("change",e =>{
+    console.log(e.target.value)
+    fetchCities(e.target.value)
+
+  })
+
 async function fetchStates(countryId){
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/states/${countryId}`,{
         method:"GET",
@@ -338,6 +345,24 @@ res.forEach((state) => {
     stateElement.appendChild(option);
   });
 }
+
+async function fetchCities(stateId) {
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/cities/${stateId}`,{
+        method:"GET",
+        headers:{
+                "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    const res = await response.json()
+    console.log("res",res)
+    cityElement.innerHTML=""
+    res.forEach((city) => {
+        const option = document.createElement('option');
+        option.value = city.id;
+        option.text = city.name;
+        cityElement.appendChild(option);
+      });
+  }
 
 async function saveTravelDetails(data) {
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveTravelDetails",{
