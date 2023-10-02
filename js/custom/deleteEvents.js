@@ -16,7 +16,6 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         <td>${data.eventType}</td>
         <td>${data.eventLocation}</td>
         <td>${data.startDate?.split("T")[0]}</td>
-        <td>${data.endDate?.split("T")[0]}</td>
         <td>${data.listedBy}</td>
         <td style="display:none">${data.eventId}</td>
         `

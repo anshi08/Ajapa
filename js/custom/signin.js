@@ -113,9 +113,15 @@ async function AdminLogin(data){
             }
         })
         const res = await response.json()
+        if (res.token == "No data matches your input"){
+            clearDisplayError()
+            displayError("You are not Admin")
+        }
+        else{
         localStorage.setItem("data",JSON.stringify(res.token))
         localStorage.setItem("role",JSON.stringify(res.type))
         window.location.href = "dashboard.html"
+        }
     } catch (error) {
         console.log(error)
     }

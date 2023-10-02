@@ -174,13 +174,14 @@ res.forEach((state) => {
     })
     if(response.ok){
     const res = await response.json()
+    console.log(res)
     clearAllFields();
     document.getElementById("pwdErr").style.display  = "none"
     // waitingResponse
     $('#pending').modal('show');
-    setTimeout(()=>{
-        window.location.href = "dashboard.html"
-    },2000)
+    // setTimeout(()=>{
+    //     window.location.href = "dashboard.html"
+    // },2000)
        
     return res;
     }

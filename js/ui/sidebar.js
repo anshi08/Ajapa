@@ -32,7 +32,22 @@ function loadContent() {
                 document.getElementById("superOnly").style.display = "block"
                 document.getElementById("addTravelDetails") !== null ? document.getElementById("addTravelDetails").style.display = "none" : ""
                 document.getElementById("events").style.display = "block"
-
+            }
+            if(JSON.parse(localStorage.getItem("role")) === "admin"){
+                document.getElementById("pendingrequest").style.display = "none"
+                document.getElementById("showMembers").style.display = "none"
+                document.getElementById("addPermission").style.display = "none"
+                document.getElementById("showPermission").style.display = "none"
+                document.getElementById("addAdmins").style.display = "none"
+                document.getElementById("showAdmins").style.display = "none"
+                document.getElementById("rejectUsers").style.display = "none"
+                document.getElementById("deletedEvents").style.display = "none"
+                document.getElementById("addMembers").style.display = "none"
+                document.getElementById("updateProfile").style.display = "none"
+                document.getElementById("addDetailsTab").style.display = "none"
+                document.getElementById("superOnly").style.display = "block"
+                document.getElementById("addTravelDetails") !== null ? document.getElementById("addTravelDetails").style.display = "none" : ""
+                document.getElementById("events").style.display = "block"
             }
             if (token) {
                 try {
