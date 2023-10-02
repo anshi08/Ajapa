@@ -13,8 +13,9 @@ async function getAllFamilyMember(familyId){
 
 
 window.addEventListener("DOMContentLoaded",async ()=>{
-    // let res = await getAllFamilyMember(localStorage.getItem("family_id"))
-    let res = await getAllFamilyMember(120)
+    let res = await getAllFamilyMember(localStorage.getItem("family_id"))
+    console.log(res)
+    // let res = await getAllFamilyMember(120)
     let allUser = res.filter(res => res.id !== +localStorage.getItem("family_id") )
 
     allUser.forEach(data => {

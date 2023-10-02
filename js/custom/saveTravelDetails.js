@@ -267,7 +267,8 @@ btn.addEventListener("submit", async (e) =>{
         }
     }
     // console.log(data,"MYDATA")
-     saveTravelDetails(data)
+    //  saveTravelDetails(data)
+    setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data)
 })
 
 function clearAllFields(){
@@ -380,7 +381,7 @@ async function saveTravelDetails(data) {
     return res;
 }
 
-window.addEventListener("DOMContentLoaded",()=>{
+window.addEventListener("DOMContentLoaded",async ()=>{
     document.getElementById("arrival_mode_of_transport").addEventListener("change",e =>{
         
         if(e.target.value === "Train"){
@@ -406,11 +407,14 @@ window.addEventListener("DOMContentLoaded",()=>{
             document.getElementById("transport1").style.display = "none"
         }
     })
+    let ddl =  await getAllFamilyMember(localStorage.getItem("family_id"))
 
-
-      
-
-
+    ddl.forEach(person => {
+        let option = document.createElement("option")
+        option.value= person.id
+        option.innerText=person.fullName
+        document.getElementById("familyDDL").appendChild(option)
+    })
 
 })
 
@@ -524,4 +528,14 @@ async function getAllFamilyMember(familyId){
     const res = await response.json()
     return res;
             
+}
+
+
+function setTravelDetailsonLocalStorage(id,data){
+    localStorage.setItem(id,JSON.stringify(data))
+
+}
+
+function getTravelDetailsFromId(id){
+    return JSON.parse(localStorage.getItem(id))
 }

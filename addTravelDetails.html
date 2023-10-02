@@ -60,32 +60,37 @@
                         <div class="container shadow-lg p-4 mb-4 bg-white mx-auto rounded" 
                         style="width: 900px ;margin:20px 20px;" >
                      <div class="jumbotron" style="padding: 2rem 22rem 3rem">Arrival Details</div>
-
                        <!-- Message dialog Box -->
-     <div class="modal fade" id="pendingDialog2" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="pendingDialogLabel">Travel Details</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            Travel Details Added Successfully 
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-    </div>
+                    <div class="modal fade" id="pendingDialog2" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="pendingDialogLabel">Travel Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            Travel Details Added Successfully 
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
                     <!-- Form  -->
                         <form enctype="multipart/form-data" id="btn">
 
                             <div class="form-group">
                                 <!-- <label >Event ID</label> -->
                                   <input type="hidden" class="form-control"  id="e_id" >
+                            </div>
+                            <div class="form-group row" >
+                                <label class="col-sm-3">Same As</label>
+
+                            <select id="familyDDL" class="form-control col-sm-9" required>
+                                </select>
                             </div>
 
                         <div class="form-group">
@@ -216,7 +221,7 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
+    <!-- Scroll to Top Button-->    
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
