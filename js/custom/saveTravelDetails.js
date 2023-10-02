@@ -33,9 +33,6 @@ document.getElementById("departure_date").setAttribute("min",endDate)
 document.getElementById("departure_date").setAttribute("max",lock_endDate)
 }
 
-
-
-
 //Validations
 document.getElementById("arrival_date").addEventListener("input",e =>{
     if(e.target.value === 0 || e.target.value.length === 0){
@@ -449,9 +446,9 @@ function debounce(func, wait) {
         func.apply(context, args);
     }, wait);
     };
-    }
+}
 
-    async function handleInput(searchInput) {
+async function handleInput(searchInput) {
         const searchTerm = searchInput.value.trim();
         console.log(searchTerm)
         if (searchTerm.length === 0) {
@@ -481,9 +478,9 @@ function debounce(func, wait) {
         } catch (error) {
             console.error("Error fetching data:", error);
         }
-        }
+}
 
-        async function handleInput1(searchInput) {
+async function handleInput1(searchInput) {
             const searchTerm = searchInput.value.trim();
             console.log(searchTerm)
             if (searchTerm.length === 0) {
@@ -514,4 +511,17 @@ function debounce(func, wait) {
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
-            }
+}
+
+
+async function getAllFamilyMember(familyId){
+ const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getFamilyMembers/${familyId}`,{
+        method:"GET",
+        headers: {
+            "Content-type":"application/json;  charset=UTF-8"
+        }
+    })
+    const res = await response.json()
+    return res;
+            
+}
