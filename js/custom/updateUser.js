@@ -161,7 +161,7 @@ function clearFormFields() {
     document.getElementById("blood_grp").value = '';
     document.getElementById("diksha_dt").value = '';
     document.getElementById("occupation").value = '';
-    document.getElementById("file").value = '';
+    // document.getElementById("file").value = '';
     document.getElementById("qualification").value = '';
     document.getElementById("address_linep").value = '';
     document.getElementById("country").value = '';
@@ -291,7 +291,7 @@ async function detailsOfUser(email) {
     <label>Select a Country :</label>
     <select id="country" class="form-control">
         <!-- Options will be added dynamically -->
-        <option>${aa[1]}</option>
+        <option value="101">${aa[1]}</option>
     </select>
 </div>
     

@@ -13,7 +13,7 @@ btn.addEventListener("submit", () => {
         blood_grp: blood_grp,
         diksha_dt: diksha_dt,
         occupation: occupation,
-        file: file,
+        // file: file,
         qualification: qualification,
         address_linep: address_linep,
         state: state,

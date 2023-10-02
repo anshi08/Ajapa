@@ -121,7 +121,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
             s.stop();
         }
         if(role === "member" || role === "head") {
-            document.getElementById("Book").style.display = "block"
+            document.getElementById("Book").style.visibility = "visible"
             document.getElementById("showDetails")!==null ? document.getElementById("showDetails").style.display = "none" :"";
             // document.getElementById("deleteDetails").style.display = "none";
             document.getElementById("deleteEventCol")!==null ? document.getElementById("deleteEventCol").style.display = "none" :""
@@ -129,7 +129,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         if(role === "super" || role === "admin") {
             document.getElementById("showDetails")!==null ? document.getElementById("showDetails").style.display = "block" :""
             // document.getElementById("deleteDetails").style.display = "block";
-            document.getElementById("Book").style.display = "none";
+            document.getElementById("Book").style.visibility = "hidden";
       
         }
         const res1 = await res.filter(res => res.eventStatus!==2)
