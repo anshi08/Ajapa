@@ -7,7 +7,6 @@ async  function fetchDetails(){
     document.getElementById('event_type').value = response.eventType;
     document.getElementById('event_location').value = response.eventLocation;
     document.getElementById('start_date').value = response.startDate?.split("T")[0];
-    document.getElementById('end_date').value = response.endDate?.split("T")[0];
     // document.getElementById('listed_by').value = response.listed_by;
    
 }

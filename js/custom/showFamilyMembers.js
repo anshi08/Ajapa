@@ -6,8 +6,7 @@ async function getAllFamilyMember(familyId){
         }
    })
    const res = await response.json()
-   console.log(res)
- return res;
+   return res;
 
 }
 
