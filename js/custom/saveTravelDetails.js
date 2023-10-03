@@ -415,6 +415,64 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         option.innerText=person.fullName
         document.getElementById("familyDDL").appendChild(option)
     })
+    document.getElementById("familyDDL").addEventListener("change",e =>{
+       let id = e.target.value
+       let details =  getTravelDetailsFromId(id)
+        if(!details){
+            alert("This user having no travels history")
+        }
+        else{
+            console.log(details)
+       let DDLC = details.fromCountry.split(":")
+       let string = 
+      `  <div class="form-group">
+      <label>Select a Country :</label>
+      <select id="from_country" class="form-control" required>
+          <!-- Options will be added dynamically -->
+          <option>${DDLC[1]}</option>
+      </select>
+  </div>`
+       document.getElementById("from_country").innerHTML = string
+
+       let DDLCity = details.fromCity.split(":")
+       let city1 = 
+      `  <div class="form-group">
+      <label>Select a Country :</label>
+      <select id="from_country" class="form-control" required>
+          <!-- Options will be added dynamically -->
+          <option>${DDLCity[1]}</option>
+      </select>
+  </div>`
+       document.getElementById("from_city").innerHTML = city1
+
+    document.getElementById("arrival_date").value = details.arrivalDate
+    document.getElementById("departure_date").value = details.departureDate
+    document.getElementById("arrival_time").value = details.arrivalTime
+    document.getElementById("departure_time").value = details.departureTime
+    
+   if(document.getElementById("arrival_mode_of_transport").value !== "Train" ){
+   
+    document.getElementById("arrival_mode_of_transport").value = details.arrivalModeOfTransport
+    document.getElementById("transport").style.display = "none"
+   }else{
+    document.getElementById("transport").style.display="block"
+    document.getElementById("arrival_train_number").value = details.arrivalTrainNumber
+
+   }
+
+    if(document.getElementById("departure_mode_of_transport").value !== "Train"){
+        document.getElementById("departure_mode_of_transport").value = details.departureModeOfTransport
+        document.getElementById("transport1").style.display = "none"    
+    }
+    else{
+        document.getElementById("transport1").style.display="block"
+        document.getElementById("departure_train_number").value = details.departureTrainNumber
+    }
+
+    }
+
+    
+    })
 
 })
 
@@ -539,3 +597,5 @@ function setTravelDetailsonLocalStorage(id,data){
 function getTravelDetailsFromId(id){
     return JSON.parse(localStorage.getItem(id))
 }
+
+
