@@ -104,9 +104,11 @@ btn.addEventListener("submit", async (e) =>{
     let e_id = document.getElementById("e_id").value = id;
     let country_ele=document.getElementById("from_country");
     let city_ele=document.getElementById("from_city");
+    let state_ele = document.getElementById("from_state");
     
     let country = document.getElementById("from_country").value+":"+country_ele.options[country_ele.selectedIndex].text;
     let city = document.getElementById("from_city").value+":"+city_ele.options[city_ele.selectedIndex].text;
+    let state = document.getElementById("from_state").value+":"+state_ele.options[state_ele.selectedIndex].text;
     let arr_date = getElementByIdName("arrival_date")
     let arr_time = document.getElementById("arrival_time").value
     let arr_transport = document.getElementById("arrival_mode_of_transport").value
@@ -198,6 +200,7 @@ btn.addEventListener("submit", async (e) =>{
             eventId: e_id,
             fromCity: city,
             fromCountry: country,
+            fromState: state,
             arrivalDate: arr_date,
             arrivalTime: arr_time,
             arrivalModeOfTransport: arr_transport,
@@ -218,6 +221,7 @@ btn.addEventListener("submit", async (e) =>{
             eventId: e_id,
             fromCity: city,
             fromCountry: country,
+            fromState: state,
             arrivalDate: arr_date,
             arrivalTime: arr_time,
             arrivalModeOfTransport: arr_transport,
@@ -235,6 +239,7 @@ btn.addEventListener("submit", async (e) =>{
             eventId: e_id,
             fromCity: city,
             fromCountry: country,
+            fromState: state,
             arrivalDate: arr_date,
             arrivalTime: arr_time,
             arrivalModeOfTransport: arr_transport,
@@ -253,6 +258,7 @@ btn.addEventListener("submit", async (e) =>{
             eventId: e_id,
             fromCity: city,
             fromCountry: country,
+            fromState: state,
             arrivalDate: arr_date,
             arrivalTime: arr_time,
             arrivalModeOfTransport: arr_transport,
@@ -266,7 +272,7 @@ btn.addEventListener("submit", async (e) =>{
     }
     // console.log(data,"MYDATA")
     //  saveTravelDetails(data)
-    setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data)
+    setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data) 
 })
 
 function clearAllFields(){
@@ -427,10 +433,17 @@ window.addEventListener("DOMContentLoaded",async ()=>{
       <label>Select a Country :</label>
       <select id="from_country" class="form-control" required>
           <!-- Options will be added dynamically -->
-          <option>${DDLC[1]}</option>
+          <option value="${DDLC[0]}">${DDLC[1]}</option>
       </select>
   </div>`
        document.getElementById("from_country").innerHTML = string
+
+      let DDLState = details.fromState.split(":")
+      let state1 = `
+      <option value="${DDLState[0]}">${DDLState[1]}</option>
+      ` 
+      document.getElementById("from_state").innerHTML = state1
+
        //City DDL
        let DDLCity = details.fromCity.split(":")
        let city1 = 
@@ -438,7 +451,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
       <label>Select a Country :</label>
       <select id="from_country" class="form-control" required>
           <!-- Options will be added dynamically -->
-          <option>${DDLCity[1]}</option>
+          <option value="${DDLCity[0]}">${DDLCity[1]}</option>
       </select>
   </div>`
        document.getElementById("from_city").innerHTML = city1
