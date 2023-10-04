@@ -212,8 +212,8 @@ btn.addEventListener("submit", async (e) =>{
             userId : uid,
             userName:userName
         }
-    }else if( arr_transport==="Train" && dep_transport!=="Train"){
-        console.log("hi")
+    }
+    else if( arr_transport==="Train" && dep_transport!=="Train"){
         data = {
             eventId: e_id,
             fromCity: city,
@@ -230,8 +230,6 @@ btn.addEventListener("submit", async (e) =>{
             userId : uid,
             userName:userName
         }
-
-
     }else if(arr_transport!=="Train" && dep_transport==="Train"){
         data = {
             eventId: e_id,
@@ -415,9 +413,9 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         option.innerText=person.fullName
         document.getElementById("familyDDL").appendChild(option)
     })
-    document.getElementById("familyDDL").addEventListener("change",e =>{
+    document.getElementById("familyDDL").addEventListener("change", async (e) =>{
        let id = e.target.value
-       let details =  getTravelDetailsFromId(id)
+       let details =  await getTravelDetailsFromId(id)
         if(!details){
             alert("This user having no travels history")
         }
@@ -433,7 +431,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
       </select>
   </div>`
        document.getElementById("from_country").innerHTML = string
-
+       //City DDL
        let DDLCity = details.fromCity.split(":")
        let city1 = 
       `  <div class="form-group">
@@ -450,25 +448,45 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     document.getElementById("arrival_time").value = details.arrivalTime
     document.getElementById("departure_time").value = details.departureTime
     
-   if(document.getElementById("arrival_mode_of_transport").value !== "Train" ){
-   
-    document.getElementById("arrival_mode_of_transport").value = details.arrivalModeOfTransport
-    document.getElementById("transport").style.display = "none"
-   }else{
+//    if(document.getElementById("arrival_mode_of_transport").value !== "Train" ){
+//     document.getElementById("arrival_mode_of_transport").value = details.arrivalModeOfTransport
+//     document.getElementById("transport").style.display = "none"  
+
+//    }else{
+//     document.getElementById("transport").style.display="block"
+//     document.getElementById("arrival_train_number").value = details.arrivalTrainNumber
+
+//    }
+
+//     if(document.getElementById("departure_mode_of_transport").value !== "Train"){
+//         document.getElementById("departure_mode_of_transport").value = details.departureModeOfTransport
+//         document.getElementById("transport1").style.display = "none"    
+//     }
+//     else{
+//         document.getElementById("transport1").style.display="block"
+//         document.getElementById("departure_train_number").value = details.departureTrainNumber
+//     }
+if (details.arrivalModeOfTransport === "Train") {
+    document.getElementById("arrival_mode_of_transport").value = "Train";
+    document.getElementById("arrival_train_number").style.display = "block";
     document.getElementById("transport").style.display="block"
     document.getElementById("arrival_train_number").value = details.arrivalTrainNumber
+  } else {
+    document.getElementById("arrival_mode_of_transport").value = details.arrivalModeOfTransport
+    document.getElementById("transport").style.display = "none" 
+    document.getElementById("arrival_train_number").style.display = "block";
+  }
 
-   }
-
-    if(document.getElementById("departure_mode_of_transport").value !== "Train"){
-        document.getElementById("departure_mode_of_transport").value = details.departureModeOfTransport
-        document.getElementById("transport1").style.display = "none"    
-    }
-    else{
-        document.getElementById("transport1").style.display="block"
-        document.getElementById("departure_train_number").value = details.departureTrainNumber
-    }
-
+  if (details.departureModeOfTransport === "Train") {
+    document.getElementById("departure_mode_of_transport").value = "Train"
+    document.getElementById("departure_train_number").style.display="block"
+    document.getElementById("transport1").style.display="block"
+    document.getElementById("departure_train_number").value = details.departureTrainNumber
+  } else {
+    document.getElementById("departure_mode_of_transport").value = details.departureModeOfTransport
+    document.getElementById("departure_train_number").style.display="none"
+    document.getElementById("transport1").style.display="none"
+  }
     }
 
     
