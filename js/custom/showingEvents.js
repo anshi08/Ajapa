@@ -89,7 +89,6 @@ async function showingAllEvents(first=1,last=11 ) {
 
 
 async function showingOnlyAdminEvents(adminId){
-    console.log("ADDDDD",adminId)
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEventWithPermissions/${adminId}`,{
         method:"GET",
         headers: {
@@ -128,8 +127,10 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         }
         if(role === "super" || role === "admin") {
             document.getElementById("showDetails")!==null ? document.getElementById("showDetails").style.display = "block" :""
-            // document.getElementById("deleteDetails").style.display = "block";
-            document.getElementById("Book").style.visibility = "hidden";
+            // document.getElementById("deleteDetails").style.display = "block";          
+                document.getElementById("Book").style.display = "none";
+    
+
       
         }
         const res1 = await res.filter(res => res.eventStatus!==2)

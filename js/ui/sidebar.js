@@ -18,7 +18,7 @@ function loadContent() {
            
             // Assuming you have a div with id "content" in your HTML file
             document.getElementById('accordionSidebar').innerHTML = data;
-            if(JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin"){
+            if(JSON.parse(localStorage.getItem("role")) === "super"){
                 document.getElementById("showMembers").style.display = "none"
                 document.getElementById("addPermission").style.display = "block"
                 document.getElementById("showPermission").style.display = "block"
