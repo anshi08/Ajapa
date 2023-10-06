@@ -5,31 +5,22 @@ btn.addEventListener("submit",(e)=>{
 //Getting Id of user
 let identifier = document.getElementById("id").value
 let password = document.getElementById("password").value
-const identifierPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+const emailPattern = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
 const phoneRegex = /^\d{10}$/;
-//     console.log(phoneRegex.test(identifier))
-// if(!identifierPattern.test(identifier)){
-//    alert("Enter Proper Email Address");
-// //    return;
-// }
-// else if(!phoneRegex.test(identifier)){
-//     alert("Enter Valid Mobile Number")
-//     return;
-// }else{
+
+if (!emailPattern.test(identifier)) {
+    alert("Enter Proper Email Address");
+    return;
+} 
+if (!phoneRegex.test(identifier)) {
+    alert("Enter Valid Mobile Number");
+    return;
+}
+//  else{
 //    addAdmin(identifier,password);
 // }
-let str = ""
-if(!identifierPattern.test(identifier)){
-    str = "Please Enter the Valid Email Address"
-}else if(!phoneRegex.test(identifier)){
-    str = "Please Enter the Phone Number"
-}
-alert(str)
-    // if(str.length==0){
-    //     alert(str)
-    // }else{
-    //     addAdmin(identifier,password)
-    // }
+
 
 
 })
