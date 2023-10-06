@@ -23,10 +23,10 @@ function parseJwt (token) {
 async function getDetailOfEvent(id){
 const res = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/fetchEvent/${id}`)
 const response = await res.json()
-const startDate = response.startDate.split("T")[0]
-const lock_startDate = response.lockArrivalDate.split("T")[0]
-const endDate = response.endDate.split("T")[0]
-const lock_endDate = response.lockDepartureDate.split("T")[0]
+const startDate = response?.startDate.split("T")[0]
+const lock_startDate = response?.lockArrivalDate.split("T")[0]
+const endDate = response?.endDate?.split("T")[0]
+const lock_endDate = response?.lockDepartureDate?.split("T")[0]
 document.getElementById("arrival_date").setAttribute("min",lock_startDate)
 document.getElementById("arrival_date").setAttribute("max",startDate)
 document.getElementById("departure_date").setAttribute("min",endDate)
