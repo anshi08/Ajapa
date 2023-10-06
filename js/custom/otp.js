@@ -36,9 +36,18 @@ async function verifyUser(otp,pno){
 document.getElementById("btn").addEventListener("click",(e)=>{
     e.preventDefault(); 
     let pno =document.getElementById("identifier").value
-    loginWithPhone(pno)
+    const phoneRegex = /^\d{10}$/;
+    const phoneRegex1 = /^[6-9]\d{9}$/;
+    if(!pno){
+       alert("Number required");
+    }else if(!phoneRegex.test(pno)){
+        alert("Enter Valid 10 digit Number");
+    }else if(!phoneRegex1.test(pno)){
+        alert("Enter Number with Valid Digit");
+    }else{
+       loginWithPhone(pno)
+    }
 })
-
 
 document.getElementById("btn1").addEventListener("click",()=>{
     let otp = document.getElementById("otpfinder2s").value
