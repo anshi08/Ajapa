@@ -178,7 +178,7 @@ async function getAllEvents(){
     })
     const res = await response.json()
     console.log("hi",res)
-    document.getElementById("totalevents").innerText = res
+    document.getElementById("totalevents")!==null ? document.getElementById("totalevents").innerText = res : ""
     // console.log("All Events" ,res)
     return res;
 }
@@ -190,8 +190,8 @@ async function getAllPendingRequest(){
         method:"GET"
     })
     const res = await response.json()
-    // console.log("hii",res)
-    document.getElementById("p_request").innerText = res
+    console.log("hii",res)
+    document.getElementById("p_request")!==null ?  document.getElementById("p_request").innerText = res :""
     return res;
 }
 
@@ -202,7 +202,7 @@ if(localStorage.getItem("role").replaceAll("\"","") === "member"){
 }
 
 
-document.getElementById("pendingrequest").addEventListener("click",()=>{
+document.getElementById("pendingrequest")?.addEventListener("click",()=>{
     window.location.href="getApprovedUsers.html"
 })
 

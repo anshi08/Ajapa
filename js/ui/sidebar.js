@@ -15,7 +15,6 @@ function loadContent() {
         .then(response => response.text())
         .then(data => {
             const token = localStorage.getItem("data");
-           
             // Assuming you have a div with id "content" in your HTML file
             document.getElementById('accordionSidebar').innerHTML = data;
             if(JSON.parse(localStorage.getItem("role")) === "super"){
@@ -36,16 +35,8 @@ function loadContent() {
             if(JSON.parse(localStorage.getItem("role")) === "admin"){
                 document.getElementById("events").style.display = "block"
                 document.getElementById("superOnly").style.display = "block"
-                document.getElementById("pendingrequest").style.display = "none"
                 document.getElementById("showMembers").style.display = "none"
-                document.getElementById("addPermission").style.display = "none"
-                document.getElementById("showPermission").style.display = "none"
-                document.getElementById("addAdmins").style.display = "none"
-                document.getElementById("showAdmins").style.display = "none"
-                document.getElementById("rejectUsers").style.display = "none"
-                document.getElementById("deletedEvents").style.display = "none"
                 document.getElementById("addMembers").style.display = "none"
-                // document.getElementById("updateProfile").style.display = "none"
                 document.getElementById("addDetailsTab").style.display = "none"
                 document.getElementById("addTravelDetails") !== null ? document.getElementById("addTravelDetails").style.display = "none" : ""
                 

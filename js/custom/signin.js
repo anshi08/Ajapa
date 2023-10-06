@@ -11,21 +11,21 @@ btn.addEventListener("click", () => {
     let type = document.getElementById("type").value
     const identifierPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const phoneRegex = /^\d{10}$/;
-    if (!identifierPattern || !phoneRegex) {
-        clearDisplayError()
-        displayError("identifier or Phone number is required");
-        return;
-    }else if(!identifierPattern.test(identifier) && !phoneRegex.test(identifier)){
-        clearDisplayError()
-        displayError("Enter a valid Email or Phone Number");
-        return;
-    }
+    // if (!identifierPattern || !phoneRegex) {
+    //     clearDisplayError()
+    //     displayError("identifier or Phone number is required");
+    //     return;
+    // }else if(!identifierPattern.test(identifier) && !phoneRegex.test(identifier)){
+    //     clearDisplayError()
+    //     displayError("Enter a valid Email or Phone Number");
+    //     return;
+    // }
 
-    if (pwd.length < 5) {
-        clearDisplayError()
-        displayError("Password Must be at least 5 characters long");
-        return;
-    }
+    // if (pwd.length < 5) {
+    //     clearDisplayError()
+    //     displayError("Password Must be at least 5 characters long");
+    //     return;
+    // }
 
     const data = {
          identifier:identifier,
