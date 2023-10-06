@@ -1,3 +1,7 @@
+// Create a new spinner
+const target = document.getElementById('spinner-container');
+const s = new Spinner().spin(target);
+
 async function showPermission(){
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAllEventsWitPermissions")
     const res = await response.json()
@@ -11,6 +15,8 @@ async function showPermission(){
         <td>${data.canDelete}</td>
         `
         document.getElementById("body").appendChild(tr)
+           // To stop the spinner
+           s.stop(); 
       
     })
     return res

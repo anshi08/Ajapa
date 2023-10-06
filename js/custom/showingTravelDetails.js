@@ -21,19 +21,15 @@ async function getTravelDetails(){
 
 
     document.getElementById("selectEvent").addEventListener("change",async (e)=>{
-        // console.log(e.target.value)
         let eventId = e.target.value
         let travelDetailsById = await getTravelDetailsById(eventId)
-        // return travelDetailsById
-        return eventId;
+        
     })
 getTravelDetails()
 
-
-
-
+//Getting Details By Event Id
 async function getTravelDetailsById(id){
-    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getTravelByEventId/"+id,{
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAllTravelEventUser/"+id,{
         method:"GET",
         headers:{
                 "Content-type":"application/json;  charset=UTF-8"
@@ -41,6 +37,7 @@ async function getTravelDetailsById(id){
     })
     const res = await response.json();
     console.log(res)
+    document.getElementById("body").innerHTML=""
     res.forEach(data => {
     let tr = document.createElement("tr")
     tr.innerHTML = `
@@ -56,8 +53,8 @@ async function getTravelDetailsById(id){
     <td>${data.description}</td>
     `
     document.getElementById("body").appendChild(tr)
-//     // To stop the spinner
-//     s.stop(); 
+    // To stop the spinner
+    // s.stop(); 
   
 })
 return res;
