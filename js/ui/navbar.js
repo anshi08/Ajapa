@@ -10,11 +10,17 @@ function loadContent() {
         .then(data => {
             // Assuming you have a div with id "content" in your HTML file
             document.getElementById('customnavbar').innerHTML = data;   
+           
             if(JSON.parse(localStorage.getItem("role")) === "super"){
                 document.getElementById("notificationIcon").style.display = "block"
             }
             let email = parseJwt(localStorage.getItem("data")).email
             document.getElementById("userPic").src = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${email}.jpg`
+            document.getElementById("sidebarToggleTop").addEventListener("click",e => {
+                document.body.classList.toggle('sidebar-toggled');
+                document.querySelector('.sidebar').classList.toggle('toggled');
+            })
+
         })
         .catch(error => {
             console.error('Error fetching content:', error);
