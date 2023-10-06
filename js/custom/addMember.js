@@ -276,13 +276,13 @@ window.addEventListener("DOMContentLoaded",async ()=>{
        option.value = address.country.split(":")[0]
        let country = `<option value='${address.country.split(":")[0]}'>${address.country.split(":")[1]}</option>`
        document.getElementById("country").innerHTML = country
-       document.getElementById("country").setAttribute("disabled",true)
+    //    document.getElementById("country").setAttribute("disabled",true)
        let state = `<option value='${address.state.split(":")[0]}'>${address.state.split(":")[1]}</option>`
        document.getElementById("state").innerHTML = state
-       document.getElementById("state").setAttribute("disabled",true)
+    //    document.getElementById("state").setAttribute("disabled",true)
        let city = `<option value='${address.city.split(":")[0]}'>${address.city.split(":")[1]}</option>`
        document.getElementById("city").innerHTML = city
-       document.getElementById("city").setAttribute("disabled",true)
+    //    document.getElementById("city").setAttribute("disabled",true)
 
     })
 })
