@@ -9,14 +9,40 @@ let password = document.getElementById("password").value
 const emailPattern = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
 const phoneRegex = /^\d{10}$/;
 
-if (!emailPattern.test(identifier)) {
-    alert("Enter Proper Email Address");
-    return;
-} 
-if (!phoneRegex.test(identifier)) {
-    alert("Enter Valid Mobile Number");
-    return;
+
+// let isEmail = true;
+let isPhone = true;
+
+// if (emailPattern.test(identifier)) {
+//     isEmail = false;
+// //     // console.log("email",isEmail)
+// } 
+
+if (phoneRegex.test(identifier)) {
+    isPhone = false;
+    // console.log("phone",isPhone)
 }
+
+// if (isEmail) {
+//     alert("Not Valid Email Address");
+// } 
+else if (isPhone) {
+    alert("Not Valid Mobile Number");
+}else{
+    alert("hii")
+}
+
+
+
+// if (!emailPattern.test(identifier)) {
+//     alert("Enter Proper Email Address");
+//     return;
+// } 
+
+// else if (!phoneRegex.test(identifier)) {
+//     alert("Enter Valid Mobile Number");
+//     return;
+// }
 //  else{
 //    addAdmin(identifier,password);
 // }
