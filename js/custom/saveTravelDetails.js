@@ -419,6 +419,12 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         option.innerText=person.fullName
         document.getElementById("familyDDL").appendChild(option)
     })
+    ddl.forEach(person => {
+        let option = document.createElement("option")
+        option.value= person.id
+        option.innerText=person.fullName
+        document.getElementById("familyDDL1").appendChild(option)
+    })
     document.getElementById("familyDDL").addEventListener("change", async (e) =>{
        let id = e.target.value
        let details =  await getTravelDetailsFromId(id)

@@ -16,10 +16,12 @@ function loadContent() {
             }
             let email = parseJwt(localStorage.getItem("data")).email
             document.getElementById("userPic").src = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${email}.jpg`
-            document.getElementById("sidebarToggleTop").addEventListener("click",e => {
-                document.body.classList.toggle('sidebar-toggled');
-                document.querySelector('.sidebar').classList.toggle('toggled');
-            })
+            document.getElementById("sidebarToggleTop").addEventListener("click",sidebarToggle)
+            function sidebarToggle(){   
+                    document.body.classList.toggle('sidebar-toggled');
+                    document.querySelector('.sidebar').classList.toggle('toggled');
+                
+            }
 
         })
         .catch(error => {
