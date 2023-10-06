@@ -21,10 +21,9 @@ async function verifyUser(otp,pno){
         }
     })
     const res = await response.json()
-    console.log("Done" ,res)
 
-    if(res.token == 'Invalid User information'){
-        alert("Invalid User")
+    if(res.token == 'No user found'){
+        alert("No user found")
     }else {
         localStorage.setItem("data",JSON.stringify(res.token)) 
         localStorage.setItem("role",JSON.stringify(res.type)) 
@@ -37,7 +36,6 @@ async function verifyUser(otp,pno){
 document.getElementById("btn").addEventListener("click",(e)=>{
     e.preventDefault(); 
     let pno =document.getElementById("identifier").value
-    // console.log(pno)
     loginWithPhone(pno)
 })
 

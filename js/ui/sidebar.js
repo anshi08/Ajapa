@@ -18,7 +18,7 @@ function loadContent() {
            
             // Assuming you have a div with id "content" in your HTML file
             document.getElementById('accordionSidebar').innerHTML = data;
-            if(JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin"){
+            if(JSON.parse(localStorage.getItem("role")) === "super"){
                 document.getElementById("showMembers").style.display = "none"
                 document.getElementById("addPermission").style.display = "block"
                 document.getElementById("showPermission").style.display = "block"
@@ -34,6 +34,8 @@ function loadContent() {
                 document.getElementById("events").style.display = "block"
             }
             if(JSON.parse(localStorage.getItem("role")) === "admin"){
+                document.getElementById("events").style.display = "block"
+                document.getElementById("superOnly").style.display = "block"
                 document.getElementById("pendingrequest").style.display = "none"
                 document.getElementById("showMembers").style.display = "none"
                 document.getElementById("addPermission").style.display = "none"
@@ -43,11 +45,10 @@ function loadContent() {
                 document.getElementById("rejectUsers").style.display = "none"
                 document.getElementById("deletedEvents").style.display = "none"
                 document.getElementById("addMembers").style.display = "none"
-                document.getElementById("updateProfile").style.display = "none"
+                // document.getElementById("updateProfile").style.display = "none"
                 document.getElementById("addDetailsTab").style.display = "none"
-                document.getElementById("superOnly").style.display = "block"
                 document.getElementById("addTravelDetails") !== null ? document.getElementById("addTravelDetails").style.display = "none" : ""
-                document.getElementById("events").style.display = "block"
+                
             }
             if (token) {
                 try {

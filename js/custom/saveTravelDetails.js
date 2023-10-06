@@ -454,6 +454,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
           <option value="${DDLCity[0]}">${DDLCity[1]}</option>
       </select>
   </div>`
+    //    localStorage.setItem("selectedCityId", DDLCity[0]);
        document.getElementById("from_city").innerHTML = city1
 
     document.getElementById("arrival_date").value = details.arrivalDate

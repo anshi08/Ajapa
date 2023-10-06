@@ -73,8 +73,8 @@ prev.addEventListener("click", async () => {
         document.getElementById("body").appendChild(tr)
     })
 })
-
 async function showingAllEvents(first=1,last=11 ) {
+
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEvents/${first}/${last}`,{
          method:"GET",
          headers: {
