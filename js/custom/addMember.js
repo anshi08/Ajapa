@@ -108,7 +108,7 @@ element.addEventListener('change', function (e) {
     
   }
 
- async function fetchStates(countryId){
+ async function fetchStates(countryId,selectedStateValue){
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/states/${countryId}`,{
         method:"GET",
         headers: {
@@ -117,13 +117,18 @@ element.addEventListener('change', function (e) {
     })
     const res = await response.json()
     stateElement.innerHTML = '';
-
-res.forEach((state) => {
+    res.forEach((state) => {
     const option = document.createElement('option');
     option.value = state.id;
     option.text = state.name;
     stateElement.appendChild(option);
+
   });
+  //Selecting Default Value
+  const defaultStateOption = stateElement.querySelector(`option[value="${selectedStateValue}"]`);
+  if (defaultStateOption) {
+      defaultStateOption.selected = true;
+  }
 }
 
  stateElement.addEventListener('change', function (e) {
@@ -137,7 +142,7 @@ res.forEach((state) => {
     fetchCities(selectedState)
   }
 
- async function fetchCities(stateId) {
+ async function fetchCities(stateId,selectCityValue) {
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/cities/${stateId}`,{
         method:"GET",
         headers:{
@@ -151,6 +156,12 @@ res.forEach((state) => {
         option.text = city.name;
         cityElement.appendChild(option);
       });
+
+  //Selecting Default Value
+  const defaultCityOption = cityElement.querySelector(`option[value="${selectCityValue}"]`);
+  if (defaultCityOption) {
+      defaultCityOption.selected = true;
+  }
   }
 
   cityElement.addEventListener('change', function (e) {
@@ -276,13 +287,29 @@ window.addEventListener("DOMContentLoaded",async ()=>{
        option.value = address.country.split(":")[0]
        let country = `<option value='${address.country.split(":")[0]}'>${address.country.split(":")[1]}</option>`
        document.getElementById("country").innerHTML = country
-    //    document.getElementById("country").setAttribute("disabled",true)
+       getCountry();
+
        let state = `<option value='${address.state.split(":")[0]}'>${address.state.split(":")[1]}</option>`
-       document.getElementById("state").innerHTML = state
-    //    document.getElementById("state").setAttribute("disabled",true)
+       document.getElementById("state").innerHTML = state;
+       const defaultValue = stateElement.getElementsByTagName("option");
+    for (let i = 0; i < defaultValue.length; i++) {
+    if (defaultValue[i].value === address.state.split(":")[0]) {
+        defaultValue[i].selected = true;
+
+        fetchStates(address.country.split(":")[0],defaultValue[i].value);
+    }
+}
+    
        let city = `<option value='${address.city.split(":")[0]}'>${address.city.split(":")[1]}</option>`
-       document.getElementById("city").innerHTML = city
-    //    document.getElementById("city").setAttribute("disabled",true)
+       document.getElementById("city").innerHTML = city;
+       const value = stateElement.getElementsByTagName("option");
+       for (let i = 0; i < value.length; i++) {
+       if (value[i].value === address.state.split(":")[0]) {
+           value[i].selected = true;
+   
+           fetchCities(address.state.split(":")[0],value[i].value);
+       }
+   }
 
     })
 })
