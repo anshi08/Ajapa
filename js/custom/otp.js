@@ -24,6 +24,10 @@ async function verifyUser(otp,pno){
 
     if(res.token == 'No user found'){
         alert("No user found")
+        window.location.href = "otpLogin.html";
+    }else if(res.token == ''){
+       alert("Incorrect OTP")
+       window.location.href = "otpLogin.html";
     }else {
         localStorage.setItem("data",JSON.stringify(res.token)) 
         localStorage.setItem("role",JSON.stringify(res.type)) 
