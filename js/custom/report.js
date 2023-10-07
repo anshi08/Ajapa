@@ -114,3 +114,22 @@ window.addEventListener("DOMContentLoaded",async(e) =>{
         }
     })
 })
+
+document.getElementById("report1export").addEventListener("click",()=>generatePDF(0))
+document.getElementById("report2export").addEventListener("click",()=>generatePDF(1))
+document.getElementById("report3export").addEventListener("click",()=>generatePDF(2))
+
+function generatePDF(idx) {
+    html2canvas(document.getElementsByClassName('table')[idx], {
+        onrendered: function (canvas) {
+            var data = canvas.toDataURL();
+            var docDefinition = {
+                content: [{
+                    image: data,
+                    width: 500,
+                }]
+            };
+            pdfMake.createPdf(docDefinition).download(`Report${idx+1}.pdf`);
+        }
+    });
+  }
