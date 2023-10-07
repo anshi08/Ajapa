@@ -3,8 +3,6 @@ let element = document.getElementById("from_country")
 let stateElement = document.getElementById("from_state")
 let cityElement= document.getElementById("from_city")
 let id = window.location.href.split("?")[1].split("=")[1]
-// console.log(id)
-
 getDetailOfEvent(id)
 
 function getElementByIdName(idName){
@@ -101,7 +99,7 @@ document.getElementById("departure_time").addEventListener("input",e =>{
 btn.addEventListener("submit", async (e) =>{
 
     e.preventDefault(); 
-    let e_id = document.getElementById("e_id").value = id;
+    let e_id = document.getElementById("e_id").value
     let country_ele=document.getElementById("from_country");
     let city_ele=document.getElementById("from_city");
     let state_ele = document.getElementById("from_state");
@@ -118,10 +116,22 @@ btn.addEventListener("submit", async (e) =>{
     let dep_transport = document.getElementById("departure_mode_of_transport").value
     // let dep_trainName = getElementByIdName("departure_train_name")
     let desc = getElementByIdName("description")
-    let uid = parseJwt(localStorage.getItem("data")).id
-    let userName = parseJwt(localStorage.getItem("data")).full_name
-    
-
+    let uid = ''
+    let userName =''
+    let alreadySavedMember = await getTravelsDetailsByFamilyIdAndEventId(id,localStorage.getItem("family_id"))    
+    if(alreadySavedMember.length===0){
+        if(document.getElementById("familyDDL1").value==='Select Member'){
+            userName= parseJwt(localStorage.getItem("data")).full_name
+            uid = parseJwt(localStorage.getItem("data")).id
+        }
+    }else{
+        if(document.getElementById("familyDDL1").value==='Select Member'){
+            alert("Please Choose the Family Member")     
+            return ;
+        }
+        userName= document.getElementById("familyDDL1").options[document.getElementById("familyDDL1").options.selectedIndex].innerText
+        uid = +document.getElementById("familyDDL1").options[document.getElementById("familyDDL1").options.selectedIndex].value
+    }
 // Validate each field
     // if (city.trim() === "") {
     //     clearDisplayError()
@@ -271,7 +281,7 @@ btn.addEventListener("submit", async (e) =>{
         }
     }
     // console.log(data,"MYDATA")
-    //  saveTravelDetails(data)
+     saveTravelDetails(data)
     setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data) 
 })
 
@@ -314,6 +324,48 @@ element.addEventListener('change', function (e) {
     const selectedCountry = e.target.value;
     handleCountryChange(selectedCountry);
   });
+
+ 
+  async function setDefaultAddress(address){
+    console.log("🚀 ~ file: saveTravelDetails.js:318 ~ setDefaultAddress ~ address:", address)
+    await fetchStates(address.fromCountry.split(":")[0])
+    await fetchCities(address.fromCity.split(":")[0])
+    let allcountry = document.getElementById("from_country").options
+    let allCities = document.getElementById("from_city").options
+    // console.log(allCities[0])    
+    let fromSelectedCountryIndex=-1;
+    let fromSelectedCityIndex=-1
+    let fromSelectedArrivalModeTransport=-1
+    let fromSeletedDepartureModeTransport=-1
+    Array.from(allcountry).forEach((country,idx) => country.value === address.fromCountry.split(":")[0] ? fromSelectedCountryIndex=idx:"" )
+    // Array.from(allState).forEach((state,idx) => state.value === address.fromState.split(":")[0] ? fromSelectedStateIndex = idx:"")
+    Array.from(allCities).forEach((city,idx) => city.value === address.fromCity.split(":")[0] ? fromSelectedCityIndex = idx : "")
+    // console.log(fromSelectedCountryIndex, fromSelectedCityIndex)
+    // Array.from(allCities).forEach((city) => console.log(city))
+    document.getElementById("from_country").selectedIndex = fromSelectedCountryIndex;
+    // document.getElementById("from_state").selectedIndex = fromSelectedStateIndex;
+    // document.getElementById("from_city").selectedIndex = fromSelectedCityIndex
+    document.getElementById("arrival_time").value = address.arrivalTime
+    Array.from(document.getElementById("arrival_mode_of_transport")).forEach((transport,idx) => transport.value === address.arrivalModeOfTransport ? fromSelectedArrivalModeTransport=idx :"")
+    Array.from(document.getElementById("departure_mode_of_transport")).forEach((transport,idx) => transport.value === address.departureModeOfTransport ? fromSeletedDepartureModeTransport=idx:"")
+    document.getElementById("arrival_mode_of_transport").selectedIndex= fromSelectedArrivalModeTransport
+    document.getElementById("departure_mode_of_transport").selectedIndex = fromSeletedDepartureModeTransport
+    document.getElementById("departure_time").value = address.departureTime
+    document.getElementById("description").value = address.description
+    document.getElementById("arrival_date").value=address.arrivalDate.split("T")[0]
+    document.getElementById("departure_date").value = address.departureDate.split("T")[0]
+    if(address.arrivalTrainName!==null){
+        document.getElementById("transport").style.display = "block"
+        document.getElementById("arrival_train_number").value = address?.arrivalTrainNumber || adress?.arrivalTrainName
+    }
+    if(address.departureTrainName!==null){
+        document.getElementById("transport1").style.display="block"
+        document.getElementById("departure_train_number").value = address?.departureTrainName
+    }
+
+
+
+  }
   
   function handleCountryChange(selectedCountry) {
     console.log(`Selected country: ${selectedCountry}`);
@@ -328,7 +380,7 @@ element.addEventListener('change', function (e) {
 
   })
 
-async function fetchStates(countryId){
+async function fetchStates(countryId,defaultCountry){
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/states/${countryId}`,{
         method:"GET",
         headers: {
@@ -356,7 +408,6 @@ async function fetchCities(stateId) {
         }
     })
     const res = await response.json()
-    console.log("res",res)
     cityElement.innerHTML=""
     res.forEach((city) => {
         const option = document.createElement('option');
@@ -367,6 +418,7 @@ async function fetchCities(stateId) {
   }
 
 async function saveTravelDetails(data) {
+    console.log("ppp",data)
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveTravelDetails",{
         method:"POST",
         body:JSON.stringify(data),
@@ -378,14 +430,17 @@ async function saveTravelDetails(data) {
     const res = await response.json()
     console.log("Save",res)
     clearAllFields();
-    $('#pendingDialog2').modal('show');
-    setTimeout(()=> {
-        window.location.href = "dashboard.html"
-    },2000)
+    // $('#pendingDialog2').modal('show');
+    // setTimeout(()=> {
+    //     window.location.href = "dashboard.html"
+    // },2000)
     return res;
 }
 
 window.addEventListener("DOMContentLoaded",async ()=>{
+
+
+
     document.getElementById("arrival_mode_of_transport").addEventListener("change",e =>{
         
         if(e.target.value === "Train"){
@@ -412,13 +467,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         }
     })
     let ddl =  await getAllFamilyMember(localStorage.getItem("family_id"))
-
-    ddl.forEach(person => {
-        let option = document.createElement("option")
-        option.value= person.id
-        option.innerText=person.fullName
-        document.getElementById("familyDDL").appendChild(option)
-    })
+    console.log("yt",ddl)
     ddl.forEach(person => {
         let option = document.createElement("option")
         option.value= person.id
@@ -426,90 +475,39 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         document.getElementById("familyDDL1").appendChild(option)
     })
     document.getElementById("familyDDL").addEventListener("change", async (e) =>{
-       let id = e.target.value
-       let details =  await getTravelDetailsFromId(id)
-        if(!details){
-            alert("This user having no travels history")
-        }
-        else{
-            console.log(details)
-       let DDLC = details.fromCountry.split(":")
-       let string = 
-      `  <div class="form-group">
-      <label>Select a Country :</label>
-      <select id="from_country" class="form-control" required>
-          <!-- Options will be added dynamically -->
-          <option value="${DDLC[0]}">${DDLC[1]}</option>
-      </select>
-  </div>`
-       document.getElementById("from_country").innerHTML = string
+     let value = JSON.parse(e.target.value)
+     setDefaultAddress(value)
+     
+    })
 
-      let DDLState = details.fromState.split(":")
-      let state1 = `
-      <option value="${DDLState[0]}">${DDLState[1]}</option>
-      ` 
-      document.getElementById("from_state").innerHTML = state1
 
-       //City DDL
-       let DDLCity = details.fromCity.split(":")
-       let city1 = 
-      `  <div class="form-group">
-      <label>Select a Country :</label>
-      <select id="from_country" class="form-control" required>
-          <!-- Options will be added dynamically -->
-          <option value="${DDLCity[0]}">${DDLCity[1]}</option>
-      </select>
-  </div>`
-    //    localStorage.setItem("selectedCityId", DDLCity[0]);
-       document.getElementById("from_city").innerHTML = city1
 
-    document.getElementById("arrival_date").value = details.arrivalDate
-    document.getElementById("departure_date").value = details.departureDate
-    document.getElementById("arrival_time").value = details.arrivalTime
-    document.getElementById("departure_time").value = details.departureTime
-    
-//    if(document.getElementById("arrival_mode_of_transport").value !== "Train" ){
-//     document.getElementById("arrival_mode_of_transport").value = details.arrivalModeOfTransport
-//     document.getElementById("transport").style.display = "none"  
 
-//    }else{
-//     document.getElementById("transport").style.display="block"
-//     document.getElementById("arrival_train_number").value = details.arrivalTrainNumber
+    let alreadySavedMember = await getTravelsDetailsByFamilyIdAndEventId(id,localStorage.getItem("family_id"))
+    if(alreadySavedMember.length===0){
+        document.getElementById("memberdetails").style.display="none"
+    }else{
 
-//    }
-
-//     if(document.getElementById("departure_mode_of_transport").value !== "Train"){
-//         document.getElementById("departure_mode_of_transport").value = details.departureModeOfTransport
-//         document.getElementById("transport1").style.display = "none"    
-//     }
-//     else{
-//         document.getElementById("transport1").style.display="block"
-//         document.getElementById("departure_train_number").value = details.departureTrainNumber
-//     }
-if (details.arrivalModeOfTransport === "Train") {
-    document.getElementById("arrival_mode_of_transport").value = "Train";
-    document.getElementById("arrival_train_number").style.display = "block";
-    document.getElementById("transport").style.display="block"
-    document.getElementById("arrival_train_number").value = details.arrivalTrainNumber
-  } else {
-    document.getElementById("arrival_mode_of_transport").value = details.arrivalModeOfTransport
-    document.getElementById("transport").style.display = "none" 
-    document.getElementById("arrival_train_number").style.display = "block";
-  }
-
-  if (details.departureModeOfTransport === "Train") {
-    document.getElementById("departure_mode_of_transport").value = "Train"
-    document.getElementById("departure_train_number").style.display="block"
-    document.getElementById("transport1").style.display="block"
-    document.getElementById("departure_train_number").value = details.departureTrainNumber
-  } else {
-    document.getElementById("departure_mode_of_transport").value = details.departureModeOfTransport
-    document.getElementById("departure_train_number").style.display="none"
-    document.getElementById("transport1").style.display="none"
-  }
+        alreadySavedMember.forEach(person =>{
+            let option = document.createElement("option")
+            option.value = JSON.stringify(person);
+            option.innerText = person.userName
+            document.getElementById("familyDDL").appendChild(option)
+        })
     }
+    // Array.from(document.getElementById("familyDDL1")).forEach(element => {
+    //     Array.from(document.getElementById("familyDD"))
+    //   })    
+    alreadySavedMember.forEach(member => {
+        Array.from(document.getElementById("familyDDL1")).forEach((showedMember,idx) => {
+     
+            if(member.userId === +showedMember.value){
+                document.getElementById("familyDDL1").options[idx].innerText+= "  [Already Booked]"
+                document.getElementById("familyDDL1").options[idx].disabled = true
+            }else{
 
-    
+            }
+        })
     })
 
 })
@@ -626,7 +624,6 @@ async function getAllFamilyMember(familyId){
             
 }
 
-
 function setTravelDetailsonLocalStorage(id,data){
     localStorage.setItem(id,JSON.stringify(data))
 
@@ -636,4 +633,14 @@ function getTravelDetailsFromId(id){
     return JSON.parse(localStorage.getItem(id))
 }
 
-
+async function getTravelsDetailsByFamilyIdAndEventId(eventId,familyId){
+    console.log(eventId,familyId)
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAllTravelEventUser/${eventId}/${familyId}`,{
+        method:"GET",
+        headers: {
+            "Content-type":"application/json;  charset=UTF-8"
+        }
+    })
+    const res = await response.json()
+    return res;
+}
