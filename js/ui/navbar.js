@@ -38,7 +38,7 @@ async function getUsersApprove() {
         }
     })
     const res = await response.json()
-document.getElementById("notification").innerHTML = res.length
+document.getElementById("notification")!==null ? document.getElementById("notification").innerHTML = res.length :""
     res.forEach(item => {
         let string = `
         <a class="dropdown-item d-flex align-items-center" href="getApprovedUsers.html" >
