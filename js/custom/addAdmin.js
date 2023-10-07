@@ -9,23 +9,20 @@ let password = document.getElementById("password").value
 const emailPattern = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
 const phoneRegex = /^\d{10}$/;
 
-if(identifier.length===0 || password.length===0){
-    alert("Please Enter the Id/Email or Password")
-}
-else if(areAllCharactersNumbers(identifier)){
+// if(identifier.length===0 || password.length===0){
+//     alert("Please Enter the Id/Email or Password")
+// }
+
+
+if(areAllCharactersNumbers(identifier)){
     if (!phoneRegex.test(identifier)) {
         alert('Please Enter a Valid Phone number')
     }
 }else if(!emailPattern.test(identifier)){
     alert("Please Enter a Valid Email Address")
-}
-
- else{
+}else{
    addAdmin(identifier,password);
 }
-
-
-
 })
 function areAllCharactersNumbers(inputString) {
     // Use a regular expression to check if all characters are numbers
