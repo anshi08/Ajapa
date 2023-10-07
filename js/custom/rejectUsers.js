@@ -26,8 +26,9 @@ async function rejectedUsers(){
          `
         document.getElementById("body").appendChild(tr)
          // To stop the spinner
-         s.stop(); 
+     
 })
+s.stop(); 
 
 Array.from(document.getElementsByClassName("restore")).forEach(item => item.addEventListener("click",(e)=>{
   restoreUser(e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText)  
