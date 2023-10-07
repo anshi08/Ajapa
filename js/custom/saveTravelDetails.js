@@ -207,7 +207,7 @@ btn.addEventListener("submit", async (e) =>{
     let data = {}
     if(arr_transport==="Train" && dep_transport==="Train"){//write condition for both arrival and departue mode of transport
         data = {
-            eventId: e_id,
+            eventId: window.location.href.split("?")[1].split("=")[1],
             fromCity: city,
             fromCountry: country,
             fromState: state,
@@ -223,12 +223,13 @@ btn.addEventListener("submit", async (e) =>{
             departureTrainName:  getElementByIdName("train_number_1").split("--")[1],
             description: desc,
             userId : uid,
-            userName:userName
+            userName:userName,
+            familyId:localStorage.getItem("family_id")
         }
     }
     else if( arr_transport==="Train" && dep_transport!=="Train"){
         data = {
-            eventId: e_id,
+            eventId: window.location.href.split("?")[1].split("=")[1],
             fromCity: city,
             fromCountry: country,
             fromState: state,
@@ -242,11 +243,12 @@ btn.addEventListener("submit", async (e) =>{
             departureModeOfTransport: dep_transport,
             description: desc,
             userId : uid,
-            userName:userName
+            userName:userName,
+            familyId:localStorage.getItem("family_id")
         }
     }else if(arr_transport!=="Train" && dep_transport==="Train"){
         data = {
-            eventId: e_id,
+            eventId: window.location.href.split("?")[1].split("=")[1],
             fromCity: city,
             fromCountry: country,
             fromState: state,
@@ -260,12 +262,13 @@ btn.addEventListener("submit", async (e) =>{
             departureTrainName:  getElementByIdName("train_number_1").split("--")[1],
             description: desc,
             userId : uid,
-            userName:userName
+            userName:userName,
+            familyId:localStorage.getItem("family_id")
         }
     }
     else{
         data = {
-            eventId: e_id,
+            eventId: window.location.href.split("?")[1].split("=")[1],
             fromCity: city,
             fromCountry: country,
             fromState: state,
@@ -277,7 +280,8 @@ btn.addEventListener("submit", async (e) =>{
             departureModeOfTransport: dep_transport,
             description: desc,
             userId : uid,
-            userName:userName
+            userName:userName,
+            familyId:localStorage.getItem("family_id")
         }
     }
     // console.log(data,"MYDATA")
@@ -430,10 +434,10 @@ async function saveTravelDetails(data) {
     const res = await response.json()
     console.log("Save",res)
     clearAllFields();
-    // $('#pendingDialog2').modal('show');
-    // setTimeout(()=> {
-    //     window.location.href = "dashboard.html"
-    // },2000)
+    $('#pendingDialog2').modal('show');
+    setTimeout(()=> {
+        window.location.reload()
+    },2000)
     return res;
 }
 
