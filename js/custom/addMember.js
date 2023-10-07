@@ -189,10 +189,10 @@ element.addEventListener('change', function (e) {
     clearAllFields();
     document.getElementById("pwdErr").style.display  = "none"
     // waitingResponse
-    $('#pending').modal('show');
-    // setTimeout(()=>{
-    //     window.location.href = "dashboard.html"
-    // },2000)
+    $('#pendingreq10').modal('show');
+    setTimeout(()=>{
+        window.location.href = "dashboard.html"
+    },2000)
        
     return res;
     }
