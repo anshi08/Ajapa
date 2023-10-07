@@ -42,7 +42,6 @@ document.getElementById("whatsapp_num").addEventListener("input",e=>{
     const phoneRegex = /^\d{10}$/;
     const phoneRegex1 = /^[6-9]\d{9}$/;
     // Test the phone number against the regex pattern
-    console.log(phoneRegex.test(e.target.value))
     if(!phoneRegex.test(e.target.value)){
         document.getElementById("phoneNumberTxt1").style.display = "block"   
         document.getElementById("phoneNumberTxt1").style.color="red"    
@@ -58,7 +57,6 @@ document.getElementById("whatsapp_num").addEventListener("input",e=>{
 })
 
 document.getElementById("occupation").addEventListener("input",e=>{
-    console.log(e.target.value)
     if(e.target.value.length === 0){
         document.getElementById("occupationTxt").style.display = "block"
     }else{
@@ -67,7 +65,6 @@ document.getElementById("occupation").addEventListener("input",e=>{
 })
 
 document.getElementById("qualification").addEventListener("input",e=>{
-    console.log(e.target.value)
     if(e.target.value.length === 0){
         document.getElementById("qualificationTxt").style.display = "block"
     }else{
@@ -178,7 +175,6 @@ async function getCountry() {
         }
     })
     const res = await response.json()
-    console.log("res" , res)
         //   Populate dropdown with state options
             res.forEach((country) => {
             const option = document.createElement("option");
@@ -202,8 +198,8 @@ element.addEventListener('change', function (e) {
     fetchStates(selectedCountry);
   }
 
-async function fetchStates(countryId){
-    console.log("🚀 ~ file: updateUser.js:206 ~ fetchStates ~ countryId:", countryId)
+async function fetchStates(countryId,selectStateValue){
+  
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/states/${countryId}`,{
         method:"GET",
         headers: {
@@ -211,14 +207,17 @@ async function fetchStates(countryId){
           }
     })
     const res = await response.json()
-    console.log("res",res)
-
-res.forEach((state) => {
+    res.forEach((state) => {
     const option = document.createElement('option');
     option.value = state.id;
     option.text = state.name;
     stateElement.appendChild(option);
   });
+    //Selecting Default Value
+    const defaultStateOption = stateElement.querySelector(`option[value="${selectStateValue}"]`);
+    if (defaultStateOption) {
+        defaultStateOption.selected = true;
+    }
 }
 
 stateElement.addEventListener('change', function (e) {
@@ -233,7 +232,8 @@ stateElement.addEventListener('change', function (e) {
     fetchCities(selectedState)
   }
 
-async function fetchCities(stateId) {
+async function fetchCities(stateId,selectCityValue) {
+    console.log("kkyu",stateId)
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/cities/${stateId}`,{
         method:"GET",
         headers:{
@@ -249,6 +249,12 @@ async function fetchCities(stateId) {
         option.text = city.name;
         cityElement.appendChild(option);
       });
+
+        //Selecting Default Value
+  const defaultCityOption = cityElement.querySelector(`option[value="${selectCityValue}"]`);
+  if (defaultCityOption) {
+      defaultCityOption.selected = true;
+  }
   }
 
   cityElement.addEventListener('change', function (e) {
@@ -270,7 +276,6 @@ async function detailsOfUser(email) {
         }
     })
     const res = await response.json()
-    console.log("res", res)
     document.getElementById("age").value = res.age;
     document.getElementById("mobile_num").value = res.mobileNum;
     rememberMobInput.addEventListener("click" , () => {
@@ -297,36 +302,50 @@ async function detailsOfUser(email) {
     
     `
     document.getElementById("country").innerHTML = string
+    getCountry();
 
     let a = res.state.split(":")
-    console.log(a[1])    
     let st = `
     
     <div class="form-group">
     <label>Select a Country :</label>
     <select id="state" class="form-control">
         <!-- Options will be added dynamically -->
-        <option>${a[1]}</option>
+        <option value="${a[0]}">${a[1]}</option>
     </select>
 </div>
     
     `
     document.getElementById("state").innerHTML = st
+    const defaultValue = stateElement.getElementsByTagName("option");
+    for (let i = 0; i < defaultValue.length; i++) {
+        if (defaultValue[i].value === res.state.split(":")[0]) {
+            defaultValue[i].selected = true;
+    
+            fetchStates(res.country.split(":")[0],defaultValue[i].value);
+        }
+    }
 
     let c = res.city.split(":")
-    console.log(c[1])
 
     let cc = `
-    <div class="form-group">
-    <label>Select a Country :</label>
-    <select id="city" class="form-control">
-        <!-- Options will be added dynamically -->
-        <option>${c[1]}</option>
-    </select>
-</div>
-    
+        <div class="form-group">
+        <label>Select a Country :</label>
+        <select id="city" class="form-control">
+            <!-- Options will be added dynamically -->
+            <option value="${c[0]}">${c[1]}</option>
+        </select>
+    </div>
     `
     document.getElementById("city").innerHTML = cc
+    const value = document.getElementById("city").getElementsByTagName("option");
+    console.log("some",value)
+    for (let i = 0; i < value.length; i++) {
+    if (value[i].value === res.city.split(":")[0]) {
+        value[i].selected = true
+        fetchCities(res.state.split(":")[0],value[i].value);
+    }
+}
     document.getElementById("pincode").value = res.pincode
 }
  
@@ -355,7 +374,6 @@ async function updateProfile(data) {
         })
         if(response.ok){
         const res = await response.json()
-        console.log("update",res)
         clearFormFields();
         $('#pendingDialog1').modal('show');
         setTimeout(() => {
