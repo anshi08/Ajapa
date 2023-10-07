@@ -1,8 +1,6 @@
 //pendingDialog101
 if(JSON.parse(localStorage.getItem("role")) === "member" ||JSON.parse(localStorage.getItem("role")) === "head")
 window.addEventListener("DOMContentLoaded",()=>{
-   
-
     async function getAge(){
         let id = parseJwt(localStorage.getItem("data")).id
         const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAge/'+id)
@@ -13,8 +11,12 @@ window.addEventListener("DOMContentLoaded",()=>{
     }
     getAge()
 
-    document.getElementById("pendingrequest").style.display = "none"   
+    
 })
+
+if(JSON.parse(localStorage.getItem("role")) === "admin" ){
+    document.getElementById("pendingrequest").style.display = "none"   
+}
 
 let prev = document.getElementById("prev")
 let next = document.getElementById("next")
@@ -45,6 +47,7 @@ next.addEventListener("click", async () => {
         <td style="display:none">${data.eventId}</td>
         `
         document.getElementById("body").appendChild(tr)
+        s.stop();
     })
 })
 
@@ -71,6 +74,7 @@ prev.addEventListener("click", async () => {
         <td style="display:none">${data.eventId}</td>
         `
         document.getElementById("body").appendChild(tr)
+        
     })
 })
 async function showingAllEvents(first=1,last=11 ) {
