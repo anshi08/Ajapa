@@ -9,24 +9,28 @@ btn.addEventListener("click", () => {
     let identifier = getElementByIdName("identifier")
     let pwd = getElementByIdName("pwd")
     let type = document.getElementById("type").value
-    // const identifierPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    // const phoneRegex = /^\d{10}$/;
-    // if (!identifierPattern || !phoneRegex) {
-    //     clearDisplayError()
-    //     displayError("identifier or Phone number is required");
-    //     return;
-    // }else if(!identifierPattern.test(identifier) && !phoneRegex.test(identifier)){
-    //     clearDisplayError()
-    //     displayError("Enter a valid Email or Phone Number");
-    //     return;
-    // }
 
-    // if (pwd.length < 5) {
-    //     clearDisplayError()
-    //     displayError("Password Must be at least 5 characters long");
-    //     return;
-    // }
+    function areAllCharactersNumbers(inputString) {
+        // Use a regular expression to check if all characters are numbers
+        return /^\d+$/.test(inputString);
+    }
 
+    const identifierPattern = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/ ;
+    const phoneRegex = /^\d{10}$/;
+
+    if(identifier.length == 0 || pwd.length == 0 ){
+        alert("Enter Email and Password")
+        return;
+    }
+if(areAllCharactersNumbers(identifier)){
+    if (!phoneRegex.test(identifier)) {
+        alert('Please Enter a Valid Phone number')
+        return;
+    }
+}else if(!identifierPattern.test(identifier)){
+    alert("Please Enter a Valid Email Address")
+    return; 
+}
     const data = {
          identifier:identifier,
          password:pwd
@@ -71,7 +75,7 @@ async function signin(data) {
         console.log(res)
         const userRole = res.type;
         const isAdmin = res.isAdmin;
-        if(res.token == 'Invalid User information'){
+       if(res.token == 'Invalid User information'){
             clearDisplayError();
             displayError("Invalid User")
         }
@@ -87,7 +91,6 @@ async function signin(data) {
         localStorage.setItem("family_id",JSON.stringify(parseJwt(res.token).familyId))
         window.location.href = "dashboard.html";
         }
-        
         }
 
 } catch (error) {
@@ -141,3 +144,40 @@ function isAuth(){
 }
 
 window.addEventListener("DOMContentLoaded",isAuth)
+
+//Validation
+// document.getElementById("identifier").addEventListener("input",(e)=>{
+//     const phoneRegex1 = /^\d{10}$/;
+//     const phoneRegex2 = /^[6-9]\d{9}$/;
+//     // Test the phone number against the regex pattern
+//     if(!phoneRegex1.test(e.target.value)){
+//         document.getElementById("inputError").style.display = "block"       
+//         document.getElementById("inputError").innerText = "Phone Number must be 10 digit"             
+//     }else if(!phoneRegex2.test(e.target.value)){
+//         document.getElementById("inputError").style.display = "block"       
+//         document.getElementById("inputError").innerText = "Phone Number start with a valid digit"    
+//     }
+//     else{
+//         document.getElementById("inputError").style.display = "none"   
+//     }
+// })
+
+// document.getElementById("identifier").addEventListener("input",e=>{
+//     const emailPattern = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
+//     if(!emailPattern.test(e.target.value)){
+//         document.getElementById("inputError").style.display = "block"
+//         document.getElementById("inputError").innerText = "Enter Valid Email Address"
+//     }else{
+//         document.getElementById("inputError").style.display = "none"
+//     }
+// })
+
+document.getElementById("pwd").addEventListener("input",e=>{
+    
+    if(e.target.value.length < 5){
+        document.getElementById("passwordError").style.display = "block"
+        document.getElementById("passwordError").innerText = "Password must contain atleast 5 characters"
+    }else{
+        document.getElementById("passwordError").style.display = "none"
+    }
+})

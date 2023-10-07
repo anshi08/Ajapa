@@ -51,12 +51,14 @@
                                             <input type="text" class="form-control"
                                                 id="identifier" aria-describedby="emailHelp"
                                                 placeholder="Enter Email or Phone Number" required>
-                                                
+                                                <p id="inputError" style="display: none;color: red;"></p> 
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control"
-                                                id="pwd" placeholder="Password" required>   
+                                                id="pwd" placeholder="Password" required>  
+                                                <p id="passwordError" style="display: none;color: red;"></p> 
                                         </div>
+                                        
                                         <div class="form-group">
                                         <select class="form-control" id="type" name="typee" >
                                             <option value="disciple">Disciple</option>
