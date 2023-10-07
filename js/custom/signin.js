@@ -9,8 +9,8 @@ btn.addEventListener("click", () => {
     let identifier = getElementByIdName("identifier")
     let pwd = getElementByIdName("pwd")
     let type = document.getElementById("type").value
-    const identifierPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    const phoneRegex = /^\d{10}$/;
+    // const identifierPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    // const phoneRegex = /^\d{10}$/;
     // if (!identifierPattern || !phoneRegex) {
     //     clearDisplayError()
     //     displayError("identifier or Phone number is required");
