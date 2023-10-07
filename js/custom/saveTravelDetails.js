@@ -119,9 +119,10 @@ btn.addEventListener("submit", async (e) =>{
     let uid = ''
     let userName =''
     let alreadySavedMember = await getTravelsDetailsByFamilyIdAndEventId(id,localStorage.getItem("family_id"))    
+    console.log("hh",alreadySavedMember)
     if(alreadySavedMember.length===0){
         if(document.getElementById("familyDDL1").value==='Select Member'){
-            userName= parseJwt(localStorage.getItem("data")).full_name
+            userName= parseJwt(localStorage.getItem("data")).fullName
             uid = parseJwt(localStorage.getItem("data")).id
         }
     }else{
@@ -132,6 +133,8 @@ btn.addEventListener("submit", async (e) =>{
         userName= document.getElementById("familyDDL1").options[document.getElementById("familyDDL1").options.selectedIndex].innerText
         uid = +document.getElementById("familyDDL1").options[document.getElementById("familyDDL1").options.selectedIndex].value
     }
+
+    console.log("UID",userName)
 // Validate each field
     // if (city.trim() === "") {
     //     clearDisplayError()
@@ -331,24 +334,25 @@ element.addEventListener('change', function (e) {
 
  
   async function setDefaultAddress(address){
-    console.log("🚀 ~ file: saveTravelDetails.js:318 ~ setDefaultAddress ~ address:", address)
     await fetchStates(address.fromCountry.split(":")[0])
-    await fetchCities(address.fromCity.split(":")[0])
+    await fetchCities(address.fromState.split(":")[0])
     let allcountry = document.getElementById("from_country").options
-    let allCities = document.getElementById("from_city").options
+    let allCities = document.getElementById("from_city")
+    let allState = document.getElementById("from_state").options
     // console.log(allCities[0])    
     let fromSelectedCountryIndex=-1;
     let fromSelectedCityIndex=-1
     let fromSelectedArrivalModeTransport=-1
     let fromSeletedDepartureModeTransport=-1
     Array.from(allcountry).forEach((country,idx) => country.value === address.fromCountry.split(":")[0] ? fromSelectedCountryIndex=idx:"" )
-    // Array.from(allState).forEach((state,idx) => state.value === address.fromState.split(":")[0] ? fromSelectedStateIndex = idx:"")
+    Array.from(allState).forEach((state,idx) => state.value === address.fromState.split(":")[0] ? fromSelectedStateIndex = idx:"")
     Array.from(allCities).forEach((city,idx) => city.value === address.fromCity.split(":")[0] ? fromSelectedCityIndex = idx : "")
+    // Array.from()
     // console.log(fromSelectedCountryIndex, fromSelectedCityIndex)
     // Array.from(allCities).forEach((city) => console.log(city))
     document.getElementById("from_country").selectedIndex = fromSelectedCountryIndex;
-    // document.getElementById("from_state").selectedIndex = fromSelectedStateIndex;
-    // document.getElementById("from_city").selectedIndex = fromSelectedCityIndex
+    document.getElementById("from_state").selectedIndex = fromSelectedStateIndex;
+    document.getElementById("from_city").selectedIndex = fromSelectedCityIndex
     document.getElementById("arrival_time").value = address.arrivalTime
     Array.from(document.getElementById("arrival_mode_of_transport")).forEach((transport,idx) => transport.value === address.arrivalModeOfTransport ? fromSelectedArrivalModeTransport=idx :"")
     Array.from(document.getElementById("departure_mode_of_transport")).forEach((transport,idx) => transport.value === address.departureModeOfTransport ? fromSeletedDepartureModeTransport=idx:"")
@@ -436,7 +440,7 @@ async function saveTravelDetails(data) {
     clearAllFields();
     $('#pendingDialog2').modal('show');
     setTimeout(()=> {
-        window.location.reload()
+        // window.location.reload()
     },2000)
     return res;
 }
@@ -471,7 +475,6 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         }
     })
     let ddl =  await getAllFamilyMember(localStorage.getItem("family_id"))
-    console.log("yt",ddl)
     ddl.forEach(person => {
         let option = document.createElement("option")
         option.value= person.id
@@ -565,7 +568,9 @@ async function handleInput(searchInput) {
             const data = await getTrainDetails(searchTerm);
             // Display search results
             let select = document.getElementById("train_number")
+        
             if (data && data.length > 0) {
+                select.innerHTML=""
                 console.log(data)
             data.forEach(result => {
                 const resultItem = document.createElement("option");
@@ -598,9 +603,9 @@ async function handleInput1(searchInput) {
                 // Display search results
                 let select = document.getElementById("train_number_1")
                 if (data && data.length > 0) {
+                    select.innerHTML=""
                     console.log(data)
                 data.forEach(result => {
-                    console.log(result)
                     const resultItem = document.createElement("option");
                     resultItem.innerText = `[${result.train_num}]--${result.name}`; // Replace with the property that contains the result text
                     select.appendChild(resultItem);
