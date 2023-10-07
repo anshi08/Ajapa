@@ -65,3 +65,21 @@ function isAuth(){
 }
 
 window.addEventListener("DOMContentLoaded",isAuth)
+
+//Validation
+document.getElementById("identifier").addEventListener("input",(e)=>{
+    
+    const phoneRegex = /^\d{10}$/;
+    const phoneRegex1 = /^[6-9]\d{9}$/;
+    // Test the phone number against the regex pattern
+    if(!phoneRegex.test(e.target.value)){
+        document.getElementById("numErr").style.display = "block"       
+        document.getElementById("numErr").innerText = "Phone Number must be 10 digit"  
+    }else if(!phoneRegex1.test(e.target.value)){
+        document.getElementById("numErr").style.display = "block"       
+        document.getElementById("numErr").innerText = "Phone Number start with a valid digit" 
+    }
+    else{
+        document.getElementById("numErr").style.display = "none"   
+    }
+})
