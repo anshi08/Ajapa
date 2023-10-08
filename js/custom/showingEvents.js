@@ -14,7 +14,9 @@ window.addEventListener("DOMContentLoaded",()=>{
     
 })
 
-if(JSON.parse(localStorage.getItem("role")) === "admin" ){
+if(JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStorage.getItem("role")) === "head" 
+|| JSON.parse(localStorage.getItem("role")) === "member"
+){
     document.getElementById("pendingrequest").style.display = "none"   
 }
 
