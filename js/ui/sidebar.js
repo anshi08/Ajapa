@@ -19,6 +19,7 @@ function loadContent() {
             document.getElementById('accordionSidebar').innerHTML = data;
             if(JSON.parse(localStorage.getItem("role")) === "super"){
                 document.getElementById("showMembers").style.display = "none"
+                document.getElementById("reports").style.display = "block"
                 document.getElementById("addPermission").style.display = "block"
                 document.getElementById("showPermission").style.display = "block"
                 document.getElementById("addAdmins").style.display = "block"
