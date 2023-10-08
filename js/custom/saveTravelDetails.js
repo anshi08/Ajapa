@@ -124,6 +124,9 @@ btn.addEventListener("submit", async (e) =>{
         if(document.getElementById("familyDDL1").value==='Select Member'){
             userName= parseJwt(localStorage.getItem("data")).fullName
             uid = parseJwt(localStorage.getItem("data")).id
+        }else{
+            userName= document.getElementById("familyDDL1").options[document.getElementById("familyDDL1").options.selectedIndex].innerText
+            uid = +document.getElementById("familyDDL1").options[document.getElementById("familyDDL1").options.selectedIndex].value            
         }
     }else{
         if(document.getElementById("familyDDL1").value==='Select Member'){
@@ -134,79 +137,8 @@ btn.addEventListener("submit", async (e) =>{
         uid = +document.getElementById("familyDDL1").options[document.getElementById("familyDDL1").options.selectedIndex].value
     }
 
-    console.log("UID",userName)
-// Validate each field
-    // if (city.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("City is required.");
-    //     return;
-    // }
+    console.log("UID",userName,uid)
 
-    // if (country.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Country is required.");
-    //     return;
-    // }
-
-    // if (arr_date.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Arrival Date is required.");
-    //     return;
-    // }
-
-    // if (arr_time.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Arrival Time is required.");
-    //     return;
-    // }
-
-    // if (arr_transport.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Arrival Mode of Transport is required.");
-    //     return;
-    // }
-
-    // if (train_num.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Arrival train number is required.");
-    //     return;
-    // }
-
-    // if (train_name.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Arrival train name is required.");
-    //     return;
-    // }
-
-    // if (dep_date.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Departure Date is required.");
-    //     return;
-    // }
-
-    // if (dep_time.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Departure time is required.");
-    //     return;
-    // }
-
-    // if (dep_transport.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Departure Transport is required.");
-    //     return;
-    // }
-
-    // if (dep_trainNum.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Depature Transport Number is required.");
-    //     return;
-    // }
-
-    // if (dep_trainName.trim() === "") {
-    //     clearDisplayError()
-    //     displayError("Depature Transport Name is required.");
-    //     return;
-    // }
     let data = {}
     if(arr_transport==="Train" && dep_transport==="Train"){//write condition for both arrival and departue mode of transport
         data = {
@@ -288,6 +220,7 @@ btn.addEventListener("submit", async (e) =>{
         }
     }
     // console.log(data,"MYDATA")
+    console.log("Meradata",data)
      saveTravelDetails(data)
     setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data) 
 })
