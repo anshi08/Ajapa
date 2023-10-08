@@ -53,7 +53,6 @@ async function getTravelReportFamilyWise(evenId) {
         }
     })
     const res = await response.json()
-    console.log(res)
     return res;
 }
 
@@ -61,13 +60,31 @@ async function getTravelReportFamilyWise(evenId) {
 window.addEventListener("DOMContentLoaded",async(e) =>{
     let allEvents = await getAllEvents()
     let report1EventDDL = document.getElementById("report1Events")
+    let report2EventDDL = document.getElementById("report2Events")
+    let report3EventDDL = document.getElementById("report3Events")
     let tableofReport1 = document.getElementById("report1body")
+    let tableofReport2 = document.getElementById("report2body")
+    let tableofReport3 = document.getElementById("report3body")
     report1EventDDL.innerHTML=''
+    report2EventDDL.innerHTML=''
+    report3EventDDL.innerHTML=''
     allEvents.forEach(event => {
         let option = document.createElement("option")
         option.value = event.eventId
         option.innerHTML=event.eventName
         report1EventDDL.appendChild(option)
+    })
+    allEvents.forEach(event => {
+        let option = document.createElement("option")
+        option.value = event.eventId
+        option.innerHTML=event.eventName
+        report2EventDDL.appendChild(option)
+    })
+    allEvents.forEach(event => {
+        let option = document.createElement("option")
+        option.value = event.eventId
+        option.innerHTML=event.eventName
+        report3EventDDL.appendChild(option)
     })
 
     report1EventDDL.addEventListener("change",async (e)=>{
@@ -89,6 +106,39 @@ window.addEventListener("DOMContentLoaded",async(e) =>{
         })
 
     })
+
+
+    report3EventDDL.addEventListener("change",async (e)=>{
+        let familyWise = await getTravelReportFamilyWise(e.target.value)
+        console.log('hi')
+        tableofReport3.innerHTML=null
+        familyWise.forEach(report => {
+            console.log(report)
+            let tr = document.createElement("tr")
+            tr.innerHTML = `
+            <td>${report.headName}</td>
+            <td>  ${report.memberNames.map(name => `${name}<br>`).join('')}</td>
+            <td>${report.totalPersons}</td>
+            <td>${report.totalMaleMembers}</td>
+            <td>${report.totalFemaleMembers}</td>
+            <td>${report.totalKids}</td>
+            <td>${report.totalSeniorCitizens}</td>
+            <td>  ${report.reachingCity.map(city => `${city.split(":")[1]}<br>`).join('')}</td>
+            <td>  ${report.reachingDate.map(date => `${date}<br>`).join('')}</td>
+            <td>  ${report.reachingMode.map(mode => `${mode}<br>`).join('')}</td>
+            <td>  ${report.reachingTrainDetails.map(detail => `${detail .split(":")[1]}<br>`).join('')}</td>
+            <td>  ${report.leavingDate.map(date => `${date}<br>`).join('')}</td>
+            <td>  ${report.leavingMode.map(mode => `${mode}<br>`).join('')}</td>
+            <td>  ${report.leavingTrainDetails.map(detail => `${detail .split(":")[1]}<br>`).join('')}</td>
+            <td> <img src="http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${report.emailId}"/></td>
+            `
+            tableofReport3.appendChild(tr)
+        })
+
+    })
+    
+
+
     let report1LeavingReaching = document.getElementById("report1LeavingReaching")
     report1LeavingReaching.addEventListener("change",async (e) =>{
         if(e.target.value === "Leaving Date"){
