@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded",()=>{
 if(JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStorage.getItem("role")) === "head" 
 || JSON.parse(localStorage.getItem("role")) === "member"
 ){
-    document.getElementById("pendingrequest").style.display = "none"   
+    document.getElementById("pendingrequest") !==null ?document.getElementById("pendingrequest").style.display = "none"  :"" 
 }
 
 let prev = document.getElementById("prev")
@@ -27,8 +27,6 @@ let next = document.getElementById("next")
 next.addEventListener("click", async () => {
  
     let lastChild  = (document.getElementById("body").lastElementChild.lastElementChild.innerHTML)
-  
-        
     const role = (JSON.parse(localStorage.getItem("role")))
     let res 
     if(role === "admin"){
