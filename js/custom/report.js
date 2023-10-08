@@ -196,4 +196,5 @@ function generatePDF(idx) {
             pdfMake.createPdf(docDefinition).download(`Report${idx+1}.pdf`);
         }
     });
+
   }
