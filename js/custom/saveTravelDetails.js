@@ -373,7 +373,7 @@ async function saveTravelDetails(data) {
     clearAllFields();
     $('#pendingDialog2').modal('show');
     setTimeout(()=> {
-        // window.location.reload()
+        window.location.reload()
     },2000)
     return res;
 }
