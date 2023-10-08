@@ -6,7 +6,7 @@ btn.addEventListener("submit",(e)=>{
 let identifier = document.getElementById("id").value
 let password = document.getElementById("password").value
 
-const emailPattern = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
+const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 const phoneRegex = /^\d{10}$/;
 
 function areAllCharactersNumbers(inputString) {

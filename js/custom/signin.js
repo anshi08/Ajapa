@@ -15,7 +15,7 @@ btn.addEventListener("click", () => {
         return /^\d+$/.test(inputString);
     }
 
-    const identifierPattern = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/ ;
+    const identifierPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/ ;
     const phoneRegex = /^\d{10}$/;
 
     if(identifier.length == 0 || pwd.length == 0 ){
