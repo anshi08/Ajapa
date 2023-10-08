@@ -140,6 +140,7 @@ btn.addEventListener("submit", async (e) =>{
     console.log("UID",userName,uid)
 
     let data = {}
+    console.log("Hello",{arr_transport,dep_transport})
     if(arr_transport==="Train" && dep_transport==="Train"){//write condition for both arrival and departue mode of transport
         data = {
             eventId: window.location.href.split("?")[1].split("=")[1],
@@ -267,12 +268,12 @@ element.addEventListener('change', function (e) {
 
  
   async function setDefaultAddress(address){
+    console.log("address",address)
     await fetchStates(address.fromCountry.split(":")[0])
     await fetchCities(address.fromState.split(":")[0])
     let allcountry = document.getElementById("from_country").options
     let allCities = document.getElementById("from_city")
     let allState = document.getElementById("from_state").options
-    // console.log(allCities[0])    
     let fromSelectedCountryIndex=-1;
     let fromSelectedCityIndex=-1
     let fromSelectedArrivalModeTransport=-1
@@ -280,9 +281,6 @@ element.addEventListener('change', function (e) {
     Array.from(allcountry).forEach((country,idx) => country.value === address.fromCountry.split(":")[0] ? fromSelectedCountryIndex=idx:"" )
     Array.from(allState).forEach((state,idx) => state.value === address.fromState.split(":")[0] ? fromSelectedStateIndex = idx:"")
     Array.from(allCities).forEach((city,idx) => city.value === address.fromCity.split(":")[0] ? fromSelectedCityIndex = idx : "")
-    // Array.from()
-    // console.log(fromSelectedCountryIndex, fromSelectedCityIndex)
-    // Array.from(allCities).forEach((city) => console.log(city))
     document.getElementById("from_country").selectedIndex = fromSelectedCountryIndex;
     document.getElementById("from_state").selectedIndex = fromSelectedStateIndex;
     document.getElementById("from_city").selectedIndex = fromSelectedCityIndex
@@ -297,11 +295,18 @@ element.addEventListener('change', function (e) {
     document.getElementById("departure_date").value = address.departureDate.split("T")[0]
     if(address.arrivalTrainName!==null){
         document.getElementById("transport").style.display = "block"
-        document.getElementById("arrival_train_number").value = address?.arrivalTrainNumber || adress?.arrivalTrainName
+        document.getElementById("train_number").style.display = "block"
+        document.getElementById("train_detail_label").style.display="block"
+        handleInput(address?.arrivalTrainNumber || address?.arrivalTrainName)
+        document.getElementById("arrival_train_number").value = address?.arrivalTrainNumber || address?.arrivalTrainName
+        // document.getElementById("train_number").value = address?.arrivalTrainNumber
     }
     if(address.departureTrainName!==null){
         document.getElementById("transport1").style.display="block"
-        document.getElementById("departure_train_number").value = address?.departureTrainName
+        document.getElementById("train_number_1").style.display = "block"
+        document.getElementById("train_detail_label_1").style.display="block"
+        document.getElementById("departure_train_number").value = address?.departureTrainNumber || address?.departureTrainName
+        handleInput1(address?.departureTrainNumber || address?.departureTrainName)
     }
 
 
@@ -380,8 +385,6 @@ async function saveTravelDetails(data) {
 
 window.addEventListener("DOMContentLoaded",async ()=>{
 
-
-
     document.getElementById("arrival_mode_of_transport").addEventListener("change",e =>{
         
         if(e.target.value === "Train"){
@@ -416,6 +419,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     })
     document.getElementById("familyDDL").addEventListener("change", async (e) =>{
      let value = JSON.parse(e.target.value)
+     console.log("🚀 ~ file: saveTravelDetails.js:416 ~ document.getElementById ~ value:", value)
      setDefaultAddress(value)
      
     })
@@ -487,7 +491,15 @@ function debounce(func, wait) {
 }
 
 async function handleInput(searchInput) {
-        const searchTerm = searchInput.value.trim();
+console.log("🚀 ~ file: saveTravelDetails.js:496 ~ handleInput ~ searchInput:", searchInput)
+
+    let newSearchInput = ""
+    if(searchInput?.value!==undefined){
+        newSearchInput = searchInput.value.trim();
+    }else{
+        newSearchInput = searchInput
+    }
+        const searchTerm = newSearchInput 
         console.log(searchTerm)
         if (searchTerm.length === 0) {
             document.getElementById("train_detail_label").style.display = "none" 
@@ -521,7 +533,14 @@ async function handleInput(searchInput) {
 }
 
 async function handleInput1(searchInput) {
-            const searchTerm = searchInput.value.trim();
+    console.log("kk",searchInput)
+             let newSearchInput = ""
+    if(searchInput?.value!==undefined){
+        newSearchInput = searchInput.value.trim();
+    }else{
+        newSearchInput = searchInput
+    }
+        const searchTerm = newSearchInput 
             console.log(searchTerm)
             if (searchTerm.length === 0) {
                 document.getElementById("train_detail_label").style.display = "none" 
@@ -533,11 +552,12 @@ async function handleInput1(searchInput) {
                 document.getElementById("train_number_1").style.display = "block" 
                 document.getElementById("train_detail_label_1").style.display = "block"
                 const data = await getTrainDetails(searchTerm);
+                console.log("anshi",data,searchTerm)
                 // Display search results
                 let select = document.getElementById("train_number_1")
                 if (data && data.length > 0) {
                     select.innerHTML=""
-                    console.log(data)
+              
                 data.forEach(result => {
                     const resultItem = document.createElement("option");
                     resultItem.innerText = `[${result.train_num}]--${result.name}`; // Replace with the property that contains the result text

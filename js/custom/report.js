@@ -44,6 +44,20 @@ async function getEventById(eventId){
 }
 
 
+
+async function getTravelReportFamilyWise(evenId) {
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getTravelReportFamilyWise/"+evenId,{
+        method: "GET",
+        headers: {
+            "Content-type":"application/json;  charset=UTF-8"
+        }
+    })
+    const res = await response.json()
+    console.log(res)
+    return res;
+}
+
+
 window.addEventListener("DOMContentLoaded",async(e) =>{
     let allEvents = await getAllEvents()
     let report1EventDDL = document.getElementById("report1Events")
