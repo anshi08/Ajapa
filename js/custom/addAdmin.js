@@ -16,19 +16,15 @@ function areAllCharactersNumbers(inputString) {
 
 if(identifier.length===0 || password.length===0){
     alert("Please Enter the Id/Email or Password")
-    return;
-}
-
-if(areAllCharactersNumbers(identifier)){
+}else if(areAllCharactersNumbers(identifier)){
     if (!phoneRegex.test(identifier)) {
         alert('Please Enter a Valid Phone number')
-        return;
+    }else{
+        addAdmin(identifier.password);
     }
 }else if(!emailPattern.test(identifier)){
     alert("Please Enter a Valid Email Address")
-    return;
 }else{
-    
    addAdmin(identifier,password);
 }
 })
@@ -44,7 +40,6 @@ async function addAdmin(identifier,password){
         body:JSON.stringify({identifier:identifier,password:password})
     })
     const response = await res.text()
-    console.log("res",response)
     $('#pendingDialog1000').modal('show');
     setTimeout(()=>{
         window.location.href = "addAdmin.html"
