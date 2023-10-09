@@ -42,6 +42,7 @@ async function getTravelReportDateWise2Leaving(evenId) {
         }
     })
     const res = await response.json()
+    console.log(res)
     return res;
 }
 
@@ -246,7 +247,7 @@ report2LeavingReaching.addEventListener("change",async (e) =>{
     }else{
         let eventId = document.getElementById("report2Events").options[document.getElementById("report2Events").selectedIndex].value
        let eventSorted = await getTravelReportDateWise2(eventId)
-       tableofReport2.innerHTML=null
+       document.getElementById("report2body").innerHTML=null
        eventSorted.forEach(report => {
         let tr = document.createElement("tr")
         tr.innerHTML = `
@@ -259,7 +260,7 @@ report2LeavingReaching.addEventListener("change",async (e) =>{
         <td>${report.flightPerson}</td>
         <td>${report.roadPerson}</td>
         `
-        tableofReport2.appendChild(tr)
+        document.getElementById("report2body").appendChild(tr)
        })
     }
 })
