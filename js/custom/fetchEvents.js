@@ -49,14 +49,14 @@ let eventName = document.getElementById("event_name").value
 let eventType = document.getElementById("event_type").value
 let eventLocation = document.getElementById("event_location").value
 let startDate = document.getElementById("start_date").value
-let endDate = document.getElementById("end_date").value
+// let endDate = document.getElementById("end_date").value
 
 const data = {
     eventName:eventName,
     eventType:eventType,
     eventLocation : eventLocation,
     startDate:startDate,
-    endDate : endDate,
+    // endDate : endDate,
     listedBy : localStorage.getItem("role")
 }
 
@@ -68,7 +68,7 @@ function clearAllFields(){
    document.getElementById("event_type").value = '';
    document.getElementById("event_location").value = '';
    document.getElementById("start_date").value = '';
-   document.getElementById("end_date").value = '';
+//    document.getElementById("end_date").value = '';
 }
 
 async function updateEvents(data) {
@@ -86,5 +86,6 @@ async function updateEvents(data) {
     setTimeout(()=>{
         window.location.href = "dashboard.html";
     },2000)
+    return res;
 }
 
