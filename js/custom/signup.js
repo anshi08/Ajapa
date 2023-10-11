@@ -3,6 +3,7 @@ let element = document.getElementById("country")
 let stateElement = document.getElementById("state")
 let cityElement = document.getElementById("city")
 let phoneNumber = document.getElementById("mobile_num")
+let phoneNumberValue = document.getElementById("mobile_num")
 
 
 function getElementByIdName(idName){
@@ -39,6 +40,19 @@ btn.addEventListener("submit", (e) =>{
         return;
     }
 
+// const phoneRegex = /^\d{10}$/;
+// const phoneRegex1 = /^[6-9]\d{9}$/;
+// if(!phoneRegex.test(phoneNumberValue)){
+//     alert("Please Enter a Valid Phone number");
+//     // return;
+// }else if(!phoneRegex1.test(phoneNumberValue)){
+//     alert("Phone Number start with a valid digit");
+//     // return;
+// }else{
+//    signup(data)
+// // console.log(data)
+// }   
+
     const data = {
         fullName: name,
         gender: gender,
@@ -52,8 +66,10 @@ btn.addEventListener("submit", (e) =>{
         state: state,
         userType:"head"
     }
+    // alert("data",data)
     signup(data);
 })
+
 
 function clearAllFields() {
     document.getElementById("name").value = "";
@@ -230,10 +246,12 @@ phoneNumber.addEventListener("input",(e)=>{
     // Test the phone number against the regex pattern
     if(!phoneRegex.test(e.target.value)){
         document.getElementById("phoneNumberTxt").style.display = "block"       
-        document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit"             
+        document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit"   
+                        
     }else if(!phoneRegex1.test(e.target.value)){
         document.getElementById("phoneNumberTxt").style.display = "block"       
-        document.getElementById("phoneNumberTxt").innerText = "Phone Number start with a valid digit"    
+        document.getElementById("phoneNumberTxt").innerText = "Phone Number start with a valid digit"  
+        
     }
     else{
         document.getElementById("phoneNumberTxt").style.display = "none"   

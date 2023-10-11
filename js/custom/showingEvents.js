@@ -150,7 +150,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         <td>${data.listedBy}</td>
         ${JSON.parse(localStorage.getItem("role")) === "member" ||
         JSON.parse(localStorage.getItem("role")) === "head"
-        ?`<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Book</a></td>` : ''}
+        ?`<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` : ''}
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':""}
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td class="deleteEvent"><a href="#">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
         <td style="display:none">${data.eventId}</td>
@@ -164,6 +164,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     )
     Array.from(document.getElementsByClassName("deleteEvent")).forEach(item => {
         item.addEventListener("click",(e)=>{
+            alert("Are you sure you want to delete")
             deleteEvent(e.target.parentElement.nextElementSibling.innerText)
         })
     })  

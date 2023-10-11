@@ -27,11 +27,13 @@ document.getElementById("mobile_num").addEventListener("input",e =>{
     if(!phoneRegex.test(e.target.value)){
         document.getElementById("phoneNumberTxt").style.display = "block"   
         document.getElementById("phoneNumberTxt").style.color="red"    
-        document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit"             
+        document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit"   
+                
     }else if(!phoneRegex1.test(e.target.value)){
         document.getElementById("phoneNumberTxt").style.display = "block"  
         document.getElementById("phoneNumberTxt").style.color="red"     
-        document.getElementById("phoneNumberTxt").innerText = "Phone Number start with a valid digit"    
+        document.getElementById("phoneNumberTxt").innerText = "Phone Number start with a valid digit"  
+        
     }   
     else{
         document.getElementById("phoneNumberTxt").style.display = "none"   
@@ -45,11 +47,13 @@ document.getElementById("whatsapp_num").addEventListener("input",e=>{
     if(!phoneRegex.test(e.target.value)){
         document.getElementById("phoneNumberTxt1").style.display = "block"   
         document.getElementById("phoneNumberTxt1").style.color="red"    
-        document.getElementById("phoneNumberTxt1").innerText = "Phone Number must be 10 digit"             
+        document.getElementById("phoneNumberTxt1").innerText = "Phone Number must be 10 digit"    
+                
     }else if(!phoneRegex1.test(e.target.value)){
         document.getElementById("phoneNumberTxt1").style.display = "block"  
         document.getElementById("phoneNumberTxt1").style.color="red"     
-        document.getElementById("phoneNumberTxt1").innerText = "Phone Number start with a valid digit"    
+        document.getElementById("phoneNumberTxt1").innerText = "Phone Number start with a valid digit"
+              
     }   
     else{
         document.getElementById("phoneNumberTxt1").style.display = "none"   
