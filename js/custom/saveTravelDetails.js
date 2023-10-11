@@ -119,7 +119,7 @@ btn.addEventListener("submit", async (e) =>{
     let uid = ''
     let userName =''
     let alreadySavedMember = await getTravelsDetailsByFamilyIdAndEventId(id,localStorage.getItem("family_id"))    
-    console.log("hh",alreadySavedMember)
+    // console.log("hh",alreadySavedMember)
     if(alreadySavedMember.length===0){
         if(document.getElementById("familyDDL1").value==='Select Member'){
             userName= parseJwt(localStorage.getItem("data")).fullName
@@ -137,10 +137,9 @@ btn.addEventListener("submit", async (e) =>{
         uid = +document.getElementById("familyDDL1").options[document.getElementById("familyDDL1").options.selectedIndex].value
     }
 
-    console.log("UID",userName,uid)
+    // console.log("UID",userName,uid)
 
     let data = {}
-    console.log("Hello",{arr_transport,dep_transport})
     if(arr_transport==="Train" && dep_transport==="Train"){//write condition for both arrival and departue mode of transport
         data = {
             eventId: window.location.href.split("?")[1].split("=")[1],
@@ -221,8 +220,8 @@ btn.addEventListener("submit", async (e) =>{
         }
     }
     // console.log(data,"MYDATA")
-    console.log("Meradata",data)
-     saveTravelDetails(data)
+    // console.log("Meradata",data)
+    saveTravelDetails(data)
     setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data) 
 })
 
@@ -268,7 +267,7 @@ element.addEventListener('change', function (e) {
 
  
   async function setDefaultAddress(address){
-    console.log("address",address)
+    console.log("setDefaultAddress",address)
     await fetchStates(address.fromCountry.split(":")[0])
     await fetchCities(address.fromState.split(":")[0])
     let allcountry = document.getElementById("from_country").options
@@ -314,14 +313,14 @@ element.addEventListener('change', function (e) {
   }
   
   function handleCountryChange(selectedCountry) {
-    console.log(`Selected country: ${selectedCountry}`);
+    // console.log(`Selected country: ${selectedCountry}`);
     fetchStates(selectedCountry);
     // countryId = ""; // or countryId = "";
     stateElement.value = "" ;
   }
 
   stateElement.addEventListener("change",e =>{
-    console.log(e.target.value)
+    // console.log(e.target.value)
     fetchCities(e.target.value)
 
   })
@@ -364,7 +363,7 @@ async function fetchCities(stateId) {
   }
 
 async function saveTravelDetails(data) {
-    console.log("ppp",data)
+    // console.log("ppp",data)
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveTravelDetails",{
         method:"POST",
         body:JSON.stringify(data),
