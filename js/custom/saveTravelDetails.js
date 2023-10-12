@@ -27,7 +27,7 @@ const endDate = response?.endDate?.split("T")[0]
 const lock_endDate = response?.lockDepartureDate?.split("T")[0]
 document.getElementById("arrival_date").setAttribute("min",lock_startDate)
 document.getElementById("arrival_date").setAttribute("max",startDate)
-document.getElementById("departure_date").setAttribute("min",endDate)
+document.getElementById("departure_date").setAttribute("min",startDate)
 document.getElementById("departure_date").setAttribute("max",lock_endDate)
 }
 
@@ -49,8 +49,10 @@ document.getElementById("arrival_time").addEventListener("input",e =>{
 })
 
 document.getElementById("arrival_train_number").addEventListener("input",e =>{
+    debounce(handleInput(e.target.value), 300)
     if(e.target.value === 0 || e.target.value.length === 0){
        document.getElementById("trainErr").style.display = "block"
+      
     }else{
         document.getElementById("trainErr").style.display = "none"
     }
@@ -80,13 +82,14 @@ document.getElementById("departure_time").addEventListener("input",e =>{
     }
 })
 
-// document.getElementById("departure_train_number").addEventListener("input",e =>{
-//     if(e.target.value === 0 || e.target.value.length === 0){
-//        document.getElementById("Err").style.display = "block"
-//     }else{
-//         document.getElementById("Err").style.display = "none"
-//     }
-// })
+document.getElementById("departure_train_number").addEventListener("input",e =>{
+    debounce(handleInput1(e.target.value), 300)
+    if(e.target.value === 0 || e.target.value.length === 0){
+       document.getElementById("Err").style.display = "block"
+    }else{
+        document.getElementById("Err").style.display = "none"
+    }
+})
 
 // document.getElementById("departure_train_name").addEventListener("input",e =>{
 //     if(e.target.value === 0 || e.target.value.length === 0){
@@ -532,7 +535,6 @@ console.log("🚀 ~ file: saveTravelDetails.js:496 ~ handleInput ~ searchInput:"
 }
 
 async function handleInput1(searchInput) {
-    console.log("kk",searchInput)
              let newSearchInput = ""
     if(searchInput?.value!==undefined){
         newSearchInput = searchInput.value.trim();

@@ -8,6 +8,7 @@ let diksha_dt = document.getElementById("diksha_dt")
 let wNumber = document.getElementById("whatsapp_num")
 let rememberMobInput = document.getElementById("rememberMob")
 let dontRememberMob = document.getElementById("dontRememberMob")
+let  phoneNumberIsValid = ""
 
 
 
@@ -27,13 +28,13 @@ document.getElementById("mobile_num").addEventListener("input",e =>{
     if(!phoneRegex.test(e.target.value)){
         document.getElementById("phoneNumberTxt").style.display = "block"   
         document.getElementById("phoneNumberTxt").style.color="red"    
-        document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit"   
-                
+        document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit" 
+        phoneNumberIsValid="LessThan10Digit"                  
     }else if(!phoneRegex1.test(e.target.value)){
         document.getElementById("phoneNumberTxt").style.display = "block"  
         document.getElementById("phoneNumberTxt").style.color="red"     
         document.getElementById("phoneNumberTxt").innerText = "Phone Number start with a valid digit"  
-        
+        phoneNumberIsValid="InvalidDigit"
     }   
     else{
         document.getElementById("phoneNumberTxt").style.display = "none"   
@@ -150,8 +151,35 @@ btn.addEventListener("submit", (e) => {
         state: state,
         pincode: pincode
     }
+    if(phoneNumberIsValid==="LessThan10Digit"){
+        alert("Mobile Number is Less than 10 Digits")
+        document.getElementById("whatsapp_num").focus()
+        return;
+
+
+    }else if(phoneNumberIsValid==="InvalidDigit"){
+        alert("Mobile Number is More than 10 Digits")
+        document.getElementById("whatsapp_num").focus()
+        return;
+    }else if(blood_grp==="Select"){
+        alert("Please Select the blood group")
+        document.getElementById("blood_grp").focus()
+        return;
+    }else if(occupation.length===0){
+        alert("Please Choose the Occupation")
+        document.getElementById("occupation").focus()
+        return;
+    }
+    else if(pincode.length!==6){
+        alert("Please Enter the valid pincode")
+        document.getElementById("pincode").focus()
+        return;
+    }
     
+    else{
     updateProfile(data)
+    }
+   
 })
 
 function clearFormFields() {
@@ -237,7 +265,7 @@ stateElement.addEventListener('change', function (e) {
   }
 
 async function fetchCities(stateId,selectCityValue) {
-    console.log("kkyu",stateId)
+
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/cities/${stateId}`,{
         method:"GET",
         headers:{

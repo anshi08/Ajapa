@@ -3,6 +3,7 @@ let element = document.getElementById("country")
 let stateElement = document.getElementById("state")
 let cityElement = document.getElementById("city")
 let phoneNumber = document.getElementById("mobile_num")
+let  phoneNumberIsValid = ""
 
 
 function getElementByIdName(idName){
@@ -45,6 +46,7 @@ btn.addEventListener("submit", (e) =>{
         document.getElementById("pwdErr").innerHTML = "<span style='color: red;'>Password does not Match</span>";
         return;
     }
+    
 
     const data = {
         fullName: name,
@@ -58,7 +60,27 @@ btn.addEventListener("submit", (e) =>{
         state: state,
         userType:"member"
     }
-    signup(data);
+
+    if(gender==="Select"){
+        alert("Please Choose the gender")
+        document.getElementById("gender").focus()
+        return;
+
+    }else if(phoneNumberIsValid==="LessThan10Digit"){
+        alert("Mobile Number is Less than 10 Digits")
+        phoneNumber.focus()
+        return;
+
+
+    }else if(phoneNumberIsValid==="InvalidDigit"){
+        alert("Mobile Number is More than 10 Digits")
+        phoneNumber.focus()
+        return;
+    }else{
+   signup(data);
+    }
+
+ 
 })
 
 function clearAllFields() {
@@ -117,7 +139,7 @@ element.addEventListener('change', function (e) {
     })
     const res = await response.json()
     stateElement.innerHTML = '';
-    res.forEach((state) => {
+    res?.forEach((state) => {
     const option = document.createElement('option');
     option.value = state.id;
     option.text = state.name;
@@ -239,10 +261,12 @@ phoneNumber.addEventListener("input",(e)=>{
     // Test the phone number against the regex pattern
     if(!phoneRegex.test(e.target.value)){
         document.getElementById("phoneNumberTxt").style.display = "block"       
-        document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit"             
+        document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit" 
+        phoneNumberIsValid="LessThan10Digit"            
     }else if(!phoneRegex1.test(e.target.value)){
         document.getElementById("phoneNumberTxt").style.display = "block"       
         document.getElementById("phoneNumberTxt").innerText = "Phone Number start with a valid digit"    
+        phoneNumberIsValid="InvalidDigit"
     }
     else{
         document.getElementById("phoneNumberTxt").style.display = "none"   
