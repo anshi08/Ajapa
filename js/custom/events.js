@@ -50,6 +50,7 @@ function parseJwt (token) {
 }
 
 
+
 btn.addEventListener("submit", async(e) =>{
     e.preventDefault();
  
@@ -66,8 +67,10 @@ btn.addEventListener("submit", async(e) =>{
     let newListedBy;
     if(localStorage.getItem("role").trim().replaceAll("\"","") === "admin"){
         newListedBy = parseJwt(localStorage.getItem("data")).Identifier
+        // console.log("admin",newListedBy)
     }else{
-        newListedBy = parseJwt(localStorage.getItem("data")).id 
+        newListedBy = localStorage.getItem("role")
+        console.log("super",newListedBy)
     }
 
     const data = {
@@ -86,11 +89,13 @@ btn.addEventListener("submit", async(e) =>{
 
     if(localStorage.getItem("role") === "super"){
         let {eventId} = events(data)
-        setEventImg(eventId,file)
-    }else{
+        console.log(eventId)
+        // setEventImg(eventId,file)
+    }
+    else{
         let {eventId} = await events(data)
-        saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
-        setEventImg(eventId,file)
+        // saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
+        // setEventImg(eventId,file)
     }
 
 })
@@ -157,10 +162,8 @@ const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPS
     body:JSON.stringify(newObj)
 })
 const response = await res.text()
-console.log("hi",response)
 return response
 }
-
 
 
 

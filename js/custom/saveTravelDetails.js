@@ -222,8 +222,7 @@ btn.addEventListener("submit", async (e) =>{
             familyId:localStorage.getItem("family_id")
         }
     }
-    // console.log(data,"MYDATA")
-    // console.log("Meradata",data)
+    
     saveTravelDetails(data)
     setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data) 
 })
