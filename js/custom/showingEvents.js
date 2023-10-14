@@ -33,6 +33,7 @@ next.addEventListener("click", async () => {
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier)
     }else{
         res = await showingAllEvents(lastChild,+lastChild+10)
+        
     }
     document.getElementById("body").innerHTML = null
     res.forEach(data => {
@@ -77,7 +78,7 @@ prev.addEventListener("click", async () => {
         
     })
 })
-async function showingAllEvents(first=1,last=11 ) {
+async function showingAllEvents(first=1,last=25) {
 
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEvents/${first}/${last}`,{
          method:"GET",
@@ -87,7 +88,6 @@ async function showingAllEvents(first=1,last=11 ) {
     })
     const res = await response.json()
     return res;
-
 }
 
 
@@ -118,7 +118,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     }else{
         res = await showingAllEvents()
     }
-
+    console.log("BBB",res)
 
         if(res.length==0){
             s.stop();

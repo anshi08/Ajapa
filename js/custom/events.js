@@ -67,10 +67,8 @@ btn.addEventListener("submit", async(e) =>{
     let newListedBy;
     if(localStorage.getItem("role").trim().replaceAll("\"","") === "admin"){
         newListedBy = parseJwt(localStorage.getItem("data")).Identifier
-        // console.log("admin",newListedBy)
     }else{
         newListedBy = localStorage.getItem("role")
-        console.log("super",newListedBy)
     }
 
     const data = {
@@ -89,13 +87,12 @@ btn.addEventListener("submit", async(e) =>{
 
     if(localStorage.getItem("role") === "super"){
         let {eventId} = events(data)
-        console.log(eventId)
-        // setEventImg(eventId,file)
+        setEventImg(eventId,file)
     }
     else{
         let {eventId} = await events(data)
-        // saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
-        // setEventImg(eventId,file)
+        saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
+        setEventImg(eventId,file)
     }
 
 })
@@ -126,11 +123,11 @@ function ClearAllFields(){
     if(response.ok){
     const res = await response.json()
     console.log("kkk",res)      
-    ClearAllFields();
-    $('#pendingDialog4').modal('show');
-    setTimeout(() =>{
-        window.location.href = "dashboard.html"
-    },3000)
+    // ClearAllFields();
+    // $('#pendingDialog4').modal('show');
+    // setTimeout(() =>{
+    //     window.location.href = "dashboard.html"
+    // },3000)
     return res
     } else {
         // Handle the case where the HTTP request was not successful
