@@ -145,39 +145,14 @@ function isAuth(){
 
 window.addEventListener("DOMContentLoaded",isAuth)
 
-//Validation
-// document.getElementById("identifier").addEventListener("input",(e)=>{
-//     const phoneRegex1 = /^\d{10}$/;
-//     const phoneRegex2 = /^[6-9]\d{9}$/;
-//     // Test the phone number against the regex pattern
-//     if(!phoneRegex1.test(e.target.value)){
-//         document.getElementById("inputError").style.display = "block"       
-//         document.getElementById("inputError").innerText = "Phone Number must be 10 digit"             
-//     }else if(!phoneRegex2.test(e.target.value)){
-//         document.getElementById("inputError").style.display = "block"       
-//         document.getElementById("inputError").innerText = "Phone Number start with a valid digit"    
-//     }
-//     else{
-//         document.getElementById("inputError").style.display = "none"   
-//     }
-// })
-
-// document.getElementById("identifier").addEventListener("input",e=>{
-//     const emailPattern = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/;
-//     if(!emailPattern.test(e.target.value)){
-//         document.getElementById("inputError").style.display = "block"
-//         document.getElementById("inputError").innerText = "Enter Valid Email Address"
-//     }else{
-//         document.getElementById("inputError").style.display = "none"
-//     }
-// })
-
-document.getElementById("pwd").addEventListener("input",e=>{
+function myFunction(){
+let passwordInput = document.getElementById("pwd")
+let passwordErr =  document.getElementById("passwordError")
     
-    if(e.target.value.length < 5){
-        document.getElementById("passwordError").style.display = "block"
-        document.getElementById("passwordError").innerText = "Password must contain atleast 5 characters"
+    if(passwordInput.value.length < 5){
+       passwordErr.style.display = "block"
+       passwordErr.innerText = "Password must contain atleast 5 characters"
     }else{
-        document.getElementById("passwordError").style.display = "none"
+       passwordErr.style.display = "none"
     }
-})
+}

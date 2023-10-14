@@ -3,7 +3,6 @@ function checkAuthenticated(){
         window.location.href = 'login.html'
     }
 
-
 }
 
 checkAuthenticated()

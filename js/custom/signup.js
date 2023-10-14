@@ -3,7 +3,7 @@ let element = document.getElementById("country")
 let stateElement = document.getElementById("state")
 let cityElement = document.getElementById("city")
 let phoneNumber = document.getElementById("mobile_num")
-let phoneNumberValue = document.getElementById("mobile_num")
+let phoneNumberValue = ""
 
 
 function getElementByIdName(idName){
@@ -40,19 +40,6 @@ btn.addEventListener("submit", (e) =>{
         return;
     }
 
-// const phoneRegex = /^\d{10}$/;
-// const phoneRegex1 = /^[6-9]\d{9}$/;
-// if(!phoneRegex.test(phoneNumberValue)){
-//     alert("Please Enter a Valid Phone number");
-//     // return;
-// }else if(!phoneRegex1.test(phoneNumberValue)){
-//     alert("Phone Number start with a valid digit");
-//     // return;
-// }else{
-//    signup(data)
-// // console.log(data)
-// }   
-
     const data = {
         fullName: name,
         gender: gender,
@@ -66,8 +53,21 @@ btn.addEventListener("submit", (e) =>{
         state: state,
         userType:"head"
     }
-    // alert("data",data)
-    signup(data);
+
+    if(phoneNumberValue ==="LessThan10Digit"){
+        alert("Mobile Number is Less than 10 Digits")
+        phoneNumber.focus()
+        return;
+
+
+    }else if(phoneNumberValue ==="InvalidDigit"){
+        alert("Mobile Number is More than 10 Digits")
+        phoneNumber.focus()
+        return;
+    }else{
+   signup(data);
+    }
+
 })
 
 
@@ -225,6 +225,24 @@ document.getElementById("dob").addEventListener("input",e=>{
         document.getElementById("dobErr").style.display = "block"   
     }else{
         document.getElementById("dobErr").style.display = "none"   
+    }
+})
+
+phoneNumber.addEventListener("input",(e)=>{
+    const phoneRegex = /^\d{10}$/;
+    const phoneRegex1 = /^[6-9]\d{9}$/;
+    // Test the phone number against the regex pattern
+    if(!phoneRegex.test(e.target.value)){
+        document.getElementById("phoneNumberTxt").style.display = "block"       
+        document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit" 
+        phoneNumberValue="LessThan10Digit"            
+    }else if(!phoneRegex1.test(e.target.value)){
+        document.getElementById("phoneNumberTxt").style.display = "block"       
+        document.getElementById("phoneNumberTxt").innerText = "Phone Number start with a valid digit"
+        phoneNumberValue="InvalidDigit"
+    }
+    else{
+        document.getElementById("phoneNumberTxt").style.display = "none"   
     }
 })
 

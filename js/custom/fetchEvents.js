@@ -43,10 +43,16 @@ function displaySuccessMessage(message) {
     }, 3000); // 3 seconds
 }
 
+document.getElementById("event_type").addEventListener("blur",e=>{
+    if(e.target.value === "Select Type"){
+        alert("Select Event Type")
+    }
+})
+
 let btn = document.getElementById("btn");
 btn.addEventListener("click", () => {
 let eventName = document.getElementById("event_name").value
-let eventType = document.getElementById("event_type").value
+let eventType = document.getElementById("event_type").value;
 let eventLocation = document.getElementById("event_location").value
 let startDate = document.getElementById("start_date").value
 // let endDate = document.getElementById("end_date").value
