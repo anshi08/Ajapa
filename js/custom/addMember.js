@@ -270,6 +270,7 @@ phoneNumber.addEventListener("input",(e)=>{
     }
     else{
         document.getElementById("phoneNumberTxt").style.display = "none"   
+        phoneNumberIsValid=""
     }
 })
 

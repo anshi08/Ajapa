@@ -17,15 +17,19 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     console.log(res)
     // let res = await getAllFamilyMember(120)
     // let allUser = res.filter(res => res.id !== +localStorage.getItem("family_id") )
-    let allUser = res;
+    let allUser = res
+
     allUser.forEach(data => {
         let tr = document.createElement("tr")
+        if(data.userType==="head"){
+            tr.style.backgroundColor="#7f2c00"
+            tr.style.color = '#FFFFFF'
+        }
         tr.innerHTML = `
         <td>${data.fullName}</td>
         <td>${data.email}</td>
         <td>${data.mobileNum}</td>
-        <td><a href="#" class="deleted">Delete</td>
-         `
+        ${data.userType==="head" ? '<td>head</td>' :`<td><a href="#" class="deleted">Delete</td>`}`
         document.getElementById("body").appendChild(tr)
 })
 
@@ -33,7 +37,6 @@ window.addEventListener("DOMContentLoaded",async ()=>{
 Array.from(document.getElementsByClassName("deleted")).forEach(item => {
     item.addEventListener("click",(e) =>{
         deleteFamilyMember(e.target.parentElement.previousElementSibling.previousElementSibling.innerText)
-
     })
 })
 

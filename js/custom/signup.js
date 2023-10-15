@@ -228,7 +228,7 @@ document.getElementById("dob").addEventListener("input",e=>{
     }
 })
 
-phoneNumber.addEventListener("input",(e)=>{
+phoneNumber.addEventListener("focusout",(e)=>{
     const phoneRegex = /^\d{10}$/;
     const phoneRegex1 = /^[6-9]\d{9}$/;
     // Test the phone number against the regex pattern
@@ -243,6 +243,7 @@ phoneNumber.addEventListener("input",(e)=>{
     }
     else{
         document.getElementById("phoneNumberTxt").style.display = "none"   
+        phoneNumberValue=""
     }
 })
 
@@ -258,23 +259,23 @@ document.getElementById("pw").addEventListener("input",e=>{
     } 
 })
 
-phoneNumber.addEventListener("input",(e)=>{
-    const phoneRegex = /^\d{10}$/;
-    const phoneRegex1 = /^[6-9]\d{9}$/;
-    // Test the phone number against the regex pattern
-    if(!phoneRegex.test(e.target.value)){
-        document.getElementById("phoneNumberTxt").style.display = "block"       
-        document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit"   
+// phoneNumber.addEventListener("input",(e)=>{
+//     const phoneRegex = /^\d{10}$/;
+//     const phoneRegex1 = /^[6-9]\d{9}$/;
+//     // Test the phone number against the regex pattern
+//     if(!phoneRegex.test(e.target.value)){
+//         document.getElementById("phoneNumberTxt").style.display = "block"       
+//         document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit"   
                         
-    }else if(!phoneRegex1.test(e.target.value)){
-        document.getElementById("phoneNumberTxt").style.display = "block"       
-        document.getElementById("phoneNumberTxt").innerText = "Phone Number start with a valid digit"  
+//     }else if(!phoneRegex1.test(e.target.value)){
+//         document.getElementById("phoneNumberTxt").style.display = "block"       
+//         document.getElementById("phoneNumberTxt").innerText = "Phone Number start with a valid digit"  
         
-    }
-    else{
-        document.getElementById("phoneNumberTxt").style.display = "none"   
-    }
-})
+//     }
+//     else{
+//         document.getElementById("phoneNumberTxt").style.display = "none"   
+//     }
+// })
 
 document.getElementById("email").addEventListener("input",e=>{
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
