@@ -1,10 +1,9 @@
 let btn = document.getElementById("btn")
-
 function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
 
-btn.addEventListener("click", () => {
+btn.addEventListener("click", async () => {
 
     let identifier = getElementByIdName("identifier")
     let pwd = getElementByIdName("pwd")
@@ -22,19 +21,27 @@ btn.addEventListener("click", () => {
         alert("Enter Email and Password")
         return;
     }
-if(areAllCharactersNumbers(identifier)){
-    if (!phoneRegex.test(identifier)) {
-        alert('Please Enter a Valid Phone number')
-        return;
+    if(areAllCharactersNumbers(identifier)){
+        if (!phoneRegex.test(identifier)) {
+            alert('Please Enter a Valid Phone number')
+            return;
+        }
+    }else if(!identifierPattern.test(identifier)){
+        alert("Please Enter a Valid Email Address")
+        return; 
     }
-}else if(!identifierPattern.test(identifier)){
-    alert("Please Enter a Valid Email Address")
-    return; 
-}
+    const key = await generateKey()
+    console.log("mykey",key)
+    const {encryptedData} = await encryptMessage(pwd,key)
+    const newkey = await generateKeyInStringFormat(key)
+    let newEncryptedData = encryptedData+"-->"+newkey
+    
+    
     const data = {
          identifier:identifier,
-         password:pwd
+         password:newEncryptedData
     }
+    console.log("hhhh",data )
     if(type==="admin"){
         AdminLogin(data)
 
@@ -44,6 +51,41 @@ if(areAllCharactersNumbers(identifier)){
     }
     
 })
+
+
+async function generateKey() {
+    return await crypto.subtle.generateKey(
+      { name: 'AES-GCM', length: 256 },
+      true,
+      ['encrypt', 'decrypt']
+    );
+  }
+async function generateKeyInStringFormat(key){
+  const exportedKey = await crypto.subtle.exportKey('jwk', key);
+  const keyString = JSON.stringify(exportedKey);
+  return keyString;
+}
+
+  // Function to encrypt a message
+async function encryptMessage(message, key) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(message);
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const encryptedData = await crypto.subtle.encrypt(
+      { name: 'AES-GCM', iv },
+      key,
+      data
+    );
+     // Convert the encrypted data and IV to Base64 strings
+  const encryptedDataString = btoa(String.fromCharCode(...new Uint8Array(encryptedData)));
+  const ivString = btoa(String.fromCharCode(...iv));
+
+  return { encryptedData: encryptedDataString, iv: ivString };
+  
+  }
+  
+  
+
 
 function displayError(errorMessage) {
     const errorContainer = document.getElementById("errorContainer");
@@ -62,8 +104,10 @@ function clearDisplayError(){
 
 
 async function signin(data) {
+    console.log(data)
     try {
-        const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/login",{
+        // const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/login",{
+            const response = await fetch('http://192.168.29.217:8080/login',{
             method:"POST",
             body:JSON.stringify(data),
             headers:{
@@ -72,12 +116,15 @@ async function signin(data) {
         })
         if(response.ok){
         const res = await response.json()
-        console.log(res)
         const userRole = res.type;
         const isAdmin = res.isAdmin;
-       if(res.token == 'Invalid User information'){
+       if(res.token == 'Invalid User Name'){
             clearDisplayError();
-            displayError("Invalid User")
+            displayError("Invalid User Name")
+        }
+        else if(res.token == 'Invalid Password'){
+            clearDisplayError()
+            displayError("Invalid Password")
         }
         else if (res.token == "Unapproved User"){
             clearDisplayError()
