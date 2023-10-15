@@ -40,7 +40,7 @@ async function getUsersApprove() {
         }
     })
     const res = await response.json()
-document.getElementById("notification")!==null ? document.getElementById("notification").innerHTML = res.length :""
+document.getElementById("notification")!==null ? document.getElementById("notification").innerHTML = res.length!==0 ? res.length :document.getElementById("notification").style.display = "none" :""
     res.forEach(item => {
         let string = `
         <a class="dropdown-item d-flex align-items-center" href="getApprovedUsers.html" >
@@ -50,13 +50,11 @@ document.getElementById("notification")!==null ? document.getElementById("notifi
             </div>
         </div>
         <div >
-            <div class="small text-gray-500">${item.full_name}</div> 
+            <div class="small text-gray-500">${item.fullName}</div> 
             <div class="notificationHandler">${item.email}</div>
         </div>
     </a>
-
         `
-  
         document.getElementById("showNotification").appendChild(getElementFromString(string))
     })
 

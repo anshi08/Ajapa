@@ -42,6 +42,9 @@ function loadContent() {
                 document.getElementById("addTravelDetails") !== null ? document.getElementById("addTravelDetails").style.display = "none" : ""
                 
             }
+            if(JSON.parse(localStorage.getItem("role")) === "member"){
+                document.getElementById("addMembers").style.display = "none"
+            }
             if (token) {
                 try {
                     // Parse the JWT to extract the fullName property
