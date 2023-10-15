@@ -181,3 +181,11 @@ const setEventImg = async (eventId,file) => {
         return res;
 }
 
+
+function checkSessionExpireOrNot(){
+    setTimeout(()=>{
+        localStorage.clear()
+        window.location.reload()
+    },43200000)
+}
+checkSessionExpireOrNot()

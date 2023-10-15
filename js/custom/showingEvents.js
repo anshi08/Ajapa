@@ -11,6 +11,7 @@ window.addEventListener("DOMContentLoaded",()=>{
     }
     getAge()
 
+
     
 })
 
@@ -224,3 +225,11 @@ async function deleteEvent(eventId){
     const response = await res.text()
     window.location.href="showEvents.html"
 }
+
+function checkSessionExpireOrNot(){
+    setTimeout(()=>{
+        localStorage.clear()
+        window.location.reload()
+    },43200000)
+}
+checkSessionExpireOrNot()

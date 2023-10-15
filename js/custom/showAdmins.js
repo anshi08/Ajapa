@@ -45,3 +45,11 @@ async function deletAdmin(id){
     console.log(res)
     window.location.href="showAdmins.html"
 }
+
+function checkSessionExpireOrNot(){
+    setTimeout(()=>{
+        localStorage.clear()
+        window.location.reload()
+    },43200000)
+}
+checkSessionExpireOrNot()

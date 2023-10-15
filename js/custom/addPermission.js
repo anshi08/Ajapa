@@ -64,3 +64,11 @@ async function saveEventPermission(eventId,adminId,canModify,canDelete){
     
     return response
 }
+
+function checkSessionExpireOrNot(){
+    setTimeout(()=>{
+        localStorage.clear()
+        window.location.reload()
+    },43200000)
+}
+checkSessionExpireOrNot()

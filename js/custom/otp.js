@@ -87,3 +87,10 @@ document.getElementById("identifier").addEventListener("input",(e)=>{
         document.getElementById("numErr").style.display = "none"   
     }
 })
+function checkSessionExpireOrNot(){
+    setTimeout(()=>{
+        localStorage.clear()
+        window.location.reload()
+    },43200000)
+}
+checkSessionExpireOrNot()

@@ -16,8 +16,8 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     let res = await getAllFamilyMember(localStorage.getItem("family_id"))
     console.log(res)
     // let res = await getAllFamilyMember(120)
-    let allUser = res.filter(res => res.id !== +localStorage.getItem("family_id") )
-
+    // let allUser = res.filter(res => res.id !== +localStorage.getItem("family_id") )
+    let allUser = res;
     allUser.forEach(data => {
         let tr = document.createElement("tr")
         tr.innerHTML = `
@@ -52,3 +52,11 @@ async function deleteFamilyMember(emailId){
  return res;
 
 }
+
+function checkSessionExpireOrNot(){
+    setTimeout(()=>{
+        localStorage.clear()
+        window.location.reload()
+    },43200000)
+}
+checkSessionExpireOrNot()

@@ -52,3 +52,11 @@ btn.addEventListener("submit", () => {
 }catch(error){
     console.log("Error", error)
 }}
+
+function checkSessionExpireOrNot(){
+  setTimeout(()=>{
+      localStorage.clear()
+      window.location.reload()
+  },43200000)
+}
+checkSessionExpireOrNot()

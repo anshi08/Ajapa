@@ -420,3 +420,11 @@ async function updateProfile(data) {
 // window.addEventListener("DOMContentLoaded",()=>{
 //     $('#pendingDialog101').modal('show');
 // })
+
+function checkSessionExpireOrNot(){
+    setTimeout(()=>{
+        localStorage.clear()
+        window.location.reload()
+    },43200000)
+}
+checkSessionExpireOrNot()

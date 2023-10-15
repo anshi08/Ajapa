@@ -35,3 +35,10 @@ async function getHistory(id){
     s.stop();
 }
 
+function checkSessionExpireOrNot(){
+    setTimeout(()=>{
+        localStorage.clear()
+        window.location.reload()
+    },43200000)
+}
+checkSessionExpireOrNot()

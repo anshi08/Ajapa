@@ -25,3 +25,11 @@ async function showPermission(){
 window.addEventListener("DOMContentLoaded",()=>{
     showPermission()
 })
+
+function checkSessionExpireOrNot(){
+    setTimeout(()=>{
+        localStorage.clear()
+        window.location.reload()
+    },43200000)
+}
+checkSessionExpireOrNot()

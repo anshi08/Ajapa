@@ -76,3 +76,10 @@ async function rejectedUser(email){
      window.location.href="dashboard.html"   
      return res;
 }
+function checkSessionExpireOrNot(){
+    setTimeout(()=>{
+        localStorage.clear()
+        window.location.reload()
+    },43200000)
+}
+checkSessionExpireOrNot()

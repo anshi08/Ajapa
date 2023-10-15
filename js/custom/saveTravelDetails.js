@@ -606,3 +606,11 @@ async function getTravelsDetailsByFamilyIdAndEventId(eventId,familyId){
     const res = await response.json()
     return res;
 }
+
+function checkSessionExpireOrNot(){
+    setTimeout(()=>{
+        localStorage.clear()
+        window.location.reload()
+    },43200000)
+}
+checkSessionExpireOrNot()
