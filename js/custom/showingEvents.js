@@ -1,20 +1,7 @@
+
+
 //pendingDialog101
 if(JSON.parse(localStorage.getItem("role")) === "member" ||JSON.parse(localStorage.getItem("role")) === "head")
-window.addEventListener("DOMContentLoaded",()=>{
-    async function getAge(){
-        let id = parseJwt(localStorage.getItem("data")).id
-        const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAge/'+id)
-        const response = await res.text()
-       if(response!=="yes"){
-        $('#pendingDialog101').modal('show');
-       }
-    }
-    getAge()
-
-
-    
-})
-
 if(JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStorage.getItem("role")) === "head" 
 || JSON.parse(localStorage.getItem("role")) === "member"
 ){
@@ -107,6 +94,12 @@ async function showingOnlyAdminEvents(adminId){
 
 window.addEventListener("DOMContentLoaded",async ()=>{
 
+    getAge()
+
+
+    getValueForDashboard()
+
+
             // Create a new spinner
     const target = document.getElementById('body');
     const s = new Spinner().spin(target);
@@ -119,7 +112,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     }else{
         res = await showingAllEvents()
     }
-    console.log("BBB",res)
+
 
         if(res.length==0){
             s.stop();
@@ -233,3 +226,22 @@ function checkSessionExpireOrNot(){
     },43200000)
 }
 checkSessionExpireOrNot()
+async function getAge(){
+    let id = parseJwt(localStorage.getItem("data")).id
+    const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAge/'+id)
+    const response = await res.text()
+   if(response!=="yes"){
+    $('#pendingDialog101').modal('show');
+   }
+}
+
+
+
+async function getValueForDashboard(){
+    const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getValuesForDashBoard')
+    const response = await res.json()
+    document.getElementById("totalevents").innerHTML = response.total_events
+    document.getElementById("rejectUser").innerHTML=response.rejected_users
+    document.getElementById("approvedUser").innerHTML = response.approved_users
+    document.getElementById("p_request").innerHTML = response.pending_users
+}
