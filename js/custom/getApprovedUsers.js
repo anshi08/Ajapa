@@ -6,7 +6,7 @@ function getElementFromString(string){
 
 async function getApprovedUsers(){
     
-    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getUsersToApprove")
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getUsersByStatus/0")
     const res = await response.json()
     res.reverse()
 

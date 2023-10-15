@@ -41,17 +41,16 @@ btn.addEventListener("click", async () => {
     //      identifier:identifier,
     //      password:newEncryptedData
     // }
-    const data ={
+    const data = {
         identifier:identifier,
         password:pwd
     }
-    console.log("hhhh",data )
+
     if(type==="admin"){
         AdminLogin(data)
 
     }else{
         signin(data);
-   
     }
     
 })
@@ -108,7 +107,6 @@ function clearDisplayError(){
 
 
 async function signin(data) {
-    console.log(data)
     try {
         const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/login",{
             // const response = await fetch('http://192.168.29.217:8080/login',{
@@ -120,6 +118,7 @@ async function signin(data) {
         })
         if(response.ok){
         const res = await response.json()
+        console.log(res)
         const userRole = res.type;
         const isAdmin = res.isAdmin;
        if(res.token == 'Invalid User Name'){
@@ -168,7 +167,7 @@ async function AdminLogin(data){
         })
         const res = await response.json()
         if (res.token == "No data matches your input"){
-            clearDisplayError()
+            clearDisplayError();
             displayError("You are not Admin")
         }
         else{
@@ -197,13 +196,20 @@ function isAuth(){
 window.addEventListener("DOMContentLoaded",isAuth)
 
 function myFunction(){
+const minLength = 5;
+const maxLength = 100;
 let passwordInput = document.getElementById("pwd")
 let passwordErr =  document.getElementById("passwordError")
-    
-    if(passwordInput.value.length < 5){
-       passwordErr.style.display = "block"
-       passwordErr.innerText = "Password must contain atleast 5 characters"
-    }else{
-       passwordErr.style.display = "none"
-    }
+
+if (passwordInput.value.length < minLength) {
+    passwordErr.style.display = "block";
+    passwordErr.innerText = "Password must contain at least 5 characters.";
+    return;
+} else if (passwordInput.value.length > maxLength) {
+    passwordErr.style.display = "block";
+    passwordErr.innerText = "Password is too long. Maximum length is 10 characters.";
+    return;
+} else {
+    passwordErr.style.display = "none";
+}
 }

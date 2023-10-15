@@ -3,7 +3,7 @@ const target = document.getElementById('spinner-container');
 const s = new Spinner().spin(target);
 
 async function rejectedUsers(){
-    const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getRejectedUsers',{
+    const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getUsersByStatus/2',{
         method:"GET"
     })
     const response = await res.json()
@@ -41,6 +41,7 @@ async function restoreUser(email){
     const response = await res.json()
     alert("User now in Pending Status")
     window.location.href='getApprovedUsers.html'
+    return response;
 }
 
 }

@@ -18,7 +18,29 @@ function parseJwt (token) {
     }).join(''));
     return JSON.parse(jsonPayload);
 }
-      
+  
+
+function getElementByIdName(idName){
+    return document.getElementById(idName).value
+}
+
+// window.addEventListener("DOMContentLoaded",async ()=>{
+//     async function getCountriesCodeLocally (){
+//         const res = await fetch('./countries.js')
+//         const response = await res.json()
+    
+//         return response;
+//     }
+//     let code =   await getCountriesCodeLocally()
+
+//     code.forEach(country=>{
+//         const option = document.createElement("option");
+//         option.value = country.id
+//         option.text = country.phone
+//         document.getElementById("phoneNumCountries").appendChild(option)
+//     })
+// })
+
 btn.addEventListener("submit", (e) =>{
    
     e.preventDefault()
@@ -28,7 +50,7 @@ btn.addEventListener("submit", (e) =>{
     let mobileNum = getElementByIdName("mobile_num")
     let email = getElementByIdName("email");
     let pw = getElementByIdName("pw");
-    let rpwd = getElementByIdName("rpwd");
+    // let rpwd = getElementByIdName("rpwd");
     let country_ele=document.getElementById("country");
     let state_ele=document.getElementById("state");
     let city_ele=document.getElementById("city");
@@ -38,14 +60,14 @@ btn.addEventListener("submit", (e) =>{
     let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
 
 
-    if(rpwd.trim() === "")
-    {
-        document.getElementById("pwdErr").innerHTML = "<span style='color: red;'>Re-type Password</span>";
-        return;
-    }else if (rpwd != pw) {
-        document.getElementById("pwdErr").innerHTML = "<span style='color: red;'>Password does not Match</span>";
-        return;
-    }
+    // if(rpwd.trim() === "")
+    // {
+    //     document.getElementById("pwdErr").innerHTML = "<span style='color: red;'>Re-type Password</span>";
+    //     return;
+    // }else if (rpwd != pw) {
+    //     document.getElementById("pwdErr").innerHTML = "<span style='color: red;'>Password does not Match</span>";
+    //     return;
+    // }
     
 
     const data = {
@@ -90,7 +112,7 @@ function clearAllFields() {
     document.getElementById("mobile_num").value= '',
     document.getElementById("email").value = "";
     document.getElementById("pw").value = "";
-    document.getElementById("rpwd").value = "";
+    // document.getElementById("rpwd").value = "";
     document.getElementById("country").value = "";
     document.getElementById("state").value = "";
     document.getElementById("city").value = "";
