@@ -37,9 +37,13 @@ btn.addEventListener("click", async () => {
     let newEncryptedData = encryptedData+"-->"+newkey
     
     
-    const data = {
-         identifier:identifier,
-         password:newEncryptedData
+    // const data = {
+    //      identifier:identifier,
+    //      password:newEncryptedData
+    // }
+    const data ={
+        identifier:identifier,
+        password:pwd
     }
     console.log("hhhh",data )
     if(type==="admin"){
@@ -106,8 +110,8 @@ function clearDisplayError(){
 async function signin(data) {
     console.log(data)
     try {
-        // const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/login",{
-            const response = await fetch('http://192.168.29.217:8080/login',{
+        const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/login",{
+            // const response = await fetch('http://192.168.29.217:8080/login',{
             method:"POST",
             body:JSON.stringify(data),
             headers:{
