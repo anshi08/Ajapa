@@ -45,6 +45,7 @@ btn.addEventListener("click", async () => {
         identifier:identifier,
         password:pwd
     }
+    console.log(type)
 
     if(type==="admin"){
         AdminLogin(data)
