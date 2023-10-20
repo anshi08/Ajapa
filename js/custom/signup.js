@@ -84,6 +84,7 @@ function clearAllFields() {
     document.getElementById("name").value = "";
     document.getElementById("gender").value = "";
     document.getElementById("dob").value = "";
+    document.getElementById("file").value = "";
     document.getElementById("mobile_num").value= '',
     document.getElementById("email").value = "";
     document.getElementById("pw").value = "";
@@ -203,16 +204,13 @@ res.forEach((state) => {
     saveUserImg(data.file,data.email)
     // waitingResponse
     if(res.msg === 'User exists'){
-        $('#pendingDialog1').modal('show')
+        $('#pendingDialog1').modal('show');
     }else{
         $('#pendingDialog').modal('show');
     }
-
-
-    // setTimeout(()=>{
-    //     // window.location.href = "login.html"
-    // },3000)
-       
+     
+    // window.location.href = "register.html"
+    
     return res;
     }
 } catch (error) {

@@ -21,10 +21,11 @@ next.addEventListener("click", async () => {
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier)
     }else{
         res = await showingAllEvents(lastChild,+lastChild+10)
+        console.log("nextChild",lastChild,+lastChild+10)
         
     }
     document.getElementById("body").innerHTML = null
-    res.forEach(data => {
+    res.forEach((data,idx) => {
         let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.eventName}</td>
@@ -67,14 +68,15 @@ prev.addEventListener("click", async () => {
     })
 })
 async function showingAllEvents(first=1,last=25) {
-
-    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEvents/${first}/${last}`,{
+        console.log(`http://192.168.29.217:8080/getEvents/${first}/${last}`)
+    const response = await fetch(`http://192.168.29.217:8080/getEvents/${first}/${last}`,{
          method:"GET",
          headers: {
             "Content-type":"application/json;  charset=UTF-8"
          }
     })
     const res = await response.json()
+    console.log(res)
     return res;
 }
 
