@@ -49,14 +49,6 @@ btn.addEventListener("submit", (e) =>{
     let city = document.getElementById("city").value+":"+city_ele.options[city_ele.selectedIndex].text;
     let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
 
-    if(rpwd.trim() === "")
-    {
-        document.getElementById("pwdErr").innerHTML = "<span style='color: red;'>Re-type Password</span>";
-        return;
-    }else if (rpwd != pw) {
-        document.getElementById("pwdErr").innerHTML = "<span style='color: red;'>Password does not Match</span>";
-        return;
-    }
 
     const data = {
         fullName: name,

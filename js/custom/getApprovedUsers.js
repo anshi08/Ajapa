@@ -26,6 +26,8 @@ async function getApprovedUsers(){
          `
         document.getElementById("body").appendChild(tr)
 })
+
+
 Array.from(document.getElementsByClassName("approved")).forEach(item =>{
     item.addEventListener("click",e => {
         if(e.target.classList.contains("approved")){
