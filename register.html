@@ -136,8 +136,8 @@
                                 <div class="form-group">   
                                     <label>Re-type Password</label>  
                                     <input type="password" required class="form-control "
-                                        id="rpwd" placeholder="Re-type Password" required onblur="PasswordMatch()">
-                                        <div style="margin-left: 20px;" id="pwdErr"></div>
+                                        id="rpwd" placeholder="Re-type Password" required onblur="validatePasswords()">
+                                        <div style="margin-left: 20px; display: none; color: red;" id="pwdErr">Password Doesn't Match</div>
                                 </div>
                                 
                                 <!-- Country -->
@@ -171,7 +171,7 @@
                             <input type="text" class="form-control "
                                 id="user_type" placeholder="Enter User Type">     
                         </div> -->
-                                <button  type="submit"  class="btn btn-primary btn-user btn-block" >
+                                <button  type="submit" id="submit" class="btn btn-primary btn-user btn-block" >
                                     Register Account
                                 </button>
                                 <hr>

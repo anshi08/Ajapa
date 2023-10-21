@@ -41,7 +41,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     if(role === "admin"){
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier)
     }else{
-        console.log("START")
+        
         res = await showingAllEvents()
 
     }
@@ -65,6 +65,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       
         }
         const res1 = await res.filter(res => res.eventStatus!==2)
+        console.log("Event status 1",res1)
 
         await res1.forEach(data => {
             let tr = document.createElement("tr")
@@ -103,7 +104,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 next.addEventListener("click", async () => {
     currentPage++;
-    const first = (currentPage - 1) * eventsPerPage + 1;
+    let first = (currentPage - 1) * eventsPerPage + 1;
     let last = currentPage * eventsPerPage;
     // let lastChild  = (document.getElementById("body").lastElementChild.lastElementChild.innerHTML)
     const role = (JSON.parse(localStorage.getItem("role")))
@@ -119,18 +120,9 @@ next.addEventListener("click", async () => {
     document.getElementById("body").innerHTML = null
 
     const res1 = await res.filter(res => res.eventStatus!==2)
+    console.log("Status 1",res1)
 
     if(res1.length === 0){
-        // console.log("RESTORE",res1,{first,last})
-        // currentPage++;
-        // last = currentPage*eventsPerPage
-        // console.log("llll",last)
-        // if(last<totalRecords){
-        //     currentPage++;
-        //     last = currentPage*eventsPerPage
-        //     console.log("llll",last)
-        //     showingAllEvents
-        // }
         document.getElementById("body").innerHTML = "<tr><td colspan='7'>No results to display</td></tr>";
         // next.style.display = "none"
         // prev.style.display = "block"
@@ -182,6 +174,7 @@ prev.addEventListener("click", async () => {
 
     document.getElementById("body").innerHTML = null
     const res1 = await res.filter(res => res.eventStatus!==2)
+    console.log("2",res1)
     await res1.forEach(data => {
         let tr = document.createElement("tr")
     tr.innerHTML = `
@@ -256,7 +249,7 @@ async function getAllPendingRequest(){
         method:"GET"
     })
     const res = await response.json()
-    console.log("hii",res)
+    
     document.getElementById("p_request")!==null ?  document.getElementById("p_request").innerText = res :""
     return res;
 }

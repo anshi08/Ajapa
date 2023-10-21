@@ -4,7 +4,9 @@ let stateElement = document.getElementById("state")
 let cityElement = document.getElementById("city")
 let phoneNumber = document.getElementById("mobile_num")
 let phoneNumberValue = ""
-
+let pwd = document.getElementById("pw").value;
+let rp = document.getElementById("rpwd").value;
+rpValue = ""
 
 
 
@@ -74,7 +76,8 @@ btn.addEventListener("submit", (e) =>{
         alert("Mobile Number is More than 10 Digits")
         phoneNumber.focus()
         return;
-    }else{
+    }
+    else{
    signup(data);
     }
 
@@ -265,6 +268,26 @@ document.getElementById("pw").addEventListener("input",e=>{
         document.getElementById("pwdTxt").style.display = "none"  
     } 
 })
+
+function validatePasswords() {
+    let rp = document.getElementById("rpwd").value;
+    let pwd = document.getElementById("pw").value;
+    let pwdErr = document.getElementById("pwdErr");
+    let submitBtn = document.getElementById("submit");
+
+    if (rp !== pwd) {
+        pwdErr.style.display = "block";
+        pwdErr.focus();
+        submitBtn.disabled = true;
+    } else {
+        pwdErr.style.display = "none";
+        submitBtn.disabled = false;
+    }
+}
+
+function validateForm() {
+    return !document.getElementById("btn").disabled;
+}
 
 document.getElementById("email").addEventListener("input",e=>{
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
