@@ -48,8 +48,24 @@
                                         </h1>
                                     </div>
 
-                <!-- Error messages will be inserted here dynamically -->
-                            <div id="errorContainer">
+                        <!--Message User Exists-->
+                        <div class="modal fade" id="otpMessage" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="pendingDialogLabel">Message Regarding OTP</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  Invalid Phone Number
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
                             </div>
                                     <form class="user">
                                         <div class="form-group">

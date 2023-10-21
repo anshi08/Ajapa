@@ -1,5 +1,6 @@
 let currentPage = 1;
 const eventsPerPage = 5;
+let totalRecords;
 
 //pendingDialog101s
 if(JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStorage.getItem("role")) === "head" || JSON.parse(localStorage.getItem("role")) === "member"){
@@ -14,7 +15,7 @@ if(JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStora
 let prev = document.getElementById("prev")
 let next = document.getElementById("next")
 
-prev.style.display = "none"
+// prev.style.display = "none"
 window.addEventListener("DOMContentLoaded", async () => {
 
     
@@ -41,7 +42,8 @@ window.addEventListener("DOMContentLoaded", async () => {
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier)
     }else{
         console.log("START")
-        res = await showingAllEvents(1,5)
+        res = await showingAllEvents()
+
     }
 
 
@@ -63,6 +65,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       
         }
         const res1 = await res.filter(res => res.eventStatus!==2)
+
         await res1.forEach(data => {
             let tr = document.createElement("tr")
         tr.innerHTML = `
@@ -70,7 +73,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         <td>${data.eventType}</td>
         <td>${data.eventLocation}</td>
         <td>${data.startDate?.split("T")[0]}</td>
-       ${JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role"))==="head"  ? '' :`<td>${data.listedBy.replaceAll("\"","")}</td>`}
+       ${JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role"))==="head"  ? '' :`<td>${data.listedBy?.replaceAll("\"","")}</td>`}
         ${JSON.parse(localStorage.getItem("role")) === "member" ||
         JSON.parse(localStorage.getItem("role")) === "head"
         ?`<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` : ''}
@@ -101,24 +104,36 @@ window.addEventListener("DOMContentLoaded", async () => {
 next.addEventListener("click", async () => {
     currentPage++;
     const first = (currentPage - 1) * eventsPerPage + 1;
-    const last = currentPage * eventsPerPage;
+    let last = currentPage * eventsPerPage;
     // let lastChild  = (document.getElementById("body").lastElementChild.lastElementChild.innerHTML)
     const role = (JSON.parse(localStorage.getItem("role")))
     let res 
     if(role === "admin"){
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier)
     }else{
-        // res = await showingAllEvents(lastChild,lastChild+10)
+        console.log("next",{first,last,totalRecords})
         res = await showingAllEvents(first,last)
     }
-    prev.style.display = "block"
+    console.log("MYRES:",res)
+    // prev.style.display = "block"
     document.getElementById("body").innerHTML = null
 
     const res1 = await res.filter(res => res.eventStatus!==2)
+
     if(res1.length === 0){
+        // console.log("RESTORE",res1,{first,last})
+        // currentPage++;
+        // last = currentPage*eventsPerPage
+        // console.log("llll",last)
+        // if(last<totalRecords){
+        //     currentPage++;
+        //     last = currentPage*eventsPerPage
+        //     console.log("llll",last)
+        //     showingAllEvents
+        // }
         document.getElementById("body").innerHTML = "<tr><td colspan='7'>No results to display</td></tr>";
-        next.style.display = "none"
-        prev.style.display = "block"
+        // next.style.display = "none"
+        // prev.style.display = "block"
     }
     else{
         await res1.forEach(data => {
@@ -128,7 +143,7 @@ next.addEventListener("click", async () => {
         <td>${data.eventType}</td>
         <td>${data.eventLocation}</td>
         <td>${data.startDate?.split("T")[0]}</td>
-       ${JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role"))==="head"  ? '' :`<td>${data.listedBy.replaceAll("\"","")}</td>`}
+       ${JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role"))==="head"  ? '' :`<td>${data.listedBy?.replaceAll("\"","")}</td>`}
         ${JSON.parse(localStorage.getItem("role")) === "member" ||
         JSON.parse(localStorage.getItem("role")) === "head"
         ?`<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` : ''}
@@ -158,12 +173,11 @@ prev.addEventListener("click", async () => {
     if(role === "admin"){
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier)
     }else {
-        // res = await showingAllEvents(newFirstChild - 5, newFirstChild - 1); 
+        console.log("prev",{first,last})
         res = await showingAllEvents(first,last)
-        // console.log("previous", newFirstChild - 5, newFirstChild - 1);
     }
     
-    next.style.display = "block"
+    // next.style.display = "block"
     // prev.style.display = "none"
 
     document.getElementById("body").innerHTML = null
@@ -175,7 +189,7 @@ prev.addEventListener("click", async () => {
     <td>${data.eventType}</td>
     <td>${data.eventLocation}</td>
     <td>${data.startDate?.split("T")[0]}</td>
-   ${JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role"))==="head"  ? '' :`<td>${data.listedBy.replaceAll("\"","")}</td>`}
+   ${JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role"))==="head"  ? '' :`<td>${data.listedBy?.replaceAll("\"","")}</td>`}
     ${JSON.parse(localStorage.getItem("role")) === "member" ||
     JSON.parse(localStorage.getItem("role")) === "head"
     ?`<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` : ''}
@@ -184,11 +198,11 @@ prev.addEventListener("click", async () => {
     <td style="display:none">${data.eventId}</td>
     `
     document.getElementById("body").appendChild(tr)
-    s.stop();
+    // s.stop();
 })    
 }
 })
-async function showingAllEvents(first=1,last=25) {
+async function showingAllEvents(first=1,last=5) {
 
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEvents/${first}/${last}`,{
          method:"GET",
@@ -197,8 +211,9 @@ async function showingAllEvents(first=1,last=25) {
          }
     })
     const res = await response.json()
-    console.log(res)
-    return res;
+    totalRecords = res.size
+    console.log("TotalRecords",totalRecords)
+    return res.data;
 }
 
 
@@ -229,7 +244,6 @@ async function getAllEvents(){
         method:"GET"
     })
     const res = await response.json()
-    console.log("hi",res)
     document.getElementById("totalevents")!==null ? document.getElementById("totalevents").innerText = res : ""
     // console.log("All Events" ,res)
     return res;

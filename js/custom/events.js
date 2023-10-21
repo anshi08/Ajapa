@@ -123,11 +123,11 @@ function ClearAllFields(){
     if(response.ok){
     const res = await response.json()
     console.log("kkk",res)      
-    // ClearAllFields();
-    // $('#pendingDialog4').modal('show');
-    // setTimeout(() =>{
-    //     window.location.href = "dashboard.html"
-    // },3000)
+    ClearAllFields();
+    $('#pendingDialog4').modal('show');
+    setTimeout(() =>{
+        window.location.href = "dashboard.html"
+    },3000)
     return res
     } else {
         // Handle the case where the HTTP request was not successful

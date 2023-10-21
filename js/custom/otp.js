@@ -1,12 +1,16 @@
 async function loginWithPhone(pno) {
-    console.log(pno)
+    // console.log(pno)
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/loginWithSmsOTP1/${pno}`,{
                                 method:"POST",
                                 })
 
 const res = await response.text()
-console.log("hii",res)
-if(res === "OTP Sent")
+
+if(res === 'Invalid Pno'){
+    $('#otpMessage').modal('show');
+    document.getElementById("identifier").value = '';
+}
+else if(res === "OTP Sent")
 document.getElementById("otpfinder1").style.display ="block"
 document.getElementById("btn1").style.display =  "block"
 document.getElementById("btn").style.display =  "none"
@@ -21,8 +25,8 @@ async function verifyUser(otp,pno){
         }
     })
     const res = await response.json()
-
-    if(res.token == 'No user found'){
+    console.log(res)
+  if(res.token == 'No user found'){
         alert("No user found")
         window.location.href = "otpLogin.html";
     }else if(res.token == ''){
