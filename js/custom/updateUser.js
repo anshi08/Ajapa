@@ -9,6 +9,7 @@ let wNumber = document.getElementById("whatsapp_num")
 let rememberMobInput = document.getElementById("rememberMob")
 let dontRememberMob = document.getElementById("dontRememberMob")
 let  phoneNumberIsValid = ""
+let label2 = document.getElementById("dateLabel")
 
 
 
@@ -77,11 +78,20 @@ document.getElementById("qualification").addEventListener("input",e=>{
     }
 })
 
-document.getElementById("address_linep").addEventListener("input",e =>{
-    if(e.target.value.length === 0){
+let add = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+document.getElementById("address_linep").addEventListener("focusout",e =>{
+    if(add.test(e.target.value)){
         document.getElementById("address_linepTxt").style.display = "block"
+        document.getElementById("address_linepTxt").innerText = "Enter Address not an email"
+        document.getElementById("update").disabled = true;
+    }
+    else if(e.target.value.length === 0){
+        document.getElementById("address_linepTxt").style.display = "block"
+        document.getElementById("address_linepTxt").innerText = "Enter Address"
     }else{
         document.getElementById("address_linepTxt").style.display = "none"
+        document.getElementById("update").disabled = false;
     }
 })
 
@@ -317,7 +327,8 @@ async function detailsOfUser(email) {
     let aa = res.country.split(":")
     document.getElementById("email").value = res.email;   
     document.getElementById("blood_grp").value = res.bloodGrp
-    document.getElementById("diksha_dt").value =res.dikshaDt
+        diksha_dt.style.display = "block";
+        document.getElementById("diksha_dt").value =res.dikshaDt
     document.getElementById("occupation").value = res.occupation
     document.getElementById("qualification").value = res.qualification;
     document.getElementById("address_linep").value = res.addressLinep   

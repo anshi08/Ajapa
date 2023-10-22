@@ -103,7 +103,7 @@
                         </div>
                     <div class="form-group">
                         <label>Enter Age</label>
-                      <input type="number" class="form-control" placeholder="Enter age" id="age" required>
+                      <input type="number" class="form-control" max="100" placeholder="Enter age" id="age" required>
                       <p id="ageError" style="display: none;color:red">Please Enter a Valid Age</p>
                         </div>
 
@@ -161,7 +161,7 @@
         Remember the date
     </label>
     
-    <label>
+    <label id="dateLabel">
         <input type="radio" name="dateOption" id="dontRememberDate">
         I don't remember the date
     </label>  <br/>
@@ -173,7 +173,7 @@
                                   
                    <div class="form-group">
                     <label>Occupation</label>
-                    <select class="form-control"  id="occupation" >
+                    <select class="form-control"  id="occupation" required>
                       <option>Business</option>
                       <option>Services</option>
                       <option>Others</option>
@@ -198,7 +198,7 @@
                                     <label>Enter Address</label>
                                     <input type="text" class="form-control" placeholder="Enter Address" 
                                     id="address_linep" required>
-                                    <p id="address_linepTxt" style="display: none;color:red">Please Enter Your Valid Address</p>
+                                    <p id="address_linepTxt" style="display: none;color:red"></p>
                                 </div>
 
                                                                                       
@@ -236,7 +236,7 @@
                                     <p id="pincodeTxt" style="display: none;color:red;">Pincode must be a 6 digit </p>
                                 </div>
                           
-                         <button type="submit" class="btn btn-primary " >
+                         <button type="submit" id="update" class="btn btn-primary " >
                             Update Profile
                         </button>                  
                         </form>

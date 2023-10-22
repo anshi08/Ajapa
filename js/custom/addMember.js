@@ -231,7 +231,7 @@ element.addEventListener('change', function (e) {
     const res = await response.json()
     console.log(res)
     clearAllFields();
-    document.getElementById("pwdErr").style.display  = "none"
+    // document.getElementById("pwdErr").style.display  = "none"
     // waitingResponse
     $('#pendingreq10').modal('show');
     setTimeout(()=>{
@@ -310,13 +310,17 @@ document.getElementById("email").addEventListener("input",e=>{
 async function getAllFamilyMembers(family_id){
     const res  = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getFamilyMembers/${family_id}`)
    const response = await res.json()
-   console.log(response)
    response.forEach((myres)=>{
     let option = document.createElement("option")
-    option.innerText = myres.fullName
-    option.value = myres.id
-    document.getElementById("sel1").appendChild(option)
-   })
+    if (myres.userType === "head") {
+        option.innerText = `${myres.fullName} [Head]`;
+    } else {
+        option.innerText = myres.fullName;
+    }
+    
+    option.value = myres.id;
+    document.getElementById("sel1").appendChild(option);
+});
    return response;
 
 }
