@@ -212,7 +212,10 @@ res.forEach((state) => {
         $('#pendingDialog').modal('show');
     }
      
-    // window.location.href = "register.html"
+    setTimeout(()=>{
+       window.location.href = "register.html"
+    },4000)
+    
     
     return res;
     }
@@ -285,9 +288,6 @@ function validatePasswords() {
     }
 }
 
-function validateForm() {
-    return !document.getElementById("btn").disabled;
-}
 
 document.getElementById("email").addEventListener("input",e=>{
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;

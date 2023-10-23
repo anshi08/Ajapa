@@ -110,7 +110,6 @@ function clearDisplayError(){
 async function signin(data) {
     try {
         const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/login",{
-            // const response = await fetch('http://192.168.29.217:8080/login',{
             method:"POST",
             body:JSON.stringify(data),
             headers:{
@@ -198,18 +197,20 @@ window.addEventListener("DOMContentLoaded",isAuth)
 
 function myFunction(){
 const minLength = 5;
-const maxLength = 100;
+const maxLength = 20;
 let passwordInput = document.getElementById("pwd")
 let passwordErr =  document.getElementById("passwordError")
 
 if (passwordInput.value.length < minLength) {
     passwordErr.style.display = "block";
     passwordErr.innerText = "Password must contain at least 5 characters.";
-    return;
+    passwordInput.focus()
+    return false;
 } else if (passwordInput.value.length > maxLength) {
     passwordErr.style.display = "block";
-    passwordErr.innerText = "Password is too long. Maximum length is 10 characters.";
-    return;
+    passwordErr.innerText = "Password is too long. Maximum length is 20 characters.";
+    passwordInput.focus();
+    return false;
 } else {
     passwordErr.style.display = "none";
 }

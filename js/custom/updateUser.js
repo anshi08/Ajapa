@@ -9,7 +9,7 @@ let wNumber = document.getElementById("whatsapp_num")
 let rememberMobInput = document.getElementById("rememberMob")
 let dontRememberMob = document.getElementById("dontRememberMob")
 let  phoneNumberIsValid = ""
-let label2 = document.getElementById("dateLabel")
+let mobileNumberValid = ""
 
 
 
@@ -22,7 +22,7 @@ document.getElementById("age").addEventListener("input",e =>{
     }
 })
 
-document.getElementById("mobile_num").addEventListener("input",e =>{
+document.getElementById("mobile_num").addEventListener("focusout",e =>{
     const phoneRegex = /^\d{10}$/;
     const phoneRegex1 = /^[6-9]\d{9}$/;
     // Test the phone number against the regex pattern
@@ -30,19 +30,20 @@ document.getElementById("mobile_num").addEventListener("input",e =>{
         document.getElementById("phoneNumberTxt").style.display = "block"   
         document.getElementById("phoneNumberTxt").style.color="red"    
         document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit" 
-        phoneNumberIsValid="LessThan10Digit"                  
+        mobileNumberValid="LessThan10Digit"                  
     }else if(!phoneRegex1.test(e.target.value)){
         document.getElementById("phoneNumberTxt").style.display = "block"  
         document.getElementById("phoneNumberTxt").style.color="red"     
         document.getElementById("phoneNumberTxt").innerText = "Phone Number start with a valid digit"  
-        phoneNumberIsValid="InvalidDigit"
+        mobileNumberValid="InvalidDigit"
     }   
     else{
         document.getElementById("phoneNumberTxt").style.display = "none"   
+        mobileNumberValid = ""
     }
 })
 
-document.getElementById("whatsapp_num").addEventListener("input",e=>{
+document.getElementById("whatsapp_num").addEventListener("focusout",e=>{
     const phoneRegex = /^\d{10}$/;
     const phoneRegex1 = /^[6-9]\d{9}$/;
     // Test the phone number against the regex pattern
@@ -50,15 +51,16 @@ document.getElementById("whatsapp_num").addEventListener("input",e=>{
         document.getElementById("phoneNumberTxt1").style.display = "block"   
         document.getElementById("phoneNumberTxt1").style.color="red"    
         document.getElementById("phoneNumberTxt1").innerText = "Phone Number must be 10 digit"    
-                
+        phoneNumberIsValid="LessThan10Digit"
     }else if(!phoneRegex1.test(e.target.value)){
         document.getElementById("phoneNumberTxt1").style.display = "block"  
         document.getElementById("phoneNumberTxt1").style.color="red"     
         document.getElementById("phoneNumberTxt1").innerText = "Phone Number start with a valid digit"
-              
+        phoneNumberIsValid="InvalidDigit"
     }   
     else{
-        document.getElementById("phoneNumberTxt1").style.display = "none"   
+        document.getElementById("phoneNumberTxt1").style.display = "none" 
+        phoneNumberIsValid = ""  
     }
 })
 
@@ -161,16 +163,26 @@ btn.addEventListener("submit", (e) => {
         state: state,
         pincode: pincode
     }
-    if(phoneNumberIsValid==="LessThan10Digit"){
-        alert("Mobile Number is Less than 10 Digits")
-        document.getElementById("whatsapp_num").focus()
+    if(mobileNumberValid === "LessThan10Digit"){
+        alert("Enter Valid 10 Digits Mobile Number")
+        document.getElementById("mobile_num").focus()
         return;
 
+    }else if(mobileNumberValid === "InvalidDigit" ){
+        alert("Start Mobile Number with valid Digit")
+        document.getElementById("mobile_num").focus()
+        return;
+
+    }else if(phoneNumberIsValid==="LessThan10Digit"){
+        alert("Enter Valid 10 Digits Mobile Number")
+        document.getElementById("whatsapp_num").focus()
+        return;
 
     }else if(phoneNumberIsValid==="InvalidDigit"){
-        alert("Mobile Number is More than 10 Digits")
+        alert("Start Mobile Number with valid Digit")
         document.getElementById("whatsapp_num").focus()
         return;
+
     }else if(blood_grp==="Select"){
         alert("Please Select the blood group")
         document.getElementById("blood_grp").focus()
@@ -283,7 +295,7 @@ async function fetchCities(stateId,selectCityValue) {
         }
     })
     const res = await response.json()
-    console.log("res",res)
+    // console.log("res",res)
 
     res.forEach((city) => {
         const option = document.createElement('option');
@@ -308,6 +320,8 @@ async function fetchCities(stateId,selectCityValue) {
   }
     });
 
+
+//Fetching Details of USERS
 async function detailsOfUser(email) {
    
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getUserDetails/${email}`,{   
@@ -318,6 +332,7 @@ async function detailsOfUser(email) {
         }
     })
     const res = await response.json()
+    console.log("details",res)
     document.getElementById("age").value = res.age;
     document.getElementById("mobile_num").value = res.mobileNum;
     rememberMobInput.addEventListener("click" , () => {
@@ -327,8 +342,14 @@ async function detailsOfUser(email) {
     let aa = res.country.split(":")
     document.getElementById("email").value = res.email;   
     document.getElementById("blood_grp").value = res.bloodGrp
+    if(res.dikshaDt != ""){
+        document.getElementById("rememberDate").checked = true;
         diksha_dt.style.display = "block";
         document.getElementById("diksha_dt").value =res.dikshaDt
+    }else{
+        document.getElementById("dontRememberDate").checked = true;  
+        diksha_dt.style.display = "none";
+    }
     document.getElementById("occupation").value = res.occupation
     document.getElementById("qualification").value = res.qualification;
     document.getElementById("address_linep").value = res.addressLinep   
@@ -382,7 +403,7 @@ async function detailsOfUser(email) {
     `
     document.getElementById("city").innerHTML = cc
     const value = document.getElementById("city").getElementsByTagName("option");
-    console.log("some",value)
+    // console.log("some",value)
     for (let i = 0; i < value.length; i++) {
     if (value[i].value === res.city.split(":")[0]) {
         value[i].selected = true
