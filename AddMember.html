@@ -90,7 +90,7 @@
                             <div class="form-group">
                                 <label>Enter Name</label>
                                     <input type="text" class="form-control " 
-                                        placeholder="Full Name" id="name" required>
+                                        placeholder="Full Name" id="name" required pattern="[A-Za-z ]*" title="Only characters are allowed">
                                         <p id="NameErr" style="display: none;color: red;">Enter Name</p>
                             </div>
                             <div class="form-group">
@@ -105,7 +105,8 @@
                          <div class="form-group">
                             <label>Enter Date of Birth</label>
                                 <input type="date" class="form-control " 
-                                    placeholder="Dob" id="dob" required>
+                                    placeholder="Dob" id="dob" required
+                                    min="1950-01-01" max="2070-01-01">
                                     <p id="dobErr" style="display: none;color: red;">Enter Date of Birth</p>
                                </div>
 

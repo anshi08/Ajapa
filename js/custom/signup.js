@@ -67,13 +67,13 @@ btn.addEventListener("submit", (e) =>{
     }
 
     if(phoneNumberValue ==="LessThan10Digit"){
-        alert("Mobile Number is Less than 10 Digits")
+        alert("Enter Valid 10 Digits Mobile Number")
         phoneNumber.focus()
         return;
 
 
     }else if(phoneNumberValue ==="InvalidDigit"){
-        alert("Mobile Number is More than 10 Digits")
+        alert("Start Mobile Number with valid Digit")
         phoneNumber.focus()
         return;
     }
