@@ -30,11 +30,11 @@ btn.addEventListener("click", async () => {
         alert("Please Enter a Valid Email Address")
         return; 
     }
-    const key = await generateKey()
-    console.log("mykey",key)
-    const {encryptedData} = await encryptMessage(pwd,key)
-    const newkey = await generateKeyInStringFormat(key)
-    let newEncryptedData = encryptedData+"-->"+newkey
+    // const key = await generateKey()
+    // console.log("mykey",key)
+    // const {encryptedData} = await encryptMessage(pwd,key)
+    // const newkey = await generateKeyInStringFormat(key)
+    // let newEncryptedData = encryptedData+"-->"+newkey
     
     
     // const data = {
