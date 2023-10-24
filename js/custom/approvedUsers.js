@@ -44,7 +44,7 @@ async function rejectedUser(email){
      })
      const res = await response.json()
      console.log("--",res)
-     window.location.href="rejectUsers.html"   
+     window.location.href="approvedUsers.html"   
      return res;
 }
 

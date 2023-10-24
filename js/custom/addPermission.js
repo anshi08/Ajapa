@@ -21,11 +21,19 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         // console.log(adminId,eventId)
         let canModify = document.getElementById("modify").checked
         let deletePermission = document.getElementById("delete").checked
-        saveEventPermission(eventId,adminId,canModify,deletePermission)
+        if(!document.getElementById("modify").checked && !document.getElementById("delete").checked){
+            alert("Give Permission")
+            return false;
+        }else{
+            if(document.getElementById("modify").checked){
+                saveEventPermission(eventId,adminId,canModify,deletePermission)
+            } 
+        if(document.getElementById("delete").checked){
+            saveEventPermission(eventId,adminId,canModify,deletePermission)
+        }
         window.location.href= "dashboard.html"
+        }
     })
-
-
 })
 
 async function getAllEvents(){
@@ -40,6 +48,7 @@ async function getAllAdmins(){
     return response
 }
 
+
 async function saveEventPermission(eventId,adminId,canModify,canDelete){
         let canModify1 = "no"
         let canDelete1 = "no"
@@ -51,7 +60,7 @@ async function saveEventPermission(eventId,adminId,canModify,canDelete){
             canModify:canModify1,
             canDelete:canDelete1
         }
-    
+
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveEventPermission',{
         method:"POST",
         headers:{
