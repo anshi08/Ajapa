@@ -80,7 +80,8 @@ btn.addEventListener("submit", (e) =>{
         country: country,
         city: city,
         state: state,
-        userType:"member"
+        userType:"member",
+        status: 1
     }
 
     if(gender==="Select"){
@@ -310,6 +311,7 @@ document.getElementById("email").addEventListener("input",e=>{
 async function getAllFamilyMembers(family_id){
     const res  = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getFamilyMembers/${family_id}`)
    const response = await res.json()
+   console.log(response)
    response.forEach((myres)=>{
     let option = document.createElement("option")
     if (myres.userType === "head") {
