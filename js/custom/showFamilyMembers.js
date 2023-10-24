@@ -37,6 +37,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
 Array.from(document.getElementsByClassName("deleted")).forEach(item => {
     item.addEventListener("click",(e) =>{
         deleteFamilyMember(e.target.parentElement.previousElementSibling.previousElementSibling.innerText)
+        location.reload();
     })
 })
 
