@@ -43,7 +43,6 @@ next.addEventListener("click",async()=>{
     console.log("Next2",{first,last},id)
     document.getElementById("body").innerHTML=""
     let res = await getHistory(id,first,last)
-    console.log(res)
 
             // To stop the spinner
     
