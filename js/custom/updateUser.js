@@ -204,6 +204,7 @@ btn.addEventListener("submit", (e) => {
    
 })
 
+
 function clearFormFields() {
     document.getElementById("age").value = '';
     document.getElementById("mobile_num").value = '';
