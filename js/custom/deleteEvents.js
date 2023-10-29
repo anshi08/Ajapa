@@ -78,7 +78,7 @@ prev.addEventListener("click", async () => {
         const first = (currentPage - 1) * eventsPerPage + 1;
         const last = currentPage * eventsPerPage;
         console.log("prev",{first,last})
-    
+
     document.getElementById("body").innerHTML = null
 
     next.style.display = 'block'
@@ -98,6 +98,7 @@ prev.addEventListener("click", async () => {
          // To stop the spinner
          s.stop(); 
         
+
     })
 }
 })
