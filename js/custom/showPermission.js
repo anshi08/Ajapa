@@ -10,7 +10,7 @@ async function showPermission(){
         let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.eventName}</td>
-        <td>${data.listedBy}</td>
+        <td>${data.adminId}</td>
         <td>${data.canModify}</td>
         <td>${data.canDelete}</td>
         `
