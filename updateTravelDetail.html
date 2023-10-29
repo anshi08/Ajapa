@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Border Utilities</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- Include jQuery (you can use a CDN) -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="js/custom/isAuth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+        style="background-color: #7f2c00;"
+        >
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" id="customnavbar">
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-1 text-gray-800">Update Travel Details</h1>
+
+                    <div class="col-sm-12 shadow-lg p-4 mb-4 bg-white mx-auto rounded">
+                     <div class="jumbotron text-center"><h5>Arrival Details</h5></div>
+                       <!-- Message dialog Box -->
+                    <div class="modal fade" id="pendingDialog2" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="pendingDialogLabel">Travel Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            Travel Details Added Successfully 
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    <!-- Form  -->
+                        <form enctype="multipart/form-data" id="btn">
+
+                        <div class="form-group">
+                            <label>Select a Country :</label>
+                            <select id="from_country" class="form-control" required>
+                                <!-- Options will be added dynamically -->
+                                <option value="">Country</option>
+                            </select>
+                        </div>
+
+                              <div class="form-group">
+                                <label>Select a State :</label>
+                                <select id="from_state" class="form-control" >
+                                    <!-- Options will be added dynamically -->
+                                    <option value="">State</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Select a City :(From where you are coming)</label>
+                                <select id="from_city" class="form-control" required>
+                                    <!-- Options will be added dynamically -->
+                                    <option value="">City</option>
+                                </select>
+                            </div>
+
+             <div class="form-group">
+                <label >Arrival Date</label>
+                  <input type="date" class="form-control"  id="arrival_date"  required>
+                  <p id="ArrivaldateErr" style="display:none; color:red;">Please Enter Date</p>
+            </div>
+
+                <div class="form-group" >
+                    <label >Ashram Reaching Time (Arrival Time) :</label>
+                    <input type="time" class="form-control" id="arrival_time" required >
+                    <p id="ArrivalTimeErr" style="display:none; color:red;">Please Enter Time</p>
+                </div>   
+
+                   <div class="form-group">
+                    <label>Arrival Mode Of Transport:</label>
+                    <select class="form-control" id="arrival_mode_of_transport" required>
+                        <option>Select Mode</option>
+                        <option>Train</option>
+                        <option>Flight</option>
+                        <option>Bus</option>
+                        <option>Car</option>
+                    </select>
+                </div>
+
+                   <div class="form-group" id="transport" style="display:none">
+                    <label>Enter Train Number/Name :</label>
+                    <input type="text" class="form-control" placeholder="Enter Train Number/Name :" 
+                    id="arrival_train_number"
+                    >
+                    <br/>
+                    <p id="trainErr" style="display:none; color:red;">Please Train Number/Name </p>
+                    <label id="train_detail_label" style="display: none;">Train Details (Pick From DropDown)</label>
+                    <select id="train_number" class="form-control" style="display: none;">
+                    </select>
+                </div>
+
+
+
+           <div class="jumbotron text-center"><h5>Leaving Details</h5></div>
+                   <div class="form-group">
+                    <label>Leaving Date</label>
+                    <input type="date" class="form-control" id="departure_date" required>
+                    <p id="depdateErr" style="display:none; color:red;">Please Enter Date</p>
+               </div>
+
+               <div class="form-group">
+                <label >Leaving Time</label>
+                <input type="time" class="form-control" id="departure_time" required>
+                <p id="depTimeErr" style="display:none; color:red;">Please Enter Time</p>
+            </div> 
+
+           <div class="form-group">
+            <label>Leaving Mode of Transport :</label>
+            <select class="form-control" id="departure_mode_of_transport" required>
+                <option>Select Mode</option>
+                <option>Train</option>
+                <option>Flight</option>
+                <option>Bus</option>
+                <option>Car</option>
+            </select>
+        </div>
+
+           <div class="form-group" id="transport1" style="display:none">
+            <label>Enter Train Number/Name  :</label>
+            <input type="text" class="form-control" placeholder="Enter Train Number/Name" 
+            id="departure_train_number">
+            <p id="Err" style="display:none; color:red;">Please Enter Train Number/Name</p>
+            <label id="train_detail_label_1" style="display: none;">Train Details (Pick From DropDown)</label>
+            <select id="train_number_1" class="form-control" style="display: none;">
+            </select>
+       </div>
+   
+         <div class="form-group">
+            <label>Do You Have Any Specifc Requirements :</label>
+             <!-- <input type="textarea" class="form-control" placeholder="Description" /> -->
+             <textarea class="form-control" rows="4" placeholder="Any Specifc Requirements" id="description" ></textarea>
+         </div>
+                         <button type="submit" class="btn btn-primary " >
+                            Update
+                        </button>                  
+                        </form>
+                      </div>
+                
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white" id="customfooter">
+            </footer>
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->    
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+
+</div>
+
+
+    <!--UI-->
+    <script src="js/ui/logout.js"></script>
+    <script src="js/ui/sidebar.js"></script>
+    <script src="js/ui/navbar.js"></script>
+    <script src="js/ui/footer.js"></script>
+    <!-- Custom JS -->
+    <script src="js/custom/updateTravelDetails.js"></script>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

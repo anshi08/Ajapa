@@ -5,7 +5,7 @@ const eventsPerPage = 5;
 let id = ''
 
 
-window.addEventListener("DOMContentLoaded",()=>{
+window.addEventListener("DOMContentLoaded",async()=>{
     function parseJwt (token) {
         var base64Url = token.split('.')[1];
         var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -17,7 +17,14 @@ window.addEventListener("DOMContentLoaded",()=>{
 
     const response = parseJwt(localStorage.getItem("data"))
      id = response.id
-    getHistory(id)
+    await getHistory(id)
+  Array.from(document.getElementsByClassName("delete")).forEach(item => {
+    item.addEventListener("click",(e) =>{
+        
+        deleteEvent(e.target.parentElement.nextElementSibling.innerHTML)
+        window.location.reload()
+    })
+  })
 })
 
 prev.addEventListener("click",async ()=>{
@@ -31,8 +38,8 @@ prev.addEventListener("click",async ()=>{
     document.getElementById("body").innerHTML = null
 
     next.style.display = 'block'
-    let res = await getHistory(id,first,last)
-    console.log(res)
+    let {response} = await getHistory(id,first,last)
+    console.log(response)
 }
 })
 
@@ -42,11 +49,11 @@ next.addEventListener("click",async()=>{
     let last = currentPage * eventsPerPage;
     console.log("Next2",{first,last},id)
     document.getElementById("body").innerHTML=""
-    let res = await getHistory(id,first,last)
+    let {response} = await getHistory(id,first,last)
 
             // To stop the spinner
     
-    if(res.length === 0){
+    if(response.length === 0){
         document.getElementById("body").innerHTML = "<tr><td colspan='7'>No results to display</td></tr>";
         next.style.display = "none"
       
@@ -62,22 +69,36 @@ async function getHistory(id,first=1,last=5){
 
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getTravelByUserId/'+id+"/"+first+"/"+last)
     const res1 = await res.json()
+
     const response = await res1.data
+    const currentTime = await res1.currentDate
+    
 
     response.forEach(data => {
+     
         let tr = document.createElement("tr")
+        let params = data
+        console.log(params)
+        var urlParam = []
+
+        for (let i in params){
+        urlParam.push(encodeURI(i) + "=" + encodeURI(params[i]));
+        }
         tr.innerHTML = `
         <td>${data.eventName}</td>
         <td>${data.arrivalDate?.split("T")[0]}</td>
         <td>${data.departureDate?.split("T")[0]}</td>
         <td>${data.fromCity.split(":")[1]}</td>
         <td>${data.fromCountry.split(":")[1]}</td>
+        <td><a href="updateTravelDetail.html?${urlParam.join("&")}" class="btn btn-info">Edit</a></td>   
+        <td><button class="btn btn-danger delete">Delete</button></td>
+        <td style='display:none'>${data.travelId}</td>        
         `
         document.getElementById("body").appendChild(tr)
 
     })  
     s.stop();
-    return response
+    return {response,currentTime}
 }
 
 function checkSessionExpireOrNot(){
@@ -86,5 +107,31 @@ function checkSessionExpireOrNot(){
         window.location.reload()
     },43200000)
 }
+
+
+async function deleteEvent(travelId){
+    const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/deleteTravelDetails/'+travelId,{
+        method:"DELETE"
+    })
+    const res1 = await res.json()
+    console.log("res",res1)
+}
+
+const compareDates = (d1, d2) => {
+    let date1 = new Date(d1).getTime();
+    let date2 = new Date(d2).getTime();
+
+    if (date1 < date2) {
+
+        return false;
+    } else if (date1 > date2) {
+        return true
+    } else {
+        return true
+    }
+    }
+
+
+
 checkSessionExpireOrNot()
 

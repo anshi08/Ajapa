@@ -98,3 +98,6 @@ next.addEventListener("click",async()=>{
     if(first===1)
     prev.style.display = "none"
 })
+
+
+

@@ -25,12 +25,9 @@ window.addEventListener("DOMContentLoaded",async ()=>{
             alert("Give Permission")
             return false;
         }else{
-            if(document.getElementById("modify").checked){
+            if(document.getElementById("modify").checked || document.getElementById("delete").checked){
                 saveEventPermission(eventId,adminId,canModify,deletePermission)
             } 
-        if(document.getElementById("delete").checked){
-            saveEventPermission(eventId,adminId,canModify,deletePermission)
-        }
         window.location.href= "dashboard.html"
         }
     })
@@ -69,8 +66,9 @@ async function saveEventPermission(eventId,adminId,canModify,canDelete){
         },
         body:JSON.stringify(newObj)
     })
+    console.log(newObj)
     const response = await res.text()
-    
+    console.log(response,"hi")
     return response
 }
 
