@@ -42,10 +42,12 @@ window.addEventListener("DOMContentLoaded", async () => {
     let res 
     if(role === "admin"){
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier)
-    }else{
+    }else if(role==="super"){
         
         res = await showingAllEvents()
 
+    }else{
+        res = await showingAllEventsByStatus(1);
     }
 
 
@@ -66,10 +68,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 
       
         }
-        const res1 = await res.filter(res => res.eventStatus!==2)
-        console.log("Event status 1",res1)
 
-        await res1.forEach(data => {
+        await res.forEach(data => {
             let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.eventName}</td>
@@ -108,28 +108,32 @@ next.addEventListener("click", async () => {
     currentPage++;
     let first = (currentPage - 1) * eventsPerPage + 1;
     let last = currentPage * eventsPerPage;
+    console.log("Next",{first,last})
     // let lastChild  = (document.getElementById("body").lastElementChild.lastElementChild.innerHTML)
     const role = (JSON.parse(localStorage.getItem("role")))
     let res 
     if(role === "admin"){
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier)
-    }else{
-        console.log("next",{first,last,totalRecords})
+    }else if(role === "super"){
+    
         res = await showingAllEvents(first,last)
+    }else{
+        res = await showingAllEventsByStatus(1,first,last)
     }
-    console.log("MYRES:",res)
     // prev.style.display = "block"
     document.getElementById("body").innerHTML = null
 
-    const res1 = await res.filter(res => res.eventStatus!==2)
-    console.log("Status 1",res1)
+    console.log("Status 1",res)
+    prev.style.display = "block"
 
-    if(res1.length === 0){
+    if(res.length === 0){
         document.getElementById("body").innerHTML = "<tr><td colspan='7'>No results to display</td></tr>";
-        
+        next.style.display = "none"
+      
     }
     else{
-        await res1.forEach(data => {
+       
+        await res.forEach(data => {
             let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.eventName}</td>
@@ -160,23 +164,26 @@ prev.addEventListener("click", async () => {
         currentPage--;
         const first = (currentPage - 1) * eventsPerPage + 1;
         const last = currentPage * eventsPerPage;
+        console.log("prev",{first,last})
     // let newFirstChild = (document.getElementById("body").lastElementChild.lastElementChild.innerHTML,6)
     const role = (JSON.parse(localStorage.getItem("role")))
     let res 
     if(role === "admin"){
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier)
-    }else {
-        console.log("prev",{first,last})
+    }else if(role==="super"){
         res = await showingAllEvents(first,last)
+    }else{
+        res = await showingAllEventsByStatus(1,first,last)
     }
-    
+    if(first===1)
+     prev.style.display = "none"
     // next.style.display = "block"
-    // prev.style.display = "none"
+   
 
     document.getElementById("body").innerHTML = null
-    const res1 = await res.filter(res => res.eventStatus!==2)
-    console.log("2",res1)
-    await res1.forEach(data => {
+
+    next.style.display = 'block'
+    await res.forEach(data => {
         let tr = document.createElement("tr")
     tr.innerHTML = `
     <td>${data.eventName}</td>
@@ -206,9 +213,27 @@ async function showingAllEvents(first=1,last=5) {
     })
     const res = await response.json()
     totalRecords = res.size
-    console.log("TotalRecords",totalRecords)
     return res.data;
 }
+
+
+async function showingAllEventsByStatus(status,first=1,last=5) {
+
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEventsByStatus/${status}/${first}/${last}`,{
+         method:"GET",
+         headers: {
+            "Content-type":"application/json;  charset=UTF-8"
+         }
+    })
+    const res = await response.json()
+    totalRecords = res.size
+    return res.data;
+}
+
+
+
+
+
 
 
 
@@ -220,7 +245,7 @@ async function showingOnlyAdminEvents(adminId){
         }
    })
    const res = await response.json()
-   console.log("iikk",res)
+
    return res;  
 }
 
@@ -295,8 +320,8 @@ async function getAge(){
 async function getValueForDashboard(){
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getValuesForDashBoard')
     const response = await res.json()
-    document.getElementById("totalevents").innerHTML = response.total_events
-    document.getElementById("rejectUser").innerHTML=response.rejected_users
-    document.getElementById("approvedUser").innerHTML = response.approved_users
-    document.getElementById("p_request").innerHTML = response.pending_users
+    document.getElementById("totalevents").innerHTML = response?.total_events
+    document.getElementById("rejectUser").innerHTML=response?.rejected_users
+    document.getElementById("approvedUser").innerHTML = response?.approved_users
+    document.getElementById("p_request").innerHTML = response?.pending_users
 }
