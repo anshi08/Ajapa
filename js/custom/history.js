@@ -19,9 +19,9 @@ window.addEventListener("DOMContentLoaded",async()=>{
      id = response.id
     await getHistory(id)
   Array.from(document.getElementsByClassName("delete")).forEach(item => {
-    item.addEventListener("click",(e) =>{
+    item.addEventListener("click",async(e) =>{
         
-        deleteEvent(e.target.parentElement.nextElementSibling.innerHTML)
+        await deleteEvent(e.target.parentElement.nextElementSibling.innerHTML)
         window.location.reload()
     })
   })
