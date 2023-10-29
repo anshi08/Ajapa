@@ -21,7 +21,9 @@ window.addEventListener("DOMContentLoaded", async () => {
     
 
     const role = (JSON.parse(localStorage.getItem("role")))
-    JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role"))==="head"  ? document.getElementById("listedByCol").style.display = 'none' : ''
+    JSON.parse(localStorage.getItem("role")) === "member" ||
+     JSON.parse(localStorage.getItem("role"))==="head"  ? 
+     document.getElementById("listedByCol").style.display = 'none' : ''
   
     if(role!="admin"){
         getAge()
@@ -124,8 +126,7 @@ next.addEventListener("click", async () => {
 
     if(res1.length === 0){
         document.getElementById("body").innerHTML = "<tr><td colspan='7'>No results to display</td></tr>";
-        // next.style.display = "none"
-        // prev.style.display = "block"
+        
     }
     else{
         await res1.forEach(data => {

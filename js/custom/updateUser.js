@@ -347,8 +347,10 @@ async function detailsOfUser(email) {
         diksha_dt.style.display = "block";
         document.getElementById("diksha_dt").value =res.dikshaDt
     }else{
+        if(res.dikshaDt == ""){
         document.getElementById("dontRememberDate").checked = true;  
         diksha_dt.style.display = "none";
+        }
     }
     document.getElementById("occupation").value = res.occupation
     document.getElementById("qualification").value = res.qualification;
