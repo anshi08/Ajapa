@@ -9,7 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Register</title>
+    <title>Ajapa- SignUp</title>
+    <link rel="icon" type="jpg" href="/startbootstrap-sb-admin-2-gh-pages/img/ajapa.jpg">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -98,6 +99,7 @@
                                             <option>Female</option>
                                             <option>Other</option>
                                       </select>
+                                      <p id="genderErr" style="display: none;color: red;">Select Gender</p>
                                       </div>
                              <div class="form-group">
                                 <label>Enter Date of Birth</label>
@@ -129,13 +131,13 @@
                                 <div class="form-group">
                                     <label>Password</label>
                                         <input type="password" class="form-control "
-                                            id="pw" placeholder="Password" required>
+                                            id="pw" placeholder="Password" required minlength="5" maxlength="20">
                                     <p id="pwdTxt" style="display: none;color:red"></p>
                                 </div>
 
                                 <div class="form-group">   
                                     <label>Re-type Password</label>  
-                                    <input type="password" required class="form-control "
+                                    <input type="password" required class="form-control" minlength="5"  maxlength="20"
                                         id="rpwd" placeholder="Re-type Password" required onblur="validatePasswords()">
                                         <div style="margin-left: 20px; display: none; color: red;" id="pwdErr">Password Doesn't Match</div>
                                 </div>
