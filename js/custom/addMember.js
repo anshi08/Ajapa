@@ -278,7 +278,7 @@ document.getElementById("pw").addEventListener("input",e=>{
     } 
 })
 
-phoneNumber.addEventListener("input",(e)=>{
+phoneNumber.addEventListener("focusout",(e)=>{
     const phoneRegex = /^\d{10}$/;
     const phoneRegex1 = /^[6-9]\d{9}$/;
     // Test the phone number against the regex pattern
@@ -297,7 +297,7 @@ phoneNumber.addEventListener("input",(e)=>{
     }
 })
 
-document.getElementById("email").addEventListener("input",e=>{
+document.getElementById("email").addEventListener("focusout",e=>{
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if(!emailPattern.test(e.target.value)){
         document.getElementById("emailErr").style.display = "block"

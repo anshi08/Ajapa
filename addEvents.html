@@ -9,7 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Color Utilities</title>
+    <title>Ajapa- Add Events</title>
+    <link rel="icon" type="jpg" href="/startbootstrap-sb-admin-2-gh-pages/img/ajapa.jpg">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -58,7 +59,8 @@
                                 <form enctype="multipart/form-data" id="btn">
                             <div class="form-group">
                                 <label>Event Name :</label>
-                              <input type="text" required class="form-control" placeholder="Enter Event Name" id="event_name">
+                              <input type="text" required pattern="[A-Za-z ]*" title="Only characters are allowed"
+                                class="form-control" placeholder="Enter Event Name" id="event_name">
                                 <p id="eventNameError" style="display: none;color:red">Event Name Required</p>    
                             </div>
         

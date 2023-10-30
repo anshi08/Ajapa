@@ -64,6 +64,16 @@ document.getElementById("whatsapp_num").addEventListener("focusout",e=>{
     }
 })
 
+document.getElementById("email").addEventListener("focusout",e=>{
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if(!emailPattern.test(e.target.value)){
+        document.getElementById("emailErr").style.display = "block"
+        document.getElementById("emailErr").innerText = "Enter Valid Email Address"
+    }else{
+        document.getElementById("emailErr").style.display = "none"
+    }
+})
+
 document.getElementById("occupation").addEventListener("input",e=>{
     if(e.target.value.length === 0){
         document.getElementById("occupationTxt").style.display = "block"

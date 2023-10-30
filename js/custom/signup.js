@@ -241,6 +241,16 @@ document.getElementById("dob").addEventListener("input",e=>{
     }
 })
 
+document.getElementById("gender").addEventListener("focusout",e=>{
+    if(e.target.value === "Select"){
+        document.getElementById("genderErr").style.display = "block"  
+        focus()
+    }else{
+        document.getElementById("genderErr").style.display = "none"  
+    }
+})
+
+
 phoneNumber.addEventListener("focusout",(e)=>{
     const phoneRegex = /^\d{10}$/;
     const phoneRegex1 = /^[6-9]\d{9}$/;
