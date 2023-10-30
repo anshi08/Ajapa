@@ -145,7 +145,7 @@ btn.addEventListener("submit", (e) => {
     let blood_grp = document.getElementById("blood_grp").value
     let diksha_dt_value = getElementByIdName("diksha_dt")
     let occupation = getElementByIdName("occupation")
-    // let file = getElementByIdName("file")
+    let file = document.getElementById("file").files[0]
     let qualification = getElementByIdName("qualification")
     let address_linep = getElementByIdName("address_linep")
     let country_ele=document.getElementById("country");
@@ -165,7 +165,7 @@ btn.addEventListener("submit", (e) => {
         bloodGrp: blood_grp,
         dikshaDt: diksha_dt_value,
         occupation: occupation,
-        // file: file,
+        file: file,
         qualification: qualification,
         addressLinep: address_linep,
         country: country,
@@ -210,6 +210,7 @@ btn.addEventListener("submit", (e) => {
     
     else{
     updateProfile(data)
+    saveUserImg(data.file,data.email)
     }
    
 })
@@ -223,7 +224,7 @@ function clearFormFields() {
     document.getElementById("blood_grp").value = '';
     document.getElementById("diksha_dt").value = '';
     document.getElementById("occupation").value = '';
-    // document.getElementById("file").value = '';
+    document.getElementById("file").value = '';
     document.getElementById("qualification").value = '';
     document.getElementById("address_linep").value = '';
     document.getElementById("country").value = '';
@@ -473,3 +474,19 @@ function checkSessionExpireOrNot(){
     },43200000)
 }
 checkSessionExpireOrNot()
+
+
+//Saving user Image
+const saveUserImg = async (file,email) => {
+    // console.log(file,email)
+    const form = new FormData();
+    await form.append("file",file)
+    await form.append("email",email)
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveImage2",{
+    method:"POST",
+    body:form,
+    })
+    const res = await response.json()
+    console.log("IMG",res)
+    return res;
+}
