@@ -210,7 +210,8 @@ btn.addEventListener("submit", (e) => {
     
     else{
     updateProfile(data)
-    saveUserImg(data.file,data.email)
+  
+    data.file!==undefined ? saveUserImg(data.file,data.email):null
     }
    
 })
