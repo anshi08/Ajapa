@@ -1,13 +1,20 @@
+let next = document.getElementById("next")
+let prev = document.getElementById("prev")
+let currentPage = 1;
+const eventsPerPage = 5;
+
+
 function getElementFromString(string){
     const div = document.createElement("div")
     div.innerHTML = string
     return div.firstElementChild
 }
 
-async function getApprovedUsers(){
+async function getApprovedUsers(first=1,last=5){
     
-    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getUsersByStatus/0")
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getUsersByStatus/0/"+first+"/"+last)
     const res = await response.json()
+    console.log(res)
     res.reverse()
 
     document.getElementById("body").innerHTML = null
@@ -54,10 +61,14 @@ Array.from(document.getElementsByClassName("rejected")).forEach(item =>{
     })
 })
 
-
+return res
 }
 
-getApprovedUsers()
+window.addEventListener("DOMContentLoaded",async ()=>{
+    await getApprovedUsers()
+})
+
+
 
 
 
@@ -78,6 +89,8 @@ async function rejectedUser(email){
      window.location.href="dashboard.html"   
      return res;
 }
+
+
 function checkSessionExpireOrNot(){
     setTimeout(()=>{
         localStorage.clear()
@@ -85,3 +98,40 @@ function checkSessionExpireOrNot(){
     },43200000)
 }
 checkSessionExpireOrNot()
+
+
+prev.addEventListener("click",async ()=>{
+    if (currentPage > 1) {
+        currentPage--;
+        const first = (currentPage - 1) * eventsPerPage + 1;
+        const last = currentPage * eventsPerPage;
+        console.log("prev",{first,last})
+    
+    document.getElementById("body").innerHTML = null
+
+    next.style.display = 'block'
+    let res = await getApprovedUsers(first,last)
+    console.log(res)
+}
+})
+
+
+next.addEventListener("click",async()=>{
+    currentPage++;
+    let first = (currentPage - 1) * eventsPerPage + 1;
+    let last = currentPage * eventsPerPage;
+    console.log("Next2",{first,last})
+    document.getElementById("body").innerHTML=""
+    let res = await getApprovedUsers(first,last)
+    console.log("my",res)
+
+            // To stop the spinner
+    
+    if(res.length === 0){
+        document.getElementById("body").innerHTML = "<tr><td colspan='7'>No results to display</td></tr>";
+        next.style.display = "none"
+      
+    }
+    if(first===1)
+    prev.style.display = "none"  
+})

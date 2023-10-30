@@ -90,7 +90,7 @@ async function getHistory(id,first=1,last=5){
         <td>${data.departureDate?.split("T")[0]}</td>
         <td>${data.fromCity.split(":")[1]}</td>
         <td>${data.fromCountry.split(":")[1]}</td>
-        <td><a href="updateTravelDetail.html?${urlParam.join("&")}" class="btn btn-info">Edit</a></td>   
+        <td><a href=${isFirstDateGreater(new Date(data.arrivalDate),new Date()) ? `updateTravelDetail.html?${urlParam.join("&")}`:"#"} class="btn btn-info">Edit</a></td>   
         <td><button class="btn btn-danger delete">Delete</button></td>
         <td style='display:none'>${data.travelId}</td>        
         `
@@ -117,19 +117,14 @@ async function deleteEvent(travelId){
     console.log("res",res1)
 }
 
-const compareDates = (d1, d2) => {
-    let date1 = new Date(d1).getTime();
-    let date2 = new Date(d2).getTime();
+function isFirstDateGreater(date1, date2) {
+    // Convert dates to timestamps using getTime()
+    const timestamp1 = date1.getTime();
+    const timestamp2 = date2.getTime();
 
-    if (date1 < date2) {
-
-        return false;
-    } else if (date1 > date2) {
-        return true
-    } else {
-        return true
-    }
-    }
+    // Compare timestamps
+    return timestamp1 > timestamp2;
+}
 
 
 

@@ -28,15 +28,15 @@ async function verifyUser(otp,pno){
     console.log(res)
   if(res.token == 'No user found'){
         alert("No user found")
-        window.location.href = "otpLogin.html";
+        // window.location.href = "otpLogin.html";
     }else if(res.token == ''){
        alert("Incorrect OTP")
-       window.location.href = "otpLogin.html";
+    //    window.location.href = "otpLogin.html";
     }else {
         localStorage.setItem("data",JSON.stringify(res.token)) 
         localStorage.setItem("role",JSON.stringify(res.type)) 
         console.log("Hello",res)
-        window.location.href = "dashboard.html";
+        // window.location.href = "dashboard.html";
     }
 
 }
@@ -53,6 +53,7 @@ document.getElementById("btn").addEventListener("click",(e)=>{
     }else if(!phoneRegex1.test(pno)){
         alert("Enter Number with Valid Digit");
     }else{
+        // alert("hi")
        loginWithPhone(pno)
     }
 })
@@ -60,6 +61,7 @@ document.getElementById("btn").addEventListener("click",(e)=>{
 document.getElementById("btn1").addEventListener("click",()=>{
     let otp = document.getElementById("otpfinder2s").value
     let newpno = document.getElementById("identifier").value
+    // console.log("newPon",newpno)
     verifyUser(otp,newpno)
     
 })
