@@ -453,11 +453,14 @@ async function updateProfile(data) {
         })
         if(response.ok){
         const res = await response.json()
+        console.log("🚀 ~ file: updateUser.js:456 ~ updateProfile ~ res:", res)
+        
         clearFormFields();
         $('#pendingDialog1').modal('show');
         setTimeout(() => {
             window.location.href = "dashboard.html"
         }, 3000)
+        localStorage.setItem("data",JSON.stringify(res.token)) 
         return res;
         }
         else {
