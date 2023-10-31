@@ -40,6 +40,13 @@ document.getElementById("event_location").addEventListener("input",e =>{
     }
 })
 
+document.getElementById("event_type").addEventListener("focusout",e=>{
+    // console.log(e.target.value)
+    if(e.target.value === "Select Type"){
+        alert("Select Event Type")
+    }
+})
+
 function parseJwt (token) {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

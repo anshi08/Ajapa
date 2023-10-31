@@ -9,6 +9,9 @@ const res = await response.text()
 if(res === 'Invalid Pno'){
     $('#otpMessage').modal('show');
     document.getElementById("identifier").value = '';
+    setTimeout(() => {
+        window.location.href = "otpLogin.html"
+    }, 2000);
 }
 else if(res === "OTP Sent")
 document.getElementById("otpfinder1").style.display ="block"
@@ -28,15 +31,15 @@ async function verifyUser(otp,pno){
     console.log(res)
   if(res.token == 'No user found'){
         alert("No user found")
-        // window.location.href = "otpLogin.html";
+        window.location.href = "otpLogin.html";
     }else if(res.token == ''){
        alert("Incorrect OTP")
-    //    window.location.href = "otpLogin.html";
+       window.location.href = "otpLogin.html";
     }else {
         localStorage.setItem("data",JSON.stringify(res.token)) 
         localStorage.setItem("role",JSON.stringify(res.type)) 
         console.log("Hello",res)
-        // window.location.href = "dashboard.html";
+        window.location.href = "dashboard.html";
     }
 
 }
