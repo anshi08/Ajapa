@@ -41,10 +41,10 @@ async function addAdmin(identifier,password){
     })
     const response = await res.text()
     console.log("oo",response)
-    // $('#pendingDialog1000').modal('show');
-    // setTimeout(()=>{
-    //     window.location.href = "addAdmin.html"
-    // },2000)
+    $('#pendingDialog1000').modal('show');
+    setTimeout(()=>{
+        window.location.href = "showAdmins.html"
+    },2000)
     return response;
 
 }
