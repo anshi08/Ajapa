@@ -39,8 +39,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     const s = new Spinner().spin(target);
 
     
-    let res 
+    let res =[]
+
     if(role === "admin"){
+        
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier)
     }else if(role==="super"){
         
@@ -85,12 +87,8 @@ window.addEventListener("DOMContentLoaded", async () => {
         <td style="display:none">${data.eventId}</td>
         `
         document.getElementById("body").appendChild(tr)
-        s.stop();
-
-        
-    }
-
-         )
+    })
+         s.stop();
     Array.from(document.getElementsByClassName("deleteEvent")).forEach(item => {
         item.addEventListener("click",(e)=>{
             if(e.target.classList.contains("deleteEvent")){
@@ -113,9 +111,8 @@ next.addEventListener("click", async () => {
     const role = (JSON.parse(localStorage.getItem("role")))
     let res 
     if(role === "admin"){
-        res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier)
+        res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier,first,last)
     }else if(role === "super"){
-    
         res = await showingAllEvents(first,last)
     }else{
         res = await showingAllEventsByStatus(1,first,last)
@@ -169,7 +166,7 @@ prev.addEventListener("click", async () => {
     const role = (JSON.parse(localStorage.getItem("role")))
     let res 
     if(role === "admin"){
-        res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier)
+        res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier,first,last)
     }else if(role==="super"){
         res = await showingAllEvents(first,last)
     }else{
@@ -237,15 +234,14 @@ async function showingAllEventsByStatus(status,first=1,last=5) {
 
 
 
-async function showingOnlyAdminEvents(adminId){
-    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEventWithPermissions/${adminId}`,{
+async function showingOnlyAdminEvents(adminId,first=1,last=5){
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEventWithPermissions/${adminId}/${first}/${last}`,{
         method:"GET",
         headers: {
            "Content-type":"application/json;  charset=UTF-8"
         }
    })
    const res = await response.json()
-
    return res;  
 }
 
