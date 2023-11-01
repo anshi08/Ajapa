@@ -20,7 +20,7 @@ if(identifier.length===0 || password.length===0){
     if (!phoneRegex.test(identifier)) {
         alert('Please Enter a Valid Phone number')
     }else{
-        addAdmin(identifier.password);
+        addAdmin(identifier,password);
     }
 }else if(!emailPattern.test(identifier)){
     alert("Please Enter a Valid Email Address")
