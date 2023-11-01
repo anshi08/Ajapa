@@ -26,6 +26,17 @@
     <script src="js/custom/isAuth.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script>
+        let adminStatus = JSON.parse(localStorage.getItem("role")) === "admin"
+        let superAdminStatus = JSON.parse(localStorage.getItem("role")) === "super"
+        if(!adminStatus){
+            if(!superAdminStatus){
+                alert("You can't access this page")
+                window.location.href="dashboard.html"
+            }
+        }
+
+        </script>
 
 </head>
 
