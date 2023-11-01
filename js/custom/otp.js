@@ -38,7 +38,6 @@ async function verifyUser(otp,pno){
     }else {
         localStorage.setItem("data",JSON.stringify(res.token)) 
         localStorage.setItem("role",JSON.stringify(res.type)) 
-        console.log("Hello",res)
         window.location.href = "dashboard.html";
     }
 
@@ -56,7 +55,6 @@ document.getElementById("btn").addEventListener("click",(e)=>{
     }else if(!phoneRegex1.test(pno)){
         alert("Enter Number with Valid Digit");
     }else{
-        // alert("hi")
        loginWithPhone(pno)
     }
 })
@@ -64,9 +62,12 @@ document.getElementById("btn").addEventListener("click",(e)=>{
 document.getElementById("btn1").addEventListener("click",()=>{
     let otp = document.getElementById("otpfinder2s").value
     let newpno = document.getElementById("identifier").value
-    // console.log("newPon",newpno)
-    verifyUser(otp,newpno)
-    
+    if(document.getElementById("otpfinder2s").value === ''){
+        alert("Enter Otp")
+    }else{
+        verifyUser(otp,newpno)
+    }
+
 })
 
 function isAuth(){

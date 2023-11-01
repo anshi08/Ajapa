@@ -33,13 +33,13 @@ prev.addEventListener("click",async ()=>{
         currentPage--;
         const first = (currentPage - 1) * eventsPerPage + 1;
         const last = currentPage * eventsPerPage;
-        console.log("prev",{first,last})
+        // console.log("prev",{first,last})
     
     document.getElementById("body").innerHTML = null
 
     next.style.display = 'block'
     let {response} = await getHistory(id,first,last)
-    console.log(response)
+    // console.log(response)
 }
 })
 
@@ -47,10 +47,9 @@ next.addEventListener("click",async()=>{
     currentPage++;
     let first = (currentPage - 1) * eventsPerPage + 1;
     let last = currentPage * eventsPerPage;
-    console.log("Next2",{first,last},id)
+    // console.log("Next2",{first,last},id)
     document.getElementById("body").innerHTML=""
     let {response} = await getHistory(id,first,last)
-
             // To stop the spinner
     
     if(response.length === 0){
@@ -71,18 +70,21 @@ async function getHistory(id,first=1,last=5){
     const res1 = await res.json()
 
     const response = await res1.data
+    // console.log("2",response)
     const currentTime = await res1.currentDate
     
 
     response.forEach(data => {
      
         let tr = document.createElement("tr")
+        // console.log("data20",data)
         let params = data
-        console.log(params)
+        // console.log(params)
         var urlParam = []
 
         for (let i in params){
         urlParam.push(encodeURI(i) + "=" + encodeURI(params[i]));
+        // console.log("oo",ur  lParam)
         }
         tr.innerHTML = `
         <td>${data.eventName}</td>
@@ -114,7 +116,7 @@ async function deleteEvent(travelId){
         method:"DELETE"
     })
     const res1 = await res.json()
-    console.log("res",res1)
+    // console.log("res",res1)
 }
 
 function isFirstDateGreater(date1, date2) {

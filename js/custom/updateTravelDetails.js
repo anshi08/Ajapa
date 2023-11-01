@@ -92,6 +92,7 @@ document.getElementById("departure_train_number").addEventListener("input",e =>{
 let params = (new URL(window.location.href)).searchParams;
 
 //Set Default Value
+
 document.getElementById("arrival_date").value = params.get("arrivalDate").split("T")[0]
 document.getElementById("arrival_time").value = params.get("arrivalTime")
 Array.from(document.getElementById("arrival_mode_of_transport")).forEach(item =>{
@@ -110,7 +111,7 @@ Array.from(document.getElementById("departure_mode_of_transport")).forEach(item 
     if(item.text == params.get("departureModeOfTransport")) item.setAttribute("selected",true)
 })
 if(params.get("departureModeOfTransport") == "Train"){
-    document.getElementById("transport1").style.display = "block"//arrivalTrainNumber
+    document.getElementById("transport1").style.display = "block"//departureTrainNumber
     document.getElementById("departure_train_number").value = params.get("departureTrainNumber")
  }
 handleInput1(params.get("departureTrainNumber"))
@@ -271,7 +272,7 @@ async function getCountry(selectedCountry) {
 }
 let stateId
 getCountry(params.get("fromCountry").split(":")[0])
- fetchStates(params.get("fromCountry").split(":")[0],params.get("fromState").split(":")[0])
+fetchStates(params.get("fromCountry").split(":")[0],params.get("fromState").split(":")[0])
 fetchCities(params.get("fromState").split(":")[0],params.get("fromCity").split(":")[0])
 
 element.addEventListener('change', function (e) {
