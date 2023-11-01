@@ -236,7 +236,7 @@ element.addEventListener('change', function (e) {
     // waitingResponse
     $('#pendingreq10').modal('show');
     setTimeout(()=>{
-        window.location.href = "dashboard.html"
+        window.location.href = "showFamilyMembers.html"
     },2000)
        
     return res;

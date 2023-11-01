@@ -10,8 +10,6 @@ async function getAllFamilyMember(familyId){
 
 }
 
-
-
 window.addEventListener("DOMContentLoaded",async ()=>{
     let res = await getAllFamilyMember(localStorage.getItem("family_id"))
     console.log(res)
@@ -38,7 +36,7 @@ Array.from(document.getElementsByClassName("deleted")).forEach(item => {
     item.addEventListener("click",(e) =>{
         let emailId = e.target.parentElement.previousElementSibling.previousElementSibling.innerText
         deleteFamilyMember(emailId)
-        location.reload();
+        // location.reload();
     })
 })
 
@@ -54,7 +52,10 @@ async function deleteFamilyMember(emailId){
    })
    const res = await response.json()
    console.log(res)
- return res;
+   if (res.token === 'deleted') {
+        location.reload();
+}
+return res
 
 }
 
