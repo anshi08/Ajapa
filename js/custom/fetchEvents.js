@@ -7,7 +7,6 @@ async  function fetchDetails(){
     document.getElementById('event_type').value = response.eventType;
     document.getElementById('event_location').value = response.eventLocation;
     document.getElementById('start_date').value = response.startDate?.split("T")[0];
-    // document.getElementById('listed_by').value = response.listed_by;
    
 }
 fetchDetails()
@@ -26,28 +25,10 @@ fetchDetails()
     // alert(id)
     document.getElementById("event_pic").src = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/EventDoc/${id}.jpg`
     document.getElementById("event_pic").className = "img-fluid"
+    return res;
 }
 
 getImg()
-
-function displaySuccessMessage(message) {
-    const successContainer = document.getElementById("successContainer");
-    const successDiv = document.createElement("div");
-    successDiv.classList.add("alert", "alert-success", "alert-dismissible", "fade", "show");
-    successDiv.textContent = message;
-    successContainer.appendChild(successDiv);
-
-    // Clear the success message after a few seconds (optional)
-    setTimeout(function () {
-        successDiv.remove();
-    }, 3000); // 3 seconds
-}
-
-document.getElementById("event_type").addEventListener("blur",e=>{
-    if(e.target.value === "Select Type"){
-        alert("Select Event Type")
-    }
-})
 
 let btn = document.getElementById("btn");
 btn.addEventListener("click", () => {
@@ -57,16 +38,24 @@ let eventLocation = document.getElementById("event_location").value
 let startDate = document.getElementById("start_date").value
 // let endDate = document.getElementById("end_date").value
 
-const data = {
-    eventName:eventName,
-    eventType:eventType,
-    eventLocation : eventLocation,
-    startDate:startDate,
-    // endDate : endDate,
-    listedBy : localStorage.getItem("role")
+if (/[^A-Za-z\s]/.test(eventName)) {
+    alert("Event Name should not contain special characters or numbers.");
+} else if(/[^A-Za-z\s]/.test(eventLocation)){
+    alert("Event Location should not contain special characters or numbers.");
+}else if(eventType === "Select Type"){
+    alert("Please Select an Event type")
 }
-
+else {
+    const data = {
+        eventName: eventName,
+        eventType: eventType,
+        eventLocation: eventLocation,
+        startDate: startDate,
+        listedBy : localStorage.getItem("role").replaceAll("\"","")
+    }
+    //  console.log("Mydata",data)
     updateEvents(data);
+}
 })
 
 function clearAllFields(){
@@ -87,6 +76,7 @@ async function updateEvents(data) {
         }
     })
     const res = await response.json()
+    console.log("pp",res)
     clearAllFields();
     $('#pendingDialog101').modal('show');
     setTimeout(()=>{
