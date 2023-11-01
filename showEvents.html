@@ -26,14 +26,19 @@
     <script src="js/custom/isAuth.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
     <script>
-        let adminStatus = JSON.parse(localStorage.getItem("role")) === "admin"
-        let superAdminStatus = JSON.parse(localStorage.getItem("role")) === "super"
-        if(!adminStatus){
-            if(!superAdminStatus){
-                alert("You can't access this page")
-                window.location.href="dashboard.html"
-            }
-        }
+        // let adminStatus = JSON.parse(localStorage.getItem("role")) === "admin"
+        // let superAdminStatus = JSON.parse(localStorage.getItem("role")) === "super"
+        // let userStatus = JSON.parse(localStorage.getItem("role")) === "member"
+        // let headStatus = JSON.parse(localStorage.getItem("role"))=== "head"
+        // if(!adminStatus){
+        //     if(!superAdminStatus){
+        //         if(userStatus || headStatus){
+
+        //         }
+        //         alert("You can't access this page")
+        //         window.location.href="dashboard.html"
+        //     }
+        // }
 
         </script>
 </head>
