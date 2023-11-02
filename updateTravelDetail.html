@@ -91,7 +91,7 @@
 
                               <div class="form-group">
                                 <label>Select a State :</label>
-                                <select id="from_state" class="form-control" >
+                                <select id="from_state" class="form-control" required >
                                     <!-- Options will be added dynamically -->
                                     <option value="">State</option>
                                 </select>
@@ -118,7 +118,7 @@
 
                    <div class="form-group">
                     <label>Arrival Mode Of Transport:</label>
-                    <select class="form-control" id="arrival_mode_of_transport" required>
+                    <select class="form-control" id="arrival_mode_of_transport" required onchange="validTransport()">
                         <option>Select Mode</option>
                         <option>Train</option>
                         <option>Flight</option>
@@ -156,7 +156,7 @@
 
            <div class="form-group">
             <label>Leaving Mode of Transport :</label>
-            <select class="form-control" id="departure_mode_of_transport" required>
+            <select class="form-control" id="departure_mode_of_transport" required onchange="validTransport()">
                 <option>Select Mode</option>
                 <option>Train</option>
                 <option>Flight</option>
@@ -180,7 +180,7 @@
              <!-- <input type="textarea" class="form-control" placeholder="Description" /> -->
              <textarea class="form-control" rows="4" placeholder="Any Specifc Requirements" id="description" ></textarea>
          </div>
-                         <button type="submit" class="btn btn-primary " >
+                         <button type="submit" id="submitbtn" class="btn btn-primary " >
                             Update
                         </button>                  
                         </form>

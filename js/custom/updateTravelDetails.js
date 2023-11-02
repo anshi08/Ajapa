@@ -2,6 +2,7 @@ let btn = document.getElementById("btn")
 let element = document.getElementById("from_country")
 let stateElement = document.getElementById("from_state")
 let cityElement= document.getElementById("from_city")
+let sbBtn = document.getElementById("submitbtn")
 
 
 
@@ -47,13 +48,6 @@ document.getElementById("arrival_train_number").addEventListener("input",e =>{
     }
 })
 
-// document.getElementById("arrival_train_name").addEventListener("input",e =>{
-//     if(e.target.value === 0 || e.target.value.length === 0){
-//        document.getElementById("NameErr").style.display = "block"
-//     }else{
-//         document.getElementById("NameErr").style.display = "none"
-//     }
-// })
 
 document.getElementById("departure_date").addEventListener("input",e =>{
     if(e.target.value === 0 || e.target.value.length === 0){
@@ -80,13 +74,16 @@ document.getElementById("departure_train_number").addEventListener("input",e =>{
     }
 })
 
-// document.getElementById("departure_train_name").addEventListener("input",e =>{
-//     if(e.target.value === 0 || e.target.value.length === 0){
-//        document.getElementById("Err1").style.display = "block"
-//     }else{
-//         document.getElementById("Err1").style.display = "none"
-//     }
-// })
+function validTransport(){
+let arrT = document.getElementById("arrival_mode_of_transport").value
+let depT = document.getElementById("departure_mode_of_transport").value
+if(arrT === "Select Mode" || depT === "Select Mode"){
+    alert("Please Select Mode of Transport")
+    sbBtn.disabled = true;
+}else{
+    sbBtn.disabled = false;
+}
+}
 
 
 let params = (new URL(window.location.href)).searchParams;
@@ -139,8 +136,6 @@ btn.addEventListener("submit", async (e) =>{
     let desc = getElementByIdName("description")
     let uid = params.get("userId")
     let userName =params.get("userName")
-
-    // console.log("UID",userName,uid)
 
     let data = {}
     if(arr_transport==="Train" && dep_transport==="Train"){//write condition for both arrival and departue mode of transport
@@ -230,7 +225,7 @@ btn.addEventListener("submit", async (e) =>{
     try {
        await updateTravelDetails(data)
     } catch (error) {
-            console.log("my",error)
+        console.log("my",error)
     }
 
 })
@@ -470,7 +465,7 @@ async function handleInput1(searchInput) {
         newSearchInput = searchInput
     }
         const searchTerm = newSearchInput 
-            console.log(searchTerm)
+            // console.log(searchTerm)
             if (searchTerm.length === 0) {
                 document.getElementById("train_detail_label").style.display = "none" 
                 return; // No need to perform a search if the input is empty
@@ -481,7 +476,7 @@ async function handleInput1(searchInput) {
                 document.getElementById("train_number_1").style.display = "block" 
                 document.getElementById("train_detail_label_1").style.display = "block"
                 const data = await getTrainDetails(searchTerm);
-                console.log("anshi",data,searchTerm)
+                // console.log("anshi",data,searchTerm)
                 // Display search results
                 let select = document.getElementById("train_number_1")
                 if (data && data.length > 0) {
