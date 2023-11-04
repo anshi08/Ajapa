@@ -1,15 +1,38 @@
+let startTime = document.getElementById("start_time")
+let endTime = document.getElementById("end_time")
+const DropDownStatus = document.getElementById("event_type");
+
 async  function fetchDetails(){
     let id = window.location.href.split("?")[1].split("=")[1]
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/fetchEvent/'+id)
     const response = await res.json()
     console.log(response)
     document.getElementById('event_name').value = response.eventName;
+    if(response.eventType === "offline"){
+        startTime.style.display = "none"
+        endTime.style.display = "none"
+    }
     document.getElementById('event_type').value = response.eventType;
     document.getElementById('event_location').value = response.eventLocation;
     document.getElementById('start_date').value = response.startDate?.split("T")[0];
+    document.getElementById('s_time').value = response.startTime
+    document.getElementById('e_time').value = response.endTime
    
 }
 fetchDetails()
+
+//DropDown for Event Type
+DropDownStatus.addEventListener("change", () => {
+    const option = DropDownStatus.value
+    if(option === "online"){
+    startTime.style.display = "block";
+    endTime.style.display = "block";
+    }
+    else if(option === "offline"){
+        startTime.style.display = "none";
+        endTime.style.display = "none";
+    }
+})
 
 
  async function getImg (){
@@ -34,9 +57,11 @@ let btn = document.getElementById("btn");
 btn.addEventListener("click", () => {
 let eventName = document.getElementById("event_name").value
 let eventType = document.getElementById("event_type").value;
+let sTime = document.getElementById("s_time").value;
+let eTime = document.getElementById("e_time").value;
 let eventLocation = document.getElementById("event_location").value
 let startDate = document.getElementById("start_date").value
-// let endDate = document.getElementById("end_date").value
+
 
 if (/[^A-Za-z\s]/.test(eventName)) {
     alert("Event Name should not contain special characters or numbers.");
@@ -49,6 +74,8 @@ else {
     const data = {
         eventName: eventName,
         eventType: eventType,
+        startTime : sTime,
+        endTime: eTime,
         eventLocation: eventLocation,
         startDate: startDate,
         listedBy : localStorage.getItem("role").replaceAll("\"","")
@@ -61,9 +88,10 @@ else {
 function clearAllFields(){
    document.getElementById("event_name").value = '';
    document.getElementById("event_type").value = '';
+   document.getElementById("s_time").value = '';
+   document.getElementById("e_time").value = '';
    document.getElementById("event_location").value = '';
    document.getElementById("start_date").value = '';
-//    document.getElementById("end_date").value = '';
 }
 
 async function updateEvents(data) {
