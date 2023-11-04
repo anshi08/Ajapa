@@ -130,8 +130,8 @@ async function getCountry() {
             "Content-type":"application/json;  charset=UTF-8"
         }
     })
-    const res = await response.json()
-   
+    const newres = await response.json()
+    const res = newres.filter(item => item.name!=='Pakistan')
         //  dropdown 
             res.forEach((country) => {
             const option = document.createElement("option");
