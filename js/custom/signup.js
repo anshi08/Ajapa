@@ -196,6 +196,7 @@ res.forEach((state) => {
   }
 
   async function signup(data){
+  
     try{
     const response = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/signup',{
         method:"POST",
@@ -206,7 +207,7 @@ res.forEach((state) => {
     })
     if(response.ok){
     const res = await response.json()
-    console.log(res)
+
     clearAllFields();
     document.getElementById("pwdErr").style.display  = "none"
     saveUserImg(data.file,data.email)
@@ -227,7 +228,8 @@ res.forEach((state) => {
 } catch (error) {
 
     console.error("An error occurred:", error);
-}}
+}
+}
 
 //Validation for input
 document.getElementById("name").addEventListener("input",e=>{
@@ -330,15 +332,20 @@ document.getElementById("email").addEventListener("input",e=>{
 
 //Saving user Image
 const saveUserImg = async (file,email) => {
-    // console.log(file,email)
-    const form = new FormData();
-    await form.append("file",file)
-    await form.append("email",email)
-    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveImage2",{
-    method:"POST",
-    body:form,
-    })
-    const res = await response.json()
-    console.log("IMG",res)
-    return res;
+    if(file.type.split("/")[1] == "png" || file.type.split("/")[1] == "jpg" || file.type.split("/")[1] == "jpeg" ){
+        const form = new FormData();
+        await form.append("file",file)
+        await form.append("email",email)
+        const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveImage2",{
+        method:"POST",
+        body:form,
+        })
+        const res = await response.json()
+        console.log("IMG",res)
+        return res;
+    }else{
+        alert("Only png/jpg images allowed")
+    }
+
+ 
 }

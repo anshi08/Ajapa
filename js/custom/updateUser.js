@@ -483,8 +483,8 @@ checkSessionExpireOrNot()
 
 //Saving user Image
 const saveUserImg = async (file,email) => {
-    // console.log(file,email)
-    const form = new FormData();
+    if(file.type.split("/")[1] == "png" || file.type.split("/")[1] == "jpg" || file.type.split("/")[1] == "jpeg" ){
+    const form = new F  ormData();
     await form.append("file",file)
     await form.append("email",email)
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveImage2",{
@@ -494,4 +494,7 @@ const saveUserImg = async (file,email) => {
     const res = await response.json()
     console.log("IMG",res)
     return res;
+}else{
+    alert("Only png/jpg images allowed")   
+}
 }
