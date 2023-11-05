@@ -1,4 +1,12 @@
 
+<style>
+    .scrollable-div {
+      width: 300px !important;
+      height: 200px !important;
+      overflow: auto !important;  /* This property makes the content scrollable */
+
+    }
+  </style>
 
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -55,8 +63,8 @@
                 <span class="badge badge-danger badge-counter" id="notification">   </span>
             </a>
             <!-- Dropdown - Alerts -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="alertsDropdown" id="showNotification">
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in scrollable-div "
+                aria-labelledby="alertsDropdown" id="showNotification" >
                 <h6 class="dropdown-header" >
                     Pending Clearance
                 </h6>

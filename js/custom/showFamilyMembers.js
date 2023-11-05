@@ -12,7 +12,8 @@ async function getAllFamilyMember(familyId){
 
 window.addEventListener("DOMContentLoaded",async ()=>{
     let res = await getAllFamilyMember(localStorage.getItem("family_id"))
-    console.log(res)
+    let deleteMember = document.getElementById("deleteMember")
+    JSON.parse(localStorage.getItem('role')) === 'member' ? deleteMember.style.display="none":""
     // let res = await getAllFamilyMember(120)
     // let allUser = res.filter(res => res.id !== +localStorage.getItem("family_id") )
     let allUser = res
@@ -27,7 +28,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         <td>${data.fullName}</td>
         <td>${data.email}</td>
         <td>${data.mobileNum}</td>
-        ${data.userType==="head" ? '<td>head</td>' :`<td><a href="#" class="deleted">Delete</td>`}`
+        ${data.userType==="head" ? JSON.parse(localStorage.getItem("role")) === "member" ?'' :   '<td>head</td>' :`${JSON.parse(localStorage.getItem('role')) === 'member' ? '':`<td><a href="#" class="deleted">Delete</td>`}`}`
         document.getElementById("body").appendChild(tr)
 })
 
