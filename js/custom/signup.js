@@ -7,12 +7,16 @@ let phoneNumberValue = ""
 let pwd = document.getElementById("pw").value;
 let rp = document.getElementById("rpwd").value;
 rpValue = ""
+let dob = document.getElementById("dob")
+let today = new Date().toISOString().split('T')[0];
+dob.setAttribute("max",today)
 
 
 
 function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
+
 
 // window.addEventListener("DOMContentLoaded",async ()=>{
 //     async function getCountriesCodeLocally (){

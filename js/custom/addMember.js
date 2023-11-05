@@ -4,6 +4,10 @@ let stateElement = document.getElementById("state")
 let cityElement = document.getElementById("city")
 let phoneNumber = document.getElementById("mobile_num")
 let  phoneNumberIsValid = ""
+let dob = document.getElementById("dob")
+let today = new Date().toISOString().split('T')[0];
+dob.setAttribute("max",today)
+
 
 
 function getElementByIdName(idName){
