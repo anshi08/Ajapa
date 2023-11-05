@@ -64,16 +64,6 @@ btn.addEventListener("submit", (e) =>{
     let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
 
 
-    // if(rpwd.trim() === "")
-    // {
-    //     document.getElementById("pwdErr").innerHTML = "<span style='color: red;'>Re-type Password</span>";
-    //     return;
-    // }else if (rpwd != pw) {
-    //     document.getElementById("pwdErr").innerHTML = "<span style='color: red;'>Password does not Match</span>";
-    //     return;
-    // }
-    
-
     const data = {
         fullName: name,
         gender: gender,
@@ -335,19 +325,26 @@ window.addEventListener("DOMContentLoaded",async ()=>{
   const allFamilyMembers =   await getAllFamilyMembers(localStorage.getItem("family_id"))
   let countrySelectBox  = document.getElementById("sel1")
 
-
-
     countrySelectBox.addEventListener("change",(e)=>{
        let address = allFamilyMembers.filter(mem => mem.id===+e.target.value)[0]
        let option = document.createElement("option")
+       let selectedOption = countrySelectBox.options[countrySelectBox.selectedIndex];
+       console.log("p",selectedOption)
+
        option.innerText = address.country.split(":")[1]
        option.value = address.country.split(":")[0]
-       let country = `<option value='${address.country.split(":")[0]}'>${address.country.split(":")[1]}</option>`
-       document.getElementById("country").innerHTML = country
+       if (selectedOption.selected) {
+        document.getElementById("country").style.backgroundColor = '#DCD6D0';
+        let country = `<option value='${address.country.split(":")[0]}'>${address.country.split(":")[1]}</option>`
+        document.getElementById("country").innerHTML = country
+      }
        getCountry();
 
+       if (selectedOption.selected) {
+        document.getElementById("state").style.backgroundColor = '#DCD6D0';
        let state = `<option value='${address.state.split(":")[0]}'>${address.state.split(":")[1]}</option>`
        document.getElementById("state").innerHTML = state;
+       }
        const defaultValue = stateElement.getElementsByTagName("option");
     for (let i = 0; i < defaultValue.length; i++) {
     if (defaultValue[i].value === address.state.split(":")[0]) {
@@ -357,8 +354,11 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     }
 }
     
+    if (selectedOption.selected) {
+    document.getElementById("city").style.backgroundColor = '#DCD6D0';
        let city = `<option value='${address.city.split(":")[0]}'>${address.city.split(":")[1]}</option>`
        document.getElementById("city").innerHTML = city;
+    }
        const value = stateElement.getElementsByTagName("option");
        for (let i = 0; i < value.length; i++) {
        if (value[i].value === address.state.split(":")[0]) {
