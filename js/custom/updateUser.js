@@ -10,6 +10,9 @@ let rememberMobInput = document.getElementById("rememberMob")
 let dontRememberMob = document.getElementById("dontRememberMob")
 let  phoneNumberIsValid = ""
 let mobileNumberValid = ""
+let dob = document.getElementById("diksha_dt")
+let today = new Date().toISOString().split('T')[0];
+dob.setAttribute("max",today)
 
 
 

@@ -208,20 +208,21 @@ res.forEach((state) => {
     if(response.ok){
     const res = await response.json()
 
-    clearAllFields();
     document.getElementById("pwdErr").style.display  = "none"
-    saveUserImg(data.file,data.email)
-    // waitingResponse
-    if(res.msg === 'User exists'){
+    const imageUploadResult = await saveUserImg(data.file, data.email);
+    if (imageUploadResult.error) {
+      alert("Image upload error: " + imageUploadResult.error);
+      return;
+    }
+   if(res.msg === 'User exists'){
         $('#pendingDialog1').modal('show');
     }else{
         $('#pendingDialog').modal('show');
+        clearAllFields();
+        setTimeout(()=>{
+            window.location.href = "register.html"
+       },2000)
     }
-     
-    setTimeout(()=>{
-       window.location.href = "register.html"
-    },4000)
-    
     
     return res;
     }
@@ -230,7 +231,6 @@ res.forEach((state) => {
     console.error("An error occurred:", error);
 }
 }
-
 //Validation for input
 document.getElementById("name").addEventListener("input",e=>{
     if(e.target.value === 0 || e.target.value.length === 0){
@@ -331,6 +331,7 @@ document.getElementById("email").addEventListener("input",e=>{
 
 
 //Saving user Image
+
 const saveUserImg = async (file,email) => {
     if(file.type.split("/")[1] == "png" || file.type.split("/")[1] == "jpg" || file.type.split("/")[1] == "jpeg" ){
         const form = new FormData();
@@ -346,6 +347,4 @@ const saveUserImg = async (file,email) => {
     }else{
         alert("Only png/jpg images allowed")
     }
-
- 
 }

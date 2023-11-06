@@ -70,7 +70,8 @@
                                 <form enctype="multipart/form-data" id="btn">
                             <div class="form-group">
                                 <label>Event Name :</label>
-                              <input type="text" required pattern="[A-Za-z ]*" title="Only characters are allowed"
+                              <input type="text" required pattern="[a-zA-Z0-9_,.\- ]*"
+                              title="Only characters, dashes, commas, periods, and spaces are allowed"
                                 class="form-control" placeholder="Enter Event Name" id="event_name">
                                 <p id="eventNameError" style="display: none;color:red">Event Name Required</p>    
                             </div>

@@ -131,7 +131,7 @@ async function signin(data) {
         }
         else if (res.token == "Unapproved User"){
             clearDisplayError()
-            displayError("You're are not apporved!!!")
+            displayError("You're are not apporved")
         }
         else{
         clearDisplayError();
@@ -204,12 +204,12 @@ let passwordErr =  document.getElementById("passwordError")
 if (passwordInput.value.length < minLength) {
     passwordErr.style.display = "block";
     passwordErr.innerText = "Password must contain at least 5 characters.";
-    passwordInput.focus()
+    // passwordInput.focus()
     return false;
 } else if (passwordInput.value.length > maxLength) {
     passwordErr.style.display = "block";
     passwordErr.innerText = "Password is too long. Maximum length is 20 characters.";
-    passwordInput.focus();
+    // passwordInput.focus();
     return false;
 } else {
     passwordErr.style.display = "none";

@@ -3,6 +3,8 @@ let startTime = document.getElementById("start_time")
 let endTime = document.getElementById("end_time")
 const statusdd = document.getElementById("event_type");
 
+
+
 function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
@@ -93,11 +95,13 @@ btn.addEventListener("submit", async(e) =>{
     }
 
     if(localStorage.getItem("role") === "super"){
+        alert("hii")
         let {eventId} = events(data)
         setEventImg(eventId,file)
     }
     else{
         let {eventId} = await events(data)
+        alert("admin")
         saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
         setEventImg(eventId,file)
     }
@@ -118,7 +122,6 @@ function ClearAllFields(){
 }
 
  const events = async (data) => {
-    console.log("mydata",data)
     try{
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveEvent",{
         method:"POST",
@@ -130,11 +133,11 @@ function ClearAllFields(){
     if(response.ok){
     const res = await response.json()
     console.log("kkk",res)      
-    ClearAllFields();
+    // ClearAllFields();
     $('#pendingDialog4').modal('show');
-    setTimeout(() =>{
-        window.location.href = "dashboard.html"
-    },3000)
+    // setTimeout(() =>{
+    //     window.location.href = "dashboard.html"
+    // },3000)
     return res
     } else {
         // Handle the case where the HTTP request was not successful
@@ -170,9 +173,8 @@ return response
 }
 
 
-
-
 const setEventImg = async (eventId,file) => {
+    if(file.type.split("/")[1] == "png" || file.type.split("/")[1] == "jpg" || file.type.split("/")[1] == "jpeg" ){
         const form = new FormData();
         await form.append("eventId",eventId)
         await form.append("file",file)
@@ -183,6 +185,9 @@ const setEventImg = async (eventId,file) => {
         const res = await response.json()
         console.log("IMG",res)
         return res;
+    }else{
+        alert("Only png/jpg images allowed")
+    }
 }
 
 
