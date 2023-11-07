@@ -88,9 +88,6 @@ async function encryptMessage(message, key) {
   
   }
   
-  
-
-
 function displayError(errorMessage) {
     const errorContainer = document.getElementById("errorContainer");
     const errorDiv = document.createElement("div");
@@ -204,14 +201,14 @@ let passwordErr =  document.getElementById("passwordError")
 if (passwordInput.value.length < minLength) {
     passwordErr.style.display = "block";
     passwordErr.innerText = "Password must contain at least 5 characters.";
-    // passwordInput.focus()
-    return false;
+    btn.disabled = true;
+    
 } else if (passwordInput.value.length > maxLength) {
     passwordErr.style.display = "block";
     passwordErr.innerText = "Password is too long. Maximum length is 20 characters.";
-    // passwordInput.focus();
-    return false;
+    
 } else {
+    btn.disabled = false
     passwordErr.style.display = "none";
 }
 }
