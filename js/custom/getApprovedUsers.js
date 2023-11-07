@@ -28,6 +28,7 @@ async function getApprovedUsers(first=1,last=5){
         <td>${data.country.split(":")[1]}</td>
         <td>${data.state.split(":")[1]}</td>
         <td>${data.city.split(":")[1]}</td>
+        <td><a href="http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${data.email}.jpg" class="view">View</td>
         <td><a href="#" class="approved">Approve</td>
         <td><a href="#" class="rejected">Reject</td>
          `
@@ -38,7 +39,7 @@ async function getApprovedUsers(first=1,last=5){
 Array.from(document.getElementsByClassName("approved")).forEach(item =>{
     item.addEventListener("click",e => {
         if(e.target.classList.contains("approved")){
-            if(confirm("Are You sure you want to approve")){
+            if(confirm("Are you sure you want to approve")){
                 let email = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent
                     approvedUsers(email)
             }else{

@@ -5,18 +5,19 @@ async function loginWithPhone(pno) {
                                 })
 
 const res = await response.text()
-
-if(res === 'Invalid Pno'){
+console.log("l",res)
+if(res === 'Sorry... You are not a registered user'){
     $('#otpMessage').modal('show');
     document.getElementById("identifier").value = '';
     setTimeout(() => {
         window.location.href = "otpLogin.html"
     }, 2000);
 }
-else if(res === "OTP Sent")
+else if(res === "OTP Sent"){
 document.getElementById("otpfinder1").style.display ="block"
 document.getElementById("btn1").style.display =  "block"
 document.getElementById("btn").style.display =  "none"
+}
 }
 
 async function verifyUser(otp,pno){
@@ -32,9 +33,9 @@ async function verifyUser(otp,pno){
   if(res.token == 'No user found'){
         alert("No user found")
         window.location.href = "otpLogin.html";
-    }else if(res.token == ''){
+    }else if(res.token == 'Invalid OTP'){
        alert("Incorrect OTP")
-       window.location.href = "otpLogin.html";
+       document.getElementById("otpfinder2s").value = '';
     }else {
         localStorage.setItem("data",JSON.stringify(res.token)) 
         localStorage.setItem("role",JSON.stringify(res.type)) 

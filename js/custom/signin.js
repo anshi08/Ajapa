@@ -131,7 +131,7 @@ async function signin(data) {
         }
         else if (res.token == "Unapproved User"){
             clearDisplayError()
-            displayError("You're are not apporved")
+            displayError("You're are not approved")
         }
         else{
         clearDisplayError();
