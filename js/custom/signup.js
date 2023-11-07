@@ -80,8 +80,10 @@ btn.addEventListener("submit", (e) =>{
         alert("Start Mobile Number with valid Digit")
         phoneNumber.focus()
         return;
+
     }
     else{
+        // console.log('l',data)
    signup(data);
     }
 
@@ -196,6 +198,16 @@ res.forEach((state) => {
   }
 
   async function signup(data){
+
+    const captchaResponse = grecaptcha.getResponse();
+    console.log(captchaResponse)
+
+    if (!captchaResponse) {
+        alert("Please complete the reCAPTCHA challenge.");
+        return;
+    }
+
+    // data.recaptchaResponse = captchaResponse
   
     try{
     const response = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/signup',{
