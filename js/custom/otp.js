@@ -1,5 +1,5 @@
 async function loginWithPhone(pno) {
-    // console.log(pno)
+    console.log(pno)
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/loginWithSmsOTP1/${pno}`,{
                                 method:"POST",
                                 })
@@ -46,18 +46,41 @@ async function verifyUser(otp,pno){
 document.getElementById("btn").addEventListener("click",(e)=>{
     e.preventDefault(); 
     let pno =document.getElementById("identifier").value
-    const phoneRegex = /^\d{10}$/;
-    const phoneRegex1 = /^[6-9]\d{9}$/;
-    if(!pno){
-       alert("Number required");
-    }else if(!phoneRegex.test(pno)){
-        alert("Enter Valid 10 digit Number");
-    }else if(!phoneRegex1.test(pno)){
-        alert("Enter Number with Valid Digit");
-    }else{
-       loginWithPhone(pno)
+    const combinedPhoneRegex = /^(\d{10}|[6-9]\d{9})$/;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+
+    function areAllCharactersNumbers(inputString) {
+        // Use a regular expression to check if all characters are numbers
+        return /^\d+$/.test(inputString);
     }
-})
+
+    if(pno.length===0){
+        alert("Please Enter Email or Phone Number")
+    }else if(areAllCharactersNumbers(pno)){
+        if (!combinedPhoneRegex.test(pno)) {
+            alert('Please Enter a Valid Phone number')
+        }else{
+            loginWithPhone(pno)
+        }
+    }
+    else if(!emailRegex.test(pno)){
+        alert("Please Enter a Valid Email Address")
+    }else{
+        loginWithPhone(pno)
+    }
+    })
+
+    // if(!pno){
+    //    alert("Number or Email is required");
+    // }else if(!phoneRegex.test(pno)){
+    //     alert("Enter Valid 10 digit Number");
+    // }else if(!phoneRegex1.test(pno)){
+    //     alert("Enter Number with Valid Digit");
+    // }else if(!emailRegex.test(pno)){
+    //     alert("Enter Proper Email Address");
+    // }else{
+    //    loginWithPhone(pno)
+    // }
 
 document.getElementById("btn1").addEventListener("click",()=>{
     let otp = document.getElementById("otpfinder2s").value

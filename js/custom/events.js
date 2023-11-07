@@ -94,19 +94,44 @@ btn.addEventListener("submit", async(e) =>{
         listedBy: newListedBy
     }
 
+    if (file) {
+        const allowedExtensions = ["jpg", "jpeg", "png"];
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        // console.log("p",fileExtension)
+        if (!allowedExtensions.includes(fileExtension)) {
+            alert("Only jpg, jpeg, and png images are allowed.");
+            return;
+        }
+    } else {
+        alert("Please select an image file.");
+        return;
+    }
+
     if(localStorage.getItem("role") === "super"){
-        alert("hii")
+        // alert("hii")
         let {eventId} = events(data)
         setEventImg(eventId,file)
     }
     else{
         let {eventId} = await events(data)
-        alert("admin")
+        // alert("admin")
         saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
         setEventImg(eventId,file)
     }
 
-})
+});
+
+    // if(localStorage.getItem("role") === "super"){
+    //     alert("hii")
+    //     let {eventId} = events(data)
+    //     setEventImg(eventId,file)
+    // }
+    // else{
+    //     let {eventId} = await events(data)
+    //     alert("admin")
+    //     saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
+    //     setEventImg(eventId,file)
+    // }
 
 function ClearAllFields(){
     document.getElementById("event_name").value = '';
@@ -133,11 +158,11 @@ function ClearAllFields(){
     if(response.ok){
     const res = await response.json()
     console.log("kkk",res)      
-    // ClearAllFields();
+    ClearAllFields();
     $('#pendingDialog4').modal('show');
-    // setTimeout(() =>{
-    //     window.location.href = "dashboard.html"
-    // },3000)
+    setTimeout(() =>{
+        window.location.href = "dashboard.html"
+    },3000)
     return res
     } else {
         // Handle the case where the HTTP request was not successful
@@ -174,7 +199,6 @@ return response
 
 
 const setEventImg = async (eventId,file) => {
-    if(file.type.split("/")[1] == "png" || file.type.split("/")[1] == "jpg" || file.type.split("/")[1] == "jpeg" ){
         const form = new FormData();
         await form.append("eventId",eventId)
         await form.append("file",file)
@@ -185,9 +209,6 @@ const setEventImg = async (eventId,file) => {
         const res = await response.json()
         console.log("IMG",res)
         return res;
-    }else{
-        alert("Only png/jpg images allowed")
-    }
 }
 
 
