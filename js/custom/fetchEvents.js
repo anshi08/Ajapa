@@ -90,6 +90,7 @@ else {
             alert("Only jpg, jpeg, and png images are allowed.");
             return;
         }
+        setEventImg(eventId,file)
     } else {
    
     }
@@ -97,7 +98,7 @@ else {
     // updateEvents(data);
     
     updateEvents(data)
-    setEventImg(eventId,file)
+    
   
 }
 })

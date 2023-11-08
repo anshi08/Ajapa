@@ -10,35 +10,40 @@ function parseJwt (token) {
     return JSON.parse(jsonPayload);
 }
 
-// let email = "Bearer " + JSON.parse(localStorage.getItem("data"))
-// console.log(email)
-
-// let email = parseJwt(localStorage.getItem("data")).email
-// console.log(email)
-
-// let role = localStorage.getItem("role").replaceAll("/","")
-// console.log(role)
-
 btn.addEventListener("submit", (e)=>{
     e.preventDefault();
-    let pw = document.getElementById("password").value
+    let password = document.getElementById("password").value
     let repwd = document.getElementById("repwd").value
 
-    resetPassword(pw)
+    // const data = {
+    //     password : password
+    // }
+
+    resetPassword(password)
 })
 
-async function resetPassword(pw){
-    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changePassword`,{
+async function resetPassword(password){
+    // console.log("kk",password)
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changePassword/"+password,{
         method:"POST",
+        body:JSON.stringify({password:password}),
         headers:{
             "Authorization": "Bearer " + JSON.parse(localStorage.getItem("data")),
             "Content-type":"application/json;  charset=UTF-8"
-        },
-        body:JSON.stringify({password:pw})
+        }
     })
 
-    const res = await response.json()
+    const res = await response.text()
     console.log("k",res)
+    if(res === 'Your password has been changed'){
+        document.getElementById("password").value='';
+        document.getElementById("repwd").value='';
+        $('#ForgetPassword').modal('show');
+        setTimeout(()=>{
+            window.location.href = "dashboard.html"
+        },2000)
+    }
+   
 }
 
 function validate() {
