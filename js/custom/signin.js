@@ -105,6 +105,15 @@ function clearDisplayError(){
 
 
 async function signin(data) {
+
+    const captchaResponse = grecaptcha.getResponse();
+    console.log(captchaResponse)
+
+    if (!captchaResponse) {
+        alert("Please complete the reCAPTCHA challenge.");
+        return;
+    }
+    
     try {
         const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/login",{
             method:"POST",

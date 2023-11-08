@@ -61,6 +61,7 @@ let sTime = document.getElementById("s_time").value;
 let eTime = document.getElementById("e_time").value;
 let eventLocation = document.getElementById("event_location").value
 let startDate = document.getElementById("start_date").value
+let file = document.getElementById("file").files[0]
 
 
 if (/[^A-Za-z\s]/.test(eventName)) {
@@ -78,10 +79,26 @@ else {
         endTime: eTime,
         eventLocation: eventLocation,
         startDate: startDate,
+        file:file,
         listedBy : localStorage.getItem("role").replaceAll("\"","")
     }
-    //  console.log("Mydata",data)
-    updateEvents(data);
+    if (file) {
+        const allowedExtensions = ["jpg", "jpeg", "png"];
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        console.log("p",fileExtension)
+        if (!allowedExtensions.includes(fileExtension)) {
+            alert("Only jpg, jpeg, and png images are allowed.");
+            return;
+        }
+    } else {
+   
+    }
+     console.log("Mydata",data)
+    // updateEvents(data);
+    
+    updateEvents(data)
+    setEventImg(eventId,file)
+  
 }
 })
 
@@ -110,6 +127,21 @@ async function updateEvents(data) {
     setTimeout(()=>{
         window.location.href = "dashboard.html";
     },2000)
+    return res;
+}
+let eventId = window.location.href.split("?")[1].split("=")[1]
+// console.log(eventId)
+const setEventImg = async (eventId,file) => {
+    console.log("java",eventId,file)
+    const form = new FormData();
+    await form.append("eventId",eventId)
+    await form.append("file",file)
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveEventD",{
+    method:"POST",
+    body:form,
+    })
+    const res = await response.json()
+    console.log("IMG",res)
     return res;
 }
 
