@@ -15,18 +15,13 @@ btn.addEventListener("submit", (e)=>{
     let password = document.getElementById("password").value
     let repwd = document.getElementById("repwd").value
 
-    // const data = {
-    //     password : password
-    // }
-
     resetPassword(password)
 })
 
+
 async function resetPassword(password){
-    // console.log("kk",password)
-    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changePassword/"+password,{
+        const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changePassword?password=${password}`,{
         method:"POST",
-        body:JSON.stringify({password:password}),
         headers:{
             "Authorization": "Bearer " + JSON.parse(localStorage.getItem("data")),
             "Content-type":"application/json;  charset=UTF-8"
