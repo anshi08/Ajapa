@@ -188,7 +188,7 @@ window.addEventListener("DOMContentLoaded",async(e) =>{
         if(e.target.value === "Leaving Date"){
             let eventId = document.getElementById("report1Events").options[document.getElementById("report1Events").selectedIndex].value
            let eventSorted = await getTravelReportDateWiseLeavning(eventId)
-           tableofReport1.innerHTML=null
+           tableofReport1.innerHTML=null    
            eventSorted.forEach(report => {
             let tr = document.createElement("tr")
             tr.innerHTML = `

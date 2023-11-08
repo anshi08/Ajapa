@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded",async()=>{
   Array.from(document.getElementsByClassName("delete")).forEach(item => {
     item.addEventListener("click",async(e) =>{
         
-        await deleteEvent(e.target.parentElement.nextElementSibling.innerHTML)
+        await deleteEvent(e.target.parentElement.nextElementSibling.innerHTML,2)
         window.location.reload()
     })
   })
@@ -116,7 +116,7 @@ async function deleteEvent(travelId){
         method:"DELETE"
     })
     const res1 = await res.json()
-    // console.log("res",res1)
+    console.log("res",res1)
 }
 
 function isFirstDateGreater(date1, date2) {
