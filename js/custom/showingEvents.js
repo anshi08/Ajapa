@@ -19,8 +19,8 @@ let next = document.getElementById("next")
 window.addEventListener("DOMContentLoaded", async () => {
 
     
-
-    const role = (JSON.parse(localStorage.getItem("role")))
+   let pageName = window.location.href.split("/")[window.location.href.split("/").length-1]
+   const role = (JSON.parse(localStorage.getItem("role")))
     if(role==="super" || role === "admin"){
         // getValueForDashboard()
         // document.getElementById("bookingStatus").style.display = "block"
@@ -37,8 +37,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     }
 
-    // if(role=="admin" || role=="super")
-    // getValueForDashboard()
+    if(role=="admin" || role=="super")
+    getValueForDashboard()
 
 
             // Create a new spinner
@@ -58,9 +58,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     }else{
         res = await showingAllEventsByStatus(1);
     }
-        console.log(res)
 
-        if(res.length==0){
+    if(res.length==0){
             s.stop();
         }
         if(role === "member" || role === "head") {
@@ -73,13 +72,9 @@ window.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("showDetails")!==null ? document.getElementById("showDetails").style.display = "block" :""
             // document.getElementById("deleteDetails").style.display = "block";          
                 document.getElementById("Book").style.display = "none";
-    
-
-      
         }
 
         await res.forEach(data => {
-        
             let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.eventName}</td>
@@ -89,11 +84,11 @@ window.addEventListener("DOMContentLoaded", async () => {
        ${JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role"))==="head"  ? '' :`<td>${data.listedBy?.replaceAll("\"","")}</td>`}
         ${JSON.parse(localStorage.getItem("role")) === "member" ||
         JSON.parse(localStorage.getItem("role")) === "head"
-        ?`<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` : ''}
+        ?data.bookingStatus === 1 ? `<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` :`<td><a href='#' class="btn btn-primary disabled">Close</a></td>` : ''}
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':""}
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
         <td style="display:none">${data.eventId}</td>
-       ${JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin" ? 
+       ${((JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin") && pageName!="dashboard.html") ? 
        `<td><label class="switch"><input type="checkbox"><span class="slider"></span></label></td>`
        :
        ''
@@ -167,9 +162,9 @@ next.addEventListener("click", async () => {
         <td>${data.eventLocation}</td>
         <td>${data.startDate?.split("T")[0]}</td>
        ${JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role"))==="head"  ? '' :`<td>${data.listedBy?.replaceAll("\"","")}</td>`}
-        ${JSON.parse(localStorage.getItem("role")) === "member" ||
-        JSON.parse(localStorage.getItem("role")) === "head"
-        ?`<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` : ''}
+       ${JSON.parse(localStorage.getItem("role")) === "member" ||
+       JSON.parse(localStorage.getItem("role")) === "head"
+       ?data.bookingStatus === 1 ? `<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` :`<td><a href='#' class="btn btn-primary disabled">Close</a></td>` : ''}
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':""}
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
         <td style="display:none">${data.eventId}</td>
@@ -249,9 +244,9 @@ prev.addEventListener("click", async () => {
     <td>${data.eventLocation}</td>
     <td>${data.startDate?.split("T")[0]}</td>
    ${JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role"))==="head"  ? '' :`<td>${data.listedBy?.replaceAll("\"","")}</td>`}
-    ${JSON.parse(localStorage.getItem("role")) === "member" ||
-    JSON.parse(localStorage.getItem("role")) === "head"
-    ?`<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` : ''}
+   ${JSON.parse(localStorage.getItem("role")) === "member" ||
+   JSON.parse(localStorage.getItem("role")) === "head"
+   ?data.bookingStatus === 1 ? `<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` :`<td><a href='#' class="btn btn-primary disabled">Close</a></td>` : ''}
     ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':""}
     ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
     <td style="display:none">${data.eventId}</td>
