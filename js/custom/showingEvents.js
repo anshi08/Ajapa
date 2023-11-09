@@ -21,6 +21,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     
 
     const role = (JSON.parse(localStorage.getItem("role")))
+    if(role==="super" || role === "admin"){
+        document.getElementById("bookingStatus").style.display = "block"
+    }
+
     JSON.parse(localStorage.getItem("role")) === "member" ||
      JSON.parse(localStorage.getItem("role"))==="head"  ? 
      document.getElementById("listedByCol").style.display = 'none' : ''
@@ -51,7 +55,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     }else{
         res = await showingAllEventsByStatus(1);
     }
-
+        console.log(res)
 
         if(res.length==0){
             s.stop();
@@ -72,6 +76,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         }
 
         await res.forEach(data => {
+        
             let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.eventName}</td>
@@ -85,7 +90,14 @@ window.addEventListener("DOMContentLoaded", async () => {
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':""}
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
         <td style="display:none">${data.eventId}</td>
+       ${JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin" ? 
+       `<td><label class="switch"><input type="checkbox"><span class="slider"></span></label></td>`
+       :
+       ''
+        }
+        <td style='display:none'>${data.bookingStatus}</td>
         `
+        
         document.getElementById("body").appendChild(tr)
     })
          s.stop();
@@ -94,12 +106,26 @@ window.addEventListener("DOMContentLoaded", async () => {
             if(e.target.classList.contains("deleteEvent")){
                 if(confirm("Are You sure you want to delete this event")){
                     let event = e.target.parentElement.nextElementSibling.innerText;
-                    deleteEvent(event)
+                    deleteEvent(event,2)
                 }else{
                     alert("Sorry")
                 }
             }
         })
+    })
+    Array.from(document.getElementsByClassName("switch")).forEach(item => {
+          
+         item.children[0].addEventListener("click",(e)=>{
+            if(item.parentElement.nextElementSibling.innerText == 1){
+                changeStatus(e.target.parentElement.parentElement.previousElementSibling.innerText,0)
+          
+            }
+        else{
+            changeStatus(e.target.parentElement.parentElement.previousElementSibling.innerText,1)
+            
+        }
+
+      })
     })  
 
 next.addEventListener("click", async () => {
@@ -144,7 +170,13 @@ next.addEventListener("click", async () => {
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':""}
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
         <td style="display:none">${data.eventId}</td>
-        `
+        ${JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin" ? 
+        `<td><label class="switch"><input type="checkbox"><span class="slider"></span></label></td>`
+        :
+        ''
+         }
+         <td style='display:none'>${data.bookingStatus}</td>
+         `
         document.getElementById("body").appendChild(tr)
         s.stop();
 
@@ -152,6 +184,32 @@ next.addEventListener("click", async () => {
     }
 
          )
+         Array.from(document.getElementsByClassName("deleteEvent")).forEach(item => {
+            item.addEventListener("click",(e)=>{
+                if(e.target.classList.contains("deleteEvent")){
+                    if(confirm("Are You sure you want to delete this event")){
+                        let event = e.target.parentElement.nextElementSibling.innerText;
+                        deleteEvent(event,2)
+                    }else{
+                        alert("Sorry")
+                    }
+                }
+            })
+        })
+         Array.from(document.getElementsByClassName("switch")).forEach(item => {
+          
+            item.children[0].addEventListener("click",(e)=>{
+               if(item.parentElement.nextElementSibling.innerText == 1){
+                   changeStatus(e.target.parentElement.parentElement.previousElementSibling.innerText,0)
+             
+               }
+           else{
+               changeStatus(e.target.parentElement.parentElement.previousElementSibling.innerText,1)
+               
+           }
+   
+         })
+       }) 
 }
 })
 })
@@ -194,10 +252,44 @@ prev.addEventListener("click", async () => {
     ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':""}
     ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
     <td style="display:none">${data.eventId}</td>
+        ${JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin" ? 
+        `<td><label class="switch"><input type="checkbox"><span class="slider"></span></label></td>`
+        :
+        ''
+         }
+         <td style='display:none'>${data.bookingStatus}</td>
     `
     document.getElementById("body").appendChild(tr)
     // s.stop();
-})    
+})
+Array.from(document.getElementsByClassName("deleteEvent")).forEach(item => {
+    item.addEventListener("click",(e)=>{
+        if(e.target.classList.contains("deleteEvent")){
+            if(confirm("Are You sure you want to delete this event")){
+                let event = e.target.parentElement.nextElementSibling.innerText;
+                deleteEvent(event,2)
+            }else{
+                alert("Sorry")
+            }
+        }
+    })
+})
+Array.from(document.getElementsByClassName("switch")).forEach(item => {
+          
+    item.children[0].addEventListener("click",(e)=>{
+       if(item.parentElement.nextElementSibling.innerText == 1){
+           changeStatus(e.target.parentElement.parentElement.previousElementSibling.innerText,0)
+     
+       }
+   else{
+       changeStatus(e.target.parentElement.parentElement.previousElementSibling.innerText,1)
+       
+   }
+
+ })
+}) 
+
+
 }
 })
 async function showingAllEvents(first=1,last=5) {
@@ -287,12 +379,13 @@ document.getElementById("pendingrequest")?.addEventListener("click",()=>{
     window.location.href="getApprovedUsers.html"
 })
 
-async function deleteEvent(eventId){
-    const res = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/deleteEvent/${eventId}`,{
+async function deleteEvent(eventId,status){
+    const res = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changeEventStatus/${eventId}/${status}`,{
         method:"POST"
     })
     const response = await res.text()
-    window.location.href="showEvents.html"
+    console.log("🚀 ~ file: showingEvents.js:295 ~ deleteEvent ~ response:", response)
+    // window.location.href="showEvents.html"  
 }
 
 function checkSessionExpireOrNot(){
@@ -320,4 +413,15 @@ async function getValueForDashboard(){
     document.getElementById("rejectUser").innerHTML=response?.rejected_users
     document.getElementById("approvedUser").innerHTML = response?.approved_users
     document.getElementById("p_request").innerHTML = response?.pending_users
+}
+
+async function changeStatus(eventId,status){
+    const res = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changeBookingStatus/${eventId}/${status}`,{
+        method:"POST"
+    })
+    const response = await res.text()
+    if(response == "Event Booking Status Changed"){
+        window.location.reload()
+    }
+
 }
