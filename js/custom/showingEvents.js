@@ -22,7 +22,10 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     const role = (JSON.parse(localStorage.getItem("role")))
     if(role==="super" || role === "admin"){
-        document.getElementById("bookingStatus").style.display = "block"
+        // getValueForDashboard()
+        // document.getElementById("bookingStatus").style.display = "block"
+        document.getElementById("bookingStatus") !==null ?
+        document.getElementById("bookingStatus").style.display = "block"  :"" 
     }
 
     JSON.parse(localStorage.getItem("role")) === "member" ||
@@ -34,8 +37,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     }
 
-    if(role=="admin" || role=="super")
-    getValueForDashboard()
+    // if(role=="admin" || role=="super")
+    // getValueForDashboard()
 
 
             // Create a new spinner
@@ -150,7 +153,7 @@ next.addEventListener("click", async () => {
     prev.style.display = "block"
 
     if(res.length === 0){
-        document.getElementById("body").innerHTML = "<tr><td colspan='7'>No results to display</td></tr>";
+        document.getElementById("body").innerHTML = "<tr><td colspan='8'>No results to display</td></tr>";
         next.style.display = "none"
       
     }
@@ -409,6 +412,7 @@ async function getAge(){
 async function getValueForDashboard(){
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getValuesForDashBoard')
     const response = await res.json()
+    console.log("l",response)
     document.getElementById("totalevents").innerHTML = response?.total_events
     document.getElementById("rejectUser").innerHTML=response?.rejected_users
     document.getElementById("approvedUser").innerHTML = response?.approved_users
