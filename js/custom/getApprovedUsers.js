@@ -78,6 +78,7 @@ async function approvedUsers(email) {
         method: "POST",
      })
      const res = await response.json()
+    //  console.log("jj",res)
      window.location.href="dashboard.html"
      return res;
 }

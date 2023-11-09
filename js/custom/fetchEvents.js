@@ -14,7 +14,9 @@ async  function fetchDetails(){
     }
     document.getElementById('event_type').value = response.eventType;
     document.getElementById('event_location').value = response.eventLocation;
+    document.getElementById('lock_start_date').value = response.lockArrivalDate.split("T")[0];
     document.getElementById('start_date').value = response.startDate?.split("T")[0];
+    document.getElementById('lock_end_date').value = response.lockDepartureDate.split("T")[0]
     document.getElementById('s_time').value = response.startTime
     document.getElementById('e_time').value = response.endTime
    
@@ -60,7 +62,9 @@ let eventType = document.getElementById("event_type").value;
 let sTime = document.getElementById("s_time").value;
 let eTime = document.getElementById("e_time").value;
 let eventLocation = document.getElementById("event_location").value
+let startLockDate =  document.getElementById('lock_start_date').value 
 let startDate = document.getElementById("start_date").value
+let endLockDate =  document.getElementById('lock_end_date').value 
 let file = document.getElementById("file").files[0]
 
 
@@ -78,7 +82,9 @@ else {
         startTime : sTime,
         endTime: eTime,
         eventLocation: eventLocation,
+        lockArrivalDate : startLockDate,
         startDate: startDate,
+        lockDepartureDate: endLockDate,
         file:file,
         listedBy : localStorage.getItem("role").replaceAll("\"","")
     }
@@ -94,8 +100,7 @@ else {
     } else {
    
     }
-     console.log("Mydata",data)
-    // updateEvents(data);
+    //  console.log("Mydata",data)
     
     updateEvents(data)
     
@@ -110,9 +115,12 @@ function clearAllFields(){
    document.getElementById("e_time").value = '';
    document.getElementById("event_location").value = '';
    document.getElementById("start_date").value = '';
+   document.getElementById('lock_start_date').value = '';
+   document.getElementById('lock_end_date').value = '';
 }
 
 async function updateEvents(data) {
+    console.log("jj",data)
     let id = window.location.href.split("?")[1].split("=")[1]
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/editEvent/${id}` ,{
         method: "PUT",

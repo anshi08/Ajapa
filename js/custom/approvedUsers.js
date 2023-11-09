@@ -11,6 +11,7 @@ async function getApprovedUser(first=1,last=5){
         method:"GET"
     })
     const response = await res.json()
+    console.log("ll",response)
     document.getElementById("body").innerHTML = null
     response.forEach(data => {
         if(data.id != 1){
@@ -18,9 +19,10 @@ async function getApprovedUser(first=1,last=5){
         let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.fullName}</td>
+        <td><a href="http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${data.email}.jpg" class="view">Profile</td>
         <td>${data.email}</td>
         <td>${data.mobileNum}</td>
-        <td>${data.dob}</td>
+        <td>${data.age}</td>
         <td>${data.country.split(":")[1]}</td>
         <td>${data.state.split(":")[1]}</td>
         <td>${data.city.split(":")[1]}</td>
