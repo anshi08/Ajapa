@@ -391,13 +391,13 @@ async function deleteEvent(eventId,status){
     // window.location.href="showEvents.html"  
 }
 
-function checkSessionExpireOrNot(){
-    setTimeout(()=>{
-        localStorage.clear()
-        window.location.reload()
-    },43200000)
-}
-checkSessionExpireOrNot()
+// function checkSessionExpireOrNot(){
+//     setTimeout(()=>{
+//         localStorage.clear()
+//         window.location.reload()
+//     },43200000)
+// }
+// checkSessionExpireOrNot()
 async function getAge(){
     let id = parseJwt(localStorage.getItem("data")).id
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAge/'+id)
@@ -429,3 +429,15 @@ async function changeStatus(eventId,status){
     }
 
 }
+
+
+function setSessionTimeout() {
+    const timeoutInMilliseconds = 43200000; // 12 hours
+  
+    setTimeout(() => {
+      alert('Your session has timed out. You are now logged out.');
+      localStorage.clear();
+      window.location.href = 'login.html';
+    }, timeoutInMilliseconds);
+  }
+setSessionTimeout();

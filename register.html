@@ -22,6 +22,12 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 <!-- Recaptcha link -->
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<style>
+    .required-field::after {
+    content: "*";
+    color: red;
+}
+</style>
 </head>
 
 <body class="bg-gradient-primary">
@@ -86,14 +92,14 @@
 
 
                             <form class="user" id="btn">
-                                <div class="form-group">
-                                    <label>Enter Name</label>
+                                <div class="form-group ">
+                                    <label class="required-field">Name</label>
                                         <input type="text" class="form-control " 
                                             placeholder="Full Name" id="name" required pattern="[A-Za-z ]*" title="Only characters are allowed">
                                             <p id="NameErr" style="display: none;color: red;">Enter Name</p>
                                 </div>
                                 <div class="form-group">
-                                    <label>Select Gender :</label>
+                                    <label class="required-field">Select Gender :</label>
                                     <select class="form-control" name="category" id="gender" required> 
                                             <option>Select</option>
                                             <option>Male</option>
@@ -103,7 +109,7 @@
                                       <p id="genderErr" style="display: none;color: red;">Select Gender</p>
                                       </div>
                              <div class="form-group">
-                                <label>Enter Date of Birth</label>
+                                <label class="required-field">Date of Birth</label>
                                     <input type="date" class="form-control " 
                                         placeholder="Dob" id="dob"
                                         min="1923-01-01" 
@@ -112,32 +118,32 @@
                                    </div>
 
                                    <div class="form-group">
-                                    <label >Choose file for Profile Picture :</label>
+                                    <label class="required-field">Choose file for Profile Picture :</label>
                                     <input type="file" class="form-control-file" name="file" id="file">
                                   </div>
 
                             <div class="form-group">
-                                <label>Enter Mobile Number</label>
+                                <label class="required-field">Mobile Number</label>
                                     <input type="tel" class="form-control" placeholder="Enter mobile Number" 
                                     id="mobile_num" required>
                                 <p id="phoneNumberTxt" style="display: none;color:red">Phone Number is not valid</p>
                             </div>
 
                                 <div class="form-group">
-                                    <label>Enter Email</label>
+                                    <label class="required-field">Email</label>
                                     <input type="email" class="form-control " 
                                         placeholder="Email Address" id="email"  maxlength="50" required>
                                         <p id="emailErr" style="display: none;color:red"></p>
                                 </div>
                                 <div class="form-group">
-                                    <label>Password</label>
+                                    <label class="required-field">Password</label>
                                         <input type="password" class="form-control "
                                             id="pw" placeholder="Password" required minlength="5" maxlength="20">
                                     <p id="pwdTxt" style="display: none;color:red"></p>
                                 </div>
 
                                 <div class="form-group">   
-                                    <label>Re-type Password</label>  
+                                    <label class="required-field">Re-type Password</label>  
                                     <input type="password" required class="form-control" minlength="5"  maxlength="20"
                                         id="rpwd" placeholder="Re-type Password" required onblur="validatePasswords()">
                                         <div style="margin-left: 20px; display: none; color: red;" id="pwdErr">Password Doesn't Match</div>
@@ -145,7 +151,7 @@
                                 
                                 <!-- Country -->
                             <div class="form-group">
-                                <label>Select a Country :</label>
+                                <label class="required-field">Select a Country :</label>
                                 <select id="country" class="form-control" required>
                                     <!-- Options will be added dynamically -->
                                     <option value="">Country</option>
@@ -154,7 +160,7 @@
 
                             <!-- State -->
                         <div class="form-group">
-                            <label>Select a State :</label>
+                            <label class="required-field">Select a State :</label>
                             <select id="state" class="form-control" required>
                                 <!-- Options will be added dynamically -->
                                 <option value="">State</option>
@@ -162,7 +168,7 @@
                         </div>
                         <!-- City -->
                         <div class="form-group">
-                            <label>Select a City :</label>
+                            <label class="required-field">Select a City :</label>
                             <select id="city" class="form-control" required>
                                 <!-- Options will be added dynamically -->
                                 <option value="">City</option>

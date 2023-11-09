@@ -103,13 +103,6 @@ async function getHistory(id,first=1,last=5){
     return {response,currentTime}
 }
 
-function checkSessionExpireOrNot(){
-    setTimeout(()=>{
-        localStorage.clear()
-        window.location.reload()
-    },43200000)
-}
-
 
 async function deleteEvent(travelId){
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/deleteTravelDetails/'+travelId,{
@@ -129,6 +122,14 @@ function isFirstDateGreater(date1, date2) {
 }
 
 
-
-checkSessionExpireOrNot()
+function setSessionTimeout() {
+    const timeoutInMilliseconds = 43200000; // 12 hours
+  
+    setTimeout(() => {
+      alert('Your session has timed out. You are now logged out.');
+      localStorage.clear();
+      window.location.href = 'login.html';
+    }, timeoutInMilliseconds);
+  }
+setSessionTimeout();
 

@@ -46,10 +46,14 @@ async function deletAdmin(id){
     window.location.href="showAdmins.html"
 }
 
-function checkSessionExpireOrNot(){
-    setTimeout(()=>{
-        localStorage.clear()
-        window.location.reload()
-    },43200000)
-}
-checkSessionExpireOrNot()
+
+function setSessionTimeout() {
+    const timeoutInMilliseconds = 43200000; // 12 hours
+  
+    setTimeout(() => {
+      alert('Your session has timed out. You are now logged out.');
+      localStorage.clear();
+      window.location.href = 'login.html';
+    }, timeoutInMilliseconds);
+  }
+setSessionTimeout();

@@ -56,3 +56,15 @@ function validate() {
         submitBtn.disabled = false;
     }
 }
+
+
+function setSessionTimeout() {
+    const timeoutInMilliseconds = 43200000; // 12 hours
+  
+    setTimeout(() => {
+      alert('Your session has timed out. You are now logged out.');
+      localStorage.clear();
+      window.location.href = 'login.html';
+    }, timeoutInMilliseconds);
+  }
+setSessionTimeout();
