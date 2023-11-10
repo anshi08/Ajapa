@@ -447,7 +447,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         Array.from(document.getElementById("familyDDL1")).forEach((showedMember,idx) => {
      
             if(member.userId === +showedMember.value){
-                document.getElementById("familyDDL1").options[idx].innerText+= "  [Already Booked]"
+                document.getElementById("familyDDL1").options[idx].innerText+= "  [Registered]"
                 document.getElementById("familyDDL1").options[idx].disabled = true
             }else{
 

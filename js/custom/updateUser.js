@@ -355,6 +355,10 @@ async function detailsOfUser(email) {
     rememberMobInput.addEventListener("click" , () => {
         document.getElementById("whatsapp_num").value = document.getElementById("mobile_num").value
     });
+    if(res.mobileNum === res.whatsappNum){
+    document.getElementById("rememberMob").checked = true;
+    document.getElementById("whatsapp_num").value = res.whatsappNum
+    }
     document.getElementById("whatsapp_num").value = res.whatsappNum
     let aa = res.country.split(":")
     document.getElementById("email").value = res.email;   

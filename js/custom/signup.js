@@ -200,7 +200,7 @@ res.forEach((state) => {
   async function signup(data){
 
     const captchaResponse = grecaptcha.getResponse();
-    console.log(captchaResponse)
+    // console.log(captchaResponse)
 
     if (!captchaResponse) {
         alert("Please complete the reCAPTCHA challenge.");

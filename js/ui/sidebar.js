@@ -49,12 +49,14 @@ function loadContent() {
                 document.getElementById("events").style.display = "block"
                 document.getElementById("addMembers").style.display = "none"
                 document.getElementById("showTravel").style.display = "none"
+                document.getElementById("history").style.display = "block"
             }
             if(JSON.parse(localStorage.getItem("role")) === "head"){
                 document.getElementById("superOnly").style.display = "block"
                 document.getElementById("addEvent").style.display = "none"
                 document.getElementById("events").style.display = "block"
                 document.getElementById("showTravel").style.display = "none"
+                document.getElementById("history").style.display = "block"
             }
             if (token) {
                 try {

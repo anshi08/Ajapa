@@ -225,14 +225,15 @@ element.addEventListener('change', function (e) {
     if(response.ok){
     const res = await response.json()
     console.log(res)
-    clearAllFields();
-    // document.getElementById("pwdErr").style.display  = "none"
-    // waitingResponse
-    $('#pendingreq10').modal('show');
-    setTimeout(()=>{
-        window.location.href = "showFamilyMembers.html"
-    },2000)
-       
+    if(res.msg === 'User exists'){
+        $('#alreadyUser').modal('show');
+    }else{
+        $('#pendingreq10').modal('show');
+        // clearAllFields();
+        // setTimeout(()=>{
+        //     window.location.href = "showFamilyMembers.html"
+        // },2000)
+    }
     return res;
     }
 } catch (error) {
