@@ -70,7 +70,7 @@ btn.addEventListener("submit", (e) =>{
         dob: dob, 
         mobileNum: mobileNum,
         email: chk.checked ? null :email,
-        password:chk.checked ? 'abc@password':password,
+        password:chk.checked ? 'abc@password':pw,
         country: country,
         city: city,
         state: state,
@@ -225,9 +225,15 @@ element.addEventListener('change', function (e) {
     if(response.ok){
     const res = await response.json()
     console.log(res)
-    if(res.msg === 'User exists'){
+    if(res.msg === 'Email already exists'){
         $('#alreadyUser').modal('show');
-    }else{
+        document.getElementById("alreadyUserTxt").innerText = "Email Already exists"
+    }
+    else if(res.msg === 'Phone number already exists'){
+        $('#alreadyUser').modal('show');
+        document.getElementById("alreadyUserTxt").innerText = "Phone number already exists"
+    }
+    else{
         $('#pendingreq10').modal('show');
         // clearAllFields();
         // setTimeout(()=>{
