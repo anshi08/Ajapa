@@ -90,7 +90,9 @@ btn.addEventListener("submit", (e) =>{
     }
     else{
         // console.log('l',data)
-       signup(data);
+        localStorage.setItem("signupData",JSON.stringify(data))
+        window.localStorage.href='signupVerify.html'
+    //    signup(data);
     }
 
 })
