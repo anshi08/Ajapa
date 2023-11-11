@@ -29,13 +29,14 @@ async function resetPassword(password){
     })
 
     const res = await response.text()
-    console.log("k",res)
+    // console.log("k",res)
     if(res === 'Your password has been changed'){
         document.getElementById("password").value='';
         document.getElementById("repwd").value='';
         $('#ForgetPassword').modal('show');
         setTimeout(()=>{
-            window.location.href = "dashboard.html"
+            localStorage.clear();
+            window.location.href = "login.html"
         },2000)
     }
    

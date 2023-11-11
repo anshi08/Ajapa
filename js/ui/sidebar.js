@@ -69,6 +69,8 @@ function loadContent() {
                     console.error("Error parsing JWT:", error);
                 }
             }
+            let email = parseJwt(localStorage.getItem("data")).email
+            document.getElementById("userPic").src = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${email}.jpg`
         })
         .catch(error => {
             console.error('Error fetching content:', error);
