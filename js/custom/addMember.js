@@ -3,11 +3,11 @@ let element = document.getElementById("country")
 let stateElement = document.getElementById("state")
 let cityElement = document.getElementById("city")
 let phoneNumber = document.getElementById("mobile_num")
+let chk = document.getElementById("chk")
 let  phoneNumberIsValid = ""
 let dob = document.getElementById("dob")
 let today = new Date().toISOString().split('T')[0];
 dob.setAttribute("max",today)
-
 
 
 function getElementByIdName(idName){
@@ -69,8 +69,8 @@ btn.addEventListener("submit", (e) =>{
         gender: gender,
         dob: dob, 
         mobileNum: mobileNum,
-        email: email,
-        password:pw,
+        email: chk.checked ? null :email,
+        password:chk.checked ? 'abc@password':password,
         country: country,
         city: city,
         state: state,
@@ -371,6 +371,14 @@ window.addEventListener("DOMContentLoaded",async ()=>{
 
     })
 })
+
+chk.addEventListener("click",()=>{
+document.getElementById("emaildiv").style.display = document.getElementById("emaildiv").style.display === 'none' ? 'block':"none"
+document.getElementById("passwordiv").style.display = document.getElementById("passwordiv").style.display === 'none' ? 'block':"none"
+
+})
+
+
 
 function setSessionTimeout() {
     const timeoutInMilliseconds = 43200000; // 12 hours
