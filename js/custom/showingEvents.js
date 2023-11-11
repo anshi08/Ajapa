@@ -181,7 +181,7 @@ next.addEventListener("click", async () => {
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
         <td style="display:none">${data.eventId}</td>
         ${JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin" ? 
-        `<td class='sliderList'><label class="switch"><input type="checkbox"><span class="slider"  ><span class="slider"></span></label></td>`
+        `<td class='sliderList'><label class="switch"><input type="checkbox"><span class="slider"  ></span></label></td>`
         :
         ''
          }
@@ -193,7 +193,7 @@ next.addEventListener("click", async () => {
         Array.from(document.getElementsByClassName('sliderList'),(item) =>{
             console.log(item.firstElementChild.lastElementChild,item.nextElementSibling)
             if(+item.nextElementSibling.innerHTML===0){
-                
+                console.log("kk")
                 item.firstElementChild.lastElementChild.style.backgroundColor = '#2196F3'
                 item.firstElementChild.lastElementChild.classList.add('on');
     
@@ -201,10 +201,10 @@ next.addEventListener("click", async () => {
             }
         })
 
-        
     }
 
          )
+         
          Array.from(document.getElementsByClassName("deleteEvent")).forEach(item => {
             item.addEventListener("click",(e)=>{
                 if(e.target.classList.contains("deleteEvent")){
@@ -274,7 +274,7 @@ prev.addEventListener("click", async () => {
     ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
     <td style="display:none">${data.eventId}</td>
         ${JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin" ? 
-        `<td><label class="switch"><input type="checkbox"><span class="slider"></span></label></td>`
+        `<td class='sliderList'><label class="switch"><input type="checkbox"><span class="slider"  ></span></label></td>`
         :
         ''
          }
@@ -282,6 +282,17 @@ prev.addEventListener("click", async () => {
     `
     document.getElementById("body").appendChild(tr)
     // s.stop();
+
+    Array.from(document.getElementsByClassName('sliderList'),(item) =>{
+        console.log(item.firstElementChild.lastElementChild,item.nextElementSibling)
+        if(+item.nextElementSibling.innerHTML===0){
+            console.log("kk")
+            item.firstElementChild.lastElementChild.style.backgroundColor = '#2196F3'
+            item.firstElementChild.lastElementChild.classList.add('on');
+
+
+        }
+    })
 })
 Array.from(document.getElementsByClassName("deleteEvent")).forEach(item => {
     item.addEventListener("click",(e)=>{
