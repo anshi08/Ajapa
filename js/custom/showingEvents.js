@@ -2,6 +2,7 @@ let currentPage = 1;
 const eventsPerPage = 5;
 let totalRecords;
 
+
 //pendingDialog101s
 if(JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStorage.getItem("role")) === "head" || JSON.parse(localStorage.getItem("role")) === "member"){
     document.getElementById("pendingrequest") !==null ?document.getElementById("pendingrequest").style.display = "none"  :"" 
@@ -9,7 +10,6 @@ if(JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStora
     document.getElementById("rejectedUserCard") !==null ?document.getElementById("rejectedUserCard").style.display = "none"  :"" 
     document.getElementById("TotaleventsCard") !==null ?document.getElementById("TotaleventsCard").style.display = "none"  :"" 
 }
-
 
 
 let prev = document.getElementById("prev")
@@ -89,7 +89,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
         <td style="display:none">${data.eventId}</td>
        ${((JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin") && pageName!="dashboard.html") ? 
-       `<td><label class="switch"><input type="checkbox"><span class="slider"></span></label></td>`
+       `<td class='sliderList'><label class="switch"><input type="checkbox"><span class="slider"  ></span></label></td>`
        :
        ''
         }
@@ -99,6 +99,18 @@ window.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("body").appendChild(tr)
     })
          s.stop();
+
+    Array.from(document.getElementsByClassName('sliderList'),(item) =>{
+        console.log(item.firstElementChild.lastElementChild,item.nextElementSibling)
+        if(+item.nextElementSibling.innerHTML===0){
+            
+            item.firstElementChild.lastElementChild.style.backgroundColor = '#2196F3'
+            item.firstElementChild.lastElementChild.classList.add('on');
+
+
+        }
+    })
+
     Array.from(document.getElementsByClassName("deleteEvent")).forEach(item => {
         item.addEventListener("click",(e)=>{
             if(e.target.classList.contains("deleteEvent")){
@@ -114,9 +126,9 @@ window.addEventListener("DOMContentLoaded", async () => {
     Array.from(document.getElementsByClassName("switch")).forEach(item => {
           
          item.children[0].addEventListener("click",(e)=>{
+     
             if(item.parentElement.nextElementSibling.innerText == 1){
-                changeStatus(e.target.parentElement.parentElement.previousElementSibling.innerText,0)
-          
+                changeStatus(e.target.parentElement.parentElement.previousElementSibling.innerText,0)  
             }
         else{
             changeStatus(e.target.parentElement.parentElement.previousElementSibling.innerText,1)
@@ -169,7 +181,7 @@ next.addEventListener("click", async () => {
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
         <td style="display:none">${data.eventId}</td>
         ${JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin" ? 
-        `<td><label class="switch"><input type="checkbox"><span class="slider"></span></label></td>`
+        `<td class='sliderList'><label class="switch"><input type="checkbox"><span class="slider"  ><span class="slider"></span></label></td>`
         :
         ''
          }
@@ -177,6 +189,17 @@ next.addEventListener("click", async () => {
          `
         document.getElementById("body").appendChild(tr)
         s.stop();
+
+        Array.from(document.getElementsByClassName('sliderList'),(item) =>{
+            console.log(item.firstElementChild.lastElementChild,item.nextElementSibling)
+            if(+item.nextElementSibling.innerHTML===0){
+                
+                item.firstElementChild.lastElementChild.style.backgroundColor = '#2196F3'
+                item.firstElementChild.lastElementChild.classList.add('on');
+    
+    
+            }
+        })
 
         
     }
@@ -398,13 +421,6 @@ async function deleteEvent(eventId,status){
     // window.location.href="showEvents.html"  
 }
 
-// function checkSessionExpireOrNot(){
-//     setTimeout(()=>{
-//         localStorage.clear()
-//         window.location.reload()
-//     },43200000)
-// }
-// checkSessionExpireOrNot()
 async function getAge(){
     let id = parseJwt(localStorage.getItem("data")).id
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAge/'+id)

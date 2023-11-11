@@ -67,14 +67,14 @@ btn.addEventListener("submit", (e) =>{
         country: country,
         city: city,
         state: state,
-        disciple:disciple,
+        disciple:disciple==='Yes' ? true:false,
         userType:"head"
     }
 
-    if (disciple === "Select") {
-        alert("Please select whether you are an Ajapa Disciple.");
-        return;
-    }
+    // if (disciple === "Select") {
+    //     alert("Please select whether you are an Ajapa Disciple.");
+    //     return;
+    // }
 
     if(phoneNumberValue ==="LessThan10Digit"){
         alert("Enter Valid 10 Digits Mobile Number")
@@ -89,8 +89,8 @@ btn.addEventListener("submit", (e) =>{
 
     }
     else{
-        console.log('l',data)
-//    signup(data);
+        // console.log('l',data)
+       signup(data);
     }
 
 })
