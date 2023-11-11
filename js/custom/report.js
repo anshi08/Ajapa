@@ -185,7 +185,7 @@ window.addEventListener("DOMContentLoaded",async(e) =>{
 
     let report1LeavingReaching = document.getElementById("report1LeavingReaching")
     report1LeavingReaching.addEventListener("change",async (e) =>{
-        if(e.target.value === "Leaving Date"){
+        if(e.target.value === "Departure Date"){
             let eventId = document.getElementById("report1Events").options[document.getElementById("report1Events").selectedIndex].value
            let eventSorted = await getTravelReportDateWiseLeavning(eventId)
            tableofReport1.innerHTML=null    
@@ -226,7 +226,7 @@ window.addEventListener("DOMContentLoaded",async(e) =>{
 //Report 2
 let report2LeavingReaching = document.getElementById("report2LeavingReaching")
 report2LeavingReaching.addEventListener("change",async (e) =>{
-    if(e.target.value === "Leaving Date"){
+    if(e.target.value === "Departure Date"){
         let eventId = document.getElementById("report2Events").options[document.getElementById("report2Events").selectedIndex].value
        let eventSorted = await getTravelReportDateWise2Leaving(eventId)
        document.getElementById("report2body").innerHTML=null

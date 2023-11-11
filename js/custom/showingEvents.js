@@ -377,6 +377,18 @@ document.getElementById("pendingrequest")?.addEventListener("click",()=>{
     window.location.href="getApprovedUsers.html"
 })
 
+document.getElementById("TotaleventsCard").addEventListener("click",()=>{
+   window.location.href="showEvents.html"
+})
+
+document.getElementById("rejectedUserCard").addEventListener("click",()=>{
+    window.location.href="rejectUsers.html"
+})
+
+document.getElementById("approvedUserCard").addEventListener("click",()=>{
+    window.location.href="approvedUsers.html"
+})
+
 async function deleteEvent(eventId,status){
     const res = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changeEventStatus/${eventId}/${status}`,{
         method:"POST"

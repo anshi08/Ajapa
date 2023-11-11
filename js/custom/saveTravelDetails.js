@@ -222,7 +222,15 @@ btn.addEventListener("submit", async (e) =>{
             familyId:localStorage.getItem("family_id")
         }
     }
-    saveTravelDetails(data)
+
+    const registerAnother = confirm("Travel details registered successfully. Do you want to register another member?");
+    
+    if (registerAnother) {
+        window.location.href = `addTravelDetails.html?id=${id}`;
+    } else {
+        window.location.href = "history.html";
+    }
+    await saveTravelDetails(data)
     setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data) 
 })
 

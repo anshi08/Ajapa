@@ -2,6 +2,10 @@ let startTime = document.getElementById("start_time")
 let endTime = document.getElementById("end_time")
 const DropDownStatus = document.getElementById("event_type");
 
+let dob = document.getElementById("start_date")
+let today = new Date().toISOString().split('T')[0];
+dob.setAttribute("min",today)
+
 async  function fetchDetails(){
     let id = window.location.href.split("?")[1].split("=")[1]
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/fetchEvent/'+id)

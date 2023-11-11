@@ -3,6 +3,11 @@ let startTime = document.getElementById("start_time")
 let endTime = document.getElementById("end_time")
 const statusdd = document.getElementById("event_type");
 
+let dob = document.getElementById("start_date")
+let today = new Date().toISOString().split('T')[0];
+dob.setAttribute("min",today)
+
+
 
 
 function getElementByIdName(idName){

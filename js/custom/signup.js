@@ -12,7 +12,6 @@ let today = new Date().toISOString().split('T')[0];
 dob.setAttribute("max",today)
 
 
-
 function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
@@ -54,6 +53,7 @@ btn.addEventListener("submit", (e) =>{
     let country = document.getElementById("country").value+":"+country_ele.options[country_ele.selectedIndex].text;
     let city = document.getElementById("city").value+":"+city_ele.options[city_ele.selectedIndex].text;
     let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
+    let disciple = document.getElementById("disciple").value
 
 
     const data = {
@@ -67,7 +67,13 @@ btn.addEventListener("submit", (e) =>{
         country: country,
         city: city,
         state: state,
+        disciple:disciple,
         userType:"head"
+    }
+
+    if (disciple === "Select") {
+        alert("Please select whether you are an Ajapa Disciple.");
+        return;
     }
 
     if(phoneNumberValue ==="LessThan10Digit"){
@@ -83,8 +89,8 @@ btn.addEventListener("submit", (e) =>{
 
     }
     else{
-        // console.log('l',data)
-   signup(data);
+        console.log('l',data)
+//    signup(data);
     }
 
 })
@@ -325,6 +331,16 @@ document.getElementById("email").addEventListener("input",e=>{
         document.getElementById("emailErr").innerText = "Enter Valid Email Address"
     }else{
         document.getElementById("emailErr").style.display = "none"
+    }
+})
+
+document.getElementById("disciple").addEventListener("focusout",e=>{
+    // console.log(e.target.value)
+    if(e.target.value === "Select"){
+        document.getElementById("Error").style.display = "block"
+        document.getElementById("disciple").focus();
+    }else{
+        document.getElementById("Error").style.display = "none"
     }
 })
 
