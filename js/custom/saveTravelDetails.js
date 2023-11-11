@@ -49,13 +49,21 @@ document.getElementById("arrival_time").addEventListener("input",e =>{
 })
 
 document.getElementById("arrival_train_number").addEventListener("input",e =>{
-    debounce(handleInput(e.target.value), 300)
-    if(e.target.value === 0 || e.target.value.length === 0){
-       document.getElementById("trainErr").style.display = "block"
-      
-    }else{
-        document.getElementById("trainErr").style.display = "none"
+
+    let inputValue = e.target.value;
+
+    if(inputValue.length>5){
+
+        const substring = inputValue.toString().substring(0,5)
+        document.getElementById("arrival_train_number").value = substring
     }
+    // debounce(handleInput(e.target.value), 300)
+    // if(e.target.value === 0 || e.target.value.length === 0){
+    //    document.getElementById("trainErr").style.display = "block"
+      
+    // }else{
+    //     document.getElementById("trainErr").style.display = "none"
+    // }
 })
 
 // document.getElementById("arrival_train_name").addEventListener("input",e =>{
@@ -83,12 +91,19 @@ document.getElementById("departure_time").addEventListener("input",e =>{
 })
 
 document.getElementById("departure_train_number").addEventListener("input",e =>{
-    debounce(handleInput1(e.target.value), 300)
-    if(e.target.value === 0 || e.target.value.length === 0){
-       document.getElementById("Err").style.display = "block"
-    }else{
-        document.getElementById("Err").style.display = "none"
+    let inputValue = e.target.value;
+
+    if(inputValue.length>5){
+
+        const substring = inputValue.toString().substring(0,5)
+        document.getElementById("departure_train_number").value = substring
     }
+    // debounce(handleInput1(e.target.value), 300)
+    // if(e.target.value === 0 || e.target.value.length === 0){
+    //    document.getElementById("Err").style.display = "block"
+    // }else{
+    //     document.getElementById("Err").style.display = "none"
+    // }
 })
 
 // document.getElementById("departure_train_name").addEventListener("input",e =>{
@@ -152,13 +167,15 @@ btn.addEventListener("submit", async (e) =>{
             arrivalDate: arr_date,
             arrivalTime: arr_time,
             arrivalModeOfTransport: arr_transport,
-            arrivalTrainNumber: getElementByIdName("train_number").split("--")[0].replace("[","").replace("]",""),
-            arrivalTrainName: getElementByIdName("train_number").split("--")[1],
+            arrivalTrainNumber:document.getElementById("arrival_train_number").value,
+            // arrivalTrainNumber: getElementByIdName("train_number").split("--")[0].replace("[","").replace("]",""),
+            // arrivalTrainName: getElementByIdName("train_number").split("--")[1],
             departureDate: dep_date,
             departureTime: dep_time,
             departureModeOfTransport: dep_transport,
-            departureTrainNumber: getElementByIdName("train_number_1").split("--")[0].replace("[","").replace("]",""),
-            departureTrainName:  getElementByIdName("train_number_1").split("--")[1],
+            departureTrainNumber:document.getElementById("departure_train_number").value,
+            // departureTrainNumber: getElementByIdName("train_number_1").split("--")[0].replace("[","").replace("]",""),
+            // departureTrainName:  getElementByIdName("train_number_1").split("--")[1],
             description: desc,
             userId : uid,
             userName:userName,
@@ -174,8 +191,9 @@ btn.addEventListener("submit", async (e) =>{
             arrivalDate: arr_date,
             arrivalTime: arr_time,
             arrivalModeOfTransport: arr_transport,
-            arrivalTrainNumber: getElementByIdName("train_number").split("--")[0].replace("[","").replace("]",""),
-            arrivalTrainName: getElementByIdName("train_number").split("--")[1],
+            arrivalTrainNumber:document.getElementById("arrival_train_number").value,
+            // arrivalTrainNumber: getElementByIdName("train_number").split("--")[0].replace("[","").replace("]",""),
+            // arrivalTrainName: getElementByIdName("train_number").split("--")[1],
             departureDate: dep_date,
             departureTime: dep_time,
             departureModeOfTransport: dep_transport,
@@ -196,8 +214,9 @@ btn.addEventListener("submit", async (e) =>{
             departureDate: dep_date,
             departureTime: dep_time,
             departureModeOfTransport: dep_transport,
-            departureTrainNumber: getElementByIdName("train_number_1").split("--")[0].replace("[","").replace("]",""),
-            departureTrainName:  getElementByIdName("train_number_1").split("--")[1],
+            departureTrainNumber:document.getElementById("departure_train_number").value,
+            // departureTrainNumber: getElementByIdName("train_number_1").split("--")[0].replace("[","").replace("]",""),
+            // departureTrainName:  getElementByIdName("train_number_1").split("--")[1],
             description: desc,
             userId : uid,
             userName:userName,
@@ -312,8 +331,8 @@ element.addEventListener('change', function (e) {
     }
     if(address.departureTrainName!==null){
         document.getElementById("transport1").style.display="block"
-        document.getElementById("train_number_1").style.display = "block"
-        document.getElementById("train_detail_label_1").style.display="block"
+        // document.getElementById("train_number_1").style.display = "block"
+        // document.getElementById("train_detail_label_1").style.display="block"
         document.getElementById("departure_train_number").value = address?.departureTrainNumber || address?.departureTrainName
         handleInput1(address?.departureTrainNumber || address?.departureTrainName)
     }
@@ -500,7 +519,6 @@ function debounce(func, wait) {
 }
 
 async function handleInput(searchInput) {
-console.log("🚀 ~ file: saveTravelDetails.js:496 ~ handleInput ~ searchInput:", searchInput)
 
     let newSearchInput = ""
     if(searchInput?.value!==undefined){
@@ -509,33 +527,33 @@ console.log("🚀 ~ file: saveTravelDetails.js:496 ~ handleInput ~ searchInput:"
         newSearchInput = searchInput
     }
         const searchTerm = newSearchInput 
-        console.log(searchTerm)
         if (searchTerm.length === 0) {
-            document.getElementById("train_detail_label").style.display = "none" 
+            // document.getElementById("train_detail_label").style.display = "none" 
             return; // No need to perform a search if the input is empty
         }
 
         try {
             // Fetch search results from an API (replace with your API endpoint)
-            document.getElementById("train_number").style.display = "block" 
-            document.getElementById("train_detail_label").style.display = "block"
+            // document.getElementById("train_number").style.display = "block" 
+            // document.getElementById("train_detail_label").style.display = "block"
             const data = await getTrainDetails(searchTerm);
             // Display search results
             let select = document.getElementById("train_number")
         
-            if (data && data.length > 0) {
-                select.innerHTML=""
-                console.log(data)
-            data.forEach(result => {
-                const resultItem = document.createElement("option");
-                resultItem.innerText = `[${result.train_num}]--${result.name}`; // Replace with the property that contains the result text
-                select.appendChild(resultItem);
-            });
-            } else {
-            const noResultsMessage = document.createElement("div");
-            noResultsMessage.textContent = "No results found";
-            // searchResults.appendChild(noResultsMessage);
-            }
+            // if (data && data.length > 0) {
+            //     select.innerHTML=""
+            //     console.log(data)
+            // data.forEach(result => {
+            //     const resultItem = document.createElement("option");
+            //     resultItem.innerText = `[${result.train_num}]--${result.name}`; // Replace with the property that contains the result text
+            //     select.appendChild(resultItem);
+            // });
+            // } 
+            // else {
+            // const noResultsMessage = document.createElement("div");
+            // noResultsMessage.textContent = "No results found";
+            // // searchResults.appendChild(noResultsMessage);
+            // }
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -557,25 +575,25 @@ async function handleInput1(searchInput) {
     
             try {
                 // Fetch search results from an API (replace with your API endpoint)
-                document.getElementById("train_number_1").style.display = "block" 
-                document.getElementById("train_detail_label_1").style.display = "block"
-                const data = await getTrainDetails(searchTerm);
-                console.log("anshi",data,searchTerm)
+                // document.getElementById("train_number_1").style.display = "block" 
+                // document.getElementById("train_detail_label_1").style.display = "block"
+                // const data = await getTrainDetails(searchTerm);
+                // console.log("anshi",data,searchTerm)
                 // Display search results
-                let select = document.getElementById("train_number_1")
-                if (data && data.length > 0) {
-                    select.innerHTML=""
+                // let select = document.getElementById("train_number_1")
+                // if (data && data.length > 0) {
+                //     select.innerHTML=""
               
-                data.forEach(result => {
-                    const resultItem = document.createElement("option");
-                    resultItem.innerText = `[${result.train_num}]--${result.name}`; // Replace with the property that contains the result text
-                    select.appendChild(resultItem);
-                });
-                } else {
-                const noResultsMessage = document.createElement("div");
-                noResultsMessage.textContent = "No results found";
-                // searchResults.appendChild(noResultsMessage);
-                }
+                // data.forEach(result => {
+                //     const resultItem = document.createElement("option");
+                //     resultItem.innerText = `[${result.train_num}]--${result.name}`; // Replace with the property that contains the result text
+                //     select.appendChild(resultItem);
+                // });
+                // } else {
+                // const noResultsMessage = document.createElement("div");
+                // noResultsMessage.textContent = "No results found";
+                // // searchResults.appendChild(noResultsMessage);
+                // }
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
