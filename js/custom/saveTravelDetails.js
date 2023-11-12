@@ -168,12 +168,14 @@ btn.addEventListener("submit", async (e) =>{
             arrivalTime: arr_time,
             arrivalModeOfTransport: arr_transport,
             arrivalTrainNumber:document.getElementById("arrival_train_number").value,
+            arrivalTrainName:null,
             // arrivalTrainNumber: getElementByIdName("train_number").split("--")[0].replace("[","").replace("]",""),
             // arrivalTrainName: getElementByIdName("train_number").split("--")[1],
             departureDate: dep_date,
             departureTime: dep_time,
             departureModeOfTransport: dep_transport,
             departureTrainNumber:document.getElementById("departure_train_number").value,
+            departureTrainName:null,
             // departureTrainNumber: getElementByIdName("train_number_1").split("--")[0].replace("[","").replace("]",""),
             // departureTrainName:  getElementByIdName("train_number_1").split("--")[1],
             description: desc,
@@ -192,6 +194,7 @@ btn.addEventListener("submit", async (e) =>{
             arrivalTime: arr_time,
             arrivalModeOfTransport: arr_transport,
             arrivalTrainNumber:document.getElementById("arrival_train_number").value,
+            arrivalTrainName:null,
             // arrivalTrainNumber: getElementByIdName("train_number").split("--")[0].replace("[","").replace("]",""),
             // arrivalTrainName: getElementByIdName("train_number").split("--")[1],
             departureDate: dep_date,
@@ -215,8 +218,9 @@ btn.addEventListener("submit", async (e) =>{
             departureTime: dep_time,
             departureModeOfTransport: dep_transport,
             departureTrainNumber:document.getElementById("departure_train_number").value,
+            departureTrainName:null,
             // departureTrainNumber: getElementByIdName("train_number_1").split("--")[0].replace("[","").replace("]",""),
-            // departureTrainName:  getElementByIdName("train_number_1").split("--")[1],
+            // departureTrainName:  getElementByIdName("train_number_1").split("--")[1],  
             description: desc,
             userId : uid,
             userName:userName,
@@ -244,13 +248,13 @@ btn.addEventListener("submit", async (e) =>{
 
     const registerAnother = confirm("Travel details registered successfully. Do you want to register another member?");
     
-    if (registerAnother) {
-        window.location.href = `addTravelDetails.html?id=${id}`;
-    } else {
-        window.location.href = "history.html";
-    }
+    // if (registerAnother) {
+    //     window.location.href = `addTravelDetails.html?id=${id}`;
+    // } else {
+    //     window.location.href = "history.html";
+    // }
     await saveTravelDetails(data)
-    setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data) 
+    // setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data) 
 })
 
 function clearAllFields(){
@@ -315,21 +319,24 @@ element.addEventListener('change', function (e) {
     document.getElementById("arrival_time").value = address.arrivalTime
     Array.from(document.getElementById("arrival_mode_of_transport")).forEach((transport,idx) => transport.value === address.arrivalModeOfTransport ? fromSelectedArrivalModeTransport=idx :"")
     Array.from(document.getElementById("departure_mode_of_transport")).forEach((transport,idx) => transport.value === address.departureModeOfTransport ? fromSeletedDepartureModeTransport=idx:"")
+
     document.getElementById("arrival_mode_of_transport").selectedIndex= fromSelectedArrivalModeTransport
     document.getElementById("departure_mode_of_transport").selectedIndex = fromSeletedDepartureModeTransport
     document.getElementById("departure_time").value = address.departureTime
     document.getElementById("description").value = address.description
     document.getElementById("arrival_date").value=address.arrivalDate.split("T")[0]
     document.getElementById("departure_date").value = address.departureDate.split("T")[0]
-    if(address.arrivalTrainName!==null){
+    // if(address.arrivalTrainName!==null){
+       if(fromSelectedArrivalModeTransport===1){
         document.getElementById("transport").style.display = "block"
-        document.getElementById("train_number").style.display = "block"
-        document.getElementById("train_detail_label").style.display="block"
-        handleInput(address?.arrivalTrainNumber || address?.arrivalTrainName)
+        // document.getElementById("train_number").style.display = "block"
+        // document.getElementById("train_detail_label").style.display="block"
+        // handleInput(address?.arrivalTrainNumber || address?.arrivalTrainName)
         document.getElementById("arrival_train_number").value = address?.arrivalTrainNumber || address?.arrivalTrainName
         // document.getElementById("train_number").value = address?.arrivalTrainNumber
     }
-    if(address.departureTrainName!==null){
+    // if(address.departureTrainName!==null){
+        if(fromSeletedDepartureModeTransport===1){
         document.getElementById("transport1").style.display="block"
         // document.getElementById("train_number_1").style.display = "block"
         // document.getElementById("train_detail_label_1").style.display="block"
@@ -402,12 +409,11 @@ async function saveTravelDetails(data) {
     })
 
     const res = await response.json()
-    console.log("Save",res)
-    clearAllFields();
-    $('#pendingDialog2').modal('show');
-    setTimeout(()=> {
-        window.location.href = "history.html"
-    },2000)
+        clearAllFields();
+        $('#pendingDialog2').modal('show');
+        setTimeout(()=> {
+            window.location.href = "history.html"
+        },2000)
     return res;
 }
 
@@ -446,9 +452,13 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         document.getElementById("familyDDL1").appendChild(option)
     })
     document.getElementById("familyDDL").addEventListener("change", async (e) =>{
-     let value = JSON.parse(e.target.value)
-     console.log("🚀 ~ file: saveTravelDetails.js:416 ~ document.getElementById ~ value:", value)
-     setDefaultAddress(value)
+    if(e.target.value==="Select Member"){
+        // setDefaultAddress({})
+    }else{
+        let value = JSON.parse(e.target.value)
+        setDefaultAddress(value)
+    }
+    
      
     })
 

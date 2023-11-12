@@ -39,13 +39,22 @@ document.getElementById("arrival_time").addEventListener("input",e =>{
 })
 
 document.getElementById("arrival_train_number").addEventListener("input",e =>{
-    debounce(handleInput(e.target.value), 300)
-    if(e.target.value === 0 || e.target.value.length === 0){
-       document.getElementById("trainErr").style.display = "block"
-      
-    }else{
-        document.getElementById("trainErr").style.display = "none"
+    
+    let inputValue = e.target.value;
+
+    if(inputValue.length>5){
+
+        const substring = inputValue.toString().substring(0,5)
+        document.getElementById("arrival_train_number").value = substring
     }
+    
+    // debounce(handleInput(e.target.value), 300)
+    // if(e.target.value === 0 || e.target.value.length === 0){
+    //    document.getElementById("trainErr").style.display = "block"
+      
+    // }else{
+    //     document.getElementById("trainErr").style.display = "none"
+    // }
 })
 
 
@@ -87,6 +96,7 @@ if(arrT === "Select Mode" || depT === "Select Mode"){
 
 
 let params = (new URL(window.location.href)).searchParams;
+
 
 //Set Default Value
 
@@ -434,8 +444,8 @@ async function handleInput(searchInput) {
 
         try {
             // Fetch search results from an API (replace with your API endpoint)
-            document.getElementById("train_number").style.display = "block" 
-            document.getElementById("train_detail_label").style.display = "block"
+            // document.getElementById("train_number").style.display = "block" 
+            // document.getElementById("train_detail_label").style.display = "block"
             const data = await getTrainDetails(searchTerm);
             // Display search results
             let select = document.getElementById("train_number")
@@ -474,8 +484,8 @@ async function handleInput1(searchInput) {
     
             try {
                 // Fetch search results from an API (replace with your API endpoint)
-                document.getElementById("train_number_1").style.display = "block" 
-                document.getElementById("train_detail_label_1").style.display = "block"
+                // document.getElementById("train_number_1").style.display = "block" 
+                // document.getElementById("train_detail_label_1").style.display = "block"
                 const data = await getTrainDetails(searchTerm);
                 // console.log("anshi",data,searchTerm)
                 // Display search results
