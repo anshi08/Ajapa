@@ -1,13 +1,4 @@
-let btn = document.getElementById("btn")
-let element = document.getElementById("country")
-let stateElement = document.getElementById("state")
-let cityElement = document.getElementById("city")
-let phoneNumber = document.getElementById("mobile_num")
-let chk = document.getElementById("chk")
-let  phoneNumberIsValid = ""
-let dob = document.getElementById("dob")
-let today = new Date().toISOString().split('T')[0];
-dob.setAttribute("max",today)
+
 
 
 function getElementByIdName(idName){
@@ -28,78 +19,6 @@ function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
 
-// window.addEventListener("DOMContentLoaded",async ()=>{
-//     async function getCountriesCodeLocally (){
-//         const res = await fetch('./countries.js')
-//         const response = await res.json()
-    
-//         return response;
-//     }
-//     let code =   await getCountriesCodeLocally()
-
-//     code.forEach(country=>{
-//         const option = document.createElement("option");
-//         option.value = country.id
-//         option.text = country.phone
-//         document.getElementById("phoneNumCountries").appendChild(option)
-//     })
-// })
-
-btn.addEventListener("submit", (e) =>{
-   
-    e.preventDefault()
-    let name = getElementByIdName("name");
-    let gender = document.getElementById("gender").value;
-    let dob = getElementByIdName("dob");
-    let mobileNum = getElementByIdName("mobile_num")
-    let email = getElementByIdName("email");
-    let pw = getElementByIdName("pw");
-    // let rpwd = getElementByIdName("rpwd");
-    let country_ele=document.getElementById("country");
-    let state_ele=document.getElementById("state");
-    let city_ele=document.getElementById("city");
-    
-    let country = document.getElementById("country").value+":"+country_ele.options[country_ele.selectedIndex].text;
-    let city = document.getElementById("city").value+":"+city_ele.options[city_ele.selectedIndex].text;
-    let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
-
-
-    const data = {
-        fullName: name,
-        gender: gender,
-        dob: dob, 
-        mobileNum: mobileNum,
-        email: chk.checked ? null :email,
-        password:chk.checked ? 'abc@password':pw,
-        country: country,
-        city: city,
-        state: state,
-        userType:"member",
-        status: 1
-    }
-
-    if(gender==="Select"){
-        alert("Please Choose the gender")
-        document.getElementById("gender").focus()
-        return;
-
-    }else if(phoneNumberIsValid==="LessThan10Digit"){
-        alert("Enter a valid 10 Digits Mobile Number")
-        phoneNumber.focus()
-        return;
-
-
-    }else if(phoneNumberIsValid==="InvalidDigit"){
-        alert("Mobile Number starts with a valid digit")
-        phoneNumber.focus()
-        return;
-    }else{
-   signup(data);
-    }
-
- 
-})
-
 function clearAllFields() {
     document.getElementById("name").value = "";
     document.getElementById("gender").value = "";
@@ -113,7 +32,7 @@ function clearAllFields() {
     document.getElementById("city").value = "";
 }
 
-async function getCountry() {
+async function getCountry(element) {
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/countries",{
         method: "GET",
         headers: {
@@ -132,22 +51,16 @@ async function getCountry() {
 
 }
 
-getCountry()
 
-element.addEventListener('change', function (e) {
-    const selectedCountry = e.target.value;
-    handleCountryChange(selectedCountry);
-  });
-  
-  function handleCountryChange(selectedCountry) {
+  function handleCountryChange(selectedCountry,stateElement) {
     console.log(`Selected country: ${selectedCountry}`);
     stateElement.value = "" ;
     stateElement.innerHTML = '';
-    fetchStates(selectedCountry);
+    fetchStates(selectedCountry,stateElement);
     
   }
 
- async function fetchStates(countryId,selectedStateValue){
+ async function fetchStates(countryId,stateElement,selectedStateValue){
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/states/${countryId}`,{
         method:"GET",
         headers: {
@@ -170,18 +83,15 @@ element.addEventListener('change', function (e) {
   }
 }
 
- stateElement.addEventListener('change', function (e) {
-    const selectedState = e.target.value;
-    handleStateChange(selectedState);
-  });
+
   
-  function handleStateChange(selectedState) {
+  function handleStateChange(selectedState,cityElement) {
     cityElement.value='';
     cityElement.innerHTML = '';
-    fetchCities(selectedState)
+    fetchCities(selectedState,cityElement)
   }
 
- async function fetchCities(stateId,selectCityValue) {
+ async function fetchCities(stateId,cityElement,selectCityValue) {
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/cities/${stateId}`,{
         method:"GET",
         headers:{
@@ -203,10 +113,7 @@ element.addEventListener('change', function (e) {
   }
   }
 
-  cityElement.addEventListener('change', function (e) {
-    const selectedCity = e.target.value;
-    handleCityChange(selectedCity);
-  });
+
 
   function handleCityChange(selectedCity) {
     console.log(`Selected City: ${selectedCity}`);
@@ -235,10 +142,10 @@ element.addEventListener('change', function (e) {
     }
     else{
         $('#pendingreq10').modal('show');
-        // clearAllFields();
-        // setTimeout(()=>{
-        //     window.location.href = "showFamilyMembers.html"
-        // },2000)
+        clearAllFields();
+        setTimeout(()=>{
+            window.location.href = "showFamilyMembers.html"
+        },2000)
     }
     return res;
     }
@@ -246,67 +153,6 @@ element.addEventListener('change', function (e) {
 
     console.error("An error occurred:", error);
 }}
-
-
-
-
-//Validation for input
-document.getElementById("name").addEventListener("input",e=>{
-    if(e.target.value === 0 || e.target.value.length === 0){
-        document.getElementById("NameErr").style.display = "block"
-    }else{
-        document.getElementById("NameErr").style.display = "none"
-    }
-})
-
-document.getElementById("dob").addEventListener("input",e=>{
-    if(e.target.value === 0 || e.target.value.length === 0){
-        document.getElementById("dobErr").style.display = "block"   
-    }else{
-        document.getElementById("dobErr").style.display = "none"   
-    }
-})
-
-document.getElementById("pw").addEventListener("input",e=>{
-    if(e.target.value === 0 || e.target.value.length === 0){
-        document.getElementById("pwdTxt").innerText = "Enter Password"
-        document.getElementById("pwdTxt").style.display = "block"   
-    }else if(e.target.value.length <5){
-        document.getElementById("pwdTxt").innerText = "Password Must be at least 5 characters long"
-        document.getElementById("pwdTxt").style.display = "block"      
-    }else{
-        document.getElementById("pwdTxt").style.display = "none"  
-    } 
-})
-
-phoneNumber.addEventListener("focusout",(e)=>{
-    const phoneRegex = /^\d{10}$/;
-    const phoneRegex1 = /^[6-9]\d{9}$/;
-    // Test the phone number against the regex pattern
-    if(!phoneRegex.test(e.target.value)){
-        document.getElementById("phoneNumberTxt").style.display = "block"       
-        document.getElementById("phoneNumberTxt").innerText = "Phone Number must be 10 digit" 
-        phoneNumberIsValid="LessThan10Digit"            
-    }else if(!phoneRegex1.test(e.target.value)){
-        document.getElementById("phoneNumberTxt").style.display = "block"       
-        document.getElementById("phoneNumberTxt").innerText = "Phone Number start with a valid digit"    
-        phoneNumberIsValid="InvalidDigit"
-    }
-    else{
-        document.getElementById("phoneNumberTxt").style.display = "none"   
-        phoneNumberIsValid=""
-    }
-})
-
-document.getElementById("email").addEventListener("focusout",e=>{
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if(!emailPattern.test(e.target.value)){
-        document.getElementById("emailErr").style.display = "block"
-        document.getElementById("emailErr").innerText = "Enter Valid Email Address"
-    }else{
-        document.getElementById("emailErr").style.display = "none"
-    }
-})
 
 
 async function getAllFamilyMembers(family_id){
@@ -329,15 +175,104 @@ async function getAllFamilyMembers(family_id){
 }
 
 window.addEventListener("DOMContentLoaded",async ()=>{
+    let btn = document.getElementById("btn")
+    let element = document.getElementById("country")
+    let stateElement = document.getElementById("state")
+    let cityElement = document.getElementById("city")
+    let phoneNumber = document.getElementById("mobile_num")
+    let chk = document.getElementById("chk")
+    let  phoneNumberIsValid = ""
+    let dob = document.getElementById("dob")
+    let today = new Date().toISOString().split('T')[0];
+    dob.setAttribute("max",today)
+    chk.addEventListener("click",()=>{
+        document.getElementById("emaildiv").style.display = document.getElementById("emaildiv").style.display === 'none' ? 'block':"none"
+        document.getElementById("passwordiv").style.display = document.getElementById("passwordiv").style.display === 'none' ? 'block':"none"
+    })
+    getCountry(element)
+
+    element.addEventListener('change', function (e) {
+    const selectedCountry = e.target.value;
+    handleCountryChange(selectedCountry,stateElement);
+  });
+  
+    //StateElement Handler
+    stateElement.addEventListener('change', function (e) {
+        const selectedState = e.target.value;
+        handleStateChange(selectedState,cityElement);
+      });
+
+    //CityElement Handler
+    cityElement.addEventListener('change', function (e) {
+        const selectedCity = e.target.value;
+        handleCityChange(selectedCity);
+      });
+
+    //Submit Handler
+    btn.addEventListener("submit", (e) =>{
+   
+        e.preventDefault()
+        let name = getElementByIdName("name");
+        let gender = document.getElementById("gender").value;
+        let dob = getElementByIdName("dob");
+        let mobileNum = getElementByIdName("mobile_num")
+        let email = getElementByIdName("email");
+        let pw = getElementByIdName("pw");
+        // let rpwd = getElementByIdName("rpwd");
+        let country_ele=document.getElementById("country");
+        let state_ele=document.getElementById("state");
+        let city_ele=document.getElementById("city");
+        
+        let country = document.getElementById("country").value+":"+country_ele.options[country_ele.selectedIndex].text;
+        let city = document.getElementById("city").value+":"+city_ele.options[city_ele.selectedIndex].text;
+        let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
+    
+    
+        const data = {
+            fullName: name,
+            gender: gender,
+            dob: dob, 
+            mobileNum: mobileNum,
+            email: chk.checked ? null :email,
+            password:chk.checked ? 'abc@password':pw,
+            country: country,
+            city: city,
+            state: state,
+            userType:"member",
+            status: 1
+        }
+    
+        if(gender==="Select"){
+            alert("Please Choose the gender")
+            document.getElementById("gender").focus()
+            return;
+    
+        }else if(phoneNumberIsValid==="LessThan10Digit"){
+            alert("Enter a valid 10 Digits Mobile Number")
+            phoneNumber.focus()
+            return;
+    
+    
+        }else if(phoneNumberIsValid==="InvalidDigit"){
+            alert("Mobile Number starts with a valid digit")
+            phoneNumber.focus()
+            return;
+        }else{
+       signup(data);
+        }
+    
+     
+    })
+
+
+  // This code is precious
   const allFamilyMembers =   await getAllFamilyMembers(localStorage.getItem("family_id"))
   let countrySelectBox  = document.getElementById("sel1")
-
     countrySelectBox.addEventListener("change",(e)=>{
        let address = allFamilyMembers.filter(mem => mem.id===+e.target.value)[0]
        let option = document.createElement("option")
        let selectedOption = countrySelectBox.options[countrySelectBox.selectedIndex];
        console.log("p",selectedOption)
-
        option.innerText = address.country.split(":")[1]
        option.value = address.country.split(":")[0]
        if (selectedOption.selected) {
@@ -345,7 +280,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         let country = `<option value='${address.country.split(":")[0]}'>${address.country.split(":")[1]}</option>`
         document.getElementById("country").innerHTML = country
       }
-       getCountry();
+       getCountry(element);
 
        if (selectedOption.selected) {
         document.getElementById("state").style.backgroundColor = '#DCD6D0';
@@ -357,7 +292,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     if (defaultValue[i].value === address.state.split(":")[0]) {
         defaultValue[i].selected = true;
 
-        fetchStates(address.country.split(":")[0],defaultValue[i].value);
+        fetchStates(address.country.split(":")[0],stateElement,defaultValue[i].value);
     }
 }
     
@@ -371,19 +306,12 @@ window.addEventListener("DOMContentLoaded",async ()=>{
        if (value[i].value === address.state.split(":")[0]) {
            value[i].selected = true;
    
-           fetchCities(address.state.split(":")[0],value[i].value);
+           fetchCities(address.state.split(":")[0],cityElement,value[i].value);
        }
    }
 
     })
 })
-
-chk.addEventListener("click",()=>{
-document.getElementById("emaildiv").style.display = document.getElementById("emaildiv").style.display === 'none' ? 'block':"none"
-document.getElementById("passwordiv").style.display = document.getElementById("passwordiv").style.display === 'none' ? 'block':"none"
-
-})
-
 
 
 function setSessionTimeout() {
@@ -394,5 +322,5 @@ function setSessionTimeout() {
       localStorage.clear();
       window.location.href = 'login.html';
     }, timeoutInMilliseconds);
-  }
+}
 setSessionTimeout();
