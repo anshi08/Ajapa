@@ -88,20 +88,33 @@ btn.addEventListener("submit", (e) =>{
         alert("Start Mobile Number with valid Digit")
         phoneNumber.focus()
         return;
-
     }
-    else  if(file){
-        if(file.type.split("/")[1] == "png" || file.type.split("/")[1] == "jpg" || file.type.split("/")[1] == "jpeg" ){
+    // else  if(file){
+    //     if(file.type.split("/")[1] == "png" || file.type.split("/")[1] == "jpg" || file.type.split("/")[1] == "jpeg" ){
            
-            localStorage.setItem("signupData",JSON.stringify(data))
-            window.location.href='signupVerify.html'
+    //         localStorage.setItem("signupData",JSON.stringify(data))
+    //         window.location.href='signupVerify.html'
        
-        }else{
+    //     }else{
             
-            alert("Only png/jpg images allowed")
+    //         alert("Only png/jpg images allowed")
        
+    //     }
+    // }
+    if (file) {
+        if (file.type.split("/")[1] === "png" || file.type.split("/")[1] === "jpg" || file.type.split("/")[1] === "jpeg") {
+          // Read the file as a data URL
+          const reader = new FileReader();
+          reader.onload = function () {
+            // Store the data URL in localStorage
+            localStorage.setItem("signupData", JSON.stringify({ ...data, file: reader.result }));
+            window.location.href = 'signupVerify.html';
+          };
+          reader.readAsDataURL(file);
+        } else {
+          alert("Only png/jpg images allowed");
         }
-    }
+      }
 
 })
 
