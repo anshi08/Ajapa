@@ -1,3 +1,5 @@
+let data = JSON.parse(localStorage.getItem("signupData"))
+// console.log(data)
 
 async function verifyUser(otp,pno){
 
@@ -10,13 +12,15 @@ async function verifyUser(otp,pno){
     })
     const res = await response.json()
     console.log(res)
-    if(res==="Invalid OTP"){
-        //Anshika plzz show some error
+    if(res.token ==="Invalid OTP"){
+        $('#otpMessage').modal('show');
+        document.getElementById("otp").value = '';
+        localStorage.clear()
     }else{
         // Signup api please call here
+        signup(data)
     }
   
-
 }
 
 async function loginWithEmailAndPno(pno,email){
@@ -38,7 +42,6 @@ async function loginWithEmailAndPno(pno,email){
     }
 
 }
-
 
 document.getElementById("btn").addEventListener("click",(e)=>{
      pno =document.getElementById("phone").value
@@ -84,7 +87,41 @@ window.addEventListener("DOMContentLoaded",()=>{
     document.getElementById("otp").style.display = 'none'
 })  
 
+//SignUp Function
+async function signup(data){
+  
+    try{
+    const response = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/signup',{
+        method:"POST",
+        body:JSON.stringify(data),
+        headers:{
+            "Content-type":"application/json;  charset=UTF-8"
+        }
+    })
+    if(response.ok){
+    const res = await response.json()
+    console.log(res)
+   if(res.msg === 'User exists'){
+        $('#pendingDialog1').modal('show');
+        document.getElementById("otp").value = '';
+        setTimeout(()=>{
+            window.location.href = "login.html"
+        },3000)
+    }else{
+        $('#pendingDialog').modal('show');
+        localStorage.clear()
+        setTimeout(() => {
+            window.location.href = "register.html"
+        },3000);
+    }
+    
+    return res;
+    }
+} catch (error) {
 
+    console.error("An error occurred:", error);
+}
+}
 
 
 function setSessionTimeout() {

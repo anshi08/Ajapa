@@ -48,7 +48,7 @@
                                         </h1>
                                     </div>
 
-                        <!--Message User Exists-->
+                        <!--Message Invalid OTP-->
                         <div class="modal fade" id="otpMessage" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
@@ -59,7 +59,7 @@
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                    Sorry... You are not a registered user
+                                    Invalid OTP
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -67,6 +67,44 @@
                               </div>
                             </div>
                             </div>
+                             <!--Message User Exists-->
+                             <div class="modal fade" id="pendingDialog1" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="pendingDialogLabel">Request Pending Approval</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                User Already Exists.
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>
+                                </div>
+                                   <!-- Message dialog Box -->
+                            <div class="modal fade" id="pendingDialog" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="pendingDialogLabel">Request Pending Approval</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      Your request is pending approval from the admin. Please wait for further updates.
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>
+                                </div>
                                     <form class="user">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
@@ -94,7 +132,7 @@
                                     
                                     </form> <hr/>
                                     <div class="text-center">
-                                        <a class="small" href="login.html">Back to Login </a>
+                                        <a class="small" href="register.html">Back to SignUp</a>
                                     </div>
                                  
                                 </div>
