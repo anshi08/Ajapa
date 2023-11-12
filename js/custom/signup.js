@@ -55,7 +55,7 @@ btn.addEventListener("submit", (e) =>{
     let state = document.getElementById("state").value+":"+state_ele.options[state_ele.selectedIndex].text;
     let disciple = document.getElementById("disciple").value
 
-
+   
     const data = {
         fullName: name,
         gender: gender,
@@ -71,10 +71,12 @@ btn.addEventListener("submit", (e) =>{
         userType:"head"
     }
 
-    // if (disciple === "Select") {
-    //     alert("Please select whether you are an Ajapa Disciple.");
-    //     return;
-    // }
+    const captchaResponse = grecaptcha.getResponse();
+
+    if (!captchaResponse) {
+        alert("Please complete the reCAPTCHA challenge.");
+        return;
+    }
 
     if(phoneNumberValue ==="LessThan10Digit"){
         alert("Enter Valid 10 Digits Mobile Number")
@@ -86,14 +88,33 @@ btn.addEventListener("submit", (e) =>{
         alert("Start Mobile Number with valid Digit")
         phoneNumber.focus()
         return;
-
     }
-    else{
-        // console.log('l',data)
-        localStorage.setItem("signupData",JSON.stringify(data))
-        window.localStorage.href='signupVerify.html'
-    //    signup(data);
-    }
+    // else  if(file){
+    //     if(file.type.split("/")[1] == "png" || file.type.split("/")[1] == "jpg" || file.type.split("/")[1] == "jpeg" ){
+           
+    //         localStorage.setItem("signupData",JSON.stringify(data))
+    //         window.location.href='signupVerify.html'
+       
+    //     }else{
+            
+    //         alert("Only png/jpg images allowed")
+       
+    //     }
+    // }
+    if (file) {
+        if (file.type.split("/")[1] === "png" || file.type.split("/")[1] === "jpg" || file.type.split("/")[1] === "jpeg") {
+          // Read the file as a data URL
+          const reader = new FileReader();
+          reader.onload = function () {
+            // Store the data URL in localStorage
+            localStorage.setItem("signupData", JSON.stringify({ ...data, file: reader.result }));
+            window.location.href = 'signupVerify.html';
+          };
+          reader.readAsDataURL(file);
+        } else {
+          alert("Only png/jpg images allowed");
+        }
+      }
 
 })
 
@@ -112,24 +133,32 @@ function clearAllFields() {
 }
 
 async function getCountry() {
-    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/countries",{
-        method: "GET",
-        headers: {
-            "Content-type":"application/json;  charset=UTF-8"
-        }
-    })
-    const newres = await response.json()
-    const res = newres.filter(item => item.name!=='Pakistan')
-   
-        //  dropdown 
-            res.forEach((country) => {
-            const option = document.createElement("option");
-            option.value = country.id; 
-            option.text = country.name; 
-            element.appendChild(option);
-          });
+    try {
+        const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/countries", {
+            method: "GET",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
 
+        if (response.ok) {
+            const newres = await response.json();
+            const res = newres.filter(item => item.name !== 'Pakistan');
+
+            res.forEach((country) => {
+                const option = document.createElement("option");
+                option.value = country.id;
+                option.text = country.name;
+                element.appendChild(option);
+            });
+        } else {
+            console.error("Error fetching countries:", response.statusText);
+        }
+    } catch (error) {
+        console.error("An error occurred:", error);
+    }
 }
+
 
 getCountry()
 
@@ -205,52 +234,52 @@ res.forEach((state) => {
     console.log(`Selected City: ${selectedCity}`);
   }
 
-  async function signup(data){
+//   async function signup(data){
 
-    const captchaResponse = grecaptcha.getResponse();
-    // console.log(captchaResponse)
+//     const captchaResponse = grecaptcha.getResponse();
+//     // console.log(captchaResponse)
 
-    if (!captchaResponse) {
-        alert("Please complete the reCAPTCHA challenge.");
-        return;
-    }
+//     if (!captchaResponse) {
+//         alert("Please complete the reCAPTCHA challenge.");
+//         return;
+//     }
 
-    // data.recaptchaResponse = captchaResponse
+//     // data.recaptchaResponse = captchaResponse
   
-    try{
-    const response = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/signup',{
-        method:"POST",
-        body:JSON.stringify(data),
-        headers:{
-            "Content-type":"application/json;  charset=UTF-8"
-        }
-    })
-    if(response.ok){
-    const res = await response.json()
+//     try{
+//     const response = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/signup',{
+//         method:"POST",
+//         body:JSON.stringify(data),
+//         headers:{
+//             "Content-type":"application/json;  charset=UTF-8"
+//         }
+//     })
+//     if(response.ok){
+//     const res = await response.json()
 
-    document.getElementById("pwdErr").style.display  = "none"
-    const imageUploadResult = await saveUserImg(data.file, data.email);
-    if (imageUploadResult.error) {
-      alert("Image upload error: " + imageUploadResult.error);
-      return;
-    }
-   if(res.msg === 'User exists'){
-        $('#pendingDialog1').modal('show');
-    }else{
-        $('#pendingDialog').modal('show');
-        clearAllFields();
-        setTimeout(()=>{
-            window.location.href = "register.html"
-       },2000)
-    }
+//     document.getElementById("pwdErr").style.display  = "none"
+//     const imageUploadResult = await saveUserImg(data.file, data.email);
+//     if (imageUploadResult.error) {
+//       alert("Image upload error: " + imageUploadResult.error);
+//       return;
+//     }
+//    if(res.msg === 'User exists'){
+//         $('#pendingDialog1').modal('show');
+//     }else{
+//         $('#pendingDialog').modal('show');
+//         clearAllFields();
+//         setTimeout(()=>{
+//             window.location.href = "register.html"
+//        },2000)
+//     }
     
-    return res;
-    }
-} catch (error) {
+//     return res;
+//     }
+// } catch (error) {
 
-    console.error("An error occurred:", error);
-}
-}
+//     console.error("An error occurred:", error);
+// }
+// }
 //Validation for input
 document.getElementById("name").addEventListener("input",e=>{
     if(e.target.value === 0 || e.target.value.length === 0){
@@ -363,7 +392,7 @@ document.getElementById("disciple").addEventListener("focusout",e=>{
 //Saving user Image
 
 const saveUserImg = async (file,email) => {
-    if(file.type.split("/")[1] == "png" || file.type.split("/")[1] == "jpg" || file.type.split("/")[1] == "jpeg" ){
+
         const form = new FormData();
         await form.append("file",file)
         await form.append("email",email)
@@ -374,7 +403,4 @@ const saveUserImg = async (file,email) => {
         const res = await response.json()
         console.log("IMG",res)
         return res;
-    }else{
-        alert("Only png/jpg images allowed")
-    }
 }
