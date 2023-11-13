@@ -63,6 +63,17 @@ function parseJwt (token) {
     return JSON.parse(jsonPayload);
 }
 
+let shvirCheckbox = document.getElementById("shivir")
+
+shvirCheckbox.addEventListener("change",e =>{
+    if(e.target.checked){
+        document.getElementById("shivirStartDate").style.display = "block"
+        document.getElementById("shivirEndDate").style.display = "block"
+    }else{
+        document.getElementById("shivirStartDate").style.display = "none"
+        document.getElementById("shivirEndDate").style.display = "none"
+    }
+})
 
 
 btn.addEventListener("submit", async(e) =>{

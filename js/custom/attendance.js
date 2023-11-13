@@ -25,16 +25,18 @@ window.addEventListener("DOMContentLoaded",async ()=>{
 
     eventdrpdwn.addEventListener("change",async e =>{
         let details = await getDetails(e.target.value)
+
         allUser = details
         eventId = e.target.value
+        document.getElementById("body").innerHTML = null
         if(details.length===0){
             let tr = document.createElement('tr')
             tr.innerHTML = `<td colspan="5" align='center'>No Member is attending this event</td>`
-            console.log(tr)
+ 
             document.getElementById("body").appendChild(tr)
             return;
         }
-            document.getElementById("body").innerHTML = null
+
         details.forEach(info =>{
         
             let tr = document.createElement("tr")
@@ -44,10 +46,19 @@ window.addEventListener("DOMContentLoaded",async ()=>{
             <td>${info.user.email}</td>
             <td>${info.user.dob}</td>
             <td>${info.user.mobileNum}</td>
-            <td><input type='checkbox' class="present"/></td>
+            <td><input type='checkbox' class="present" ${info.present ? 'checked':""}  /></td>
             `
             document.getElementById("body").appendChild(tr)
         })
+        document.getElementById("totalPeople").innerText = "Total -: "+details.length
+        let sum = 0;
+        const totalPresent = details.reduce((acc,curr)=>{
+        curr.present ? acc++:acc
+            return acc;
+        },0)
+        document.getElementById("attendend").innerText = "Present -: "+totalPresent
+
+
     })
     document.getElementById("submit").addEventListener("click",function(){
         let table = document.getElementById("body");
@@ -69,6 +80,11 @@ window.addEventListener("DOMContentLoaded",async ()=>{
        })
        console.log({selectedUser,events,isPresent})
        saveAttendance({users:selectedUser,events,isPresent})
+    })
+
+    let print = document.getElementById("print")
+    print.addEventListener("click",()=>{
+        window.print()
     })
 
 
