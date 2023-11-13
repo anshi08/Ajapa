@@ -75,8 +75,11 @@ shvirCheckbox.addEventListener("change",e =>{
     }
 })
 
-
+setTimeout(()=>{
+    console.log("Anand",)
+},2000)
 btn.addEventListener("submit", async(e) =>{
+    
     e.preventDefault();
  
     let event_name = getElementByIdName("event_name");
@@ -125,10 +128,18 @@ btn.addEventListener("submit", async(e) =>{
 
     if(localStorage.getItem("role") === "super"){
         // alert("hii")
+        if(shvirCheckbox.checked){
+            data.shivirStartDate = document.getElementById("shivir_start_date").value
+            data.shivirEndDate = document.getElementById("shivir_end_date").value
+        }
         let {eventId} = events(data)
         setEventImg(eventId,file)
     }
     else{
+        if(shvirCheckbox.checked){
+            data.shivirStartDate = document.getElementById("shivir_start_date").value
+            data.shivirEndDate = document.getElementById("shivir_end_date").value
+        }
         let {eventId} = await events(data)
         // alert("admin")
         saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
