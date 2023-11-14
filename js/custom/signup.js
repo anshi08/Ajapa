@@ -391,16 +391,16 @@ document.getElementById("disciple").addEventListener("focusout",e=>{
 
 //Saving user Image
 
-const saveUserImg = async (file,email) => {
+// const saveUserImg = async (file,email) => {
 
-        const form = new FormData();
-        await form.append("file",file)
-        await form.append("email",email)
-        const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveImage2",{
-        method:"POST",
-        body:form,
-        })
-        const res = await response.json()
-        console.log("IMG",res)
-        return res;
-}
+//         const form = new FormData();
+//         await form.append("file",file)
+//         await form.append("email",email)
+//         const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveImage2",{
+//         method:"POST",
+//         body:form,
+//         })
+//         const res = await response.json()
+//         console.log("IMG",res)
+//         return res;
+// }
