@@ -53,8 +53,8 @@ Array.from(document.getElementsByClassName("rejected")).forEach(item =>{
     item.addEventListener("click",e => {
         if(e.target.classList.contains("rejected")){
             if(confirm("Are You sure you want to Reject")){
-                let email = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent
-                    rejectedUser(email)
+                let email = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.textContent
+                rejectedUser(email)
             }else{
                 alert("Okay!!")
             }
