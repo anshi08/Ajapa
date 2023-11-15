@@ -1,6 +1,5 @@
 let data = JSON.parse(localStorage.getItem("signupData"))
-// console.log(data)
-// let imagePath = parsedData.file;
+
 
 async function verifyUser(otp,pno){
 
@@ -16,11 +15,10 @@ async function verifyUser(otp,pno){
     if(res.token ==="Invalid OTP"){
         $('#otpMessage').modal('show');
         document.getElementById("otp").value = '';
-        localStorage.clear()
     }else{
         // Signup api please call here
         signup(data)
-        saveUserImg(data.file,data.email)
+        saveUserImg(data.file,data.email)  
     }
   
 }
@@ -111,6 +109,7 @@ async function signup(data){
         },3000)
     }else{
         $('#pendingDialog').modal('show');
+        document.getElementById("otp").value = '';
         localStorage.clear()
         setTimeout(() => {
             window.location.href = "register.html"
@@ -143,12 +142,10 @@ const saveUserImg = async (file, email) => {
         // Convert base64 data URI to Blob
         const blob = dataURItoBlob(file);
 
-        // Create a FormData object
         const formData = new FormData();
         formData.append('file', blob);
         formData.append('email', email);
 
-        // Make the API call to save the image
         const response = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveImage2', {
             method: 'POST',
             body: formData,
@@ -159,7 +156,7 @@ const saveUserImg = async (file, email) => {
         return res;
     } catch (error) {
         console.error('An error occurred while saving the image:', error);
-        throw error; // Rethrow the error to handle it at a higher level if needed
+        throw error;
     }
 };
 
