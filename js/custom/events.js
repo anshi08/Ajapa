@@ -129,21 +129,25 @@ btn.addEventListener("submit", async(e) =>{
     if(localStorage.getItem("role") === "super"){
         // alert("hii")
         if(shvirCheckbox.checked){
+            data.isShivirAvailable = shvirCheckbox.checked
             data.shivirStartDate = document.getElementById("shivir_start_date").value
             data.shivirEndDate = document.getElementById("shivir_end_date").value
         }
+        console.log("mine",data)
         let {eventId} = events(data)
         setEventImg(eventId,file)
     }
     else{
         if(shvirCheckbox.checked){
+            data.isShivirAvailable = shvirCheckbox.checked
             data.shivirStartDate = document.getElementById("shivir_start_date").value
             data.shivirEndDate = document.getElementById("shivir_end_date").value
         }
-        let {eventId} = await events(data)
+        console.log("kkk",data)
+        // let {eventId} = await events(data)
         // alert("admin")
-        saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
-        setEventImg(eventId,file)
+        // saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
+        // setEventImg(eventId,file)
     }
 
 });

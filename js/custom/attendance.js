@@ -16,6 +16,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     let eventId,allUser;
     const res = await showingAllEvents()
     let eventdrpdwn =  document.getElementById("allEvents")
+    
     res.forEach(event => {
       let option = document.createElement("option")
       option.value = event.eventId;
@@ -25,13 +26,14 @@ window.addEventListener("DOMContentLoaded",async ()=>{
 
     eventdrpdwn.addEventListener("change",async e =>{
         let details = await getDetails(e.target.value)
-
+        document.getElementById("totalPeople").innerHTML = null
+        document.getElementById("attendend").innerHTML = null
         allUser = details
         eventId = e.target.value
         document.getElementById("body").innerHTML = null
         if(details.length===0){
             let tr = document.createElement('tr')
-            tr.innerHTML = `<td colspan="5" align='center'>No Member is attending this event</td>`
+            tr.innerHTML = `<td colspan="6" align='center'>No Member is attending this event</td>`
  
             document.getElementById("body").appendChild(tr)
             return;
@@ -47,6 +49,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
             <td>${info.user.dob}</td>
             <td>${info.user.mobileNum}</td>
             <td><input type='checkbox' class="present" ${info.present ? 'checked':""}  /></td>
+            <td><input type='text' class='form-control' value="Eschool"/></td>
             `
             document.getElementById("body").appendChild(tr)
         })
