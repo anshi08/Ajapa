@@ -114,10 +114,13 @@ async function saveAttendance(data) {
 
     const res = await response.json()
     console.log(res)
+    if(res.message === 'Attendance marked'){
+        $('#attendanceBox').modal('show');
+    }
         // clearAllFields();
-        // $('#pendingDialog2').modal('show');
-        // setTimeout(()=> {
-        //     window.location.href = "history.html"
-        // },2000)
+        
+        setTimeout(()=> {
+            window.location.href = "dashboard.html"
+        },2000)
     return res;
 }
