@@ -326,7 +326,7 @@ phoneNumber.addEventListener("focusout",(e)=>{
     }
 })
 
-document.getElementById("pw").addEventListener("input",e=>{
+document.getElementById("pw").addEventListener("blur",e=>{
     if(e.target.value === 0 || e.target.value.length === 0){
         document.getElementById("pwdTxt").innerText = "Enter Password"
         document.getElementById("pwdTxt").style.display = "block"   
@@ -355,7 +355,7 @@ function validatePasswords() {
 }
 
 
-document.getElementById("email").addEventListener("input",e=>{
+document.getElementById("email").addEventListener("focusout",e=>{
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if(!emailPattern.test(e.target.value)){
         document.getElementById("emailErr").style.display = "block"
