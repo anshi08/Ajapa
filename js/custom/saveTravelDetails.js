@@ -254,7 +254,7 @@ btn.addEventListener("submit", async (e) =>{
         window.location.href = "history.html";
     }
     await saveTravelDetails(data)
-    // setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data) 
+    // setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data)   
 })
 
 function clearAllFields(){
