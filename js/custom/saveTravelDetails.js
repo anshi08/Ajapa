@@ -361,27 +361,27 @@ element.addEventListener('change', function (e) {
 
   })
 
-async function fetchStates(countryId,defaultCountry){
-    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/states/${countryId}`,{
-        method:"GET",
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-          }
-    })
-    const res = await response.json()
-    // console.log("res",res)
+    async function fetchStates(countryId,defaultCountry){
+        const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/states/${countryId}`,{
+            method:"GET",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        const res = await response.json()
+        // console.log("res",res)
 
-    stateElement.innerHTML = '';
+        stateElement.innerHTML = '';
 
-res.forEach((state) => {
-    const option = document.createElement('option');
-    option.value = state.id;
-    option.text = state.name;
-    stateElement.appendChild(option);
-  });
-}
+    res.forEach((state) => {
+        const option = document.createElement('option');
+        option.value = state.id;
+        option.text = state.name;
+        stateElement.appendChild(option);
+    });
+    }
 
-async function fetchCities(stateId) {
+    async function fetchCities(stateId) {
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/cities/${stateId}`,{
         method:"GET",
         headers:{
@@ -398,7 +398,7 @@ async function fetchCities(stateId) {
       });
   }
 
-async function saveTravelDetails(data) {
+    async function saveTravelDetails(data) {
     // console.log("ppp",data)
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveTravelDetails",{
         method:"POST",
@@ -453,16 +453,20 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     })
     document.getElementById("familyDDL").addEventListener("change", async (e) =>{
     if(e.target.value==="Select Member"){
-        // setDefaultAddress({})
+        // setDefaultAddress({}))
+        // let emailId = parseJwt(localStorage.getItem("data")).email
+        // const res = await getUserDetails(emailId)
+        // setLoginUserAddress(res)
+    
     }else{
+        
         let value = JSON.parse(e.target.value)
+        console.log(value)
         setDefaultAddress(value)
     }
     
      
     })
-
-
 
 
     let alreadySavedMember = await getTravelsDetailsByFamilyIdAndEventId(id,localStorage.getItem("family_id"))
@@ -491,6 +495,11 @@ window.addEventListener("DOMContentLoaded",async ()=>{
             }
         })
     })
+
+    let emailId = parseJwt(localStorage.getItem("data")).email
+    const res = await getUserDetails(emailId)
+    setLoginUserAddress(res)
+
 
 })
 
@@ -654,3 +663,33 @@ function setSessionTimeout() {
     }, timeoutInMilliseconds);
   }
 setSessionTimeout();
+
+
+async function getUserDetails(email){
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getUserDetails/${email}`,{
+        method:"GET",
+        headers: {
+            "Content-type":"application/json;  charset=UTF-8"
+        }
+    })
+    const res = await response.json()
+    return res;
+}
+
+async function setLoginUserAddress(res){
+    await fetchStates(res.country.split(":")[0])
+    await fetchCities(res.state.split(":")[0])
+    let allcountry = document.getElementById("from_country").options
+    let allCities = document.getElementById("from_city")
+    let allState = document.getElementById("from_state").options
+    let fromSelectedCountryIndex=-1;
+    let  fromSelectedStateIndex=-1;
+    let fromSelectedCityIndex=-1
+    Array.from(allcountry).forEach((country,idx) => country.value === res.country.split(":")[0] ? fromSelectedCountryIndex=idx:"" )
+    Array.from(allState).forEach((state,idx) => state.value === res.state.split(":")[0] ? fromSelectedStateIndex = idx:"")
+    Array.from(allCities).forEach((city,idx) => city.value === res.city.split(":")[0] ? fromSelectedCityIndex = idx : "")
+    document.getElementById("from_country").selectedIndex = fromSelectedCountryIndex;
+    document.getElementById("from_state").selectedIndex = fromSelectedStateIndex;
+    document.getElementById("from_city").selectedIndex = fromSelectedCityIndex
+
+}

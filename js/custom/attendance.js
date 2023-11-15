@@ -38,9 +38,9 @@ window.addEventListener("DOMContentLoaded",async ()=>{
             document.getElementById("body").appendChild(tr)
             return;
         }
+        console.log(details)
 
         details.forEach(info =>{
-        
             let tr = document.createElement("tr")
             tr.innerHTML=`
             <td style='display:none'>${info.user.id}</td>
@@ -49,7 +49,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
             <td>${info.user.dob}</td>
             <td>${info.user.mobileNum}</td>
             <td><input type='checkbox' class="present" ${info.present ? 'checked':""}  /></td>
-            <td><input type='text' class='form-control' value="Eschool"/></td>
+            <td><input type='text' class='form-control' value=${info.hallNo} /></td>
             `
             document.getElementById("body").appendChild(tr)
         })
@@ -66,23 +66,29 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     document.getElementById("submit").addEventListener("click",function(){
         let table = document.getElementById("body");
         let selectedUser = []
+        let hallNo = []
         // Get all rows in the table
         let rows = table.getElementsByTagName("tr");
-        
+        let isPresent = []
        Array.from(rows).forEach(row => {
-        if(row.lastElementChild.firstChild.checked){
-            selectedUser.push(row.firstElementChild.innerHTML)
+        console.log("row",row.children[row.childElementCount-2].firstElementChild.checked)
+        if(row.children[row.childElementCount-2].firstElementChild.checked){
+            isPresent.push(true)
+        }else{
+            isPresent.push(false)
         }
-       })
+        selectedUser.push(row.firstElementChild.innerHTML)
+        hallNo.push(row.children[row.childElementCount-1].firstElementChild.value)
+    })
 
        let events = []
-       let isPresent = []
+    
        selectedUser.forEach(user =>{
             events.push(eventId);
-            isPresent.push(true)
+           
        })
-       console.log({selectedUser,events,isPresent})
-       saveAttendance({users:selectedUser,events,isPresent})
+       console.log({selectedUser,events,isPresent,hallNo})
+       saveAttendance({users:selectedUser,events,isPresent,hallNo})
     })
 
     let print = document.getElementById("print")
@@ -108,6 +114,7 @@ async function showingAllEvents(first=1,last=100) {
 async function saveAttendance(data) {
     // console.log("ppp",data)
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveAttendance",{
+        // const response = await fetch("http://192.168.29.217:8080/saveAttendance",{
         method:"POST",
         body:JSON.stringify(data),
         headers: {
@@ -116,7 +123,6 @@ async function saveAttendance(data) {
     })
 
     const res = await response.json()
-    console.log(res)
     if(res.message === 'Attendance marked'){
         $('#attendanceBox').modal('show');
     }
