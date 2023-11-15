@@ -93,7 +93,7 @@ next.addEventListener("click",async()=>{
             // To stop the spinner
     
     if(res.length === 0){
-        document.getElementById("body").innerHTML = "<tr><td colspan='7'>No results to display</td></tr>";
+        document.getElementById("body").innerHTML = "<tr><td colspan='9'>No results to display</td></tr>";
         next.style.display = "none"
       
     }
