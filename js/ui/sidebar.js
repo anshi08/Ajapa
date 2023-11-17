@@ -35,6 +35,7 @@ function loadContent() {
                 document.getElementById("superOnly1").style.display = "block"
                 document.getElementById("superOnly2").style.display = "block"
                 document.getElementById("superOnly3").style.display = "block"
+                document.getElementById("food").style.display = "block"
                 document.getElementById("addTravelDetails") !== null ? document.getElementById("addTravelDetails").style.display = "none" : ""
                 document.getElementById("events").style.display = "block"
             }
