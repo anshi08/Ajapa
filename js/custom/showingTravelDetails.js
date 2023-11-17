@@ -10,7 +10,6 @@ async function getTravelDetails(){
         }
     })
     const res = await response.json();
-    console.log("Hurra2y",res)
     res.forEach((myres)=>{
     let option = document.createElement("option")
     option.innerText = myres.eventName,
@@ -18,14 +17,65 @@ async function getTravelDetails(){
     document.getElementById("selectEvent").appendChild(option)
     })
 }
+let travelDetailsById;
 
-
+window.addEventListener("DOMContentLoaded",()=>{
     document.getElementById("selectEvent").addEventListener("change",async (e)=>{
         let eventId = e.target.value
-        let travelDetailsById = await getTravelDetailsById(eventId)
+        document.getElementById("shivirFilter").checked = false
+        travelDetailsById = await getTravelDetailsById(eventId)
+
         
     })
-getTravelDetails()
+    getTravelDetails()
+    document.getElementById("shivirFilter").addEventListener("change",(e)=>{
+        if(e.target.checked){
+            if(document.getElementById("selectEvent").value === 'Select'){
+                alert("Please Select the Event")
+                document.getElementById("shivirFilter").checked = false
+                return;
+            }else{
+              let result = travelDetailsById.filter(detail => detail.attendingShivir)
+              
+              document.getElementById("body").innerHTML=""
+              if(result.length===0){
+                console.log("TEST",result.length)
+                let tr = document.createElement("tr")
+                tr.innerHTML = `
+                <td colspan="10" align="center">No Data Found</td>
+                `
+                document.getElementById("body").appendChild(tr)
+              }else{
+              result.forEach(data => {
+              let tr = document.createElement("tr")
+              tr.innerHTML = `
+              <td>${data.userName}</td>
+              <td>${data.fromCountry.split(":")[1]}</td>
+              <td>${data.fromCity.split(":")[1]}</td>
+              <td>${data.arrivalDate.split("T")[0]}</td>
+              <td>${data.arrivalTime}</td>
+              <td>${data.arrivalModeOfTransport}</td>
+              <td>${data.departureDate.split("T")[0] }</td>
+              <td>${data.departureTime}</td>
+              <td>${data.departureModeOfTransport}</td>
+              <td>${data.description}</td>
+              `
+              document.getElementById("body").appendChild(tr)
+              // To stop the spinner
+              // s.stop(); 
+              
+            
+          })
+        } 
+            }
+        }else{
+
+        }
+    })
+})
+
+
+
 
 //Getting Details By Event Id
 async function getTravelDetailsById(id){
@@ -55,6 +105,7 @@ async function getTravelDetailsById(id){
     document.getElementById("body").appendChild(tr)
     // To stop the spinner
     // s.stop(); 
+    
   
 })
 return res;

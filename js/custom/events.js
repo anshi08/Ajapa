@@ -75,9 +75,6 @@ shvirCheckbox.addEventListener("change",e =>{
     }
 })
 
-setTimeout(()=>{
-    console.log("Anand",)
-},2000)
 btn.addEventListener("submit", async(e) =>{
     
     e.preventDefault();
@@ -129,7 +126,7 @@ btn.addEventListener("submit", async(e) =>{
     if(localStorage.getItem("role") === "super"){
         // alert("hii")
         if(shvirCheckbox.checked){
-            data.isShivirAvailable = shvirCheckbox.checked
+            data.shivirAvailable = shvirCheckbox.checked
             data.shivirStartDate = document.getElementById("shivir_start_date").value
             data.shivirEndDate = document.getElementById("shivir_end_date").value
         }
@@ -139,15 +136,15 @@ btn.addEventListener("submit", async(e) =>{
     }
     else{
         if(shvirCheckbox.checked){
-            data.isShivirAvailable = shvirCheckbox.checked
+            data.shivirAvailable = shvirCheckbox.checked
             data.shivirStartDate = document.getElementById("shivir_start_date").value
             data.shivirEndDate = document.getElementById("shivir_end_date").value
         }
         console.log("kkk",data)
-        // let {eventId} = await events(data)
+        let {eventId} = await events(data)
         // alert("admin")
-        // saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
-        // setEventImg(eventId,file)
+        saveEventPermission(eventId,parseJwt(localStorage.getItem("data")).Identifier,true,true)
+        setEventImg(eventId,file)
     }
 
 });
@@ -180,6 +177,7 @@ function ClearAllFields(){
  const events = async (data) => {
     try{
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveEvent",{
+        // const response = await fetch("http://192.168.29.217:8080/saveEvent",{
         method:"POST",
         body:JSON.stringify(data),
         headers:{
