@@ -500,6 +500,41 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     const res = await getUserDetails(emailId)
     setLoginUserAddress(res)
 
+    //Fetch Event Details
+    async  function fetchDetails(){
+        let id = window.location.href.split("?")[1].split("=")[1]
+        const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/fetchEvent/'+id)
+        const response = await res.json()
+        console.log(response)
+
+        document.getElementById("eventTitle").textContent = "Event Title: " + response.eventName
+        document.getElementById("eventDate").textContent = "Event Date: " + response.startDate.split("T")[0]
+        document.getElementById("shivirDate").textContent = "Shivir Date: " + response.shivirStartDate.split("T")[0]
+        
+       
+    }
+    fetchDetails()
+
+    //Fetch EVent Image
+    async function getImg (){
+
+        const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEmail",{
+            method:"POST",
+            headers:{
+                "Authorization":"Bearer "+JSON.parse(localStorage.getItem("data"))
+            }
+        })
+        const res = await response.json()
+        let id = window.location.href.split("?")[1].split("=")[1]
+        // alert(id)
+        document.getElementById("eventImage").src = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/EventDoc/${id}.jpg`
+        document.getElementById("eventImage").className ="img-thumbnail"
+        return res;
+    }
+    
+    getImg()
+
+
 
 })
 

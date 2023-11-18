@@ -3,190 +3,190 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-    <title>Ajapa- Add Events</title>
-    <link rel="icon" type="jpg" href="/startbootstrap-sb-admin-2-gh-pages/img/ajapa.jpg">
+	<title>Ajapa- Add Events</title>
+	<link rel="icon" type="jpg" href="/startbootstrap-sb-admin-2-gh-pages/img/ajapa.jpg">
 
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+	<!-- Custom fonts for this template-->
+	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link
+		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+		rel="stylesheet">
 
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <script src="js/custom/isAuth.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
-    <script>
-        let adminStatus = JSON.parse(localStorage.getItem("role")) === "admin"
-        let superAdminStatus = JSON.parse(localStorage.getItem("role")) === "super"
-        if(!adminStatus){
-            if(!superAdminStatus){
-                alert("You can't access this page")
-                window.location.href="dashboard.html"
-            }
-        }
+	<!-- Custom styles for this template-->
+	<link href="css/sb-admin-2.min.css" rel="stylesheet">
+	<script src="js/custom/isAuth.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+	<script>
+		let adminStatus = JSON.parse(localStorage.getItem("role")) === "admin"
+		let superAdminStatus = JSON.parse(localStorage.getItem("role")) === "super"
+		if(!adminStatus){
+			if(!superAdminStatus){
+				alert("You can't access this page")
+				window.location.href="dashboard.html"
+			}
+		}
 
-        </script>
+		</script>
 </head>
 
 <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+	<!-- Page Wrapper -->
+	<div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
-        style="background-color: #7f2c00;"
-        >
-        </ul>
-        <!-- End of Sidebar -->
+		<!-- Sidebar -->
+		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+		style="background-color: #7f2c00;"
+		>
+		</ul>
+		<!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
-            <div id="content">
+			<!-- Main Content -->
+			<div id="content">
 
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" id="customnavbar">
-                </nav>
-                <!-- End of Topbar -->
+				<!-- Topbar -->
+				<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" id="customnavbar">
+				</nav>
+				<!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-1 text-gray-800">Add Events</h1>
-                        <div class="row">
-                            <div class="col-sm-12 shadow-lg p-4 mb-4 bg-white mx-auto rounded">
-                     
-                        
-                                <form enctype="multipart/form-data" id="btn">
-                            <div class="form-group">
-                                <label>Event Name :</label>
-                              <input type="text" required pattern="[a-zA-Z0-9_,.\- ]*"
-                              title="Only characters, dashes, commas, periods, and spaces are allowed"
-                                class="form-control" placeholder="Enter Event Name" id="event_name">
-                                <p id="eventNameError" style="display: none;color:red">Event Name Required</p>    
-                            </div>
-        
-                                      <div class="form-group">
-                                        <label>Event Type :</label>
-                                        <select class="form-control" id="event_type" required>
-                                            <option>Select Type</option>
-                                            <option value="online">Online</option>
-                                            <option value="offline">Offline</option>
-                                        </select>
-                                    </div>
-        
-                                      <div class="form-group">
-                                        <label >Event Location:</label>
-                                        <input type="text" class="form-control" placeholder="Enter Event Location" 
-                                        id="event_location" required pattern="[A-Za-z ]*" title="Only characters are allowed">
-                                        <p id="eventLocationError"  style="display: none;color:red">Event Location Required</p>
-                                          </div>
-        
-                                          <div class="form-group">
-                                            <label >Allowed Travel start date</label>
-                                              <input type="date" class="form-control"  id="lock_start_date" min="1950-01-01" max="2070-01-01" required>
-                                        </div>
-        
-                     <div class="form-group">
-                        <label >Event Date</label>
-                          <input type="date" class="form-control"  id="start_date" required>
-                    </div>
-        
-                        <div class="form-group">
-                            <label >Allowed Travel End date</label>
-                            <input type="date" class="form-control" id="lock_end_date" min="1950-01-01" max="2070-01-01" required>
-                        </div>  
-        
-                        <div class="form-group" id="start_time">
-                            <label >Start Time:</label>
-                            <input type="time" class="form-control" id="s_time" >
-                        </div> 
-        
-                        <div class="form-group" id="end_time">
-                            <label >End Time :</label>
-                            <input type="time" class="form-control" id="e_time" >
-                        </div>
-        
-                           <div class="form-group">
-                            <label >Choose a file for an Event Image :</label>
-                            <input type="file" class="form-control-file" name="file" id="file" >
-                          </div>
-                          <div class="form-group">
-                       
-                            <input type="checkbox" id="shivir">
-                            <label>Add Shivir</label>
-                          </div>
-                          <div class="form-group" id="shivirStartDate" style="display:none">
-                            <label >Shivir start date</label>
-                              <input type="date" class="form-control"  id="shivir_start_date" min="1950-01-01" max="2070-01-01" required>
-                        </div>
+					<!-- Page Heading -->
+					<h1 class="h3 mb-1 text-gray-800">Add Events</h1>
+						<div class="row">
+							<div class="col-sm-12 shadow-lg p-4 mb-4 bg-white mx-auto rounded">
+					 
+						
+								<form enctype="multipart/form-data" id="btn">
+							<div class="form-group">
+								<label>Event Name :</label>
+							  <input type="text" required pattern="[a-zA-Z0-9_,.\- ]*"
+							  title="Only characters, dashes, commas, periods, and spaces are allowed"
+								class="form-control" placeholder="Enter Event Name" id="event_name">
+								<p id="eventNameError" style="display: none;color:red">Event Name Required</p>    
+							</div>
+		
+									  <div class="form-group">
+										<label>Event Type :</label>
+										<select class="form-control" id="event_type" required>
+											<option>Select Type</option>
+											<option value="online">Online</option>
+											<option value="offline">Offline</option>
+										</select>
+									</div>
+		
+									  <div class="form-group">
+										<label >Event Location:</label>
+										<input type="text" class="form-control" placeholder="Enter Event Location" 
+										id="event_location" required pattern="[A-Za-z ]*" title="Only characters are allowed">
+										<p id="eventLocationError"  style="display: none;color:red">Event Location Required</p>
+										  </div>
+		
+										  <div class="form-group">
+											<label >Allowed Travel start date</label>
+											  <input type="date" class="form-control"  id="lock_start_date" min="1950-01-01" max="2070-01-01" required>
+										</div>
+		
+					 <div class="form-group">
+						<label >Event Date</label>
+						  <input type="date" class="form-control"  id="start_date" required>
+					</div>
+		
+						<div class="form-group">
+							<label >Allowed Travel End date</label>
+							<input type="date" class="form-control" id="lock_end_date" min="1950-01-01" max="2070-01-01" required>
+						</div>  
+		
+						<div class="form-group" id="start_time">
+							<label >Start Time:</label>
+							<input type="time" class="form-control" id="s_time" >
+						</div> 
+		
+						<div class="form-group" id="end_time">
+							<label >End Time :</label>
+							<input type="time" class="form-control" id="e_time" >
+						</div>
+		
+						   <div class="form-group">
+							<label >Choose a file for an Event Image :</label>
+							<input type="file" class="form-control-file" name="file" id="file" >
+						  </div>
+						  <div class="form-group">
+					   
+							<input type="checkbox" id="shivir">
+							<label>Add Shivir</label>
+						  </div>
+						  <div class="form-group" id="shivirStartDate" style="display:none">
+							<label >Shivir start date</label>
+							  <input type="date" class="form-control"  id="shivir_start_date" min="1950-01-01" max="2070-01-01" required>
+						</div>
 
-                        <div class="form-group" id="shivirEndDate" style="display:none">
-                            <label >Shivir end date</label>
-                              <input type="date" class="form-control"  id="shivir_end_date" min="1950-01-01" max="2070-01-01" required>
-                        </div>
+						<div class="form-group" id="shivirEndDate" style="display:none">
+							<label >Shivir end date</label>
+							  <input type="date" class="form-control"  id="shivir_end_date" min="1950-01-01" max="2070-01-01" required>
+						</div>
 
-        
-                                  
-                                 <input type="submit" class="btn btn-primary" value="Add Event"/>                  
-                                </form>
-                            
-                              </div>
-                           
-                        </div>
-                
-                            <!-- Message dialog Box -->
+		
+								  
+								 <input type="submit" class="btn btn-primary" value="Add Event"/>                  
+								</form>
+							
+							  </div>
+						   
+						</div>
+				
+							<!-- Message dialog Box -->
   <div class="modal fade" id="pendingDialog4" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="pendingDialogLabel">Add Events</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            Event Added Successfully
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-    </div>
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="pendingDialogLabel">Add Events</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			Event Added Successfully
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+	</div>
 
-                </div>
-                <!-- /.container-fluid -->
+				</div>
+				<!-- /.container-fluid -->
 
-            </div>
-            <!-- End of Main Content -->
+			</div>
+			<!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white" id="customfooter">
-            </footer>
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white" id="customfooter">
+			</footer>
 
-            <!-- End of Footer -->
+			<!-- End of Footer -->
 
-        </div>
-        <!-- End of Content Wrapper -->
+		</div>
+		<!-- End of Content Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
+	</div>
+	<!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
 
  <!-- Logout Modal-->
  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -197,76 +197,103 @@
 
 
 
-    <!--UI-->
-    <script src="js/ui/logout.js"></script>
-    <script src="js/ui/sidebar.js"></script>
-    <script src="js/ui/navbar.js"></script>
-    <script src="js/ui/footer.js"></script>
-    <!-- Custom JS -->
-    <script src="js/custom/events.js"></script>
-    <!-- <script src="js/custom/setEventImage.js"></script> -->
+	<!--UI-->
+	<script src="js/ui/logout.js"></script>
+	<script src="js/ui/sidebar.js"></script>
+	<script src="js/ui/navbar.js"></script>
+	<script src="js/ui/footer.js"></script>
+	<!-- Custom JS -->
+	<script src="js/custom/events.js"></script>
+	<!-- <script src="js/custom/setEventImage.js"></script> -->
 
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="js/sb-admin-2.min.js"></script>
 
-    <script>
+	<script>
 
+		//Shivir Start Date !!
+		document.getElementById("shivir_start_date").addEventListener("change", (e) => {
+    const shivirStartDate = new Date(e.target.value);
+    const lockStartDate = new Date(document.getElementById("lock_start_date").value);
+    console.log(compareDates(shivirStartDate, lockStartDate))
+    if (compareDates(shivirStartDate, lockStartDate) || dateDifferenceGreaterThan(shivirStartDate, lockStartDate, 10)) {
+        alert("Please choose Shivir Start Date before the Allowed Travel start date and within a 10-day gap.");
+        document.getElementById("shivir_start_date").value = '';
+    }
+});
 
-
-
-
-        document.getElementById("start_date").addEventListener("change",(e)=>{
-           console.log(compareDates(new Date(document.getElementById("lock_start_date").value), new Date(e.target.value)))
-            if(compareDates(new Date(),new Date(e.target.value))){
-                alert("Please choose greater than today")
-                document.getElementById("start_date").value = ''
-            }else if(compareDates(new Date(document.getElementById("lock_start_date").value), new Date(e.target.value))){
-                alert("Start date always greater than lock date")
-                document.getElementById("start_date").value = ''
-            }
-        })
-
-
-        // document.getElementById("end_date").addEventListener("change",(e)=>{
-          
-        //     if(compareDates(new Date(),new Date(e.target.value))){
-        //         alert("Please choose lesser than End date")
-        //         document.getElementById("end_date").value = ''
-        //     }else{
-
-        //     }
-        // })
-        document.getElementById("lock_end_date").addEventListener("change",e=>{
-            if(compareDates(new Date(document.getElementById("start_date").value),new Date(e.target.value))){
-                alert("Please Choose lock end date greater than start date")
-                document.getElementById("lock_end_date").value=''
-            }
-        })
+		//Shivir End Date !!
+		document.getElementById("shivir_end_date").addEventListener("change",(e)=>{
+			console.log(compareDate(new Date(document.getElementById("start_date").value),new Date(e.target.value)))
+			if(compareDate(new Date(document.getElementById("start_date").value),new Date(e.target.value))){
+				alert("Please Choose Shivir End Date before Event date")
+				document.getElementById("shivir_end_date").value=''
+			}
+		})
 
 
-        const compareDates = (d1, d2) => {
-        let date1 = new Date(d1).getTime();
-        let date2 = new Date(d2).getTime();
+		document.getElementById("start_date").addEventListener("change",(e)=>{
+		   console.log(compareDates(new Date(document.getElementById("lock_start_date").value), new Date(e.target.value)))
+			if(compareDates(new Date(),new Date(e.target.value))){
+				alert("Please choose greater than today")
+				document.getElementById("start_date").value = ''
+			}else if(compareDates(new Date(document.getElementById("lock_start_date").value), new Date(e.target.value))){
+				alert("Start date always greater than lock date")
+				document.getElementById("start_date").value = ''
+			}
+		})
 
-        if (date1 < date2) {
+		document.getElementById("lock_end_date").addEventListener("change",e=>{
+			if(compareDates(new Date(document.getElementById("start_date").value),new Date(e.target.value))){
+				alert("Please Choose lock end date greater than start date")
+				document.getElementById("lock_end_date").value=''
+			}
+		})
 
-            return false;
-        } else if (date1 > date2) {
-            return true
-        } else {
-            return true
-        }
-        }
+		const compareDates = (d1, d2) => {
+		let date1 = new Date(d1).getTime();
+		let date2 = new Date(d2).getTime();
 
-    </script>
+		if (date1 < date2) {
+
+			return false;
+		} else if (date1 > date2) {
+			return true
+		} else {
+			return true
+		}
+		}
+
+		const compareDate = (d1,d2) => {
+			let firstDate = new Date(d1).getTime();
+			let secondDate = new Date(d2).getTime();
+
+			if (firstDate < secondDate) {
+				return true;
+            } else if (firstDate > secondDate) {
+				return false;
+			} else {
+				return true
+			}
+		}
+
+const dateDifferenceGreaterThan = (date1, date2, days) => {
+    const differenceInTime = Math.abs(date2.getTime() - date1.getTime());
+    const differenceInDays = Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
+
+    return differenceInDays > days;
+};
+
+
+	</script>
 
 
 

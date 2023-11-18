@@ -8,8 +8,6 @@ let today = new Date().toISOString().split('T')[0];
 dob.setAttribute("min",today)
 
 
-
-
 function getElementByIdName(idName){
     return document.getElementById(idName).value
 }
