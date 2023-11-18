@@ -204,7 +204,7 @@ btn.addEventListener("submit", async (e) =>{
             departureDate: dep_date,
             departureTime: dep_time,
             departureModeOfTransport: dep_transport,
-            attendingShivir:shivirCheckbox.checked || false,
+            attendingShivir:shivirCheckbox.checked,
             description: desc,
             userId : uid,
             userName:userName,
@@ -226,7 +226,7 @@ btn.addEventListener("submit", async (e) =>{
             departureTrainName:null,
             // departureTrainNumber: getElementByIdName("train_number_1").split("--")[0].replace("[","").replace("]",""),
             // departureTrainName:  getElementByIdName("train_number_1").split("--")[1],  
-            attendingShivir:shivirCheckbox.checked || false,
+            attendingShivir:shivirCheckbox.checked,
             description: desc,
             userId : uid,
             userName:userName,
@@ -262,7 +262,7 @@ btn.addEventListener("submit", async (e) =>{
     //     window.location.href = "history.html";
     // }
     console.log("MINE",data)
-    // await saveTravelDetails(data)
+    await saveTravelDetails(data)
     // setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data)   
 })
 
@@ -310,6 +310,7 @@ element.addEventListener('change', function (e) {
  
   async function setDefaultAddress(address){
     console.log("setDefaultAddress",address)
+    document.getElementById("shivir").checked = address.attendingShivir
     await fetchStates(address.fromCountry.split(":")[0])
     await fetchCities(address.fromState.split(":")[0])
     let allcountry = document.getElementById("from_country").options
@@ -352,6 +353,7 @@ element.addEventListener('change', function (e) {
         document.getElementById("departure_train_number").value = address?.departureTrainNumber || address?.departureTrainName
         handleInput1(address?.departureTrainNumber || address?.departureTrainName)
     }
+
 
 
 
@@ -518,7 +520,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
 
         document.getElementById("eventTitle").textContent = "Event Title: " + response.eventName
         document.getElementById("eventDate").textContent = "Event Date: " + response.startDate.split("T")[0]
-        document.getElementById("shivirDate").textContent = "Shivir Date: " + response.shivirStartDate.split("T")[0]
+        document.getElementById("shivirDate").textContent = "Shivir Date: " + response?.shivirStartDate?.split("T")[0]
         
        
     }
@@ -685,7 +687,6 @@ function getTravelDetailsFromId(id){
 }
 
 async function getTravelsDetailsByFamilyIdAndEventId(eventId,familyId){
-    console.log(eventId,familyId)
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAllTravelEventUser/${eventId}/${familyId}`,{
         method:"GET",
         headers: {
