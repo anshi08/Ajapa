@@ -96,6 +96,35 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         window.print()
     })
 
+    let notify = document.getElementById("notify")
+    notify.addEventListener("click",()=>{
+        let table = document.getElementById("body");
+        let selectedUser = []
+        let hallNo = []
+        // Get all rows in the table
+        let rows = table.getElementsByTagName("tr");
+        let isPresent = []
+       Array.from(rows).forEach(row => {
+        console.log("row",row.children[row.childElementCount-2].firstElementChild.checked)
+        if(row.children[row.childElementCount-2].firstElementChild.checked){
+            isPresent.push(true)
+        }else{
+            isPresent.push(false)
+        }
+        selectedUser.push(row.firstElementChild.innerHTML)
+        hallNo.push(row.children[row.childElementCount-1].firstElementChild.value)
+    })
+
+       let events = []
+    
+       selectedUser.forEach(user =>{
+            events.push(eventId);
+           
+       })
+       sendRoomBookingStatus({users:selectedUser,events,isPresent,hallNo})
+       
+    })
+
 
 })
 
@@ -124,6 +153,28 @@ async function saveAttendance(data) {
 
     const res = await response.json()
     if(res.message === 'Attendance marked'){
+        $('#attendanceBox').modal('show');
+    }
+        // clearAllFields();
+        
+        setTimeout(()=> {
+            window.location.href = "dashboard.html"
+        },2000)
+    return res;
+}
+
+async function sendRoomBookingStatus(data){
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/sendRoomBookingStatus",{
+        // const response = await fetch("http://192.168.29.217:8080/saveAttendance",{
+        method:"POST",
+        body:JSON.stringify(data),
+        headers: {
+            "Content-type":"application/json;  charset=UTF-8"
+        }
+    })
+
+    const res = await response.json()
+    if(res.message === 'SMS Sent'){
         $('#attendanceBox').modal('show');
     }
         // clearAllFields();
