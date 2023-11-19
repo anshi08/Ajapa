@@ -2,6 +2,7 @@ let btn = document.getElementById("btn")
 let element = document.getElementById("from_country")
 let stateElement = document.getElementById("from_state")
 let cityElement= document.getElementById("from_city")
+
 let id = window.location.href.split("?")[1].split("=")[1]
 getDetailOfEvent(id)
 
@@ -133,6 +134,8 @@ btn.addEventListener("submit", async (e) =>{
     let dep_time = document.getElementById("departure_time").value
     let dep_transport = document.getElementById("departure_mode_of_transport").value
     // let dep_trainName = getElementByIdName("departure_train_name")
+    let shivirCheckbox = document.getElementById("shivir")
+    // console.log("Checked",shivirCheckbox.checked)
     let desc = getElementByIdName("description")
     let uid = ''
     let userName =''
@@ -178,6 +181,7 @@ btn.addEventListener("submit", async (e) =>{
             departureTrainName:null,
             // departureTrainNumber: getElementByIdName("train_number_1").split("--")[0].replace("[","").replace("]",""),
             // departureTrainName:  getElementByIdName("train_number_1").split("--")[1],
+            attendingShivir:shivirCheckbox.checked || false,
             description: desc,
             userId : uid,
             userName:userName,
@@ -200,6 +204,7 @@ btn.addEventListener("submit", async (e) =>{
             departureDate: dep_date,
             departureTime: dep_time,
             departureModeOfTransport: dep_transport,
+            attendingShivir:shivirCheckbox.checked || false,
             description: desc,
             userId : uid,
             userName:userName,
@@ -221,6 +226,7 @@ btn.addEventListener("submit", async (e) =>{
             departureTrainName:null,
             // departureTrainNumber: getElementByIdName("train_number_1").split("--")[0].replace("[","").replace("]",""),
             // departureTrainName:  getElementByIdName("train_number_1").split("--")[1],  
+            attendingShivir:shivirCheckbox.checked || false,
             description: desc,
             userId : uid,
             userName:userName,
@@ -239,6 +245,7 @@ btn.addEventListener("submit", async (e) =>{
             departureDate: dep_date,
             departureTime: dep_time,
             departureModeOfTransport: dep_transport,
+            attendingShivir:shivirCheckbox.checked || false,
             description: desc,
             userId : uid,
             userName:userName,
@@ -250,10 +257,12 @@ btn.addEventListener("submit", async (e) =>{
     
     if (registerAnother) {
         window.location.href = `addTravelDetails.html?id=${id}`;
-    } else {
-        window.location.href = "history.html";
     }
-    await saveTravelDetails(data)
+    // else {
+    //     window.location.href = "history.html";
+    // }
+    console.log("MINE",data)
+    // await saveTravelDetails(data)
     // setTravelDetailsonLocalStorage(parseJwt(localStorage.getItem("data")).id,data)   
 })
 
@@ -684,6 +693,7 @@ async function getTravelsDetailsByFamilyIdAndEventId(eventId,familyId){
         }
     })
     const res = await response.json()
+    console.log("cc",res)
     return res;
 }
 
@@ -708,6 +718,7 @@ async function getUserDetails(email){
         }
     })
     const res = await response.json()
+    // console.log("cc",res)
     return res;
 }
 

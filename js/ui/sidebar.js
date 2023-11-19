@@ -77,13 +77,16 @@ function loadContent() {
             }
             let email = parseJwt(localStorage.getItem("data")).email
             document.getElementById("userPic").src = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${email}.jpg`
-           let err = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${email}.jpg`.split('/')
-            // console.log("m",!err.includes("404"))
-            if(!err.includes("404")){
-                document.getElementById("userPic").src = "img/DefaultImg.jpg"
-                // document.getElementById("userPic").style = "height: 4%; margin-bottom:5%;"
-            }
-        })
+
+        let userPic = document.getElementById("userPic");
+        userPic.src = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${email}.jpg`;
+        userPic.onerror = function() {
+        userPic.src = "img/DefaultImg.jpg";
+        };
+        // userPic.onload = function() {
+        // userPic.onerror = null;
+        // };
+    })
         .catch(error => {
             console.error('Error fetching content:', error);
         });
