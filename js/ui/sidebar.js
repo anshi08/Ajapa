@@ -83,9 +83,7 @@ function loadContent() {
         userPic.onerror = function() {
         userPic.src = "img/DefaultImg.jpg";
         };
-        // userPic.onload = function() {
-        // userPic.onerror = null;
-        // };
+        
     })
         .catch(error => {
             console.error('Error fetching content:', error);
