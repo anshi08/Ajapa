@@ -27,6 +27,7 @@ function loadContent() {
                 document.getElementById("showAdmins").style.display = "block"
                 document.getElementById("approveUsers").style.display = "block"
                 document.getElementById("rejectUsers").style.display = "block"
+                document.getElementById("allUser").style.display = "block"
                 document.getElementById("deletedEvents").style.display = "block"
                 document.getElementById("addMembers").style.display = "none"
                 document.getElementById("updateProfile").style.display = "none"

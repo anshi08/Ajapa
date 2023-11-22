@@ -27,6 +27,24 @@
        content: "*";
        color: red;
       }
+    /* Default styles for the image */
+    #userPic {
+        width: 75% !important;
+        height: 5% !important;
+        display: block !important;
+        margin: 0 auto !important; 
+        object-fit: fill !important;
+    }
+
+    /* Media query for larger screens */
+    @media (min-width: 768px) {
+        #userPic {
+            width: 50% !important;
+            height: 7% !important;
+            object-fit: fill !important;
+        }
+    }
+
     </style>
        <script>
         let head = JSON.parse(localStorage.getItem("role")) === "head"
