@@ -26,7 +26,7 @@ async function getApprovedUser(first=1,last=5){
         <td>${data.country.split(":")[1]}</td>
         <td>${data.state.split(":")[1]}</td>
         <td>${data.city.split(":")[1]}</td>
-        <td><a href="updateUser.html?email=${data.email}" class="btn btn-info delete">Edit</a></td>
+        <td><a href="updateUser.html?email=${data.email}&id=${data.id}" class="btn btn-info delete">Edit</a></td>
          `
         document.getElementById("body").appendChild(tr)
          // To stop the spinner
