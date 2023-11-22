@@ -212,9 +212,10 @@ btn.addEventListener("submit", (e) => {
     }
     
     else{
-    updateProfile(data)
+        console.log("Mine Data",data)
+        updateProfile(data)
   
-    data.file!==undefined ? saveUserImg(data.file,data.email):null
+        data.file!==undefined ? saveUserImg(data.file,data.email):null
     }
    
 })
@@ -338,7 +339,7 @@ async function fetchCities(stateId,selectCityValue) {
     });
 
 
-//Fetching Details of USERS
+//Fetching Details of Particular User
 async function detailsOfUser(email) {
    
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getUserDetails/${email}`,{   
@@ -363,15 +364,13 @@ async function detailsOfUser(email) {
     let aa = res.country.split(":")
     document.getElementById("email").value = res.email;   
     document.getElementById("blood_grp").value = res.bloodGrp
-    if(res.dikshaDt != ""){
+    if (!res.dikshaDt) {
+        document.getElementById("dontRememberDate").checked = true;
+        diksha_dt.style.display = "none";
+    } else {
         document.getElementById("rememberDate").checked = true;
         diksha_dt.style.display = "block";
-        document.getElementById("diksha_dt").value =res.dikshaDt
-    }else{
-        if(res.dikshaDt == ""){
-        document.getElementById("dontRememberDate").checked = true;  
-        diksha_dt.style.display = "none";
-        }
+        document.getElementById("diksha_dt").value = res.dikshaDt;
     }
     document.getElementById("occupation").value = res.occupation
     document.getElementById("qualification").value = res.qualification;
@@ -451,7 +450,6 @@ function parseJwt (token) {
 }
 
 async function updateProfile(data) {
-  
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/updateUser",{
             method:"PUT",
             body:JSON.stringify(data),
@@ -466,9 +464,9 @@ async function updateProfile(data) {
         
         clearFormFields();
         $('#pendingDialog1').modal('show');
-        setTimeout(() => {
-            window.location.href = "dashboard.html"
-        }, 3000)
+        // setTimeout(() => {
+        //     window.location.href = "dashboard.html"
+        // }, 3000)
         // localStorage.setItem("data",JSON.stringify(res.token)) 
         return res;
         }
