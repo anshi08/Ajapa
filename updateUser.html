@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Ajapa- Update Profile</title>
+    <link rel="icon" type="jpg" href="/startbootstrap-sb-admin-2-gh-pages/img/ajapa.jpg">
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="js/custom/isAuth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+    <style>
+      .required-field::after {
+       content: "*";
+       color: red;
+      }
+    </style>
+       <script>
+        let head = JSON.parse(localStorage.getItem("role")) === "head"
+        let member = JSON.parse(localStorage.getItem("role")) === "member"
+        // if(head){
+        //     if(member){
+        //         // alert("You can't access this page")
+        //         // window.location.href="dashboard.html"
+        //     }
+        // }else {
+        //     alert("You can't access this page")
+        //         window.location.href="dashboard.html"
+        // }
+
+        </script>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+        style="background-color: #7f2c00;"
+        
+        >
+        </ul>
+
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" id="customnavbar">
+                </nav>
+                <!-- End of Topbar -->
+              
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800" >Update Profile</h1>
+                <!-- Spinner Div -->
+                <div class="h5 mt-1 font-weight-bold text-gray-800"  ></div>
+                <div class="row">
+                    <div class="col-sm-12 shadow-lg p-4 mb-4 bg-white mx-auto rounded">
+      
+        <!-- first Message dialog Box -->
+        <!-- <div class="modal fade" id="pendingDialog101" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="pendingDialogLabel">Alert</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  Please Complete Your Profile
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+          </div> -->
+
+  <!-- Message dialog Box -->
+  <div class="modal fade" id="pendingDialog1" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="pendingDialogLabel">Updated</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Details updated successfully
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+    </div>
+                        
+                       <form id="btn">
+                        <div id="spinner-container">
+                            
+                        </div>
+                    <div class="form-group">
+                        <label class="required-field">Age</label>
+                      <input type="number" class="form-control" min="1" max="100" placeholder="Enter age" id="age" required>
+                      <p id="ageError" style="display: none;color:red">Please Enter a Valid Age</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="required-field">Mobile Number :</label>
+                            <input type="tel" class="form-control" placeholder="Mobile Number" 
+                            id="mobile_num" required>
+                            <p id="phoneNumberTxt"></p>
+                              </div>
+
+                            <div class="form-group" >
+                                <label>WhatsApp Number</label> <br/>
+
+                            <label>
+                                <input type="radio" name="Mob" id="rememberMob">
+                                Same as Mobile Number
+                            </label >
+                            
+                            <label>
+                                <input type="radio" name="Mob" id="dontRememberMob">
+                                Add New WhatsApp Number
+                            </label>  <br/>
+                        
+                            <!-- Date input field (hidden by default when "I don't remember the date" is selected) -->
+                            <input type="tel" class="form-control"  
+                            id="whatsapp_num" name="whatsapp_num" placeholder="Enter whatsApp Number" required>
+                            <p id="phoneNumberTxt1"></p>
+                        </div>
+                        <div class="form-group">
+                          <label class="required-field">Profile :</label>
+                          <input type="file" class="form-control"  id="file">
+              
+                        </div>
+
+                                  <div class="form-group">
+                                    <label class="required-field">Email Address :</label>
+                                    <input type="email" class="form-control " 
+                                        placeholder="Email Address" id="email" required>
+                                        <p id="emailErr" style="display: none;color:red"></p>
+                                 </div>
+                                
+                <div class="form-group">
+                    <label>Select Blood Group :</label>
+                    <select class="form-control" id="blood_grp" required> 
+                            <option>Select</option>
+                            <option>AB+</option>
+                            <option>AB-</option>
+                            <option>A+</option>
+                            <option>A-</option>
+                            <option>B+</option>
+                            <option>B-</option>
+                            <option>O+</option>
+                            <option>O-</option>
+                      </select>
+                      </div>
+
+                <div class="form-group">
+                    <label>Diksha Date</label> <br/>
+    <label id="dateLabel2">
+        <input type="radio" name="dateOption" id="rememberDate">
+        Remember the date
+    </label>
+    
+    <label id="dateLabel">
+        <input type="radio" name="dateOption" id="dontRememberDate">
+        I don't remember the date
+    </label>  <br/>
+
+    <!-- Date input field (hidden by default when "I don't remember the date" is selected) -->
+    <input type="date" class="form-control" style="width:150px ;" id="diksha_dt" name="diksha_dt">
+
+                </div>   
+                                  
+                   <div class="form-group">
+                    <label>Occupation</label>
+                    <select class="form-control"  id="occupation" required>
+                      <option>Business</option>
+                      <option>Services</option>
+                      <option>Others</option>
+                    </select>
+                        <!-- <input type="text" class="form-control" placeholder="Enter Occupation" id="occupation" required> -->
+                        <p id="occupationTxt" style="display: none;color:red">Please Select Your Occupation</p>
+                   </div>
+
+                   <!-- <div class="form-group">
+                    <label >Choose a file:</label>
+                    <input type="file" class="form-control-file" name="file" id="file">
+                  </div> -->
+
+                            <div class="form-group">
+                                <label>Qualification</label>
+                                <input type="text" class="form-control" placeholder="Enter Qualification" 
+                                id="qualification" required>
+                                <p id="qualificationTxt" style="display: none;color:red">Please Enter Your Qualification</p>
+                            </div>
+
+                                <div class="form-group">
+                                    <label class="required-field">Current Residential Address</label>
+                                    <input type="text" class="form-control" placeholder="Enter Address" 
+                                    id="address_linep" required>
+                                    <p id="address_linepTxt" style="display: none;color:red"></p>
+                                </div>
+
+                                                                                      
+                                <!-- Country -->
+                                <div class="form-group">
+                                    <label class="required-field">Select a Country :</label>
+                                    <select id="country" class="form-control">
+                                        <!-- Options will be added dynamically -->
+                                        <option value="" id="dikha">Country</option>
+                                    </select>
+                                </div>
+
+                                <!-- State -->
+                                <div class="form-group">
+                                <label class="required-field">Select a State :</label>
+                                <select id="state" class="form-control ">
+                                <!-- Options will be added dynamically -->
+                                <option value="">State</option>
+                                </select>
+                                </div>
+
+                                <!-- City -->
+                                <div class="form-group">
+                                <label class="required-field">Select a City :</label>
+                                <select id="city" class="form-control ">
+                                    <!-- Options will be added dynamically -->
+                                    <option value="">City</option>
+                                </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="required-field">Pincode</label>
+                                    <input type="text" maxlength="6" class="form-control" placeholder="Enter Pincode" 
+                                    id="pincode" required>
+                                    <p id="pincodeTxt" style="display: none;color:red;">Pincode must be a 6 digit </p>
+                                </div>
+                          
+                         <button type="submit" id="update" class="btn btn-primary " >
+                            Update Profile
+                        </button>                  
+                        </form>
+                        
+                      </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white" id="customfooter">
+            </footer>
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+ 
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+
+</div>
+
+
+
+
+<!--UI-->
+    <script src="js/ui/logout.js"></script>
+    <script src="js/ui/sidebar.js"></script>
+    <script src="js/ui/navbar.js"></script>
+    <script src="js/ui/footer.js"></script>
+    <!-- Custom JS -->
+    <script src="js/custom/updateUserInfo.js"></script>
+    <!-- <script src="js/custom/userPic.js"></script>  -->
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>
