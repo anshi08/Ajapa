@@ -212,9 +212,10 @@ btn.addEventListener("submit", (e) => {
     }
     
     else{
-    updateProfile(data)
+          console.log("Mine Data",data)
+        // updateProfile(data)
   
-    data.file!==undefined ? saveUserImg(data.file,data.email):null
+        data.file!==undefined ? saveUserImg(data.file,data.email):null
     }
    
 })
@@ -466,9 +467,9 @@ async function updateProfile(data) {
         
         clearFormFields();
         $('#pendingDialog1').modal('show');
-        setTimeout(() => {
-            window.location.href = "dashboard.html"
-        }, 3000)
+        // setTimeout(() => {
+        //     window.location.href = "dashboard.html"
+        // }, 3000)
         // localStorage.setItem("data",JSON.stringify(res.token)) 
         return res;
         }

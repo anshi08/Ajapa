@@ -363,12 +363,12 @@ async function detailsOfUser(email) {
     let aa = res.country.split(":")
     document.getElementById("email").value = res.email;   
     document.getElementById("blood_grp").value = res.bloodGrp
-    if(res.dikshaDt != ""){
+    if(res.dikshaDt != null){
         document.getElementById("rememberDate").checked = true;
         diksha_dt.style.display = "block";
         document.getElementById("diksha_dt").value =res.dikshaDt
     }else{
-        if(res.dikshaDt == ""){
+        if(res.dikshaDt == null){
         document.getElementById("dontRememberDate").checked = true;  
         diksha_dt.style.display = "none";
         }
