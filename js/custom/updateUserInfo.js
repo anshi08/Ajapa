@@ -213,6 +213,9 @@ btn.addEventListener("submit", (e) => {
     
     else{
         console.log("Mine Data",data)
+        let id = location.search.split("&")[1].split("=")[1]
+        console.log(id)
+        data.id = +id
         updateProfile(data)
   
         data.file!==undefined ? saveUserImg(data.file,data.email):null
@@ -436,7 +439,8 @@ async function detailsOfUser(email) {
 }
  
 
-let email = location.search.split("=")[1]
+let email = location.search.split("=")[1].split("&")[0]
+let id = location.search.split("=")[1].split("&")[1]
     detailsOfUser(email)
 
 //Fetching Values From the Token
@@ -450,7 +454,8 @@ function parseJwt (token) {
 }
 
 async function updateProfile(data) {
-    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/updateUser",{
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/updateUserByAdmin",{
+        // const response = await fetch('http://192.168.29.217:8080/updateUserByAdmin',{
             method:"PUT",
             body:JSON.stringify(data),
             headers:{
@@ -462,17 +467,16 @@ async function updateProfile(data) {
         const res = await response.json()
         console.log("🚀 ~ file: updateUser.js:456 ~ updateProfile ~ res:", res)
         
-        clearFormFields();
-        $('#pendingDialog1').modal('show');
+        // clearFormFields();
+        // $('#pendingDialog1').modal('show');
         // setTimeout(() => {
         //     window.location.href = "dashboard.html"
         // }, 3000)
-        // localStorage.setItem("data",JSON.stringify(res.token)) 
         return res;
         }
         else {
             console.log('Error',response)
-            // alert("Error: Failed to update.",response);
+            alert("Error: Failed to update.",response);
         }
 }
 // window.addEventListener("DOMContentLoaded",()=>{
