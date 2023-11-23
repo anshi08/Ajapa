@@ -363,15 +363,13 @@ async function detailsOfUser(email) {
     let aa = res.country.split(":")
     document.getElementById("email").value = res.email;   
     document.getElementById("blood_grp").value = res.bloodGrp
-    if(res.dikshaDt != null){
+    if (!res.dikshaDt) {
+        document.getElementById("dontRememberDate").checked = true;
+        diksha_dt.style.display = "none";
+    } else {
         document.getElementById("rememberDate").checked = true;
         diksha_dt.style.display = "block";
-        document.getElementById("diksha_dt").value =res.dikshaDt
-    }else{
-        if(res.dikshaDt == null){
-        document.getElementById("dontRememberDate").checked = true;  
-        diksha_dt.style.display = "none";
-        }
+        document.getElementById("diksha_dt").value = res.dikshaDt;
     }
     document.getElementById("occupation").value = res.occupation
     document.getElementById("qualification").value = res.qualification;
