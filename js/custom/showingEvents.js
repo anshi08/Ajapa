@@ -366,6 +366,7 @@ async function showingOnlyAdminEvents(adminId,first=1,last=5){
         }
    })
    const res = await response.json()
+   console.log("mm",res)
    return res;  
 }
 

@@ -26,7 +26,26 @@
     <script src="js/custom/isAuth.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <script>
+    <style>
+        /* Default styles for the image */
+       #userPic {
+           width: 75% !important;
+           height: 5% !important;
+           display: block !important;
+           margin: 0 auto !important; 
+           object-fit: fill !important;
+        }
+
+/* Media query for larger screens */
+    @media (min-width: 768px) {
+        #userPic {
+            width: 50% !important;
+            height: 7% !important;
+            object-fit: fill !important;
+}
+}
+</style>
+   <script>
         let adminStatus = JSON.parse(localStorage.getItem("role")) === "admin"
         let superAdminStatus = JSON.parse(localStorage.getItem("role")) === "super"
         if(!adminStatus){
@@ -40,7 +59,6 @@
         }
 
         </script>
-
 </head>
 
 <body id="page-top">
