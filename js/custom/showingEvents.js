@@ -18,6 +18,11 @@ let next = document.getElementById("next")
 // prev.style.display = "none"
 window.addEventListener("DOMContentLoaded", async () => {
 
+    let searchFilter = document.getElementById("searchFilter")
+    searchFilter.addEventListener("input",async(e) =>{
+      let res =   await searchEvents(e.target.value)
+      console.log(res)
+    })
     
    let pageName = window.location.href.split("/")[window.location.href.split("/").length-1]
    const role = (JSON.parse(localStorage.getItem("role")))
@@ -101,7 +106,6 @@ window.addEventListener("DOMContentLoaded", async () => {
          s.stop();
 
     Array.from(document.getElementsByClassName('sliderList'),(item) =>{
-        console.log(item.firstElementChild.lastElementChild,item.nextElementSibling)
         if(+item.nextElementSibling.innerHTML===0){
             
             item.firstElementChild.lastElementChild.style.backgroundColor = '#2196F3'
@@ -447,7 +451,6 @@ async function getAge(){
 async function getValueForDashboard(){
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getValuesForDashBoard')
     const response = await res.json()
-    console.log("l",response)
     document.getElementById("totalevents").innerHTML = response?.total_events
     document.getElementById("rejectUser").innerHTML=response?.rejected_users
     document.getElementById("approvedUser").innerHTML = response?.approved_users
@@ -464,6 +467,13 @@ async function changeStatus(eventId,status){
     }
 
 }
+
+async function searchEvents(name){
+    const res = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/reptGetEventDetails/${name}`)
+    const response = await res.json()
+   return response
+}
+
 
 
 function setSessionTimeout() {

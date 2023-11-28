@@ -25,6 +25,7 @@
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script src="js/custom/isAuth.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
     <script>
         let adminStatus = JSON.parse(localStorage.getItem("role")) === "admin"
         let superAdminStatus = JSON.parse(localStorage.getItem("role")) === "super"
@@ -39,6 +40,8 @@
         }
 
         </script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -73,11 +76,29 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+                                </div>
+                                <div class="col-sm-8 row">
+                                    <input type="text" class="form-control col-sm-4" placeholder="Search..." id="search" >
+                                 
+                                    <select class="form-control col-sm-6" id="searchbasis">
+                                        <option value="1">Name</option>
+                                        <option value="2">Mobile Number</option>
+                                        <option value="3">Email</option>
+                                        <option value="4">City</option>
+                                        <option value="5">State</option>
+                                        <option value="6">Country</option>
+                                    </select>
+                                    <button type="button" class="col-sm-2 btn btn-primary" id="searchBtn">Search</button>
+                                </div>
+                            </div>
+                         
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                <table class="table table-bordered" width="100%" cellspacing="0" id="table">
                                     <thead>
                                         <tr>
                                             <th>Full Name</th>
@@ -89,6 +110,7 @@
                                             <th>State</th>
                                             <th>City</th>
                                             <th>Edit</th>
+                                        
                                         </tr>
                                     </thead>
                                     <tbody id="body">
@@ -98,9 +120,18 @@
                                   <ul class="pagination"  >
                                     <li class="page-item" id="prev"><a class="page-link">Previous</a></li>
                                     <li class="page-item" id="next"><a class="page-link">Next</a></li>
+                                    <li class="page-item">
+                                        <select class="form-control btn" id="details">
+                                            <option value="excel">Export Excel</option>
+                                            <option value="pdf">Export PDF</option>
+                                        </select>
+                                    </li>
                                 </ul>
+
+                                
                             </div>
                         </div>
+                        
                     </div>
 
                 </div>

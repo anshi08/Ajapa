@@ -11,7 +11,6 @@ async function getApprovedUser(first=1,last=5){
         method:"GET"
     })
     const response = await res.json()
-    console.log("ll",response)
     document.getElementById("body").innerHTML = null
     response.forEach(data => {
         if(data.id != 1){
@@ -55,6 +54,14 @@ async function rejectedUser(email){
      return res;
 }
 
+async function search(search,searchBasis){
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/reptGetUserDetails/${search}/${searchBasis}`)
+    const result = await response.json()
+    return result;
+}
+
+
+
 window.addEventListener("DOMContentLoaded",async()=>{
 
     // Create a new spinner
@@ -62,6 +69,55 @@ const target = document.getElementById('spinner-container');
 const s = new Spinner().spin(target);
 await getApprovedUser()
 s.stop(); 
+
+let searchBtn = document.getElementById("searchBtn")
+searchBtn.addEventListener("click",async function(){
+    let searchbox = document.getElementById("search").value
+    let searchbasis = document.getElementById("searchbasis").value
+    let response  = await search(searchbox,searchbasis)
+    document.getElementById("body").innerHTML = null
+    response.forEach(data => {
+        if(data.id != 1){
+        // console.log(data)
+        let tr = document.createElement("tr")
+        tr.innerHTML = `
+        <td>${data.fullName}</td>
+        <td><a href="http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${data.email}.jpg" class="view">Profile</td>
+        <td>${data.email}</td>
+        <td>${data.mobileNum}</td>
+        <td>${data.age}</td>
+        <td>${data.country.split(":")[1]}</td>
+        <td>${data.state.split(":")[1]}</td>
+        <td>${data.city.split(":")[1]}</td>
+        <td><a href="updateUser.html?email=${data.email}&id=${data.id}" class="btn btn-info delete">Edit</a></td>
+        `
+        document.getElementById("body").appendChild(tr)
+         // To stop the spinner
+        }
+  
+    })
+
+})
+
+let details = document.getElementById("details")
+details.addEventListener("change",(e)=>{
+    if(e.target.value === "pdf"){
+  generatePDF(0)
+    }else{
+   let data = convertTableToJson()
+   let wb = XLSX.utils.book_new();
+   let ws = XLSX.utils.aoa_to_sheet(data);
+
+   // Add the worksheet to the workbook
+   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+   // Save the workbook as an XLSX file
+   XLSX.writeFile(wb, 'exported_data.xlsx');
+    }
+  
+
+})
+
 
 })
 
@@ -110,6 +166,46 @@ function setSessionTimeout() {
       window.location.href = 'login.html';
     }, timeoutInMilliseconds);
   }
+
+  function generatePDF(idx) {
+    html2canvas(document.getElementsByClassName('table')[idx], {
+        onrendered: function (canvas) {
+            var data = canvas.toDataURL();
+            var docDefinition = {
+                content: [{
+                    image: data,
+                    width: 500,
+                }]
+            };
+            pdfMake.createPdf(docDefinition).download(`Report${idx+1}.pdf`);
+        }
+    });
+
+  }
+
+
+  function convertTableToJson() {
+    var table = document.getElementById("table");
+    var rows = table.getElementsByTagName('tr');
+    var jsonArray = [];
+
+    
+    for (var i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
+        var cells = rows[i].getElementsByTagName('td');
+        var rowData = [];
+
+        for (var j = 0; j < cells.length; j++) {
+            var cellValue = cells[j].textContent;
+            rowData.push(cellValue);
+        }
+
+        jsonArray.push(rowData);
+    }
+    console.log(jsonArray)
+    return jsonArray;
+}
+
+
 setSessionTimeout();
 
 

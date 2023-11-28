@@ -24,22 +24,22 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
 	<style>
                  /* Default styles for the image */
-    #userPic {
+    /* #userPic {
         width: 75% !important;
         height: 5% !important;
         display: block !important;
         margin: 0 auto !important; 
         object-fit: fill !important;
-    }
+    } */
 
     /* Media query for larger screens */
-    @media (min-width: 768px) {
+    /* @media (min-width: 768px) {
         #userPic {
             width: 50% !important;
             height: 7% !important;
             object-fit: fill !important;
         }
-    }
+    } */
 	</style>
 	<script>
 		let adminStatus = JSON.parse(localStorage.getItem("role")) === "admin"
@@ -165,24 +165,24 @@
 						</div>
 				
 							<!-- Message dialog Box -->
-  <div class="modal fade" id="pendingDialog4" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <h5 class="modal-title" id="pendingDialogLabel">Add Events</h5>
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		  </button>
-		</div>
-		<div class="modal-body">
-			Event Added Successfully
-		</div>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		</div>
-	  </div>
-	</div>
-	</div>
+					<div class="modal fade" id="pendingDialog4" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+							<h5 class="modal-title" id="pendingDialogLabel">Add Events</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							</div>
+							<div class="modal-body">
+								Event Added Successfully
+							</div>
+							<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+						</div>
+						</div>
 
 				</div>
 				<!-- /.container-fluid -->
