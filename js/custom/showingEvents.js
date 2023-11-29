@@ -21,7 +21,33 @@ window.addEventListener("DOMContentLoaded", async () => {
     let searchFilter = document.getElementById("searchFilter")
     searchFilter.addEventListener("input",async(e) =>{
       let res =   await searchEvents(e.target.value)
-      console.log(res)
+      console.log(e.target.value.length)
+      if(e.target.value.length===0) window.location.reload()
+      document.getElementById("body").innerHTML = null
+      await res.forEach(data => {
+        let tr = document.createElement("tr")
+        tr.innerHTML = `
+        <td>${data.eventName}</td>
+        <td>${data.eventType}</td>
+        <td>${data.eventLocation}</td>
+        <td>${data.startDate?.split("T")[0]}</td>
+    ${JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role"))==="head"  ? '' :`<td>${data.listedBy?.replaceAll("\"","")}</td>`}
+        ${JSON.parse(localStorage.getItem("role")) === "member" ||
+        JSON.parse(localStorage.getItem("role")) === "head"
+        ?data.bookingStatus === 1 ? `<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` :`<td><a href='#' class="btn btn-primary disabled">Close</a></td>` : ''}
+        ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':""}
+        ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
+        <td style="display:none">${data.eventId}</td>
+    ${((JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin") && pageName!="dashboard.html") ? 
+    `<td class='sliderList'><label class="switch"><input type="checkbox"><span class="slider"  ></span></label></td>`
+    :
+    ''
+        }
+        <td style='display:none'>${data.bookingStatus}</td>
+        `
+        document.getElementById("body").appendChild(tr)
+})
+ 
     })
     
    let pageName = window.location.href.split("/")[window.location.href.split("/").length-1]
@@ -33,9 +59,9 @@ window.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("bookingStatus").style.display = "block"  :"" 
     }
 
-    JSON.parse(localStorage.getItem("role")) === "member" ||
-     JSON.parse(localStorage.getItem("role"))==="head"  ? 
-     document.getElementById("listedByCol").style.display = 'none' : ''
+        JSON.parse(localStorage.getItem("role")) === "member" ||
+        JSON.parse(localStorage.getItem("role"))==="head"  ? 
+        document.getElementById("listedByCol").style.display = 'none' : ''
   
     if(role!="admin"){
         getAge()
@@ -486,3 +512,19 @@ function setSessionTimeout() {
     }, timeoutInMilliseconds);
   }
 setSessionTimeout();
+
+searchInput.addEventListener("input", debounce(()=>handleInput(searchInput), 300)); // Add debouncing to reduce API requests
+// Debounce function to limit API requests
+function debounce(func, wait) {
+    let timeout;
+    return function () {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+        func.apply(context, args);
+    }, wait);
+    };
+}
+
+
