@@ -22,29 +22,10 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"> -->
     <script src="js/custom/isAuth.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <style>
-        /* Default styles for the image */
-       #userPic {
-           width: 75% !important;
-           height: 5% !important;
-           display: block !important;
-           margin: 0 auto !important; 
-           object-fit: fill !important;
-        }
-
-/* Media query for larger screens */
-    @media (min-width: 768px) {
-        #userPic {
-            width: 50% !important;
-            height: 7% !important;
-            object-fit: fill !important;
-}
-}
-</style>
    <script>
         let adminStatus = JSON.parse(localStorage.getItem("role")) === "admin"
         let superAdminStatus = JSON.parse(localStorage.getItem("role")) === "super"
@@ -262,8 +243,6 @@
                                             <th>Head Name</th>
                                             <th>Member Names</th>
                                             <th>Total Arrival/Departure</th>
-                                            <th>Male</th>
-                                            <th>Female</th>
                                             <th>Kids</th>
                                             <th>Senior Citizens</th>
                                             <th>From City</th>

@@ -1,7 +1,7 @@
 
 
 async function getTravelReportDateWise(evenId) {
-    console.log(evenId)
+
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getTravelReportDateWise/"+evenId,{
         method: "GET",
         headers: {
@@ -66,20 +66,18 @@ async function getEventById(eventId){
     const res = await response.json()
     return res
 }
-
-
-
-async function getTravelReportFamilyWise(evenId) {
-    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getTravelReportFamilyWise/"+evenId,{
+async function getTravelReportFamilyWise(eventId) {
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getTravelReportFamilyWise/"+eventId,{
+        // const response = await fetch('http://192.168.29.217:8080/getTravelReportFamilyWise/'+eventId,{
         method: "GET",
         headers: {
             "Content-type":"application/json;  charset=UTF-8"
         }
     })
     const res = await response.json()
+  
     return res;
 }
-
 
 window.addEventListener("DOMContentLoaded",async(e) =>{
     let allEvents = await getAllEvents()
@@ -156,28 +154,35 @@ window.addEventListener("DOMContentLoaded",async(e) =>{
     report3EventDDL.addEventListener("change",async (e)=>{
         let familyWise = await getTravelReportFamilyWise(e.target.value)
         tableofReport3.innerHTML=null
-        familyWise.forEach(report => {
-            console.log(report)
-            let tr = document.createElement("tr")
-            tr.innerHTML = `
-            <td>${report.headName}</td>
-            <td>  ${report.memberNames.map(name => `${name}<br>`).join('')}</td>
-            <td>${report.totalPersons}</td>
-            <td>${report.totalMaleMembers}</td>
-            <td>${report.totalFemaleMembers}</td>
-            <td>${report.totalKids}</td>
-            <td>${report.totalSeniorCitizens}</td>
-            <td>  ${report.reachingCity.map(city => `${city.split(":")[1]}<br>`).join('')}</td>
-            <td>  ${report.reachingDate.map(date => `${date}<br>`).join('')}</td>
-            <td>  ${report.reachingMode.map(mode => `${mode}<br>`).join('')}</td>
-            <td>  ${report.reachingTrainDetails.map(detail => `${detail .split(":")[1]}<br>`).join('')}</td>
-            <td>  ${report.leavingDate.map(date => `${date}<br>`).join('')}</td>
-            <td>  ${report.leavingMode.map(mode => `${mode}<br>`).join('')}</td>
-            <td>  ${report.leavingTrainDetails.map(detail => `${detail .split(":")[1]}<br>`).join('')}</td>
-            <td> <img src="http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${report.emailId}"/></td>
-            `
-            tableofReport3.appendChild(tr)
+        
+        familyWise.forEach((report,idx) =>{
+          
+            let particularMember = familyWise[idx].memberNames.map(member => familyWise[idx])
+            particularMember.forEach((item,idx) => {
+                let tr  = document.createElement("tr")
+                tr.innerHTML = `<td> <a href="userProfile.html?id=${item.headId}">${item.headName}</a></td>
+                <td><a href=userProfile.html?id=${item.memberId[idx]}>${item.memberNames[idx].split(" ")[0]}/ [${item.memberGender[idx] === "Male"? "M":"F"}/ ${item.memberAge[idx]}]</a></td>
+                <td>${item.totalPersons}</td>
+                <td>${item.totalKids}</td>
+                <td>${item.totalSeniorCitizens}</td>
+                <td>${item.reachingCity[idx].split(":")[1]}</td>
+                <td>${item.reachingDate[idx]}</td>
+                <td>${item.reachingMode[idx]}</td>
+                <td>${item.reachingTrainDetails[idx] === null || item.reachingTrainDetails[idx].trim().length===0 ? "NA": item.reachingTrainDetails[idx]}</td>
+                <td>${item.leavingDate[idx]}</td>
+                <td>${item.leavingMode[idx]}</td>
+                <td>${item.leavingTrainDetails[idx] === null || item.leavingTrainDetails[idx].trim().length===0 ? "NA" : item.leavingTrainDetails[idx]}</td>
+                <td> <img src="http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${report.emailId}"/></td>
+                `
+                tableofReport3.appendChild(tr)
+            })
+
+       
+         
+
         })
+            
+     
 
     })
     
@@ -265,9 +270,6 @@ report2LeavingReaching.addEventListener("change",async (e) =>{
     }
 })
 
-
-
-
 document.getElementById("report1export").addEventListener("click",()=>generatePDF(0))
 document.getElementById("report2export").addEventListener("click",()=>generatePDF(1))
 document.getElementById("report3export").addEventListener("click",()=>generatePDF(2))
@@ -286,15 +288,17 @@ function generatePDF(idx) {
         }
     });
 
-  }
+}
 
-  function setSessionTimeout() {
-    const timeoutInMilliseconds = 43200000; // 12 hours
-  
-    setTimeout(() => {
-      alert('Your session has timed out. You are now logged out.');
-      localStorage.clear();
-      window.location.href = 'login.html';
-    }, timeoutInMilliseconds);
-  }
+function setSessionTimeout() {
+const timeoutInMilliseconds = 43200000; // 12 hours
+
+setTimeout(() => {
+    alert('Your session has timed out. You are now logged out.');
+    localStorage.clear();
+    window.location.href = 'login.html';
+}, timeoutInMilliseconds);
+}
 setSessionTimeout();
+
+
