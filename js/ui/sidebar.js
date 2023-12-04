@@ -40,6 +40,7 @@ function loadContent() {
                 document.getElementById("sms").style.display = "block"
                 document.getElementById("addTravelDetails") !== null ? document.getElementById("addTravelDetails").style.display = "none" : ""
                 document.getElementById("events").style.display = "block"
+                document.getElementById("showFoodDetails").style.display = "block"
             }
             if(JSON.parse(localStorage.getItem("role")) === "admin"){
                 document.getElementById("events").style.display = "block"
