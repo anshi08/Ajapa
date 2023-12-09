@@ -30,6 +30,8 @@ async function verifyUser(otp,pno){
     })
     const res = await response.json()
     console.log(res)
+    const userRole = res.type;
+    const isAdmin = res.isAdmin;
   if(res.token == 'No user found'){
         alert("No user found")
         window.location.href = "otpLogin.html";
@@ -38,7 +40,9 @@ async function verifyUser(otp,pno){
        document.getElementById("otpfinder2s").value = '';
     }else {
         localStorage.setItem("data",JSON.stringify(res.token)) 
-        localStorage.setItem("role",JSON.stringify(res.type)) 
+        localStorage.setItem("role",JSON.stringify(userRole))
+        localStorage.setItem("isAdmin",JSON.stringify(isAdmin))
+        localStorage.setItem("family_id",JSON.stringify(parseJwt(res.token).familyId))
         window.location.href = "dashboard.html";
     }
 
