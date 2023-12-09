@@ -40,8 +40,9 @@ async function verifyUser(otp,pno){
        document.getElementById("otpfinder2s").value = '';
     }
     else if (res.token == "Unapproved User"){
-        clearDisplayError()
-        displayError("You're are not approved")
+        // clearDisplayError()
+        alert("Unapproved User")
+        // displayError("You're are not approved")
     }
     else {
         localStorage.setItem("data",JSON.stringify(res.token)) 
