@@ -38,7 +38,12 @@ async function verifyUser(otp,pno){
     }else if(res.token == 'Invalid OTP'){
        alert("Incorrect OTP")
        document.getElementById("otpfinder2s").value = '';
-    }else {
+    }
+    else if (res.token == "Unapproved User"){
+        clearDisplayError()
+        displayError("You're are not approved")
+    }
+    else {
         localStorage.setItem("data",JSON.stringify(res.token)) 
         localStorage.setItem("role",JSON.stringify(userRole))
         localStorage.setItem("isAdmin",JSON.stringify(isAdmin))
@@ -137,3 +142,11 @@ function setSessionTimeout() {
     }, timeoutInMilliseconds);
   }
 setSessionTimeout();
+
+function displayError(errorMessage) {
+    const errorContainer = document.getElementById("errorContainer");
+    const errorDiv = document.createElement("div");
+    errorDiv.classList.add("alert", "alert-danger");
+    errorDiv.textContent = errorMessage;
+    errorContainer.appendChild(errorDiv);
+}
