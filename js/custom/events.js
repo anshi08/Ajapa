@@ -125,6 +125,7 @@ btn.addEventListener("submit", async(e) =>{
         // alert("hii")
         if(shvirCheckbox.checked && document.getElementById("shivir_start_date").value.length===0 && document.getElementById("shivir_start_date").value.length===0 ){
             alert("Please add some data on shivir date")
+            return ;
         }
 
         if(shvirCheckbox.checked){
