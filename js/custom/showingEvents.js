@@ -19,7 +19,7 @@ let next = document.getElementById("next")
 window.addEventListener("DOMContentLoaded", async () => {
 
     let searchFilter = document.getElementById("searchFilter")
-    searchFilter.addEventListener("input",async(e) =>{
+    searchFilter?.addEventListener("input",async(e) =>{
       let res =   await searchEvents(e.target.value)
       console.log(e.target.value.length)
       if(e.target.value.length===0) window.location.reload()
@@ -513,7 +513,7 @@ function setSessionTimeout() {
   }
 setSessionTimeout();
 
-searchInput.addEventListener("input", debounce(()=>handleInput(searchInput), 300)); // Add debouncing to reduce API requests
+searchInput?.addEventListener("input", debounce(()=>handleInput(searchInput), 300)); // Add debouncing to reduce API requests
 // Debounce function to limit API requests
 function debounce(func, wait) {
     let timeout;
