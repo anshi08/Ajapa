@@ -479,7 +479,7 @@ async function getValueForDashboard(){
     const response = await res.json()
     document.getElementById("totalevents").innerHTML = response?.total_events
     document.getElementById("rejectUser").innerHTML=response?.rejected_users
-    document.getElementById("approvedUser").innerHTML = response?.approved_users
+    document.getElementById("approvedUser").innerHTML = response?.approved_users.length-1
     document.getElementById("p_request").innerHTML = response?.pending_users
 }
 
