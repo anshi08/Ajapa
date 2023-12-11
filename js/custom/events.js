@@ -121,7 +121,7 @@ btn.addEventListener("submit", async(e) =>{
         return;
     }
 
-    if(localStorage.getItem("role") === "super"){
+    if(JSON.parse(localStorage.getItem("role")) === "super"){
         // alert("hii")
         if(shvirCheckbox.checked && document.getElementById("shivir_start_date").value.length===0 && document.getElementById("shivir_start_date").value.length===0 ){
             alert("Please add some data on shivir date")
@@ -179,8 +179,8 @@ function ClearAllFields(){
  const events = async (data) => {
     console.log("🚀 ~ file: events.js:176 ~ data:", data)
     try{
-    // const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveEvent",{
-        const response = await fetch("http://192.168.29.217:8080/saveEvent",{
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveEvent",{
+        // const response = await fetch("http://192.168.29.217:8080/saveEvent",{
         method:"POST",
         body:JSON.stringify(data),
         headers:{
