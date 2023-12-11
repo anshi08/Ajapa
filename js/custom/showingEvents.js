@@ -85,6 +85,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     }else if(role==="super"){
         
         res = await showingAllEvents()
+        res = res.filter(newres => newres.eventStatus ===1)
 
     }else{
         res = await showingAllEventsByStatus(1);
@@ -147,6 +148,7 @@ window.addEventListener("DOMContentLoaded", async () => {
                 if(confirm("Are You sure you want to delete this event")){
                     let event = e.target.parentElement.nextElementSibling.innerText;
                     deleteEvent(event,2)
+                    window.location.reload()
                 }else{
                     alert("Sorry")
                 }
@@ -180,6 +182,8 @@ next.addEventListener("click", async () => {
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier,first,last)
     }else if(role === "super"){
         res = await showingAllEvents(first,last)
+        res = res.filter(newres => newres.eventStatus ===1)
+       
     }else{
         res = await showingAllEventsByStatus(1,first,last)
     }
@@ -195,7 +199,6 @@ next.addEventListener("click", async () => {
       
     }
     else{
-       
         await res.forEach(data => {
             let tr = document.createElement("tr")
         tr.innerHTML = `
@@ -278,6 +281,7 @@ prev.addEventListener("click", async () => {
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier,first,last)
     }else if(role==="super"){
         res = await showingAllEvents(first,last)
+        res = res.filter(newres => newres.eventStatus ===1)
     }else{
         res = await showingAllEventsByStatus(1,first,last)
     }
@@ -442,15 +446,15 @@ document.getElementById("pendingrequest")?.addEventListener("click",()=>{
     window.location.href="getApprovedUsers.html"
 })
 
-document.getElementById("TotaleventsCard").addEventListener("click",()=>{
+document.getElementById("TotaleventsCard")?.addEventListener("click",()=>{
    window.location.href="showEvents.html"
 })
 
-document.getElementById("rejectedUserCard").addEventListener("click",()=>{
+document.getElementById("rejectedUserCard")?.addEventListener("click",()=>{
     window.location.href="rejectUsers.html"
 })
 
-document.getElementById("approvedUserCard").addEventListener("click",()=>{
+document.getElementById("approvedUserCard")?.addEventListener("click",()=>{
     window.location.href="approvedUsers.html"
 })
 
