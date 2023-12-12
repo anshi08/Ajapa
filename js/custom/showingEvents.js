@@ -143,11 +143,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     })
 
     Array.from(document.getElementsByClassName("deleteEvent")).forEach(item => {
-        item.addEventListener("click",(e)=>{
+        item.addEventListener("click",async (e)=>{
             if(e.target.classList.contains("deleteEvent")){
                 if(confirm("Are You sure you want to delete this event")){
                     let event = e.target.parentElement.nextElementSibling.innerText;
-                    deleteEvent(event,2)
+                   await deleteEvent(event,2)
                     window.location.reload()
                 }else{
                     alert("Sorry")
