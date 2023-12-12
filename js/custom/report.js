@@ -193,7 +193,7 @@ window.addEventListener("DOMContentLoaded",async(e) =>{
          
             `
             tableofReport2.appendChild(tr)
-        })
+        })  
 
     })
 
@@ -290,39 +290,131 @@ report2LeavingReaching.addEventListener("change",async (e) =>{
     if(e.target.value === "Departure Date"){
         let eventId = document.getElementById("report2Events").options[document.getElementById("report2Events").selectedIndex].value
        let eventSorted = await getTravelReportDateWise2Leaving(eventId)
+       
        document.getElementById("report2body").innerHTML=null
-       eventSorted.forEach(report => {
+
+    let slot1 =  new hashMap()
+    let slot2 =  new hashMap()
+    let slot3 =  new hashMap()
+    let slot4 =  new hashMap()
+
+    eventSorted.forEach(report => {
+        report.trainNames.forEach((train,index) =>{
+       
+            train.trim(",").split(",").forEach((name,idx) =>{
+                if(index===0){
+                    if(name.length!==0)
+                    slot1.put(name.replaceAll("'",""))
+                }
+                
+              
+                else if(index===1){
+                    if(name.length!==0)
+                    slot2.put(name.replaceAll("'",""))
+                }
+             
+                else if(index===2){
+                    if(name.length!==0)
+                    slot3.put(name.replaceAll("'",""))
+                }
+              
+                else{
+                    if(name.length!==0)
+                    slot4.put(name.replaceAll("'",""))
+                }
+           
+            })
+           
+
+        })
+       let slot1row =  Object.keys(slot1.hashDict).map(key => "["+key+"--"+slot1.get(key)+"]")
+       let slot2row =  Object.keys(slot2.hashDict).map(key => "["+key+"--"+slot2.get(key)+"]")
+       let slot3row =  Object.keys(slot3.hashDict).map(key => "["+key+"--"+slot3.get(key)+"]")
+       let slot4row =  Object.keys(slot4.hashDict).map(key => "["+key+"--"+slot4.get(key)+"]")
+       
+
+
+        
+    
         let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${report.travelDate}</td>
         <td>${report.totalPersons}</td>
         <td>${report.totalFamilies}</td>
-        <td>${`12 AM-7 AM<br/>7 AM-12 Noon<br/>12 Noon-5 PM<br/>5 PM-12 AM`}</td>
-        <td>${report.trainPerson}</td>
-        <td>${report.trainNames.map(detail => `${detail .split("-")[1]}<br>`).join('')}</td>
-        <td>${report.flightPerson}</td>
-        <td>${report.roadPerson}</td>
+        <td>${`12 AM-7 AM [${report.trainPerson[0]} T / ${report.flightPerson[0]} F / ${report.roadPerson[0]} R] <br/>7 AM-12 Noon [${report.trainPerson[1]} T / ${report.flightPerson[1]} F / ${report.roadPerson[1]} R] <br/>12 Noon-5 PM [${report.trainPerson[2]} T / ${report.flightPerson[2]} F / ${report.roadPerson[2]} R] <br/>5 PM-12 AM [${report.trainPerson[3]} T / ${report.flightPerson[3]} F / ${report.roadPerson[3]} R] `}</td>
+        <td>${slot1row.map(item => item)}<br/>
+           ${slot2row.map(item => item)}<br/>
+           ${slot3row.map(item => item)}<br/>
+           ${slot4row.map(item => item)}<br/> 
+        </td>
+     
         `
         document.getElementById("report2body").appendChild(tr)
-       })
+    })
     }else{
         let eventId = document.getElementById("report2Events").options[document.getElementById("report2Events").selectedIndex].value
        let eventSorted = await getTravelReportDateWise2(eventId)
+ 
        document.getElementById("report2body").innerHTML=null
-       eventSorted.forEach(report => {
+
+    let slot1 =  new hashMap()
+    let slot2 =  new hashMap()
+    let slot3 =  new hashMap()
+    let slot4 =  new hashMap()
+
+    eventSorted.forEach(report => {
+        report.trainNames.forEach((train,index) =>{
+       
+            train.trim(",").split(",").forEach((name,idx) =>{
+                if(index===0){
+                    if(name.length!==0)
+                    slot1.put(name.replaceAll("'",""))
+                }
+                
+              
+                else if(index===1){
+                    if(name.length!==0)
+                    slot2.put(name.replaceAll("'",""))
+                }
+             
+                else if(index===2){
+                    if(name.length!==0)
+                    slot3.put(name.replaceAll("'",""))
+                }
+              
+                else{
+                    if(name.length!==0)
+                    slot4.put(name.replaceAll("'",""))
+                }
+           
+            })
+           
+
+        })
+       let slot1row =  Object.keys(slot1.hashDict).map(key => "["+key+"--"+slot1.get(key)+"]")
+       let slot2row =  Object.keys(slot2.hashDict).map(key => "["+key+"--"+slot2.get(key)+"]")
+       let slot3row =  Object.keys(slot3.hashDict).map(key => "["+key+"--"+slot3.get(key)+"]")
+       let slot4row =  Object.keys(slot4.hashDict).map(key => "["+key+"--"+slot4.get(key)+"]")
+       
+
+
+        
+    
         let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${report.travelDate}</td>
         <td>${report.totalPersons}</td>
         <td>${report.totalFamilies}</td>
-        <td>${`12 AM-7 AM<br/>7 AM-12 Noon<br/>12 Noon-5 PM<br/>5 PM-12 AM`}</td>
-        <td>${report.trainPerson}</td>
-        <td>${report.trainNames.map(detail => `${detail .split("-")[1]}<br>`).join('')}</td>
-        <td>${report.flightPerson}</td>
-        <td>${report.roadPerson}</td>
+        <td>${`12 AM-7 AM [${report.trainPerson[0]} T / ${report.flightPerson[0]} F / ${report.roadPerson[0]} R] <br/>7 AM-12 Noon [${report.trainPerson[1]} T / ${report.flightPerson[1]} F / ${report.roadPerson[1]} R] <br/>12 Noon-5 PM [${report.trainPerson[2]} T / ${report.flightPerson[2]} F / ${report.roadPerson[2]} R] <br/>5 PM-12 AM [${report.trainPerson[3]} T / ${report.flightPerson[3]} F / ${report.roadPerson[3]} R] `}</td>
+        <td>${slot1row.map(item => item)}<br/>
+           ${slot2row.map(item => item)}<br/>
+           ${slot3row.map(item => item)}<br/>
+           ${slot4row.map(item => item)}<br/> 
+        </td>
+     
         `
         document.getElementById("report2body").appendChild(tr)
-       })
+    })  
     }
 })
 
