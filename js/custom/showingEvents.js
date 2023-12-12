@@ -80,7 +80,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     let res =[]
 
     if(role === "admin"){
-        
+      
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier)
     }else if(role==="super"){
         

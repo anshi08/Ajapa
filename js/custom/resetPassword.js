@@ -9,7 +9,9 @@ function parseJwt (token) {
     }).join(''));
     return JSON.parse(jsonPayload);
 }
+console.log(parseJwt(localStorage.getItem("data")))
 
+// console.log(localStorage.getItem("data"))
 btn.addEventListener("submit", (e)=>{
     e.preventDefault();
     let password = document.getElementById("password").value
@@ -20,7 +22,9 @@ btn.addEventListener("submit", (e)=>{
 
 
 async function resetPassword(password){
+        console.log("🚀 ~ file: resetPassword.js:25 ~ password:", password)
         const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changePassword?password=${password}`,{
+        // const response = await fetch('http://192.168.29.218:8080/changePassword?password='+password,{
         method:"POST",
         headers:{
             "Authorization": "Bearer " + JSON.parse(localStorage.getItem("data")),
@@ -29,7 +33,7 @@ async function resetPassword(password){
     })
 
     const res = await response.text()
-    // console.log("k",res)
+    console.log("k",res)
     if(res === 'Your password has been changed'){
         document.getElementById("password").value='';
         document.getElementById("repwd").value='';

@@ -28,7 +28,7 @@ window.addEventListener("DOMContentLoaded",()=>{
         
     })
     getTravelDetails()
-    document.getElementById("shivirFilter").addEventListener("change",(e)=>{
+    document.getElementById("shivirFilter").addEventListener("change",async (e)=>{
         if(e.target.checked){
             if(document.getElementById("selectEvent").value === 'Select'){
                 alert("Please Select the Event")
@@ -69,7 +69,14 @@ window.addEventListener("DOMContentLoaded",()=>{
         } 
             }
         }else{
-
+            if(document.getElementById("selectEvent").value === 'Select'){
+                alert("Please Select the Event")
+                document.getElementById("shivirFilter").checked = false
+                return;
+            }else{
+                let eventId =document.getElementById("selectEvent").value 
+                travelDetailsById = await getTravelDetailsById(eventId)
+            }
         }
     })
 })
