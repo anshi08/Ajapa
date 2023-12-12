@@ -29,7 +29,13 @@ window.addEventListener("DOMContentLoaded",async () =>{
             let time = document.getElementById('time').value
             let foodDetail = await getFoodDetail(eventId,date,time)
             console.log("🚀 ~ file: food.js:18 ~ window.addEventListener ~ foodDetail:", foodDetail)
-            await saveDetails(foodDetail)
+          let newres=  await saveDetails(foodDetail)
+          if(newres.message === "Data Saved"){
+            $('#foodModal').modal('show');
+            setTimeout(()=> {
+                window.location.href = "dashboard.html"
+            },2000)
+          }
         }else{
             alert("please Fetch the detail before saved")
         }
@@ -89,5 +95,5 @@ async function saveDetails(foodDetail){
         "foodTakenCount":   foodTakenCount
     }
     let res = await saveFoodDetail(data);
-    console.log(res) 
+    return res
 }

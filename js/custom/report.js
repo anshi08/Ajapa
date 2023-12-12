@@ -199,6 +199,7 @@ window.addEventListener("DOMContentLoaded",async(e) =>{
 
 
     report3EventDDL.addEventListener("change",async (e)=>{
+        console.log("kk",e.target.value)
         let familyWise = await getTravelReportFamilyWise(e.target.value)
         tableofReport3.innerHTML=null
         

@@ -9,14 +9,18 @@ window.addEventListener("DOMContentLoaded",async () =>{
       eventdrpdwn.appendChild(option)
     })
 
-    document.getElementById("btn").addEventListener("submit",e =>{
+    document.getElementById("btn").addEventListener("submit",async e =>{
         e.preventDefault()
         let eventId = document.getElementById("allEvents").value
         let check = document.getElementById("check").value
         let msg = document.getElementById("msg").value
-        let res = sendMessage(eventId,check,msg)
+        let res = await sendMessage(eventId,check,msg)
+        console.log("myre",res)
         if(res=="Sent"){
-            alert("Message Sent!!")
+            $('#sms1').modal('show');
+            setTimeout(()=> {
+                window.location.href = "dashboard.html"
+            },2000)
         }
     })
 

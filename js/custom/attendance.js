@@ -143,7 +143,7 @@ async function showingAllEvents(first=1,last=100) {
 async function saveAttendance(data) {
     // console.log("ppp",data)
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/saveAttendance",{
-        // const response = await fetch("http://192.168.29.217:8080/saveAttendance",{
+        // const response = await fetch("http://192.168.29.218:8080/saveAttendance",{
         method:"POST",
         body:JSON.stringify(data),
         headers: {
@@ -152,6 +152,7 @@ async function saveAttendance(data) {
     })
 
     const res = await response.json()
+    console.log("rews",res)
     if(res.message === 'Attendance marked'){
         $('#attendanceBox').modal('show');
     }
@@ -177,7 +178,6 @@ async function sendRoomBookingStatus(data){
     if(res.message === 'SMS Sent'){
         $('#attendanceBox').modal('show');
     }
-        // clearAllFields();
         
         setTimeout(()=> {
             window.location.href = "dashboard.html"

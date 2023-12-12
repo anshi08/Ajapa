@@ -1,5 +1,5 @@
 async function getUserById(id){
-    const response = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getUserById'+id,{
+    const response = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getUserById/'+id,{
     // const response = await fetch("http://192.168.29.217:8080/getUserById/"+id,{
         method: "GET",
         headers: {
@@ -16,6 +16,7 @@ window.addEventListener("DOMContentLoaded",async() =>{
     let id =window.location.search.toString().split("=")[1]
 
     const res = await getUserById(id)
+    console.log(res)
     document.getElementById("body").innerHTML = null
     let tr= document.createElement("tr")
     tr.innerHTML = `
