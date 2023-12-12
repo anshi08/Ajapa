@@ -206,9 +206,9 @@ window.addEventListener("DOMContentLoaded",async(e) =>{
             let particularMember = familyWise[idx].memberNames.map(member => familyWise[idx])
             particularMember.forEach((item,idx) => {
                 let tr  = document.createElement("tr")
-                let headTr = '<td style="background-color:grey"></td>'
-                let totalKidTr = `<td style="background-color:grey"></td>`
-                let totalSeniorCitizens = `<td style="background-color:grey"></td>`
+                let headTr = '<td style="background-color:white"></td>'
+                let totalKidTr = `<td style="background-color:white"></td>`
+                let totalSeniorCitizens = `<td style="background-color:white;"></td>`
                 if(idx===0) {
                     headTr = `<td> <a href="userProfile.html?id=${item.headId}">${item.headName}</a></td>`
                     totalKidTr = ` <td>${item.totalKids}</td>`
