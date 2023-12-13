@@ -435,7 +435,7 @@ async function detailsOfUser(email) {
 }
  
 
-detailsOfUser(parseJwt(localStorage.getItem("data")).email);
+detailsOfUser(parseJwt(localStorage.getItem("data")).email || parseJwt(localStorage.getItem("data")).Identifier);
 
 //Fetching Values From the Token
 function parseJwt (token) {
