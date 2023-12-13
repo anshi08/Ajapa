@@ -117,8 +117,8 @@ window.addEventListener("DOMContentLoaded", async () => {
         ${JSON.parse(localStorage.getItem("role")) === "member" ||
         JSON.parse(localStorage.getItem("role")) === "head"
         ?data.bookingStatus === 1 ? `<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` :`<td><a href='#' class="btn btn-primary disabled">Close</a></td>` : ''}
-        ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':""}
-        ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
+        ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStorage.getItem("role")) === "super"  ?JSON.parse(localStorage.getItem("role")) === "admin" && location.pathname.replace("/","").split(".")[0] === "dashboard" ? "" :"<td>NA</td>":""}
+        ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStorage.getItem("role")) === "super"  ?JSON.parse(localStorage.getItem("role")) === "admin" && location.pathname.replace("/","").split(".")[0] === "dashboard" ? "" :"<td>NA</td>":""}
         <td style="display:none">${data.eventId}</td>
        ${((JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin") && pageName!="dashboard.html") ? 
        `<td class='sliderList'><label class="switch"><input type="checkbox"><span class="slider"  ></span></label></td>`
@@ -178,6 +178,7 @@ next.addEventListener("click", async () => {
     // let lastChild  = (document.getElementById("body").lastElementChild.lastElementChild.innerHTML)
     const role = (JSON.parse(localStorage.getItem("role")))
     let res 
+    let pageName = window.location.href.split("/")[window.location.href.split("/").length-1]
     if(role === "admin"){
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier,first,last)
     }else if(role === "super"){
@@ -210,10 +211,10 @@ next.addEventListener("click", async () => {
        ${JSON.parse(localStorage.getItem("role")) === "member" ||
        JSON.parse(localStorage.getItem("role")) === "head"
        ?data.bookingStatus === 1 ? `<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` :`<td><a href='#' class="btn btn-primary disabled">Close</a></td>` : ''}
-        ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':""}
-        ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
+       ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStorage.getItem("role")) === "super"  ?JSON.parse(localStorage.getItem("role")) === "admin" && location.pathname.replace("/","").split(".")[0] === "dashboard" ? "" :"<td>NA</td>":""}
+       ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStorage.getItem("role")) === "super"  ?JSON.parse(localStorage.getItem("role")) === "admin" && location.pathname.replace("/","").split(".")[0] === "dashboard" ? "" :"<td>NA</td>":""}
         <td style="display:none">${data.eventId}</td>
-        ${JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin" ? 
+        ${((JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin") && pageName!="dashboard.html") ? 
         `<td class='sliderList'><label class="switch"><input type="checkbox"><span class="slider"  ></span></label></td>`
         :
         ''
@@ -277,6 +278,7 @@ prev.addEventListener("click", async () => {
     // let newFirstChild = (document.getElementById("body").lastElementChild.lastElementChild.innerHTML,6)
     const role = (JSON.parse(localStorage.getItem("role")))
     let res 
+    let pageName = window.location.href.split("/")[window.location.href.split("/").length-1]
     if(role === "admin"){
         res = await showingOnlyAdminEvents(parseJwt(localStorage.getItem("data")).Identifier,first,last)
     }else if(role==="super"){
@@ -304,14 +306,14 @@ prev.addEventListener("click", async () => {
    ${JSON.parse(localStorage.getItem("role")) === "member" ||
    JSON.parse(localStorage.getItem("role")) === "head"
    ?data.bookingStatus === 1 ? `<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` :`<td><a href='#' class="btn btn-primary disabled">Close</a></td>` : ''}
-    ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':""}
-    ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":""}
+   ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStorage.getItem("role")) === "super"  ?JSON.parse(localStorage.getItem("role")) === "admin" && location.pathname.replace("/","").split(".")[0] === "dashboard" ? "" :"<td>NA</td>":""}
+   ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStorage.getItem("role")) === "super"  ?JSON.parse(localStorage.getItem("role")) === "admin" && location.pathname.replace("/","").split(".")[0] === "dashboard" ? "" :"<td>NA</td>":""}
     <td style="display:none">${data.eventId}</td>
-        ${JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin" ? 
-        `<td class='sliderList'><label class="switch"><input type="checkbox"><span class="slider"  ></span></label></td>`
-        :
-        ''
-         }
+    ${((JSON.parse(localStorage.getItem("role")) === "super" || JSON.parse(localStorage.getItem("role")) === "admin") && pageName!="dashboard.html") ? 
+    `<td class='sliderList'><label class="switch"><input type="checkbox"><span class="slider"  ></span></label></td>`
+    :
+    ''
+     }
          <td style='display:none'>${data.bookingStatus}</td>
     `
     document.getElementById("body").appendChild(tr)
