@@ -7,8 +7,14 @@ btn.addEventListener("click", async () => {
 
     let identifier = getElementByIdName("identifier")
     let pwd = getElementByIdName("pwd")
-    let type = document.getElementById("type").value
 
+
+    let pageName = window.location.pathname.replaceAll("/","").split(".")[0]
+    if(pageName === "AdminLogin"){
+        type = "admin"
+    }else{
+        type= "user"
+    }
     function areAllCharactersNumbers(inputString) {
         // Use a regular expression to check if all characters are numbers
         return /^\d+$/.test(inputString);
@@ -30,17 +36,6 @@ btn.addEventListener("click", async () => {
         alert("Please Enter a Valid Email Address")
         return; 
     }
-    // const key = await generateKey()
-    // console.log("mykey",key)
-    // const {encryptedData} = await encryptMessage(pwd,key)
-    // const newkey = await generateKeyInStringFormat(key)
-    // let newEncryptedData = encryptedData+"-->"+newkey
-    
-    
-    // const data = {
-    //      identifier:identifier,
-    //      password:newEncryptedData
-    // }
     const data = {
         identifier:identifier,
         password:pwd

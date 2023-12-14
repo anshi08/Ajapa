@@ -49,6 +49,7 @@ function loadContent() {
                 document.getElementById("addMembers").style.display = "none"
                 document.getElementById("addDetailsTab").style.display = "none"
                 document.getElementById("addTravelDetails") !== null ? document.getElementById("addTravelDetails").style.display = "none" : ""
+                document.getElementById("updateProfile").style.display = "none"
                 
             }
             if(JSON.parse(localStorage.getItem("role")) === "member" ){
