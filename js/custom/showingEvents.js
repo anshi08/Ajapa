@@ -484,9 +484,10 @@ async function getAge(){
 async function getValueForDashboard(){
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getValuesForDashBoard')
     const response = await res.json()
+    console.log("myresponse",response)
     document.getElementById("totalevents").innerHTML = response?.total_events
     document.getElementById("rejectUser").innerHTML=response?.rejected_users
-    document.getElementById("approvedUser").innerHTML = response?.approved_users.length-1
+    document.getElementById("approvedUser").innerHTML = response?.approved_users
     document.getElementById("p_request").innerHTML = response?.pending_users
 }
 
