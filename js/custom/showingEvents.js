@@ -63,7 +63,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         JSON.parse(localStorage.getItem("role"))==="head"  ? 
         document.getElementById("listedByCol").style.display = 'none' : ''
   
-    if(role!="admin"){
+    if(role=="user" || role=="member"){
         getAge()
 
     }
@@ -470,6 +470,7 @@ async function deleteEvent(eventId,status){
 }
 
 async function getAge(){
+
     let id = parseJwt(localStorage.getItem("data")).id
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAge/'+id)
     const response = await res.text()
