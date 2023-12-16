@@ -14,8 +14,10 @@ async function getApprovedUser(first=1,last=5){
     console.log("ll",response)
     document.getElementById("body").innerHTML = null
     response.forEach(data => {
+    
         if(data.id != 1){
         // console.log(data)
+        if(data.userType!=="super"){
         let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.fullName}</td>
@@ -26,11 +28,13 @@ async function getApprovedUser(first=1,last=5){
         <td>${data.country.split(":")[1]}</td>
         <td>${data.state.split(":")[1]}</td>
         <td>${data.city.split(":")[1]}</td>
+        <td>${data.userType == "member" ? "Yes":"No"}</td>
         <td><a href="#" class="btn btn-danger delete">Delete</a></td>
          `
         document.getElementById("body").appendChild(tr)
          // To stop the spinner
         }
+    }
   
     })
 
