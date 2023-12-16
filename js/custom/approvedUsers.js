@@ -21,7 +21,7 @@ async function getApprovedUser(first=1,last=5){
         let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.fullName}</td>
-        <td><a href="http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${data.email}.jpg" class="view">Profile</td>
+        <td><a href="http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/images/${data.email}.jpg" class="view" target="_blank">Profile</td>
         <td>${data.email}</td>
         <td>${data.mobileNum}</td>
         <td>${data.age}</td>

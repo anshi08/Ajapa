@@ -367,8 +367,10 @@ element.addEventListener('change', function (e) {
   }
 
   stateElement.addEventListener("change",e =>{
-    // console.log(e.target.value)
-    fetchCities(e.target.value)
+    const select = e.target;
+    const value = select.value;
+    const desc = select.options[select.selectedIndex].text;
+    fetchCities(e.target.value,desc)
 
   })
 
@@ -392,7 +394,8 @@ element.addEventListener('change', function (e) {
     });
     }
 
-    async function fetchCities(stateId) {
+    async function fetchCities(stateId,defaultCity) {
+        console.log(stateId,defaultCity)
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/cities/${stateId}`,{
         method:"GET",
         headers:{
@@ -401,6 +404,13 @@ element.addEventListener('change', function (e) {
     })
     const res = await response.json()
     cityElement.innerHTML=""
+    if(res.length===0){
+        const option = document.createElement('option');
+        option.value = stateId;
+        option.text = defaultCity;
+        cityElement.appendChild(option);
+        return;
+    }
     res.forEach((city) => {
         const option = document.createElement('option');
         option.value = city.id;
