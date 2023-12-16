@@ -520,8 +520,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
 
         document.getElementById("eventTitle").textContent = "Event Title: " + response.eventName
         document.getElementById("eventDate").textContent = "Event Date: " + response.startDate.split("T")[0]
-        document.getElementById("shivirDate").textContent = "Shivir Date: " + response?.shivirStartDate?.split("T")[0]
-        
+        document.getElementById("shivirDate").textContent = response ? "Shivir Date: " + (response.shivirStartDate ? response.shivirStartDate.split("T")[0] : "--") : "--";       
        
     }
     fetchDetails()
