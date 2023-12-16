@@ -122,7 +122,6 @@ btn.addEventListener("submit", async(e) =>{
     }
 
     if(JSON.parse(localStorage.getItem("role")) === "super"){
-        // alert("hii")
         if(shvirCheckbox.checked && document.getElementById("shivir_start_date").value.length===0 && document.getElementById("shivir_start_date").value.length===0 ){
             alert("Please add some data on shivir date")
             return ;
@@ -134,7 +133,7 @@ btn.addEventListener("submit", async(e) =>{
             data.shivirEndDate = document.getElementById("shivir_end_date").value
         }
         console.log("mine",data)
-        let {eventId} = events(data)
+        let {eventId} = await events(data)
         setEventImg(eventId,file)
     }
     else{
@@ -232,6 +231,7 @@ return response
 
 
 const setEventImg = async (eventId,file) => {
+        console.log("eventId",eventId)
         const form = new FormData();
         await form.append("eventId",eventId)
         await form.append("file",file)
