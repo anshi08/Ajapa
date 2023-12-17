@@ -6,29 +6,11 @@ let dob = document.getElementById("start_date")
 let today = new Date().toISOString().split('T')[0];
 dob.setAttribute("min",today)
 
-async  function fetchDetails(){
-    let id = window.location.href.split("?")[1].split("=")[1]
-    const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/fetchEvent/'+id)
-    const response = await res.json()
-    console.log(response)
-    document.getElementById('event_name').value = response.eventName;
-    if(response.eventType === "offline"){
-        startTime.style.display = "none"
-        endTime.style.display = "none"
-    }
-    document.getElementById('event_type').value = response.eventType;
-    document.getElementById('event_location').value = response.eventLocation;
-    document.getElementById('lock_start_date').value = response.lockArrivalDate.split("T")[0];
-    document.getElementById('start_date').value = response.startDate?.split("T")[0];
-    document.getElementById('lock_end_date').value = response.lockDepartureDate.split("T")[0]
-    document.getElementById('s_time').value = response.startTime
-    document.getElementById('e_time').value = response.endTime
-   
-}
-fetchDetails()
 
-//DropDown for Event Type
-DropDownStatus.addEventListener("change", () => {
+window.addEventListener("DOMContentLoaded",async ()=>{
+    await fetchDetails()
+    //DropDown for Event Type
+    DropDownStatus.addEventListener("change", () => {
     const option = DropDownStatus.value
     if(option === "online"){
     startTime.style.display = "block";
@@ -38,48 +20,30 @@ DropDownStatus.addEventListener("change", () => {
         startTime.style.display = "none";
         endTime.style.display = "none";
     }
-})
-
-
- async function getImg (){
-
-    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEmail",{
-        method:"POST",
-        headers:{
-            "Authorization":"Bearer "+JSON.parse(localStorage.getItem("data"))
-        }
     })
-    const res = await response.json()
-    let id = window.location.href.split("?")[1].split("=")[1]
-    // alert(id)
-    document.getElementById("event_pic").src = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/EventDoc/${id}.jpg`
-    document.getElementById("event_pic").className = "img-fluid"
-    return res;
-}
-
-getImg()
-
-let btn = document.getElementById("btn");
-btn.addEventListener("click", () => {
-let eventName = document.getElementById("event_name").value
-let eventType = document.getElementById("event_type").value;
-let sTime = document.getElementById("s_time").value;
-let eTime = document.getElementById("e_time").value;
-let eventLocation = document.getElementById("event_location").value
-let startLockDate =  document.getElementById('lock_start_date').value 
-let startDate = document.getElementById("start_date").value
-let endLockDate =  document.getElementById('lock_end_date').value 
-let file = document.getElementById("file").files[0]
+    getImg()
+    let eventId = window.location.href.split("?")[1].split("=")[1]
+    let btn = document.getElementById("btn");
+    btn.addEventListener("click", () => {
+    let eventName = document.getElementById("event_name").value
+    let eventType = document.getElementById("event_type").value;
+    let sTime = document.getElementById("s_time").value;
+    let eTime = document.getElementById("e_time").value;
+    let eventLocation = document.getElementById("event_location").value
+    let startLockDate =  document.getElementById('lock_start_date').value 
+    let startDate = document.getElementById("start_date").value
+    let endLockDate =  document.getElementById('lock_end_date').value 
+    let file = document.getElementById("file").files[0]
 
 
-if (/[^A-Za-z\s]/.test(eventName)) {
+    if (/[^A-Za-z\s]/.test(eventName)) {
     alert("Event Name should not contain special characters or numbers.");
-} else if(/[^A-Za-z\s]/.test(eventLocation)){
+    } else if(/[^A-Za-z\s]/.test(eventLocation)){
     alert("Event Location should not contain special characters or numbers.");
-}else if(eventType === "Select Type"){
+    }else if(eventType === "Select Type"){
     alert("Please Select an Event type")
-}
-else {
+    }
+    else {
     const data = {
         eventName: eventName,
         eventType: eventType,
@@ -102,15 +66,69 @@ else {
         }
         setEventImg(eventId,file)
     } else {
-   
+
     }
     //  console.log("Mydata",data)
-    
+
     updateEvents(data)
-    
-  
-}
+
+
+    }
+    })
+    setSessionTimeout();
+    document.getElementById("shivir").addEventListener("change",(e) =>{
+        if(e.target.checked){
+            document.getElementById("shivirStartDate").style.display = "block"
+            document.getElementById("shivirEndDate").style.display = "block"
+        }else{
+            document.getElementById("shivirStartDate").style.display = "none"
+            document.getElementById("shivirEndDate").style.display = "none"
+        }
+    })
 })
+
+async  function fetchDetails(){
+    let id = window.location.href.split("?")[1].split("=")[1]
+    const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/fetchEvent/'+id)
+    const response = await res.json()
+    console.log(response)
+    document.getElementById('event_name').value = response.eventName;
+    if(response.eventType === "offline"){
+        startTime.style.display = "none"
+        endTime.style.display = "none"
+    }
+    document.getElementById('event_type').value = response.eventType;
+    document.getElementById('event_location').value = response.eventLocation;
+    document.getElementById('lock_start_date').value = response.lockArrivalDate.split("T")[0];
+    document.getElementById('start_date').value = response.startDate?.split("T")[0];
+    document.getElementById('lock_end_date').value = response.lockDepartureDate.split("T")[0]
+    document.getElementById('s_time').value = response.startTime
+    document.getElementById('e_time').value = response.endTime
+    //ShvirGrp
+    if(response.shivirAvailable){
+        document.getElementById("shivir").checked = response.shivirAvailable
+        document.getElementById("shivirGrp").style.display = "block"
+        document.getElementById("shivir_start_date").value  =response.shivirStartDate.split("T")[0]
+        document.getElementById("shivir_end_date").value = response.shivirEndDate.split("T")[0]
+    }
+   
+}
+
+ async function getImg (){
+
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEmail",{
+        method:"POST",
+        headers:{
+            "Authorization":"Bearer "+JSON.parse(localStorage.getItem("data"))
+        }
+    })
+    const res = await response.json()
+    let id = window.location.href.split("?")[1].split("=")[1]
+    // alert(id)
+    document.getElementById("event_pic").src = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/EventDoc/${id}.jpg`
+    document.getElementById("event_pic").className = "img-fluid"
+    return res;
+}
 
 function clearAllFields(){
    document.getElementById("event_name").value = '';
@@ -142,7 +160,7 @@ async function updateEvents(data) {
     },2000)
     return res;
 }
-let eventId = window.location.href.split("?")[1].split("=")[1]
+
 // console.log(eventId)
 const setEventImg = async (eventId,file) => {
     console.log("java",eventId,file)
@@ -167,4 +185,3 @@ function setSessionTimeout() {
       window.location.href = 'login.html';
     }, timeoutInMilliseconds);
   }
-setSessionTimeout();

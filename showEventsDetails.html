@@ -111,25 +111,48 @@
                                     <input type="text" class="form-control"  id="event_location" 
                                    required pattern="[A-Za-z ]*" title="Only characters are allowed" >
                                 </div>
-
-                                <div class="form-group">
-                                    <label >Allowed Travel start date</label>
-                                      <input type="date" class="form-control"  id="lock_start_date" min="1950-01-01" max="2070-01-01" required>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label >Allowed Travel start date</label>
+                                              <input type="date" class="form-control"  id="lock_start_date" min="1950-01-01" max="2070-01-01" required>
+                                        </div>
+        
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label >Allowed Travel End date</label>
+                                            <input type="date" class="form-control" id="lock_end_date" min="1950-01-01" max="2070-01-01" required>
+                                        </div>  
+                                    </div>
                                 </div>
-
+                             
                                 <div class="form-group">
                                     <label>Event Date:</label>
                                     <input type="date" class="form-control"  id="start_date" >
                                 </div>
 
-                                <div class="form-group">
-                                    <label >Allowed Travel End date</label>
-                                    <input type="date" class="form-control" id="lock_end_date" min="1950-01-01" max="2070-01-01" required>
-                                </div>  
+                              
 
                                 <div class="form-group">
                                     <label >Update Event Image :</label>
                                     <input type="file" class="form-control-file" name="file" id="file" >
+                                  </div>
+                                  <div id="shivirGrp" style="display:none">
+                                    <div class="form-group">
+					   
+                                        <input type="checkbox" id="shivir">
+                                        <label>Add Shivir</label>
+                                      </div>
+                                      <div class="form-group" id="shivirStartDate" >
+                                        <label >Shivir start date</label>
+                                          <input type="date" class="form-control"  id="shivir_start_date" min="1950-01-01" max="2070-01-01" >
+                                    </div>
+            
+                                    <div class="form-group" id="shivirEndDate">
+                                        <label >Shivir end date</label>
+                                          <input type="date" class="form-control"  id="shivir_end_date" min="1950-01-01" max="2070-01-01" >
+                                    </div>
                                   </div>
 
                                 <button type="button" class="btn btn-primary " id="btn">
@@ -224,7 +247,70 @@
         }
 
     </script>
+<script>
 
+    //Shivir Start Date !!
+    document.getElementById("shivir_start_date").addEventListener("change", (e) => {
+const shivirStartDate = new Date(e.target.value);
+const lockStartDate = new Date(document.getElementById("lock_start_date").value);
+console.log(compareDates(shivirStartDate, lockStartDate))
+if (compareDates(shivirStartDate, lockStartDate) || dateDifferenceGreaterThan(shivirStartDate, lockStartDate, 10)) {
+    alert("Please choose Shivir Start Date before the Allowed Travel start date and within a 10-day gap.");
+    document.getElementById("shivir_start_date").value = '';
+}
+});
+
+    //Shivir End Date !!
+    document.getElementById("shivir_end_date").addEventListener("change",(e)=>{
+        console.log(compareDate(new Date(document.getElementById("start_date").value),new Date(e.target.value)))
+        if(compareDate(new Date(document.getElementById("start_date").value),new Date(e.target.value))){
+            alert("Please Choose Shivir End Date before Event date")
+            document.getElementById("shivir_end_date").value=''
+        }
+    })
+
+
+    document.getElementById("start_date").addEventListener("change",(e)=>{
+       console.log(compareDates(new Date(document.getElementById("lock_start_date").value), new Date(e.target.value)))
+        if(compareDates(new Date(),new Date(e.target.value))){
+            alert("Please choose greater than today")
+            document.getElementById("start_date").value = ''
+        }else if(compareDates(new Date(document.getElementById("lock_start_date").value), new Date(e.target.value))){
+            alert("Start date always greater than lock date")
+            document.getElementById("start_date").value = ''
+        }
+    })
+
+    document.getElementById("lock_end_date").addEventListener("change",e=>{
+        if(compareDates(new Date(document.getElementById("start_date").value),new Date(e.target.value))){
+            alert("Please Choose lock end date greater than start date")
+            document.getElementById("lock_end_date").value=''
+        }
+    })
+
+
+    const compareDate = (d1,d2) => {
+        let firstDate = new Date(d1).getTime();
+        let secondDate = new Date(d2).getTime();
+
+        if (firstDate < secondDate) {
+            return true;
+        } else if (firstDate > secondDate) {
+            return false;
+        } else {
+            return true
+        }
+    }
+
+const dateDifferenceGreaterThan = (date1, date2, days) => {
+const differenceInTime = Math.abs(date2.getTime() - date1.getTime());
+const differenceInDays = Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
+
+return differenceInDays > days;
+};
+
+
+</script>
 
 </body>
 

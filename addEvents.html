@@ -110,21 +110,27 @@
 										id="event_location" required pattern="[A-Za-z ]*" title="Only characters are allowed">
 										<p id="eventLocationError"  style="display: none;color:red">Event Location Required</p>
 										  </div>
-		
-										  <div class="form-group">
-											<label >Allowed Travel start date</label>
-											  <input type="date" class="form-control"  id="lock_start_date" min="1950-01-01" max="2070-01-01" required>
-										</div>
+										  <div class="row">
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label >Allowed Travel start date</label>
+													  <input type="date" class="form-control"  id="lock_start_date" min="1950-01-01" max="2070-01-01" required>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label >Allowed Travel End date</label>
+													<input type="date" class="form-control" id="lock_end_date" min="1950-01-01" max="2070-01-01" required>
+												</div>  
+											</div>
+										  </div>
+									
 		
 					 <div class="form-group">
 						<label >Event Date</label>
 						  <input type="date" class="form-control"  id="start_date" required>
 					</div>
 		
-						<div class="form-group">
-							<label >Allowed Travel End date</label>
-							<input type="date" class="form-control" id="lock_end_date" min="1950-01-01" max="2070-01-01" required>
-						</div>  
 		
 						<div class="form-group" id="start_time">
 							<label >Start Time:</label>

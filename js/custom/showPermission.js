@@ -35,9 +35,19 @@ async function showPermission(){
         `
         document.getElementById("body").appendChild(tr)
            // To stop the spinner
-           s.stop(); 
+     
       
     })
+    s.stop(); 
+    if(res.length===0){
+      let tr = document.createElement("tr")
+      tr.innerHTML = `
+      <td colspan="4" align='center'>No Record to display</td>
+      `
+      document.getElementById("body").appendChild(tr)
+      return; 
+    }
+
     return res
 }
 
