@@ -548,7 +548,10 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         let id = window.location.href.split("?")[1].split("=")[1]
         // alert(id)
         document.getElementById("eventImage").src = `http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/EventDoc/${id}.jpg`
-        document.getElementById("eventImage").className ="img-thumbnail"
+        document.getElementById("eventImage").className ="img-fluid"
+        document.getElementById("eventImage").style="height:200px;margin-left:20px;"
+
+        
         return res;
     }
     

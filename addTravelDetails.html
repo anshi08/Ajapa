@@ -86,12 +86,11 @@
                 <div class="container-fluid">
 
                     <div id="event-details" class="row">
-                        <div class="col">
-                            <div id="image-container" style="max-height: 300px; overflow: hidden;">
-                                <img id="eventImage" src="" style="width: 100%; height: auto;">
-                            </div>
+                        <div class="col-sm-6">
+                                <img id="eventImage" src="" class="img-responsive">
+                      
                         </div>
-                        <div class="col">
+                        <div class="col-sm-6">
                             <h5 id="eventTitle">Event Title :</h5>
                             <h5 id="eventDate">Event Date :</h5>
                             <h5 id="shivirDate">Shivir Date :</h5>
@@ -102,7 +101,7 @@
                     <h1 class="h3 mb-1 text-gray-800">Travel Details</h1>
 
                     <div class="col-sm-12 shadow-lg p-4 mb-4 bg-white mx-auto rounded">
-                     <div class="jumbotron text-center"><h5>Arrival Details</h5></div>
+                     <div class="jumbotron text-center" style="padding:1rem"><h5>Arrival Details</h5></div>
                        <!-- Message dialog Box -->
                     <div class="modal fade" id="pendingDialog2" tabindex="-1" role="dialog" aria-labelledby="pendingDialogLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -206,7 +205,7 @@
 
 
 
-           <div class="jumbotron text-center"><h5>Leaving Details</h5></div>
+           <div class="jumbotron text-center"  style="padding:1rem"><h5>Leaving Details</h5></div>
                    <div class="form-group">
                     <label>Leaving Date</label>
                     <input type="date" class="form-control" id="departure_date" required>
