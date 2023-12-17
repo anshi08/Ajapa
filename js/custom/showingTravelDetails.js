@@ -86,6 +86,8 @@ window.addEventListener("DOMContentLoaded",()=>{
 
 //Getting Details By Event Id
 async function getTravelDetailsById(id){
+    const target = document.getElementById('body');
+    const s = new Spinner().spin(target);
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAllTravelEventUser/"+id,{
         method:"GET",
         headers:{
@@ -93,8 +95,15 @@ async function getTravelDetailsById(id){
         }
     })
     const res = await response.json();
-    console.log(res)
     document.getElementById("body").innerHTML=""
+    if(res.length===0){
+        let tr = document.createElement("tr")
+        tr.innerHTML = `
+        <td colspan='10' align='center'>No Travel Details Found</td>`
+        document.getElementById("body").appendChild(tr)
+        s.stop()    
+        return;
+    }
     res.forEach(data => {
     let tr = document.createElement("tr")
     tr.innerHTML = `
@@ -111,7 +120,7 @@ async function getTravelDetailsById(id){
     `
     document.getElementById("body").appendChild(tr)
     // To stop the spinner
-    // s.stop(); 
+    s.stop(); 
     
   
 })

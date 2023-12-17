@@ -10,12 +10,17 @@ window.addEventListener("DOMContentLoaded",async ()=>{
       })
     eventdrpdwn.addEventListener("change",async e =>{
         let details = await getFoodDetails(e.target.value)
-        console.log(details)
         tbody.innerHTML = null;
-
+        if(details.length===0){
+            let tr = document.createElement("tr")
+            tr.innerHTML = `
+            <td colspan='5' align='center'>No Data Found</td>
+            `
+            tbody.appendChild(tr)
+            return;
+        }
         details.forEach(detail =>{
             let tr = document.createElement("tr")
-            console.log(detail.entryDate)
             tr.innerHTML = `
             <td>${detail.entryDate}</td>
             <td>${detail.timings}</td>

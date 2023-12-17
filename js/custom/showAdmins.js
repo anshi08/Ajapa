@@ -6,9 +6,16 @@ async function getUsers(){
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getAllAdminsNew")
     const res = await response.json()
 
-    res.forEach(data => {
-        console.log("🚀 ~ file: showAdmins.js:6 ~ getUsers ~ data:", data)
-        
+    if(res.length===0){
+        let tr = document.createElement("tr")
+        tr.innerHTML = `
+        <td colspan='3' align='center'>No Admin Found</td>`
+        document.getElementById("body").appendChild(tr)
+        s.stop(); 
+        return;
+    }
+
+    res.forEach(data => {        
         let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.identifier}</td>
@@ -30,20 +37,18 @@ window.addEventListener("DOMContentLoaded",async ()=>{
     Array.from(document.getElementsByClassName("edit")).forEach(item => {
         item.addEventListener("click",(e)=>{
             e.preventDefault()
-
             deletAdmin(e.target.parentElement.previousElementSibling.previousElementSibling.innerText)
         })
     })
 })
 
 async function deletAdmin(id){
-    console.log(id)
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changeAdminStatus/"+id,{
         method:"POST"
     })
     const res = await response.text()
     console.log(res)
-    window.location.href="showAdmins.html"
+    // window.location.href="showAdmins.html"
 }
 
 

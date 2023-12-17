@@ -92,6 +92,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 
     if(res.length==0){
+        let tr = document.createElement("tr")
+        tr.innerHTML = `
+        <td colspan='8' align='center'>No Record Found</td>`
+        document.getElementById("body").appendChild(tr)
             s.stop();
         }
         if(role === "member" || role === "head") {
@@ -195,7 +199,7 @@ next.addEventListener("click", async () => {
     prev.style.display = "block"
 
     if(res.length === 0){
-        document.getElementById("body").innerHTML = "<tr><td colspan='8'>No results to display</td></tr>";
+        document.getElementById("body").innerHTML = "<tr><td colspan='8' align='center'>No results to display</td></tr>";
         next.style.display = "none"
       
     }
@@ -266,7 +270,6 @@ next.addEventListener("click", async () => {
          })
        }) 
 }
-})
 })
 
 prev.addEventListener("click", async () => {
@@ -360,83 +363,8 @@ Array.from(document.getElementsByClassName("switch")).forEach(item => {
 
 }
 })
-async function showingAllEvents(first=1,last=5) {
-
-    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEvents/${first}/${last}`,{
-         method:"GET",
-         headers: {
-            "Content-type":"application/json;  charset=UTF-8"
-         }
-    })
-    const res = await response.json()
-    totalRecords = res.size
-    return res.data;
-}
-
-
-async function showingAllEventsByStatus(status,first=1,last=5) {
-
-    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEventsByStatus/${status}/${first}/${last}`,{
-         method:"GET",
-         headers: {
-            "Content-type":"application/json;  charset=UTF-8"
-         }
-    })
-    const res = await response.json()
-    totalRecords = res.size
-    return res.data;
-}
-
-
-
-
-
-
-
-
-async function showingOnlyAdminEvents(adminId,first=1,last=5){
-    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEventWithPermissions/${adminId}/${first}/${last}`,{
-        method:"GET",
-        headers: {
-           "Content-type":"application/json;  charset=UTF-8"
-        }
-   })
-   const res = await response.json()
-   console.log("mm",res)
-   return res;  
-}
-
-
-
-
-function getElementByString(str){  
-    let div = document.createElement("div")
-    div.innerHTML =str
-    return div.firstElementChild
-}
-
-async function getAllEvents(){
-    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getNumberOfEvents",{
-        method:"GET"
-    })
-    const res = await response.json()
-    document.getElementById("totalevents")!==null ? document.getElementById("totalevents").innerText = res : ""
-    // console.log("All Events" ,res)
-    return res;
-}
 
 getAllEvents()
-
-async function getAllPendingRequest(){
-    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getNumberOfUnapprovedUsers",{
-        method:"GET"
-    })
-    const res = await response.json()
-    
-    document.getElementById("p_request")!==null ?  document.getElementById("p_request").innerText = res :""
-    return res;
-}
-
 getAllPendingRequest()
 
 if(localStorage.getItem("role").replaceAll("\"","") === "member"){
@@ -460,6 +388,77 @@ document.getElementById("approvedUserCard")?.addEventListener("click",()=>{
     window.location.href="approvedUsers.html"
 })
 
+setSessionTimeout();
+
+})
+
+
+async function showingAllEvents(first=1,last=5) {
+
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEvents/${first}/${last}`,{
+         method:"GET",
+         headers: {
+            "Content-type":"application/json;  charset=UTF-8"
+         }
+    })
+    const res = await response.json()
+    totalRecords = res.size
+    return res.data;
+}
+
+async function showingAllEventsByStatus(status,first=1,last=5) {
+
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEventsByStatus/${status}/${first}/${last}`,{
+         method:"GET",
+         headers: {
+            "Content-type":"application/json;  charset=UTF-8"
+         }
+    })
+    const res = await response.json()
+    totalRecords = res.size
+    return res.data;
+}
+
+async function showingOnlyAdminEvents(adminId,first=1,last=5){
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getEventWithPermissions/${adminId}/${first}/${last}`,{
+        method:"GET",
+        headers: {
+           "Content-type":"application/json;  charset=UTF-8"
+        }
+   })
+   const res = await response.json()
+   console.log("mm",res)
+   return res;  
+}
+
+function getElementByString(str){  
+    let div = document.createElement("div")
+    div.innerHTML =str
+    return div.firstElementChild
+}
+
+async function getAllEvents(){
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getNumberOfEvents",{
+        method:"GET"
+    })
+    const res = await response.json()
+    document.getElementById("totalevents")!==null ? document.getElementById("totalevents").innerText = res : ""
+    // console.log("All Events" ,res)
+    return res;
+}
+
+
+
+async function getAllPendingRequest(){
+    const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getNumberOfUnapprovedUsers",{
+        method:"GET"
+    })
+    const res = await response.json()
+    
+    document.getElementById("p_request")!==null ?  document.getElementById("p_request").innerText = res :""
+    return res;
+}
+
 async function deleteEvent(eventId,status){
     const res = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/changeEventStatus/${eventId}/${status}`,{
         method:"POST"
@@ -478,8 +477,6 @@ async function getAge(){
     $('#pendingDialog101').modal('show');
    }
 }
-
-
 
 async function getValueForDashboard(){
     const res = await fetch('http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/getValuesForDashBoard')
@@ -508,8 +505,6 @@ async function searchEvents(name){
    return response
 }
 
-
-
 function setSessionTimeout() {
     const timeoutInMilliseconds = 43200000; // 12 hours
   
@@ -519,9 +514,9 @@ function setSessionTimeout() {
       window.location.href = 'login.html';
     }, timeoutInMilliseconds);
   }
-setSessionTimeout();
 
-searchInput?.addEventListener("input", debounce(()=>handleInput(searchInput), 300)); // Add debouncing to reduce API requests
+
+// searchInput?.addEventListener("input", debounce(()=>handleInput(searchInput), 300)); // Add debouncing to reduce API requests
 // Debounce function to limit API requests
 function debounce(func, wait) {
     let timeout;
