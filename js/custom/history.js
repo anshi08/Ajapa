@@ -72,7 +72,15 @@ async function getHistory(id,first=1,last=5){
     const response = await res1.data
     // console.log("2",response)
     const currentTime = await res1.currentDate
-    
+
+    if(response.length===0){
+        let tr = document.createElement("tr")
+        tr.innerHTML = `
+        <td colspan="8" align='center'>No Record Found</td>`
+        document.getElementById("body").appendChild(tr)
+        s.stop(0)
+        return;
+    }
 
     response.forEach(data => {
      
