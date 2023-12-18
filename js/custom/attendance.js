@@ -40,7 +40,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         }
         console.log(details)
 
-        details.forEach(info =>{
+        await details.forEach(info =>{
             let tr = document.createElement("tr")
             tr.innerHTML=`
             <td style='display:none'>${info.user.id}</td>
@@ -50,9 +50,12 @@ window.addEventListener("DOMContentLoaded",async ()=>{
             <td>${info.user.mobileNum}</td>
             <td><input type='checkbox' class="present" ${info.present ? 'checked':""}  /></td>
             <td><input type='text' class='form-control' value=${info.hallNo} /></td>
+            <td class="bellIcon"><i class="fa fa-bell"></i></td>
             `
             document.getElementById("body").appendChild(tr)
         })
+
+
         document.getElementById("totalPeople").innerText = "Total -: "+details.length
         let sum = 0;
         const totalPresent = details.reduce((acc,curr)=>{
@@ -61,35 +64,45 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         },0)
         document.getElementById("attendend").innerText = "Present -: "+totalPresent
 
+        //Bell Event Listener
+        Array.from(document.getElementsByClassName("bellIcon")).forEach(bellTd => {
+            bellTd.addEventListener("click",async e =>{
+                
+                let hallNo = e.target.parentElement.previousElementSibling.children[0].value
+                let mobileNum = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText
+               await notifySelectedPerson(mobileNum,hallNo)
+                bellTd.firstElementChild.style.color = "red"
+            })
+        })
 
     })
-    document.getElementById("submit").addEventListener("click",function(){
-        let table = document.getElementById("body");
-        let selectedUser = []
-        let hallNo = []
-        // Get all rows in the table
-        let rows = table.getElementsByTagName("tr");
-        let isPresent = []
-       Array.from(rows).forEach(row => {
-        console.log("row",row.children[row.childElementCount-2].firstElementChild.checked)
-        if(row.children[row.childElementCount-2].firstElementChild.checked){
-            isPresent.push(true)
-        }else{
-            isPresent.push(false)
-        }
-        selectedUser.push(row.firstElementChild.innerHTML)
-        hallNo.push(row.children[row.childElementCount-1].firstElementChild.value)
-    })
+    // document.getElementById("submit").addEventListener("click",function(){
+    //     let table = document.getElementById("body");
+    //     let selectedUser = []
+    //     let hallNo = []
+    //     // Get all rows in the table
+    //     let rows = table.getElementsByTagName("tr");
+    //     let isPresent = []
+    //    Array.from(rows).forEach(row => {
+    //     console.log("row",row.children[row.childElementCount-2].firstElementChild.checked)
+    //     if(row.children[row.childElementCount-2].firstElementChild.checked){
+    //         isPresent.push(true)
+    //     }else{
+    //         isPresent.push(false)
+    //     }
+    //     selectedUser.push(row.firstElementChild.innerHTML)
+    //     hallNo.push(row.children[row.childElementCount-1].firstElementChild.value)
+    // })
 
-       let events = []
+    //    let events = []
     
-       selectedUser.forEach(user =>{
-            events.push(eventId);
+    //    selectedUser.forEach(user =>{
+    //         events.push(eventId);
            
-       })
-       console.log({selectedUser,events,isPresent,hallNo})
-       saveAttendance({users:selectedUser,events,isPresent,hallNo})
-    })
+    //    })
+    //    console.log({selectedUser,events,isPresent,hallNo})
+    //    saveAttendance({users:selectedUser,events,isPresent,hallNo})
+    // })
 
     let print = document.getElementById("print")
     print.addEventListener("click",()=>{
@@ -183,4 +196,17 @@ async function sendRoomBookingStatus(data){
             window.location.href = "dashboard.html"
         },2000)
     return res;
+}
+
+async function notifySelectedPerson(pno,hallNo){
+    //http://localhost:8080/sendHallNotification/9760705107/hello
+    const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/sendHallNotification/${pno}/${hallNo}`,{
+        method:"GET",
+        headers: {
+           "Content-type":"application/json;  charset=UTF-8"
+        }
+   })
+   const res = await response.text()
+   console.log("Myres",res)
+   return res;
 }

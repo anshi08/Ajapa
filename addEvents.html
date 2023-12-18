@@ -81,7 +81,7 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-1 text-gray-800">Add Events</h1>
+					<h1 class="h3 mb-1 text-gray-800">Add Event</h1>
 						<div class="row">
 							<div class="col-sm-12 shadow-lg p-4 mb-4 bg-white mx-auto rounded">
 					 
@@ -110,6 +110,11 @@
 										id="event_location" required pattern="[A-Za-z ]*" title="Only characters are allowed">
 										<p id="eventLocationError"  style="display: none;color:red">Event Location Required</p>
 										  </div>
+										  <div class="form-group">
+											<label >Event Date</label>
+											  <input type="date" class="form-control"  id="start_date" required>
+										</div>
+							
 										  <div class="row">
 											<div class="col-sm-6">
 												<div class="form-group">
@@ -126,10 +131,6 @@
 										  </div>
 									
 		
-					 <div class="form-group">
-						<label >Event Date</label>
-						  <input type="date" class="form-control"  id="start_date" required>
-					</div>
 		
 		
 						<div class="form-group" id="start_time">
@@ -246,77 +247,103 @@
 
 		//Shivir Start Date !!
 		document.getElementById("shivir_start_date").addEventListener("change", (e) => {
-    const shivirStartDate = new Date(e.target.value);
-    const lockStartDate = new Date(document.getElementById("lock_start_date").value);
-    console.log(compareDates(shivirStartDate, lockStartDate))
-    if (compareDates(shivirStartDate, lockStartDate) || dateDifferenceGreaterThan(shivirStartDate, lockStartDate, 10)) {
-        alert("Please choose Shivir Start Date before the Allowed Travel start date and within a 10-day gap.");
-        document.getElementById("shivir_start_date").value = '';
-    }
-});
+			const shivirDate = document.getElementById("shivir_start_date").value
+			const lockStartDate = document.getElementById("lock_start_date").value
+			const lockEndDate = document.getElementById("lock_end_date").value
+			if(document.getElementById("lock_start_date").value.length===0){
+				alert("Please First Choose Allowed Travel Start Date")
+				document.getElementById("shivir_start_date").value=""
+				document.getElementById("lock_start_date").focus()
+				return;
+
+			}else if(document.getElementById("lock_end_date").value.length===0){
+				alert("Please First Choose Allowed Travel End Date")
+				document.getElementById("shivir_start_date").value=""
+				document.getElementById("lock_end_date").focus()
+				return;
+			}
+			else if(!isDateInRange(shivirDate,lockStartDate,lockEndDate)){
+				alert("Shivir Date is in the range between allowed Travel Start and End Date")
+				document.getElementById("shivir_start_date").value=""
+				return;
+			}
+	});
 
 		//Shivir End Date !!
 		document.getElementById("shivir_end_date").addEventListener("change",(e)=>{
-			console.log(compareDate(new Date(document.getElementById("start_date").value),new Date(e.target.value)))
-			if(compareDate(new Date(document.getElementById("start_date").value),new Date(e.target.value))){
-				alert("Please Choose Shivir End Date before Event date")
-				document.getElementById("shivir_end_date").value=''
+			const shivirDate = document.getElementById("shivir_end_date").value
+			const lockStartDate = document.getElementById("lock_start_date").value
+			const lockEndDate = document.getElementById("lock_end_date").value
+			console.log('shivir',document.getElementById("shivir_start_date").value,document.getElementById("shivir_end_date").value)
+			console.log(compareDates(document.getElementById("shivir_start_date"),shivirDate))	
+			if(document.getElementById("lock_start_date").value.length===0){
+				alert("Please First Choose Allowed Travel Start Date")
+				document.getElementById("shivir_start_date").value=""
+				document.getElementById("lock_start_date").focus()
+				return;
+
+			}else if(document.getElementById("lock_end_date").value.length===0){
+				alert("Please First Choose Allowed Travel End Date")
+				document.getElementById("shivir_start_date").value=""
+				document.getElementById("lock_end_date").focus()
+				return;
+			}
+			else if(!isDateInRange(shivirDate,lockStartDate,lockEndDate)){
+				alert("Shivir Date is in the range between allowed Travel Start and End Date")
+				document.getElementById("shivir_end_date").value=""
+				return;
 			}
 		})
 
-
-		document.getElementById("start_date").addEventListener("change",(e)=>{
-		   console.log(compareDates(new Date(document.getElementById("lock_start_date").value), new Date(e.target.value)))
-			if(compareDates(new Date(),new Date(e.target.value))){
-				alert("Please choose greater than today")
-				document.getElementById("start_date").value = ''
-			}else if(compareDates(new Date(document.getElementById("lock_start_date").value), new Date(e.target.value))){
-				alert("Start date always greater than lock date")
-				document.getElementById("start_date").value = ''
+		document.getElementById("lock_start_date").addEventListener("change",(e)=>{
+			if(document.getElementById("start_date").value.length===0){
+				alert("Please First Choose Event Date")
+				document.getElementById('start_date').focus()
+				document.getElementById("lock_start_date").value=""
+				return;
+			}else{
+				if(!compareDates(new Date(e.target.value),new Date(document.getElementById("start_date").value))){
+					alert("Please Choose Travel Date before Event Date")
+					document.getElementById("lock_start_date").value=''
+				}
 			}
+		
 		})
+
+	
 
 		document.getElementById("lock_end_date").addEventListener("change",e=>{
-			if(compareDates(new Date(document.getElementById("start_date").value),new Date(e.target.value))){
+			if(document.getElementById("lock_start_date").value.length===0){
+				alert("Please First Choose Allowed Start Event Date")
+				document.getElementById('lock_start_date').focus()
+				document.getElementById("lock_end_date").value=""
+				return;
+			}else{
+				if(!compareDates(new Date(document.getElementById("start_date").value),new Date(e.target.value))){
 				alert("Please Choose lock end date greater than start date")
 				document.getElementById("lock_end_date").value=''
 			}
+			}
+
+		
 		})
 
 		const compareDates = (d1, d2) => {
 		let date1 = new Date(d1).getTime();
-		let date2 = new Date(d2).getTime();
-
-		if (date1 < date2) {
-
-			return false;
-		} else if (date1 > date2) {
-			return true
-		} else {
-			return true
-		}
+    	let date2 = new Date(d2).getTime();
+    	return date1 <= date2;
 		}
 
-		const compareDate = (d1,d2) => {
-			let firstDate = new Date(d1).getTime();
-			let secondDate = new Date(d2).getTime();
 
-			if (firstDate < secondDate) {
-				return true;
-            } else if (firstDate > secondDate) {
-				return false;
-			} else {
-				return true
-			}
-		}
 
-const dateDifferenceGreaterThan = (date1, date2, days) => {
-    const differenceInTime = Math.abs(date2.getTime() - date1.getTime());
-    const differenceInDays = Math.ceil(differenceInTime / (1000 * 60 * 60 * 24));
 
-    return differenceInDays > days;
+const isDateInRange = (dateToCheck, startDate, endDate) => {
+    let checkDate = new Date(dateToCheck).getTime();
+    let startDateValue = new Date(startDate).getTime();
+    let endDateValue = new Date(endDate).getTime();
+
+    return checkDate >= startDateValue && checkDate <= endDateValue;
 };
-
 
 	</script>
 
