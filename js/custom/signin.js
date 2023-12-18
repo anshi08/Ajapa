@@ -10,7 +10,8 @@ btn.addEventListener("click", async () => {
 
 
     let pageName = window.location.pathname.replaceAll("/","").split(".")[0]
-    if(pageName === "Ajapa-mainAjapa-mainAdminLogin"){
+    // if(pageName === "Ajapa-mainAjapa-mainAdminLogin"){
+        if(pageName === "AdminLogin"){
         type = "admin"
     }else{
         type= "user"

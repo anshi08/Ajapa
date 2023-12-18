@@ -267,6 +267,16 @@
 				document.getElementById("shivir_start_date").value=""
 				return;
 			}
+			else{
+				if(document.getElementById("shivir_end_date").value.length!==0){
+				if(!compareDates(document.getElementById("shivir_start_date").value,document.getElementById("shivir_end_date").value)){
+				alert("Shivir Start Date must be smaller than end Date")
+				document.getElementById("shivir_start_date").value = "";
+				return;
+				}
+				}
+			}
+		
 	});
 
 		//Shivir End Date !!
@@ -310,8 +320,6 @@
 		
 		})
 
-	
-
 		document.getElementById("lock_end_date").addEventListener("change",e=>{
 			if(document.getElementById("lock_start_date").value.length===0){
 				alert("Please First Choose Allowed Start Event Date")
@@ -333,17 +341,13 @@
     	let date2 = new Date(d2).getTime();
     	return date1 <= date2;
 		}
+		const isDateInRange = (dateToCheck, startDate, endDate) => {
+			let checkDate = new Date(dateToCheck).getTime();
+			let startDateValue = new Date(startDate).getTime();
+			let endDateValue = new Date(endDate).getTime();
 
-
-
-
-const isDateInRange = (dateToCheck, startDate, endDate) => {
-    let checkDate = new Date(dateToCheck).getTime();
-    let startDateValue = new Date(startDate).getTime();
-    let endDateValue = new Date(endDate).getTime();
-
-    return checkDate >= startDateValue && checkDate <= endDateValue;
-};
+			return checkDate >= startDateValue && checkDate <= endDateValue;
+		};
 
 	</script>
 

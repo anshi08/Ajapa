@@ -70,8 +70,12 @@ window.addEventListener("DOMContentLoaded",async ()=>{
                 
                 let hallNo = e.target.parentElement.previousElementSibling.children[0].value
                 let mobileNum = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText
-               await notifySelectedPerson(mobileNum,hallNo)
+               const res = await notifySelectedPerson(mobileNum,hallNo)
                 bellTd.firstElementChild.style.color = "red"
+                if(res === "Message Sent"){
+                    alert("Message Sent")
+                    
+                }
             })
         })
 

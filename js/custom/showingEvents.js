@@ -21,7 +21,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     let searchFilter = document.getElementById("searchFilter")
     searchFilter?.addEventListener("input",async(e) =>{
       let res =   await searchEvents(e.target.value)
-      console.log(e.target.value.length)
       if(e.target.value.length===0) window.location.reload()
       document.getElementById("body").innerHTML = null
       await res.forEach(data => {
@@ -108,19 +107,19 @@ window.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("showDetails")!==null ? document.getElementById("showDetails").style.display = "block" :""
             // document.getElementById("deleteDetails").style.display = "block";          
                 document.getElementById("Book").style.display = "none";
-        }
-
-        await res.forEach(data => {
-            let tr = document.createElement("tr")
+        }   
+        await res.forEach(data => {   
+            console.log('hhhkkk',data)
+        let tr = document.createElement("tr")
         tr.innerHTML = `
         <td>${data.eventName}</td>
         <td>${data.eventType}</td>
         <td>${data.eventLocation}</td>
         <td>${data.startDate?.split("T")[0]}</td>
-       ${JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role"))==="head"  ? '' :`<td>${data.listedBy?.replaceAll("\"","")}</td>`}
+        ${JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role"))==="head"  ? '' :`<td>${data.listedBy?.replaceAll("\"","")}</td>`}
         ${JSON.parse(localStorage.getItem("role")) === "member" ||
         JSON.parse(localStorage.getItem("role")) === "head"
-        ?data.bookingStatus === 1 ? `<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` :`<td><a href='#' class="btn btn-primary disabled">Close</a></td>` : ''}
+        ?data.bookingStatus === 0 ? `<td><a href='addTravelDetails.html?id=${data.eventId}' class="btn btn-primary">Register</a></td>` :`<td><a href='#' class="btn btn-primary disabled">Close</a></td>` : ''}
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canModify==="yes" ?document.getElementById('showDetails')!==null ? "<td><a href='showEventsDetails.html?id="+data.eventId+"'>Edit</a></td>" : '':JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStorage.getItem("role")) === "super"  ?JSON.parse(localStorage.getItem("role")) === "admin" && location.pathname.replace("/","").split(".")[0] === "dashboard" ? "" :"<td>NA</td>":""}
         ${JSON.parse(localStorage.getItem("role")) === "super" || data.canDelete==="yes" ?document.getElementById('deleteEventCol')!==null ? `<td><a href="#" class="deleteEvent">Delete</a></td>` : JSON.parse(localStorage.getItem("role")) === "member" || JSON.parse(localStorage.getItem("role")) === "head" ? '' : document.getElementById('deleteEventCol')!==null ? '<td class="deleteEvent"><a href="#">Delete1</a></td>':"":JSON.parse(localStorage.getItem("role")) === "admin" || JSON.parse(localStorage.getItem("role")) === "super"  ?JSON.parse(localStorage.getItem("role")) === "admin" && location.pathname.replace("/","").split(".")[0] === "dashboard" ? "" :"<td>NA</td>":""}
         <td style="display:none">${data.eventId}</td>
@@ -138,10 +137,8 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     Array.from(document.getElementsByClassName('sliderList'),(item) =>{
         if(+item.nextElementSibling.innerHTML===0){
-            
             item.firstElementChild.lastElementChild.style.backgroundColor = '#2196F3'
             item.firstElementChild.lastElementChild.classList.add('on');
-
 
         }
     })
@@ -160,9 +157,9 @@ window.addEventListener("DOMContentLoaded", async () => {
         })
     })
     Array.from(document.getElementsByClassName("switch")).forEach(item => {
-          
+        
          item.children[0].addEventListener("click",(e)=>{
-     
+            // console.log("kkk",e.target.parentElement.parentElement.previousElementSibling,e.target.parentElement.parentElement.previousElementSibling.innerText)
             if(item.parentElement.nextElementSibling.innerText == 1){
                 changeStatus(e.target.parentElement.parentElement.previousElementSibling.innerText,0)  
             }
