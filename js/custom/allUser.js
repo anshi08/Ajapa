@@ -13,7 +13,8 @@ async function getApprovedUser(first=1,last=5){
     const response = await res.json()
     document.getElementById("body").innerHTML = null
     response.forEach(data => {
-        if(data.id != 1){
+
+        if(data.userType !== "super"){
         // console.log(data)
         let tr = document.createElement("tr")
         tr.innerHTML = `
@@ -38,7 +39,7 @@ async function getApprovedUser(first=1,last=5){
     Array.from(document.getElementsByClassName("delete")).forEach(item => item.addEventListener("click",(e)=>{
     let email = e.target.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText
     // console.log(email)
-    rejectedUser(email)  
+    // rejectedUser(email)  
     }))
 return response
 }

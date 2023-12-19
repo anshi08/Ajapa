@@ -74,7 +74,7 @@ window.addEventListener("DOMContentLoaded",async ()=>{
                 bellTd.firstElementChild.style.color = "red"
                 if(res === "Message Sent"){
                     alert("Message Sent")
-                    
+                    return;
                 }
             })
         })
@@ -122,14 +122,14 @@ window.addEventListener("DOMContentLoaded",async ()=>{
         let rows = table.getElementsByTagName("tr");
         let isPresent = []
        Array.from(rows).forEach(row => {
-        console.log("row",row.children[row.childElementCount-2].firstElementChild.checked)
-        if(row.children[row.childElementCount-2].firstElementChild.checked){
+        console.log("row",row.children[row.childElementCount-3].firstElementChild.checked)
+        if(row.children[row.childElementCount-3].firstElementChild.checked){
             isPresent.push(true)
         }else{
             isPresent.push(false)
         }
         selectedUser.push(row.firstElementChild.innerHTML)
-        hallNo.push(row.children[row.childElementCount-1].firstElementChild.value)
+        hallNo.push(row.children[row.childElementCount-2].firstElementChild.value)
     })
 
        let events = []
@@ -182,6 +182,7 @@ async function saveAttendance(data) {
 }
 
 async function sendRoomBookingStatus(data){
+        
     const response = await fetch("http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/sendRoomBookingStatus",{
         // const response = await fetch("http://192.168.29.217:8080/saveAttendance",{
         method:"POST",
@@ -204,6 +205,7 @@ async function sendRoomBookingStatus(data){
 
 async function notifySelectedPerson(pno,hallNo){
     //http://localhost:8080/sendHallNotification/9760705107/hello
+    // console.log(pno,hallNo)
     const response = await fetch(`http://54.198.229.134:8080/Ajapa_webservice-0.0.1-SNAPSHOT/sendHallNotification/${pno}/${hallNo}`,{
         method:"GET",
         headers: {
