@@ -193,12 +193,12 @@ async function sendRoomBookingStatus(data){
     })
 
     const res = await response.json()
-    if(res.message === 'SMS Sent'){
+    if(res.message === 'Attendance Marked'){
         $('#attendanceBox').modal('show');
     }
         
         setTimeout(()=> {
-            window.location.href = "dashboard.html"
+            // window.location.href = "dashboard.html"
         },2000)
     return res;
 }
